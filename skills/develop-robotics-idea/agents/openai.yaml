@@ -1,0 +1,4 @@
+interface:
+  display_name: "机器人科研构想 / Robotics Idea"
+  short_description: "为一个具身机器人研究构想建立证据基础并完成审计 / Ground and audit one embodied robotics research idea"
+  default_prompt: "使用 $develop-robotics-idea，把机器人研究方向转化为可证伪、可停止且与投稿适配分离的 V2 Research Card。 / Use $develop-robotics-idea to create a falsifiable, stoppable V2 Research Card separated from target adaptation."

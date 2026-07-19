@@ -1,0 +1,39 @@
+{
+  "snapshot_date": "2026-07-19",
+  "researchstudio": {
+    "repository": "https://github.com/microsoft/ResearchStudio",
+    "commit": "3c120d8e801428d56f3ed66fc3e20b4e286df053",
+    "paper": "arXiv:2607.04439v1",
+    "paper_pdf_sha256": "5a3249e33ad1427d7c0acccac41d028cb0c117052fa25bb6a796cd02045cc24a",
+    "method_reader_sha256": "e1cdf61ec8017b63b1fe8d0b1d7a56240c23c621565f4f9e91121e1903facaea"
+  },
+  "academic_research_suite": {
+    "adapter_version": "0.1.18",
+    "manifest_sha256": "c9de90a95be682844f7add1750db8bc938d12d8a44b63a39ac4532df0b03ce0f",
+    "academic_research_skills_commit": "73c898c842afae3f163ac571dfa098c72d7c82af",
+    "experiment_agent_commit": "9b063fa895eaf1f63ac99ac03f924f8d31aa8d26"
+  },
+  "nature_skills": {
+    "nature-academic-search": "65f44bb5d31f8b2d26687dcdcbc22d3def3ab2b5a26c810cd5e18a6a98d5e681",
+    "nature-citation": "58928bef2e20b3501eb87bbe0065d1096e359e65e079faac78c93ff5e7779afc",
+    "nature-data": "06e10a29462ec691e43314f82bc3e14402c97ec68a701c45a213db92b0576386",
+    "nature-downloader": "bcef11799cbfc70787c2c29b5f5f682afd166f80797efb1a3cef6768599e7d22",
+    "nature-experiment-log": "fd079f111119c6746f63d8d5367286d2cc37b500b0af97b3e9506294c0f0ef8c",
+    "nature-figure": "edcd68505128feee9b18482e6d1fc3f421a670ea257c38fb63181752288a47eb",
+    "nature-literature-pipeline": "10db6158d5596904f55d6e205dc0a6d1b0a1b6f5f8602fb3889020aade5f250e",
+    "nature-paper-to-patent": "5a35bc54d90fe1db9027b8d7af53f2e9a6c8546a88ba45ae45d417a6417a6b9c",
+    "nature-paper2ppt": "7ff90861e1e0c1b07f41291669e0cb4aca2aaaee377fd44640309943ab5d66eb",
+    "nature-polishing": "9485cb680931074cc0671e8c1cb2501b2faefb4a20b5e648d8bffedc3ddbce59",
+    "nature-proposal-writer": "6ae69532c82a93b5615e0b802fe580759f504d6c84ec93f3b3e8bf33dc7a1ef8",
+    "nature-reader": "f085eae4ed71664c09fd076f9ad8e90a38351a1ab054302adc89a42b570fce37",
+    "nature-ref-verifier": "cb93af9dfa51f6dca7d546226f3b49cbecabbdd6b1fb289b87631dbbc0cf3568",
+    "nature-response": "899b058fed246712f34e0672dee99ddc8949d340057588fdab4b81565d272672",
+    "nature-reviewer": "01621a7250b4d84ee9bf8710efecb35a3ca1217c4e596695931f44c5b28934cf",
+    "nature-statistics": "e9856c76b2918fecff4888daa524d7c2c80a7c470eb1da89d1afa70f236973cd",
+    "nature-writing": "e1d5d7d3100e56b5e5512a6d9a37b70d08c1b819220824fc81dfe1d2bc66a83d"
+  },
+  "awesome_journal_skills": {
+    "repository": "https://github.com/brycewang-stanford/Awesome-Journal-Skills",
+    "commit": "9f86f094d6a7a680fb14e169336dd98bf75436ec"
+  }
+}

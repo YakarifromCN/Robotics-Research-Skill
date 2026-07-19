@@ -1,0 +1,4 @@
+interface:
+  display_name: "机器人实验设计 / Robotics Experiment"
+  short_description: "设计可证伪且与证据形状匹配的机器人实验 / Design falsifiable, evidence-shaped robotics experiments"
+  default_prompt: "使用 $design-robotics-experiment，把锁定主张转化为带结构化判定规则、双日志和明确分母策略的实验合同。 / Use $design-robotics-experiment to turn a locked claim into a contract with structured rules, split logs, and an explicit denominator policy."

@@ -1,0 +1,26 @@
+{
+  "schema_version": "robotics-research-card.v2",
+  "card_id": "CARD-001",
+  "candidate_id": "CAND-001",
+  "mode": "EXPLORE_NEW",
+  "status": "REVISE",
+  "change_envelope": {"allowed": ["claim_narrowing"], "forbidden": ["unsupported_claim_expansion"], "reason": "新项目仍需通过反证审计"},
+  "claim_shape": {"embodied_system": true, "learning": false, "mechanism": true, "human": false, "soft_material": false, "practice": false, "cross_context": false},
+  "claim_contract": {"claim_id": "C001", "task": null, "system_boundary": null, "core_claim": null, "claim_boundary": null},
+  "mechanism_contract": {"mechanism_id": "MECH-001", "mechanism": null, "load_bearing_variable_id": "V001", "load_bearing_variable": null},
+  "falsification_contract": {"decisive_test_id": "X001", "falsification_target": null, "stop_state_if_failed": "ABANDON"},
+  "evidence_obligations": {
+    "multi_condition": {"required": true, "reason": null, "decisive_test_ids": ["X001"], "claim_boundary": null},
+    "mechanism_boundary": {"required": true, "reason": null, "decisive_test_ids": ["X001"], "claim_boundary": null},
+    "generalization": {"required": false, "reason": null, "decisive_test_ids": [], "claim_boundary": null},
+    "deployment_practice": {"required": false, "reason": null, "decisive_test_ids": [], "claim_boundary": null},
+    "independent_convergence": {"required": false, "reason": null, "decisive_test_ids": [], "claim_boundary": null}
+  },
+  "evidence_requirements": [],
+  "deferred_evidence": [],
+  "domain_packs": [],
+  "resources": {"available": [], "hard_limits": []},
+  "safety_ethics": {"hazards": [], "required_controls": [], "approval_state": "not_applicable"},
+  "diagnostic_dashboard": null,
+  "claim_digest": null
+}

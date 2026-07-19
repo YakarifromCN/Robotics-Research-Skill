@@ -1,0 +1,6 @@
+{
+  "schema_version":"robotics-result-bundle.v2","bundle_id":"RB-001","experiment_contract":{"id":"EXP-001","design_digest":null},"status":"INCONCLUSIVE",
+  "metric_estimates":[{"metric_id":"M001","estimand":"paired_mean_difference","estimate":0.0,"unit":"dimensionless","interval":{"type":"bootstrap_95","lower":0.0,"upper":0.0},"sample_size":0}],
+  "analysis_results":[{"analysis_id":"A001","derived_verdict":"INCONCLUSIVE","gate_trace":[]}],
+  "evidence_profiles":[],"supported_scope":[],"disallowed_claims":[],"failures":[],"safety_events":[],"protocol_deviations":[],"feedback_to_idea":[]
+}

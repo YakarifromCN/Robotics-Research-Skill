@@ -1,0 +1,353 @@
+# Robotics 3-Step Research Skill
+
+面向长期机器人科研的三个原子 Skill：**Idea → Experiment → Writing**。
+
+本仓库不是一组按会议或期刊拆分的提示词，也不根据投稿载体建立静态科学层级。它把机器人研究中可复用的科研约束压缩为统一工作流，再根据用户主张、机制、资源、风险和预期证据，选择适当的研究深度。覆盖具身智能、控制、学习、仿生、软体机器人、人机交互、工业自动化、现场系统与多机器人研究，可用于 SII、Humanoids、ROBIO、ICRA、IROS、RA-L、RAP、T-RO、IJRR、RSS、CoRL、CASE、RoboSoft、Soft Robotics、Science Robotics 等相关研究场景。
+
+## 为什么需要这套 Skill
+
+机器人论文经常跨越算法、动力学、硬件、材料、控制、感知和真实环境。仅靠写作模板无法解决以下问题：
+
+- Idea 阶段的核心主张在实验阶段被悄悄改写；
+- 实验完成后才重新定义主指标、分母或排除规则；
+- 仿真、台架、实机、现场和独立复现被压成不合理的单一序列；
+- 负对照只是方法改名，无法区分真正机制；
+- `INCONCLUSIVE` 在写作中被升级成“有效”；
+- 既有项目被强行套入从零开始的科研流程；
+- 投稿格式、篇幅和读者偏好反过来改变科学事实。
+
+本项目通过稳定 ID、摘要锁、结构化判定规则、非序数证据画像和一等停止状态约束这条链路。
+
+## 三个原子 Skill
+
+### 1. `develop-robotics-idea`
+
+把研究方向转化为可证伪的科学合同，支持：
+
+- 新 Idea 探索；
+- 已有 Idea 审计；
+- 接纳用户已经冻结的 Idea；
+- 迁移没有 Research Card 的既有项目；
+- 最近邻检索与先例碰撞检查；
+- 机制、承重变量、主张边界和停止条件设计；
+- candidate → audit → revision patch 的不可变审计链。
+
+主要输出：`research-card.json`、`evidence-bundle.json`，以及候选审计工件。
+
+### 2. `design-robotics-experiment`
+
+把锁定主张转化为可执行实验，支持：
+
+- 前瞻实验设计；
+- pilot 后但揭盲前的修订；
+- 回顾性审计；
+- 已锁定 Idea 下的微调；
+- 已有结果的规范封装；
+- 结构化指标估计与判定规则；
+- 机器人、参与者、示范、session、trial 等层级实验单位；
+- abort、排除、失败、安全事件和 protocol deviation 的完整记录。
+
+主要输出：`experiment-contract.json`、`trial-registry.csv`、`measurement-log.csv` 和 `result-bundle.json`。
+
+### 3. `write-robotics-paper`
+
+从冻结主张和实际结果构建可追溯稿件，支持：
+
+- 完整论文写作；
+- writing-only 既有项目；
+- 仅修订、回复和主张审计；
+- Claim Ledger；
+- LaTeX 数字自动渲染；
+- BibTeX 生成；
+- 中英文夸大、泛化、因果和 demo-speak 审计；
+- 证据状态单调性与 claim boundary 检查。
+
+主要输出：`claim-ledger.json` 和经过审计的 LaTeX 稿件。
+
+## 核心设计
+
+### 三层科学对象
+
+1. **Claim Shape**：只说明论文声称什么，例如具身系统、学习、机制、人类参与、软材料、实践或跨场景主张。
+2. **Evidence Obligations**：逐项说明该主张为什么需要某类证据、由哪个决定性实验承担，以及未覆盖时如何收窄边界。
+3. **Domain Packs**：仅在实际相关时加载 learning、soft-body、morphology、human-interaction、clinical、industrial、field 或 multi-robot 规则。
+
+### 三类锁
+
+- **Claim Lock**：任务、系统边界、核心主张、机制、承重变量、反证目标和主张边界。下游不得静默修改。
+- **Design Lock**：实验单位、条件、主指标、分析、排除、分母和判定规则。观察结果后不得修改。
+- **Operational Mutable**：校准、人员、日志位置、实测频率和更严格的安全措施。允许有理由、有版本地细化。
+
+### 非序数证据画像
+
+证据不使用单一总分。每项证据分别描述：
+
+- regime：推导、仿真、硬件在环、台架、实机、人体研究或现场运行；
+- coverage：分布内、留出对象/任务/环境、跨平台、压力条件或失效边界；
+- duration：单次、多 session 或长期运行；
+- independence：同一运行、同实验室、独立团队、独立场地或多场地；
+- experimental unit：seed、对象、任务、轨迹、样件、机器人、参与者、示范、session 或场地。
+
+充分性按分量比较，不把互相正交的证据类型强行排成一条线。
+
+### 科学合同与投稿适配分离
+
+`target-fit-snapshot.json` 单独保存目标载体、article type、读者、篇幅、匿名、格式和补充材料政策。它可以在写作阶段更新，但不会改变 Claim Lock。正式投稿前仍应依据官方来源实时复核。
+
+## 快速开始
+
+要求 Python 3.8+，核心工具只使用标准库。
+
+```bash
+git clone <your-repository-url>
+cd robotics-3-step-research-skill
+python3 scripts/run_all_checks.py
+```
+
+在 Codex 中可分别调用：
+
+```text
+使用 $develop-robotics-idea 审计这个机器人研究方向，并生成 V2 Research Card。
+使用 $design-robotics-experiment 将锁定主张转化为结构化实验合同。
+使用 $write-robotics-paper 从结果工件构建可追溯的 LaTeX 稿件。
+```
+
+每个 Skill 的 `assets/` 目录提供语言中立的起始模板；不要直接把模板中的 `null` 当成有效科研判断。
+
+## 典型工作流
+
+```text
+公开文献与用户材料
+        │
+        ▼
+Research Card ── claim_digest ──┐
+        │                       │
+        ▼                       │
+Experiment Contract ─ design_digest
+        │
+        ├── Trial Registry
+        ├── Measurement Log
+        ▼
+Result Bundle
+        │
+        ▼
+Claim Ledger ── Number/Citation/Figure trace
+        │
+        ▼
+Audited LaTeX manuscript
+
+Target Fit Snapshot ───────────► 仅影响组织、压缩与提交格式
+```
+
+项目级 `project-manifest.json` 只保存当前阶段和工件摘要，不承担科学推理。
+
+## 常用命令
+
+校验 Research Card：
+
+```bash
+python3 skills/develop-robotics-idea/scripts/validate_research_card.py research-card.json --ready
+```
+
+校验 candidate 审计链：
+
+```bash
+python3 skills/develop-robotics-idea/scripts/validate_revision_chain.py candidate.json audit.json revision-patch.json
+```
+
+校验实验合同与结果：
+
+```bash
+python3 skills/design-robotics-experiment/scripts/validate_experiment_contract.py experiment-contract.json --card research-card.json --ready
+python3 skills/design-robotics-experiment/scripts/validate_result_bundle.py result-bundle.json experiment-contract.json --ready
+```
+
+汇总试验日志：
+
+```bash
+python3 skills/design-robotics-experiment/scripts/summarize_trials.py trial-registry.csv measurement-log.csv --abort-policy count_as_failure
+```
+
+渲染和审计论文：
+
+```bash
+python3 skills/write-robotics-paper/scripts/validate_claim_ledger.py claim-ledger.json --result result-bundle.json --card research-card.json --ready
+python3 skills/write-robotics-paper/scripts/render_numbers.py manuscript.tex claim-ledger.json --output manuscript.rendered.tex
+python3 skills/write-robotics-paper/scripts/audit_latex.py manuscript.rendered.tex claim-ledger.json
+python3 skills/write-robotics-paper/scripts/render_bibliography.py claim-ledger.json --output references.bib
+```
+
+迁移旧项目：
+
+```bash
+python3 scripts/migrate_v1.py legacy.json --kind idea --output research-card.v2.json
+```
+
+迁移结果始终需要人工审计，回顾性合同不会被描述为预注册。
+
+## 结构化实验判定
+
+内置规则支持置信区间下界/上界、点估计阈值、非劣效和区间内判定。验证器依据冻结规则与结构化估计机械生成：
+
+- `SUPPORTED`
+- `NOT_SUPPORTED`
+- `INCONCLUSIVE`
+
+复杂分析可以引用外部脚本与输出工件，但二者都必须提供 SHA-256，并使用项目内安全相对路径。
+
+## 试验日志与负对照
+
+Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指标、阶段和窗口。abort policy 必须在合同中冻结：
+
+- `count_as_failure`
+- `unscored_but_in_denominator`
+- `excluded_only_if_predeclared_hardware_fault`
+
+机制负对照使用稳定的变量、指标和条件 ID，可表达回归基线、反向效应、选择性通道损失、边界移动、零效应和替代机制签名。
+
+## 停止状态
+
+停止不是失败的格式错误，而是正式科研输出：
+
+- Idea：`DO_NOT_GENERATE`、`ABANDON`
+- Experiment：`NO_RUN`、`CHANGE_REQUEST_TO_IDEA`
+- Writing：`EVIDENCE_GAPS`
+
+`REVISE` 可以满足 schema，但不能交接；使用 `--ready` 区分“结构合法”和“可进入下一阶段”。
+
+## 公开语料与 Golden Regression Suite
+
+`corpus/public-paper-index.json` 保存公开机器人论文的元数据、来源、模式标签、可抽取内容和禁止外推边界。`corpus/golden/synthetic-cases.json` 使用完全合成的研究案例测试：
+
+- 完整正向路径；
+- writing-only 导入；
+- 人体数据层级；
+- 软体机器人批次与疲劳边界；
+- 工业运行与安全边界；
+- 近期先例碰撞后的 `ABANDON`。
+
+公开奖项和社区复用记录只用于发现值得分析的论文，不代表某项主张已经获得充分证据。
+
+## 仓库结构
+
+```text
+robotics-3-step-research-skill/
+├── skills/                  # 三个可安装原子 Skill
+├── common/                  # 严格 JSON、ID、摘要、证据画像和判定规则
+├── references/packs/        # 按需加载的机器人领域包
+├── assets/                  # project manifest 与 target snapshot 模板
+├── corpus/                  # 公开论文索引与合成 Golden Suite
+├── scripts/                 # 统一检查、迁移和项目级验证工具
+├── tests/                   # 跨阶段与双语检查
+├── SOURCE_SNAPSHOTS.json    # 上游来源快照
+├── THIRD_PARTY_NOTICES.md   # 第三方声明
+└── LICENSE                  # MIT
+```
+
+## 测试与发布检查
+
+```bash
+python3 scripts/run_all_checks.py
+```
+
+统一入口执行三个 Skill 的单元测试、跨阶段合同检查和双语布局检查。发布前还建议执行密钥、隐私标识、缓存文件和未替换占位符扫描。
+
+## 隐私与数据原则
+
+- 仓库不包含用户私人项目名称、缩写、机制或实验数据；
+- Golden Suite 只使用公开论文和完全合成案例；
+- 不复制受版权保护的论文正文；
+- 搜索日志应记录来源和截止日期；
+- 用户项目的真实日志、结果和稿件默认保留在用户自己的项目目录中。
+
+## 来源与许可证
+
+方法设计吸收了 ResearchStudio、Academic Research Skills、机器人会议/期刊工作流和部分高影响科学写作工具中的通用逻辑，并针对工程系统剔除了不适用的自然科学假设。具体来源快照见 `SOURCE_SNAPSHOTS.json`，许可证与第三方声明见 `LICENSE` 和 `THIRD_PARTY_NOTICES.md`。
+
+本项目采用 MIT License。
+
+---
+
+# English
+
+## Overview
+
+Robotics 3-Step Research Skill is a set of three atomic, evidence-driven skills for **Idea → Experiment → Writing**. It is not a collection of outlet-specific prompts and does not derive scientific requirements from a static venue hierarchy. Instead, it adapts research depth to the actual claim, mechanism, resources, risks, and evidence needs.
+
+The package supports embodied systems, control, learning, bio-inspired robotics, soft robotics, human interaction, industrial automation, field systems, and multi-robot research. Target information affects packaging and submission constraints only; it never rewrites the scientific contract.
+
+## The three skills
+
+- `develop-robotics-idea` builds or audits a falsifiable Research Card, checks prior-work collisions, establishes claim boundaries, and preserves an immutable candidate–audit–patch chain.
+- `design-robotics-experiment` converts a locked claim into conditions, contrasts, metrics, unit hierarchies, negative controls, denominator policies, and mechanically executable decision rules.
+- `write-robotics-paper` builds a traceable Claim Ledger and LaTeX manuscript without upgrading evidence states or inventing experiments, numbers, or citations.
+
+## Key guarantees
+
+- Claim, design, and operational changes have separate governance.
+- Evidence is represented component-wise rather than collapsed into one total order.
+- Target-fit metadata is stored separately from the scientific lock.
+- Trial registration and long-format measurement logs preserve robot, participant, demonstration, session, and trial nesting.
+- Structured rules produce `SUPPORTED`, `NOT_SUPPORTED`, or `INCONCLUSIVE` deterministically.
+- Stopping states are first-class outputs.
+- Existing projects can enter through audit, migration, micro-adjustment, or writing-only modes.
+
+## Quick start
+
+Python 3.8 or newer is required. The core tools use only the standard library.
+
+```bash
+git clone <your-repository-url>
+cd robotics-3-step-research-skill
+python3 scripts/run_all_checks.py
+```
+
+Example invocations:
+
+```text
+Use $develop-robotics-idea to audit this robotics direction and create a V2 Research Card.
+Use $design-robotics-experiment to turn the locked claim into a structured experiment contract.
+Use $write-robotics-paper to build a traceable LaTeX paper from the frozen results.
+```
+
+Templates live in each skill's `assets/` directory. A `null` template value is an unresolved scientific decision, not a valid answer.
+
+## Artifact flow
+
+```text
+Research Card → Experiment Contract → Trial/Measurement Logs
+              → Result Bundle → Claim Ledger → Audited LaTeX
+
+Target Fit Snapshot → packaging and submission constraints only
+Project Manifest    → deterministic artifact index only
+```
+
+Artifacts reference upstream scientific objects through stable IDs and canonical SHA-256 digests. The target snapshot can be refreshed during writing without invalidating the scientific claim.
+
+## Evidence and experiment model
+
+Claim Shape, explicit Evidence Obligations, and conditionally loaded Domain Packs form the scientific model. Evidence requirements separately describe regime, coverage, duration, independence, experimental unit, unit count, and site count.
+
+The experiment contract freezes conditions, metrics, contrasts, exclusions, denominators, abort handling, and decision rules before outcomes are interpreted. Complex external analyses must bind both scripts and outputs by SHA-256.
+
+## Public corpus and regression cases
+
+The public corpus stores metadata and pattern annotations rather than copied paper text. Synthetic golden cases exercise full handoff, writing-only import, hierarchical human data, soft-body batch boundaries, industrial operation boundaries, and prior-work collision stopping behavior. Public awards and community adoption are discovery signals only.
+
+## Validation
+
+Run the complete local suite with:
+
+```bash
+python3 scripts/run_all_checks.py
+```
+
+The command runs all three skill test suites, cross-stage contract checks, and bilingual-layout validation. Each skill can also be validated independently with the scripts documented in its `SKILL.md`.
+
+## Privacy
+
+This repository contains no private user projects or experimental data. Regression cases are synthetic, public sources are referenced by metadata and URLs, and real project artifacts remain in the user's own project workspace.
+
+## License and attribution
+
+Released under the MIT License. See `SOURCE_SNAPSHOTS.json` for reproducible upstream snapshots and `THIRD_PARTY_NOTICES.md` for attribution details.

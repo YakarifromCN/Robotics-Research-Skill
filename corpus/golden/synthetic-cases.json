@@ -1,0 +1,12 @@
+{
+  "schema_version":"robotics-golden-cases.v1",
+  "privacy":"public_sources_and_fully_synthetic_cases_only",
+  "cases":[
+    {"case_id":"GOLD-001","purpose":"full_positive_path","seed_papers":["PUB-002","PUB-003"],"expected":["claim_lock_preserved","structured_rule_recomputed","negative_control_required","numbers_traceable"]},
+    {"case_id":"GOLD-002","purpose":"writing_only_import","seed_papers":["PUB-001"],"change_envelope":{"allowed":["prose","figure_order","claim_narrowing"],"forbidden":["core_idea","method","new_experiment"]},"expected":["no_experiment_generation","target_snapshot_mutable"]},
+    {"case_id":"GOLD-003","purpose":"hierarchical_human_data","seed_papers":[],"expected":["participant_demo_trial_nesting","paired_analysis","no_sample_inflation"]},
+    {"case_id":"GOLD-004","purpose":"soft_robot_batch_boundary","seed_papers":["PUB-006","PUB-007"],"expected":["material_batch_logged","fatigue_boundary","no_single_specimen_generalization"]},
+    {"case_id":"GOLD-005","purpose":"industrial_operation_boundary","seed_papers":["PUB-007"],"expected":["cycle_time_separate_from_availability","safety_events_retained","no_deployment_overclaim"]},
+    {"case_id":"GOLD-006","purpose":"recent_precedent_collision","seed_papers":[],"expected":["ABANDON","no_renaming_escape"]}
+  ]
+}

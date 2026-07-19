@@ -1,0 +1,1 @@
+trial_id,experiment_id,condition_id,unit_id,session_id,block_id,pair_id,participant_id,demo_id,robot_id,hardware_batch,randomized_order,success,abort,excluded,failure_class,config_hash,log_uri
