@@ -1,0 +1,39 @@
+{
+  "schema_version": "robotics-review-context.v1",
+  "review_id": "REV-001",
+  "mode": "full",
+  "created_at": null,
+  "paper": {
+    "root": null,
+    "main_file": null,
+    "include_graph": [],
+    "figure_files": [],
+    "table_files": [],
+    "supplementary_files": [],
+    "language": null,
+    "title": null,
+    "abstract": null
+  },
+  "scope_guard": {
+    "allowed_files": [],
+    "ignored_patterns": ["**/reviews/**", "**/old/**", "**/archive/**", "**/*response*", "**/*letter*", "**/README*"],
+    "untrusted_materials": true
+  },
+  "target_fit_snapshot": {
+    "target": null,
+    "article_type": null,
+    "official_sources": [],
+    "checked_at": null,
+    "expires_at": null
+  },
+  "scientific_contract": {
+    "research_card": null,
+    "experiment_contract": null,
+    "result_bundle": null,
+    "claim_ledger": null
+  },
+  "claim_shape": null,
+  "domain_packs": [],
+  "reviewer_configuration": [],
+  "status": "DISCOVERED"
+}

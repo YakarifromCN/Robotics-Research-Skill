@@ -1,0 +1,14 @@
+{
+  "schema_version": "robotics-meta-review.v1",
+  "meta_review_id": "META-001",
+  "review_id": "REV-001",
+  "source_reports": [],
+  "score_summary": {"applicable_reviewers": 0, "mean": null, "median": null, "minimum": null, "maximum": null, "spread": null, "by_reviewer": {}},
+  "consensus": [],
+  "disagreements": [],
+  "critical_gate": {"total": 0, "unresolved": 0, "items": []},
+  "evidence_gaps": [],
+  "revision_roadmap": [],
+  "decision": "NOT_ASSESSABLE",
+  "notes": []
+}

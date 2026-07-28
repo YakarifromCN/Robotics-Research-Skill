@@ -8,6 +8,8 @@ expected={"card":"robotics-research-card.v2","contract":"robotics-experiment-con
 for k,p in paths.items():
  x=json.loads(p.read_text())
  if x.get("schema_version")!=expected[k]:errors.append(f"{k}: wrong schema")
+review_template=ROOT/"skills/review-robotic-feedback/assets/review-context.template.json"
+if json.loads(review_template.read_text()).get("schema_version")!="robotics-review-context.v1":errors.append("review: wrong schema")
 suffixes={".md",".py",".json",".yaml",".yml",".csv",".tex"}
 blob="\n".join(p.read_text(encoding="utf-8") for p in ROOT.rglob("*") if p.is_file() and p.suffix in suffixes and ".git" not in p.parts and p.resolve()!=Path(__file__).resolve())
 for forbidden in ("axis_floors","required_rung","reached_rung"):

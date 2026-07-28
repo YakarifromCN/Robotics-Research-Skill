@@ -1,6 +1,6 @@
-# Robotics 3-Step Research Skill
+# Robotics Research Skill
 
-面向长期机器人科研的三个原子 Skill：**Idea → Experiment → Writing**。
+面向长期机器人科研的统一 Skill 包。Idea → Experiment → Writing 是它的主干闭环，但不是能力边界；系统同时覆盖文献检索、先例碰撞、既有项目迁移、实验审计、结果封装、可复现性、LaTeX 审计和投稿前主张检查。
 
 本仓库不是一组按会议或期刊拆分的提示词，也不根据投稿载体建立静态科学层级。它把机器人研究中可复用的科研约束压缩为统一工作流，再根据用户主张、机制、资源、风险和预期证据，选择适当的研究深度。覆盖具身智能、控制、学习、仿生、软体机器人、人机交互、工业自动化、现场系统与多机器人研究，可用于 SII、Humanoids、ROBIO、ICRA、IROS、RA-L、RAP、T-RO、IJRR、RSS、CoRL、CASE、RoboSoft、Soft Robotics、Science Robotics 等相关研究场景。
 
@@ -18,9 +18,9 @@
 
 本项目通过稳定 ID、摘要锁、结构化判定规则、非序数证据画像和一等停止状态约束这条链路。
 
-## 三个原子 Skill
+## 原子 Skill 主干
 
-### 1. `develop-robotics-idea`
+### `develop-robotics-idea`
 
 把研究方向转化为可证伪的科学合同，支持：
 
@@ -34,7 +34,7 @@
 
 主要输出：`research-card.json`、`evidence-bundle.json`，以及候选审计工件。
 
-### 2. `design-robotics-experiment`
+### `design-robotics-experiment`
 
 把锁定主张转化为可执行实验，支持：
 
@@ -49,7 +49,7 @@
 
 主要输出：`experiment-contract.json`、`trial-registry.csv`、`measurement-log.csv` 和 `result-bundle.json`。
 
-### 3. `write-robotics-paper`
+### `write-robotics-paper`
 
 从冻结主张和实际结果构建可追溯稿件，支持：
 
@@ -63,6 +63,20 @@
 - 证据状态单调性与 claim boundary 检查。
 
 主要输出：`claim-ledger.json` 和经过审计的 LaTeX 稿件。
+
+### `review-robotic-feedback`
+
+对机器人论文执行只读、多视角同行评审，包含七个独立专门代理：
+
+- `manuscript-proofreading`：文字、术语、LaTeX 和交叉引用；
+- `robotics-contribution-review`：任务、机制、贡献差异、先例碰撞和主张边界；
+- `control-optimization-review`：控制、优化、动力学假设、稳定性、实时性和基线公平；
+- `robot-learning-review`：数据、训练/测试隔离、seed、oracle、泛化和 sim-to-real；
+- `hardware-review`：机器人硬件、标定、制造批次、传感器、运行条件和安全；
+- `evidence-artifact-audit`：Claim → Trial → Metric → Result → Figure/Table → Sentence 证据链；
+- `venue-compliance-review`：基于当前官方来源的范围、格式、匿名和补充材料核验。
+
+随后由 `meta-review` 合并共识与分歧，逐条处理 CRITICAL，输出 `meta-review.json` 和 `robotic-revision-roadmap.md`。每个代理给出 1–5 分，但总分不会替代证据判断或变成投稿概率。
 
 ## 核心设计
 
@@ -100,7 +114,7 @@
 
 ```bash
 git clone <your-repository-url>
-cd robotics-3-step-research-skill
+cd Robotics-Research-Skill
 python3 scripts/run_all_checks.py
 ```
 
@@ -110,6 +124,7 @@ python3 scripts/run_all_checks.py
 使用 $develop-robotics-idea 审计这个机器人研究方向，并生成 V2 Research Card。
 使用 $design-robotics-experiment 将锁定主张转化为结构化实验合同。
 使用 $write-robotics-paper 从结果工件构建可追溯的 LaTeX 稿件。
+使用 $review-robotic-feedback 审阅机器人论文并生成 Meta Review 和修改路线。
 ```
 
 每个 Skill 的 `assets/` 目录提供语言中立的起始模板；不要直接把模板中的 `null` 当成有效科研判断。
@@ -135,6 +150,8 @@ Claim Ledger ── Number/Citation/Figure trace
         │
         ▼
 Audited LaTeX manuscript
+
+Manuscript + artifacts ──► Specialist Review Panel ──► Meta Review ──► Revision Roadmap
 
 Target Fit Snapshot ───────────► 仅影响组织、压缩与提交格式
 ```
@@ -185,6 +202,15 @@ python3 scripts/migrate_v1.py legacy.json --kind idea --output research-card.v2.
 
 迁移结果始终需要人工审计，回顾性合同不会被描述为预注册。
 
+运行机器人论文评审：
+
+```bash
+python3 skills/review-robotic-feedback/scripts/discover_manuscript.py paper/ --output review-context.json
+python3 skills/review-robotic-feedback/scripts/build_panel_prompts.py review-context.json --output panel-prompts.json
+python3 skills/review-robotic-feedback/scripts/validate_review_report.py reviews/*.json
+python3 skills/review-robotic-feedback/scripts/synthesize_reviews.py review-context.json reviews/*.json --json-out meta-review.json --markdown-out robotic-revision-roadmap.md
+```
+
 ## 结构化实验判定
 
 内置规则支持置信区间下界/上界、点估计阈值、非劣效和区间内判定。验证器依据冻结规则与结构化估计机械生成：
@@ -231,8 +257,8 @@ Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指�
 ## 仓库结构
 
 ```text
-robotics-3-step-research-skill/
-├── skills/                  # 三个可安装原子 Skill
+Robotics-Research-Skill/
+├── skills/                  # 四个可安装原子 Skill
 ├── common/                  # 严格 JSON、ID、摘要、证据画像和判定规则
 ├── references/packs/        # 按需加载的机器人领域包
 ├── assets/                  # project manifest 与 target snapshot 模板
@@ -250,7 +276,7 @@ robotics-3-step-research-skill/
 python3 scripts/run_all_checks.py
 ```
 
-统一入口执行三个 Skill 的单元测试、跨阶段合同检查和双语布局检查。发布前还建议执行密钥、隐私标识、缓存文件和未替换占位符扫描。
+统一入口执行四个 Skill 的单元测试、跨阶段合同检查和双语布局检查。发布前还建议执行密钥、隐私标识、缓存文件和未替换占位符扫描。
 
 ## 隐私与数据原则
 
@@ -272,15 +298,16 @@ python3 scripts/run_all_checks.py
 
 ## Overview
 
-Robotics 3-Step Research Skill is a set of three atomic, evidence-driven skills for **Idea → Experiment → Writing**. It is not a collection of outlet-specific prompts and does not derive scientific requirements from a static venue hierarchy. Instead, it adapts research depth to the actual claim, mechanism, resources, risks, and evidence needs.
+Robotics Research Skill is a unified package with an **Idea → Experiment → Writing** backbone. The backbone is extensible: literature search, prior-work collision checks, legacy-project migration, experiment auditing, artifact packaging, reproducibility, LaTeX auditing, and submission-time claim checks are also supported. It is not a collection of outlet-specific prompts and does not derive scientific requirements from a static venue hierarchy.
 
 The package supports embodied systems, control, learning, bio-inspired robotics, soft robotics, human interaction, industrial automation, field systems, and multi-robot research. Target information affects packaging and submission constraints only; it never rewrites the scientific contract.
 
-## The three skills
+## Atomic-skill backbone
 
 - `develop-robotics-idea` builds or audits a falsifiable Research Card, checks prior-work collisions, establishes claim boundaries, and preserves an immutable candidate–audit–patch chain.
 - `design-robotics-experiment` converts a locked claim into conditions, contrasts, metrics, unit hierarchies, negative controls, denominator policies, and mechanically executable decision rules.
 - `write-robotics-paper` builds a traceable Claim Ledger and LaTeX manuscript without upgrading evidence states or inventing experiments, numbers, or citations.
+- `review-robotic-feedback` runs seven independent robotics reviewer perspectives and a source-linked Meta Review with a revision roadmap.
 
 ## Key guarantees
 
@@ -291,6 +318,7 @@ The package supports embodied systems, control, learning, bio-inspired robotics,
 - Structured rules produce `SUPPORTED`, `NOT_SUPPORTED`, or `INCONCLUSIVE` deterministically.
 - Stopping states are first-class outputs.
 - Existing projects can enter through audit, migration, micro-adjustment, or writing-only modes.
+- Review cycles can be re-run in `re-review` mode against a prior roadmap and revised manuscript.
 
 ## Quick start
 
@@ -298,7 +326,7 @@ Python 3.8 or newer is required. The core tools use only the standard library.
 
 ```bash
 git clone <your-repository-url>
-cd robotics-3-step-research-skill
+cd Robotics-Research-Skill
 python3 scripts/run_all_checks.py
 ```
 
@@ -308,6 +336,7 @@ Example invocations:
 Use $develop-robotics-idea to audit this robotics direction and create a V2 Research Card.
 Use $design-robotics-experiment to turn the locked claim into a structured experiment contract.
 Use $write-robotics-paper to build a traceable LaTeX paper from the frozen results.
+Use $review-robotic-feedback to review a robotics paper and produce a traceable Meta Review and revision roadmap.
 ```
 
 Templates live in each skill's `assets/` directory. A `null` template value is an unresolved scientific decision, not a valid answer.
@@ -342,7 +371,7 @@ Run the complete local suite with:
 python3 scripts/run_all_checks.py
 ```
 
-The command runs all three skill test suites, cross-stage contract checks, and bilingual-layout validation. Each skill can also be validated independently with the scripts documented in its `SKILL.md`.
+The command runs all four skill test suites, cross-stage contract checks, and bilingual-layout validation. Each skill can also be validated independently with the scripts documented in its `SKILL.md`.
 
 ## Privacy
 

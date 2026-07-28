@@ -77,7 +77,7 @@ def main() -> int:
     parser.add_argument("root", nargs="?", type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     root = args.root.resolve()
-    docs = sorted(root.glob("skills/*/SKILL.md")) + sorted(root.glob("skills/*/references/*.md"))
+    docs = sorted(root.glob("skills/*/SKILL.md")) + sorted(root.glob("skills/*/references/*.md")) + sorted(root.glob("skills/*/agents/*.md"))
     scripts = sorted(root.glob("skills/*/scripts/*.py"))
     findings: list[dict[str, str]] = []
     for path in docs:

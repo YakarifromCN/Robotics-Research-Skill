@@ -1,0 +1,16 @@
+{
+  "schema_version": "robotics-review-report.v1",
+  "report_id": "RPT-001",
+  "reviewer_id": "manuscript-proofreading",
+  "review_id": "REV-001",
+  "mode": "full",
+  "assessed_scope": [],
+  "applicability": {"applicable": true, "reason": null},
+  "score": {"overall": 3, "confidence": 3, "dimensions": {}},
+  "summary": null,
+  "strengths": [],
+  "findings": [],
+  "unassessed": [],
+  "recommendation": "MAJOR_REVISION",
+  "generated_at": null
+}

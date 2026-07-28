@@ -35,5 +35,12 @@
   "awesome_journal_skills": {
     "repository": "https://github.com/brycewang-stanford/Awesome-Journal-Skills",
     "commit": "9f86f094d6a7a680fb14e169336dd98bf75436ec"
+  },
+  "review_skill_sources": {
+    "snapshot_date": "2026-07-29",
+    "ai_research_feedback_review_paper": "https://github.com/claesbackman/AI-research-feedback/blob/main/Skills/review-paper/SKILL.md",
+    "ars_academic_paper_reviewer": "https://github.com/Imbad0202/academic-research-skills/blob/main/academic-paper-reviewer/SKILL.md",
+    "raw_protocols_checked": true,
+    "adaptation_note": "Orchestration and multi-perspective review concepts were adapted; domain prompts, evidence contracts, score semantics, and venue handling are robotics-specific."
   }
 }

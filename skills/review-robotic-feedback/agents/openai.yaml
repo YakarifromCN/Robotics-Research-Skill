@@ -1,0 +1,4 @@
+interface:
+  display_name: "机器人论文反馈 / Robotics Paper Feedback"
+  short_description: "多视角审阅机器人论文并生成可追溯修改路线"
+  default_prompt: "使用 $review-robotic-feedback 审阅这篇机器人论文，分别检查文字、贡献、控制、学习、硬件、证据工件和载体合规，并生成 Meta Review 与修改路线。 / Use $review-robotic-feedback to review this robotics paper across prose, contribution, control, learning, hardware, evidence artifacts, and target compliance, then produce a traceable Meta Review and revision roadmap."

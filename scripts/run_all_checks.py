@@ -7,6 +7,7 @@ commands=[
  [sys.executable,"-B","-m","unittest","discover","-s",str(ROOT/"skills/develop-robotics-idea/tests"),"-v"],
  [sys.executable,"-B","-m","unittest","discover","-s",str(ROOT/"skills/design-robotics-experiment/tests"),"-v"],
  [sys.executable,"-B","-m","unittest","discover","-s",str(ROOT/"skills/write-robotics-paper/tests"),"-v"],
+ [sys.executable,"-B","-m","unittest","discover","-s",str(ROOT/"skills/review-robotic-feedback/tests"),"-v"],
  [sys.executable,"-B",str(ROOT/"tests/check_contract_alignment.py")],
  [sys.executable,"-B",str(ROOT/"scripts/check_bilingual_layout.py"),str(ROOT)]
 ]

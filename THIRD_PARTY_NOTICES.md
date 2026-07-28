@@ -67,3 +67,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Review orchestration references
+
+The review subskill adapts orchestration ideas from [AI-research-feedback review-paper](https://github.com/claesbackman/AI-research-feedback/blob/main/Skills/review-paper/SKILL.md) and protocol ideas from [academic-research-skills academic-paper-reviewer](https://github.com/Imbad0202/academic-research-skills/blob/main/academic-paper-reviewer/SKILL.md). It does not copy their economics or general-science reviewer personas. The robotics implementation adds claim-lock checks, nonordinal evidence profiles, robotics-specific specialist prompts, stable evidence anchors, and explicit artifact/revision gates.
