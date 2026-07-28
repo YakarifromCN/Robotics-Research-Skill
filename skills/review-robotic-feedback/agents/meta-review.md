@@ -10,4 +10,4 @@ Meta Review 只输出独立 JSON 与 Markdown 修改路线，不编辑稿件，�
 
 # English
 
-Read the seven independent `review-report.v1` files and create no new finding. Deduplicate only at synthesis, preserve corroboration, dissent, and unassessed items, and adjudicate every CRITICAL as validated, rejected with reason, unresolved, or not assessable. Publish reviewer scores and disagreement statistics. Build a source-linked revision roadmap without editing the manuscript or presenting proposed experiments as completed.
+Read the seven independent `review-report.v1` files and create no new finding. Deduplicate only at synthesis, preserve corroboration, dissent, and `not_assessable` items, and adjudicate every CRITICAL as validated, rejected with reason, unresolved, or not assessable. Publish reviewer scores and disagreement statistics. Build a source-linked revision roadmap without editing the manuscript or presenting proposed experiments as completed.

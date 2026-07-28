@@ -76,7 +76,9 @@
 - `evidence-artifact-audit`：Claim → Trial → Metric → Result → Figure/Table → Sentence 证据链；
 - `venue-compliance-review`：基于当前官方来源的范围、格式、匿名和补充材料核验。
 
-随后由 `meta-review` 合并共识与分歧，逐条处理 CRITICAL，输出 `meta-review.json` 和 `robotic-revision-roadmap.md`。每个代理给出 1–5 分，但总分不会替代证据判断或变成投稿概率。
+随后由 `meta-review` 合并共识与分歧，逐条处理 CRITICAL，输出到本次独立目录 `reviews/review-<YYYYMMDDHHMM>/{jsons,markdowns}/`。每个代理给出 1–5 分，但总分不会替代证据判断或变成投稿概率。
+
+评审运行有三个硬约束：启动时必须显式输入目标语言；可以指定任意单语，也可以指定 `en+任意语言`（如 `en+zh` 或 `en+日本語`），但不能省略。输入只能是待审 PDF 或指定的 LaTeX 工作区；每个子代理都是刚接触稿件的独立领域审稿人，只能读取发现快照中的 `allowed_files`，不使用项目记忆、旧评审、作者意图或未列出的工作区文件。发现快照、panel prompt、报告、运行清单和 JSON 结果写入本次时间戳目录的 `jsons/`，修改路线等 Markdown 写入同目录的 `markdowns/`。
 
 ## 核心设计
 
@@ -202,13 +204,14 @@ python3 scripts/migrate_v1.py legacy.json --kind idea --output research-card.v2.
 
 迁移结果始终需要人工审计，回顾性合同不会被描述为预注册。
 
-运行机器人论文评审：
+运行机器人论文评审（目标语言必须显式提供）：
 
 ```bash
-python3 skills/review-robotic-feedback/scripts/discover_manuscript.py paper/ --output review-context.json
-python3 skills/review-robotic-feedback/scripts/build_panel_prompts.py review-context.json --output panel-prompts.json
-python3 skills/review-robotic-feedback/scripts/validate_review_report.py reviews/*.json
-python3 skills/review-robotic-feedback/scripts/synthesize_reviews.py review-context.json reviews/*.json --json-out meta-review.json --markdown-out robotic-revision-roadmap.md
+python3 skills/review-robotic-feedback/scripts/discover_manuscript.py paper.pdf --language en+zh
+# 或：python3 skills/review-robotic-feedback/scripts/discover_manuscript.py latex_workspace/ --language 日本語
+python3 skills/review-robotic-feedback/scripts/build_panel_prompts.py reviews/review-<timestamp>/jsons/review-context.json
+python3 skills/review-robotic-feedback/scripts/validate_review_report.py reviews/review-<timestamp>/jsons/*-review.json
+python3 skills/review-robotic-feedback/scripts/synthesize_reviews.py reviews/review-<timestamp>/jsons/review-context.json reviews/review-<timestamp>/jsons/*-review.json
 ```
 
 ## 结构化实验判定
@@ -307,7 +310,7 @@ The package supports embodied systems, control, learning, bio-inspired robotics,
 - `develop-robotics-idea` builds or audits a falsifiable Research Card, checks prior-work collisions, establishes claim boundaries, and preserves an immutable candidate–audit–patch chain.
 - `design-robotics-experiment` converts a locked claim into conditions, contrasts, metrics, unit hierarchies, negative controls, denominator policies, and mechanically executable decision rules.
 - `write-robotics-paper` builds a traceable Claim Ledger and LaTeX manuscript without upgrading evidence states or inventing experiments, numbers, or citations.
-- `review-robotic-feedback` runs seven independent robotics reviewer perspectives and a source-linked Meta Review with a revision roadmap.
+- `review-robotic-feedback` runs seven fresh, scope-isolated robotics reviewer perspectives and a source-linked Meta Review with a revision roadmap. It requires an explicit output language and stores every run below an independent `reviews/review-<timestamp>/{jsons,markdowns}/` directory.
 
 ## Key guarantees
 

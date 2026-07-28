@@ -2,3 +2,5 @@
 *.py[cod]
 *.tmp
 .*.test.*
+agent/
+reviews/
