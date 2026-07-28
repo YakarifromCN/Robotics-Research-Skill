@@ -1,23 +1,225 @@
-import csv,json,subprocess,sys,tempfile,unittest
+import json
+import subprocess
+import sys
+import tempfile
+import unittest
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[3]
-SKILL=ROOT/"skills/review-robotic-feedback"
-def report(reviewer,report_id,score=4,applicable=True):
-    return {"schema_version":"robotics-review-report.v1","report_id":report_id,"reviewer_id":reviewer,"review_id":"REV-001","mode":"full","assessed_scope":["main.tex"],"applicability":{"applicable":applicable,"reason":None if applicable else "no learning component"},"score":{"overall":score if applicable else None,"confidence":4,"dimensions":{}},"summary":"具体的评审摘要","strengths":["可核验的优点"],"findings":[{"finding_id":"F001","severity":"MAJOR","category":"claim_evidence_mismatch","location":{"file":"main.tex","anchor":"Section 3"},"evidence_anchor":{"type":"quote","value":"the quoted sentence"},"issue":"主张范围超过结果范围","impact":"读者会高估证据","action":"收窄 claim boundary 或补充决定性证据","state":"open","claim_ids":["C001"],"evidence_state":"INCONCLUSIVE"}],"unassessed":[],"recommendation":"MAJOR_REVISION","generated_at":None}
-class ReviewFeedbackV1(unittest.TestCase):
-    def test_discover_graph_and_scope(self):
-        script=SKILL/"scripts/discover_manuscript.py"
+
+ROOT = Path(__file__).resolve().parents[3]
+SKILL = ROOT / "skills" / "review-robotic-feedback"
+REVIEWERS = (
+    "manuscript-proofreading",
+    "robotics-contribution-review",
+    "control-optimization-review",
+    "robot-learning-review",
+    "hardware-review",
+    "evidence-artifact-audit",
+    "venue-compliance-review",
+)
+
+
+def report(reviewer, report_id=None, score=4, applicable=True, issue="主张范围超过结果范围", critical=False, resolved=False):
+    severity = "CRITICAL" if critical else "MAJOR"
+    state = "resolved" if resolved else "open"
+    finding = {
+        "finding_id": f"{reviewer[:3].upper()}-001",
+        "severity": severity,
+        "category": "claim_evidence_mismatch",
+        "location": {"file": "main.tex", "anchor": "Section 3"},
+        "evidence_anchor": {"type": "quote", "value": "the quoted sentence"},
+        "issue": issue,
+        "impact": "读者会高估证据",
+        "action": "收窄 claim boundary 或补充决定性证据" if not resolved else "保留已确认的正向证据",
+        "state": state,
+        "claim_ids": ["C001"],
+        "evidence_state": "SUPPORTED" if critical else "INCONCLUSIVE",
+        "role": "primary",
+        "critical_basis": "CLAIM_EVIDENCE_MISMATCH" if critical else None,
+        "action_kind": "preserve" if resolved else "revise",
+        "resolution_note": "已由结果与正文交叉核验" if resolved else None,
+    }
+    return {
+        "schema_version": "robotics-review-report.v1",
+        "report_id": report_id,
+        "reviewer_id": reviewer,
+        "review_id": "REV-001",
+        "mode": "full",
+        "assessed_scope": ["main.tex"],
+        "applicability": {"applicable": applicable, "reason": "该维度由当前稿件范围覆盖" if applicable else "当前稿件没有该维度"},
+        "score": {"overall": score if applicable else None, "confidence": 4, "dimensions": {}},
+        "summary": "具体的评审摘要",
+        "strengths": [{"strength_id": "S001", "category": "traceability", "statement": "可核验的优点", "evidence_anchor": {"type": "quote", "value": "positive evidence"}, "claim_ids": ["C001"]}],
+        "findings": [finding] if issue is not None else [],
+        "evidence_gaps": [],
+        "not_assessable": [],
+        "recommendation": "MAJOR_REVISION" if issue is not None else "READY_WITH_MINOR_REVISIONS",
+        "generated_at": "2026-01-01T00:00:00Z",
+    }
+
+
+class ReviewFeedbackV2(unittest.TestCase):
+    def test_discover_latex_graph_is_frozen_and_language_is_explicit(self):
+        script = SKILL / "scripts" / "discover_manuscript.py"
         with tempfile.TemporaryDirectory() as raw:
-            root=Path(raw);(root/"sections").mkdir();(root/"figures").mkdir();(root/"main.tex").write_text("\\documentclass{article}\n\\title{Test}\n\\begin{document}\n\\input{sections/method}\n\\includegraphics{figures/plot}\n\\end{document}\n",encoding="utf-8");(root/"sections/method.tex").write_text("\\section{Method}\n",encoding="utf-8");(root/"figures/plot.png").write_text("not-a-real-image",encoding="utf-8");out=root/"context.json";subprocess.run([sys.executable,"-B",str(script),str(root),"--output",str(out)],check=True);ctx=json.loads(out.read_text());self.assertIn(str(root/"sections/method.tex"),ctx["paper"]["include_graph"]);self.assertIn(str(root/"figures/plot.png"),ctx["paper"]["figure_files"]);self.assertEqual(ctx["scope_guard"]["untrusted_materials"],True)
-    def test_report_validation_and_meta_gate(self):
-        validate=SKILL/"scripts/validate_review_report.py";synth=SKILL/"scripts/synthesize_reviews.py"
+            root = Path(raw)
+            (root / "sections").mkdir()
+            (root / "figures").mkdir()
+            (root / "main.tex").write_text(
+                "\\documentclass{article}\n\\title{Test}\n\\begin{document}\n"
+                "\\input{sections/method}\n\\includegraphics{figures/plot}\n"
+                "\\bibliography{refs}\ncontroller hardware trial\n\\end{document}\n",
+                encoding="utf-8",
+            )
+            (root / "sections" / "method.tex").write_text("\\section{Method}\n", encoding="utf-8")
+            (root / "figures" / "plot.png").write_bytes(b"not-a-real-image")
+            (root / "refs.bib").write_text("@article{a,title={A}}\n", encoding="utf-8")
+            (root / "secret.tex").write_text("must not be discovered", encoding="utf-8")
+            output = root / "reviews" / "review-202601010600" / "jsons" / "context.json"
+            subprocess.run([sys.executable, "-B", str(script), str(root), "--language", "zh", "--output", str(output)], check=True)
+            context = json.loads(output.read_text(encoding="utf-8"))
+            self.assertIn(str(root / "sections" / "method.tex"), context["paper"]["include_graph"])
+            self.assertIn(str(root / "figures" / "plot.png"), context["paper"]["figure_files"])
+            self.assertIn(str(root / "refs.bib"), context["paper"]["bibliography_files"])
+            self.assertNotIn(str(root / "secret.tex"), context["scope_guard"]["allowed_files"])
+            self.assertEqual(context["review_language"], "zh")
+            self.assertIsNotNone(context["created_at"])
+            self.assertTrue(context["artifact_manifest"])
+            self.assertIn("latex_include_graph", context["dependency_graphs"])
+            self.assertIn("control-optimization", context["domain_packs"])
+
+    def test_pdf_input_does_not_scan_sibling_workspace(self):
+        script = SKILL / "scripts" / "discover_manuscript.py"
         with tempfile.TemporaryDirectory() as raw:
-            root=Path(raw);context={"schema_version":"robotics-review-context.v1","review_id":"REV-001"};(root/"context.json").write_text(json.dumps(context),encoding="utf-8");paths=[]
-            for i,name in enumerate(("manuscript-proofreading","robotics-contribution-review"),1):
-                path=root/f"{name}.json";path.write_text(json.dumps(report(name,f"RPT-00{i}",score=5)),encoding="utf-8");paths.append(path)
-            checked=subprocess.run([sys.executable,"-B",str(validate)]+[str(p) for p in paths],capture_output=True,text=True);self.assertEqual(checked.returncode,0,checked.stdout+checked.stderr)
-            meta=root/"meta.json";roadmap=root/"roadmap.md";subprocess.run([sys.executable,"-B",str(synth),str(root/"context.json")]+[str(p) for p in paths]+["--json-out",str(meta),"--markdown-out",str(roadmap)],check=True);result=json.loads(meta.read_text());self.assertEqual(result["critical_gate"]["unresolved"],0);self.assertEqual(result["decision"],"MAJOR_REVISION");self.assertEqual(result["revision_roadmap"][0]["corroboration"],2);self.assertNotIn("CRITICAL gate",roadmap.read_text())
-    def test_critical_blocks_ready(self):
-        from importlib.util import spec_from_file_location,module_from_spec
-        spec=spec_from_file_location("review_validator",SKILL/"scripts/validate_review_report.py");module=module_from_spec(spec);spec.loader.exec_module(module);item=report("hardware-review","RPT-003",score=2);item["findings"][0]["severity"]="CRITICAL";self.assertTrue(module.validate(item)["contract_consistent"])
-if __name__=="__main__":unittest.main()
+            root = Path(raw)
+            pdf = root / "paper.pdf"
+            pdf.write_bytes(b"%PDF-1.4\n")
+            (root / "neighbor.tex").write_text("\\documentclass{article}", encoding="utf-8")
+            output = root / "reviews" / "review-202601010601" / "jsons" / "context.json"
+            subprocess.run([sys.executable, "-B", str(script), str(pdf), "--language", "en", "--output", str(output)], check=True)
+            context = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(context["paper"]["main_file"], str(pdf))
+            self.assertEqual(context["paper"]["include_graph"], [str(pdf)])
+            self.assertNotIn(str(root / "neighbor.tex"), context["scope_guard"]["allowed_files"])
+
+    def test_language_is_required(self):
+        script = SKILL / "scripts" / "discover_manuscript.py"
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            (root / "main.tex").write_text("\\documentclass{article}", encoding="utf-8")
+            checked = subprocess.run([sys.executable, "-B", str(script), str(root)], capture_output=True, text=True)
+            self.assertNotEqual(checked.returncode, 0)
+
+    def test_legacy_report_is_normalized_without_null_identity(self):
+        from importlib.util import module_from_spec, spec_from_file_location
+
+        spec = spec_from_file_location("review_validator", SKILL / "scripts" / "validate_review_report.py")
+        module = module_from_spec(spec)
+        spec.loader.exec_module(module)
+        item = report("hardware-review", report_id=None, issue=None)
+        item["positive_findings"] = ["旧版正向发现"]
+        item["evidence_gaps"] = None
+        item["unassessed"] = ["旧版未评估项"]
+        checked = module.validate(item)
+        self.assertTrue(checked["contract_consistent"], checked)
+        self.assertTrue(checked["normalization_warnings"])
+
+    def test_ready_recommendation_is_blocked_by_critical(self):
+        from importlib.util import module_from_spec, spec_from_file_location
+
+        spec = spec_from_file_location("review_validator", SKILL / "scripts" / "validate_review_report.py")
+        module = module_from_spec(spec)
+        spec.loader.exec_module(module)
+        item = report("hardware-review", report_id="RPT-003", score=5, critical=True)
+        item["recommendation"] = "READY_TO_SUBMIT"
+        self.assertFalse(module.validate(item)["contract_consistent"])
+
+    def test_duplicate_critical_is_one_root_cause_and_strength_is_protected(self):
+        synth = SKILL / "scripts" / "synthesize_reviews.py"
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            json_dir = root / "reviews" / "review-202601010602" / "jsons"
+            json_dir.mkdir(parents=True)
+            context = {
+                "schema_version": "robotics-review-context.v1",
+                "review_id": "REV-001",
+                "review_language": "zh",
+                "paper": {"root": str(root), "output_language": "zh"},
+                "reviewer_configuration": list(REVIEWERS),
+                "artifact_manifest": [],
+            }
+            context_path = json_dir / "review-context.json"
+            context_path.write_text(json.dumps(context, ensure_ascii=False), encoding="utf-8")
+            report_paths = []
+            for index, reviewer in enumerate(REVIEWERS):
+                item = report(reviewer, report_id=f"REV-001::{reviewer}", score=5, issue=None)
+                if reviewer in {"control-optimization-review", "hardware-review"}:
+                    item = report(reviewer, report_id=f"REV-001::{reviewer}", score=3, critical=True, issue="控制通道与硬件时序冲突")
+                path = json_dir / f"{reviewer}-review.json"
+                path.write_text(json.dumps(item, ensure_ascii=False), encoding="utf-8")
+                report_paths.append(path)
+            checked = subprocess.run([sys.executable, "-B", str(synth), str(context_path)] + [str(path) for path in report_paths], capture_output=True, text=True)
+            self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+            meta = json.loads((json_dir / "meta-review.json").read_text(encoding="utf-8"))
+            self.assertEqual(meta["critical_gate"]["total"], 2)
+            self.assertEqual(meta["critical_gate"]["open_root_cause_count"], 1)
+            self.assertEqual(len(meta["revision_roadmap"]), 1)
+            self.assertTrue(meta["protected_strengths"])
+            self.assertEqual(json.loads((json_dir / "synthesis-status.json").read_text())["status"], "COMPLETED")
+            self.assertTrue((root / "reviews" / "review-202601010602" / "markdowns" / "robotic-revision-roadmap.md").is_file())
+
+    def test_snapshot_drift_fails_before_output(self):
+        synth = SKILL / "scripts" / "synthesize_reviews.py"
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            json_dir = root / "reviews" / "review-202601010603" / "jsons"
+            json_dir.mkdir(parents=True)
+            manuscript = root / "main.tex"
+            manuscript.write_text("original", encoding="utf-8")
+            from common.canonical_json import sha256_file
+
+            context = {"schema_version": "robotics-review-context.v1", "review_id": "REV-DRIFT", "review_language": "zh", "paper": {"root": str(root), "output_language": "zh"}, "reviewer_configuration": list(REVIEWERS), "artifact_manifest": [{"path": str(manuscript), "exists": True, "sha256": sha256_file(manuscript)}]}
+            context_path = json_dir / "review-context.json"
+            context_path.write_text(json.dumps(context, ensure_ascii=False), encoding="utf-8")
+            report_paths = []
+            for reviewer in REVIEWERS:
+                path = json_dir / f"{reviewer}-review.json"
+                path.write_text(json.dumps(report(reviewer, report_id=f"REV-DRIFT::{reviewer}", issue=None), ensure_ascii=False), encoding="utf-8")
+                report_paths.append(path)
+            manuscript.write_text("changed", encoding="utf-8")
+            checked = subprocess.run([sys.executable, "-B", str(synth), str(context_path)] + [str(path) for path in report_paths], capture_output=True, text=True)
+            self.assertNotEqual(checked.returncode, 0)
+            self.assertFalse((json_dir / "meta-review.json").exists())
+            status = json.loads((json_dir / "synthesis-status.json").read_text(encoding="utf-8"))
+            self.assertEqual(status["status"], "FAILED")
+
+    def test_panel_prompt_is_fresh_language_scoped_and_creates_run_state(self):
+        build = SKILL / "scripts" / "build_panel_prompts.py"
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            json_dir = root / "reviews" / "review-202601010604" / "jsons"
+            json_dir.mkdir(parents=True)
+            context = {"schema_version": "robotics-review-context.v1", "review_id": "REV-PROMPT", "review_language": "en+zh", "paper": {"root": str(root), "output_language": "en+zh"}, "scope_guard": {"allowed_files": [str(root / "main.pdf")]}, "target_fit_snapshot": {"target": "unspecified"}}
+            context_path = json_dir / "review-context.json"
+            context_path.write_text(json.dumps(context, ensure_ascii=False), encoding="utf-8")
+            subprocess.run([sys.executable, "-B", str(build), str(context_path)], check=True)
+            prompts = json.loads((json_dir / "panel-prompts.json").read_text(encoding="utf-8"))
+            self.assertEqual(prompts["review_language"], "en+zh")
+            self.assertIn("fresh reviewer", prompts["reviewers"][0]["prompt"])
+            self.assertIn("project memory", prompts["reviewers"][0]["prompt"])
+            state = json.loads((json_dir / "run-state.json").read_text(encoding="utf-8"))
+            self.assertEqual(set(state["agents"]), set(REVIEWERS))
+
+    def test_language_policy_accepts_arbitrary_single_or_en_plus_language(self):
+        from importlib.util import module_from_spec, spec_from_file_location
+
+        spec = spec_from_file_location("review_language", SKILL / "scripts" / "review_language.py")
+        module = module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.assertEqual(module.normalize_language("日本語"), "日本語")
+        self.assertEqual(module.normalize_language("en+العربية"), "en+العربية")
+        with self.assertRaises(ValueError):
+            module.normalize_language("zh+en")
+
+
+if __name__ == "__main__":
+    unittest.main()

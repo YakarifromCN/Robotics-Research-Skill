@@ -1,1 +1,24 @@
-{"schema_version":"robotics-target-fit.v2","snapshot_id":"TARGET-001","target":null,"article_type":null,"scope":null,"readership":null,"constraints":{"pages":null,"format":null,"anonymity":null,"supplementary":null},"sources":[],"checked_at":null,"expires_at":null}
+{
+  "schema_version": "robotics-target-fit.v2",
+  "snapshot_id": "TARGET-001",
+  "target": null,
+  "article_type": null,
+  "scope": null,
+  "readership": null,
+  "constraints": {"pages": null, "format": null, "anonymity": null, "supplementary": null},
+  "policy_coverage": {
+    "scope": {"status": "UNVERIFIED", "source_ids": []},
+    "page_limit": {"status": "UNVERIFIED", "source_ids": []},
+    "anonymity": {"status": "UNVERIFIED", "source_ids": []},
+    "template": {"status": "UNVERIFIED", "source_ids": []},
+    "pdf_preflight": {"status": "UNVERIFIED", "source_ids": []},
+    "supplementary_video": {"status": "UNVERIFIED", "source_ids": []},
+    "artifact_links": {"status": "UNVERIFIED", "source_ids": []},
+    "concurrent_submission": {"status": "UNVERIFIED", "source_ids": []},
+    "conflicts": {"status": "UNVERIFIED", "source_ids": []}
+  },
+  "refresh_state": "NOT_NEEDED",
+  "sources": [],
+  "checked_at": null,
+  "expires_at": null
+}

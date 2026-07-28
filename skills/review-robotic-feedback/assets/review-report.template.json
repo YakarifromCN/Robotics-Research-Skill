@@ -1,16 +1,25 @@
 {
   "schema_version": "robotics-review-report.v1",
-  "report_id": "RPT-001",
+  "report_id": "REV-001::manuscript-proofreading",
   "reviewer_id": "manuscript-proofreading",
   "review_id": "REV-001",
   "mode": "full",
   "assessed_scope": [],
-  "applicability": {"applicable": true, "reason": null},
+  "applicability": {"applicable": true, "reason": "该维度由当前稿件范围覆盖"},
   "score": {"overall": 3, "confidence": 3, "dimensions": {}},
   "summary": null,
-  "strengths": [],
+  "strengths": [
+    {
+      "strength_id": "S001",
+      "category": "traceability",
+      "statement": "可核验的强项",
+      "evidence_anchor": {"type": "file_anchor", "value": "main.tex:Section 1"},
+      "claim_ids": []
+    }
+  ],
   "findings": [],
-  "unassessed": [],
+  "evidence_gaps": [],
+  "not_assessable": [],
   "recommendation": "MAJOR_REVISION",
-  "generated_at": null
+  "generated_at": "2026-01-01T00:00:00Z"
 }
