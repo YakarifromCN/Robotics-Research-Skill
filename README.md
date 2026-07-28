@@ -1,6 +1,6 @@
 # Robotics Research Skill
 
-面向长期机器人科研的统一 Skill 包。Idea → Experiment → Writing 是它的主干闭环，但不是能力边界；系统同时覆盖文献检索、先例碰撞、既有项目迁移、实验审计、结果封装、可复现性、LaTeX 审计和投稿前主张检查。
+面向长期机器人科研的统一 Skill 包。Idea → Experiment → Writing → Review 是它的主干闭环，但不是能力边界；系统同时覆盖文献检索、先例碰撞、既有项目迁移、实验审计、结果封装、可复现性、LaTeX 审计和投稿前主张检查。
 
 本仓库不是一组按会议或期刊拆分的提示词，也不根据投稿载体建立静态科学层级。它把机器人研究中可复用的科研约束压缩为统一工作流，再根据用户主张、机制、资源、风险和预期证据，选择适当的研究深度。覆盖具身智能、控制、学习、仿生、软体机器人、人机交互、工业自动化、现场系统与多机器人研究，可用于 SII、Humanoids、ROBIO、ICRA、IROS、RA-L、RAP、T-RO、IJRR、RSS、CoRL、CASE、RoboSoft、Soft Robotics、Science Robotics 等相关研究场景。
 
