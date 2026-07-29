@@ -2,5 +2,30 @@
 *.py[cod]
 *.tmp
 .*.test.*
+
+# Local agent state, reviewer workspaces, and transient reports.
 agent/
 reviews/
+tmp/
+internal/
+
+# Downloaded/extracted research material and generated embedding artifacts.
+# The repository keeps only manifests, schemas, validators, and redacted examples.
+corpus/papers/
+corpus/cache/
+corpus/raw/
+corpus/extracted/
+corpus/embeddings/
+corpus/simulated/
+downloads/
+
+# Credentials, local databases, and runtime logs.
+.env
+.env.*
+!.env.example
+*.log
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.jsonl
