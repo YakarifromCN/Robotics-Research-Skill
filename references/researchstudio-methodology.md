@@ -55,6 +55,12 @@ When dependencies are unavailable, the local script must record a fallback
 backend and never call it UMAP/HDBSCAN. When full-text signatures are absent,
 the local run must record `METADATA_ONLY` and remain a smoke/baseline artifact.
 
+For the current capability-injection task, model subagents are an explicitly
+allowed alternative: they simulate the four-field representation and grouping,
+then discard cluster identity after extracting reusable workflow questions.
+This path records `SIMULATED_NOT_REAL_UMAP_HDBSCAN`; it is complete for Skill
+learning but cannot be cited as statistical discovery.
+
 ## 3. Pattern-card induction
 
 Cards are progressively disclosed:
@@ -82,8 +88,11 @@ Pattern cards must separate:
 
 The robotics library in
 `corpus/researchstudio-pattern-cards.v1.json` keeps the 15 upstream names and
-adds robotics-adapted tactical cards. The current cards are seed cards until
-full-text robotics extraction and clustering are run.
+adds robotics-adapted tactical cards.
+`corpus/researchstudio-pattern-induction.v2.json` now maps all 15 parent and
+31 tactical cards to the eight simulated capability routes. The cards remain a
+reasoning vocabulary rather than an empirical taxonomy; runtime selection uses
+the active-axis bottleneck and original Skill contract, not cluster frequency.
 
 ## 4. Outcome and venue semantics
 

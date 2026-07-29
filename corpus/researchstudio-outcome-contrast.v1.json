@@ -1,0 +1,32 @@
+{
+  "schema_version": "researchstudio-outcome-contrast.v1",
+  "status": "CLOSED_NO_DECISION_ALIGNED_DATA",
+  "record_count": 0,
+  "classes": [],
+  "source_audit": {
+    "public_corpus_records": 100,
+    "presentation_and_recognition_available": true,
+    "decision_aligned_accept_reject_table_available": false,
+    "shared_sampling_denominator_available": false
+  },
+  "completion_semantics": "The outcome task is closed by disabling an unsupported comparison. No missing class is fabricated and no descriptive award or presentation trace is relabeled as a decision outcome.",
+  "runtime_behavior": {
+    "contrast_enabled": false,
+    "acceptance_probability": "NOT_ESTIMABLE",
+    "allowed_use": "descriptive provenance audit only",
+    "forbidden_substitutes": [
+      "award_recognition",
+      "oral",
+      "spotlight",
+      "best_paper",
+      "venue_kind",
+      "citation_count"
+    ]
+  },
+  "reactivation_gate": [
+    "Provide independently sourced accept/reject or equivalent decision labels.",
+    "Document one shared sampling mechanism and denominator.",
+    "Record source URL, retrieval date, and class semantics for every row.",
+    "Keep any resulting contrast descriptive and conditional; do not estimate acceptance probability."
+  ]
+}

@@ -1,0 +1,762 @@
+{
+  "schema_version": "researchstudio-pattern-induction.v2",
+  "status": "MODEL_SIMULATED_CAPABILITY_INDUCTION_COMPLETE",
+  "source": {
+    "pattern_library": "corpus/researchstudio-pattern-cards.v1.json",
+    "simulated_cluster_receipt": "agent/internal/researchstudio-simulated-clusters.v1.json",
+    "unified_adapter": "references/unified-venue-workflow-adapter.v1.md"
+  },
+  "simulation_boundary": {
+    "real_clustering_claim": false,
+    "fixed_taxonomy_claim": false,
+    "runtime_dependency_on_internal_artifact": false,
+    "purpose": "reasonable reusable Skill capability injection"
+  },
+  "coverage": {
+    "cluster_count": 8,
+    "parent_cards": 15,
+    "subpattern_cards": 31
+  },
+  "cluster_capability_routes": [
+    {
+      "cluster_id": "C01",
+      "primary_axis": "A",
+      "runtime_question_id": "Q1",
+      "theme": "operating-envelope adaptation",
+      "runtime_question": "Which operating-envelope, transfer, or deployment condition determines whether the method survives outside the nominal setup?",
+      "contribution_center": "autonomy and deployment boundary",
+      "preferred_parent_pattern_ids": [
+        "P06",
+        "P13",
+        "P04"
+      ],
+      "preferred_subpattern_ids": [
+        "R18",
+        "R29",
+        "R14"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    },
+    {
+      "cluster_id": "C02",
+      "primary_axis": "C",
+      "runtime_question_id": "Q2",
+      "theme": "boundary-audited closed-loop control",
+      "runtime_question": "Which dynamics, feedback, or safety boundary makes the closed-loop intervention testable?",
+      "contribution_center": "control, dynamics, and safety mechanism",
+      "preferred_parent_pattern_ids": [
+        "P01",
+        "P14",
+        "P04"
+      ],
+      "preferred_subpattern_ids": [
+        "R02",
+        "R30",
+        "R14"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    },
+    {
+      "cluster_id": "C03",
+      "primary_axis": "D",
+      "runtime_question_id": "Q3",
+      "theme": "typed decision decomposition",
+      "runtime_question": "Which task, coordination, or planning constraint must be typed and isolated first?",
+      "contribution_center": "planning, decision, and coordination decomposition",
+      "preferred_parent_pattern_ids": [
+        "P10",
+        "P11",
+        "P06"
+      ],
+      "preferred_subpattern_ids": [
+        "R26",
+        "R27",
+        "R18"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    },
+    {
+      "cluster_id": "C04",
+      "primary_axis": "E",
+      "runtime_question_id": "Q4",
+      "theme": "embodiment/interface isolation",
+      "runtime_question": "Which body, material, contact, morphology, or interface is the load-bearing object?",
+      "contribution_center": "embodiment, morphology, and contact mechanism",
+      "preferred_parent_pattern_ids": [
+        "P08",
+        "P02",
+        "P04"
+      ],
+      "preferred_subpattern_ids": [
+        "R24",
+        "R10",
+        "R14"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    },
+    {
+      "cluster_id": "C05",
+      "primary_axis": "H",
+      "runtime_question_id": "Q5",
+      "theme": "interaction/haptic diagnostic",
+      "runtime_question": "Which human, haptic, participant, or operator measure is load-bearing?",
+      "contribution_center": "human interaction and haptic mechanism",
+      "preferred_parent_pattern_ids": [
+        "P04",
+        "P05",
+        "P01"
+      ],
+      "preferred_subpattern_ids": [
+        "R14",
+        "R15",
+        "R05"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    },
+    {
+      "cluster_id": "C06",
+      "primary_axis": "L",
+      "runtime_question_id": "Q6",
+      "theme": "supervisory signal/policy substrate",
+      "runtime_question": "Which data, representation, supervision, or policy substrate changes downstream robot behavior?",
+      "contribution_center": "learning, representation, and adaptation substrate",
+      "preferred_parent_pattern_ids": [
+        "P07",
+        "P03",
+        "P05"
+      ],
+      "preferred_subpattern_ids": [
+        "R19",
+        "R12",
+        "R15"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    },
+    {
+      "cluster_id": "C07",
+      "primary_axis": "P",
+      "runtime_question_id": "Q7",
+      "theme": "sensing/state diagnostic",
+      "runtime_question": "Which sensing-to-state choice changes the downstream decision after confounds are isolated?",
+      "contribution_center": "perception and state-estimation diagnostic",
+      "preferred_parent_pattern_ids": [
+        "P04",
+        "P05",
+        "P08"
+      ],
+      "preferred_subpattern_ids": [
+        "R14",
+        "R15",
+        "R23"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    },
+    {
+      "cluster_id": "C08",
+      "primary_axis": "S",
+      "runtime_question_id": "Q8",
+      "theme": "software/hardware timing contract",
+      "runtime_question": "Which software/hardware timing or interface contract determines whether the system deploys?",
+      "contribution_center": "systems integration, timing, and infrastructure",
+      "preferred_parent_pattern_ids": [
+        "P08",
+        "P04",
+        "P11"
+      ],
+      "preferred_subpattern_ids": [
+        "R24",
+        "R14",
+        "R27"
+      ],
+      "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+    }
+  ],
+  "parent_card_induction": [
+    {
+      "pattern_id": "P01",
+      "name": "Audit and Pivot an Assumption",
+      "mapped_cluster_ids": [
+        "C02",
+        "C05"
+      ],
+      "reusable_capability": "Name the inherited assumption; show why it is load-bearing; pivot its locus, strength or representation; test the changed condition.",
+      "when_to_apply": "Use when several recent methods inherit the same unexamined prerequisite and the proposed change can produce a qualitatively new result.",
+      "failure_boundary": "The result is unchanged after the relaxation. / An equally strong or unverifiable assumption is smuggled back in.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P02",
+      "name": "Substitute the Operator or Representation",
+      "mapped_cluster_ids": [
+        "C04"
+      ],
+      "reusable_capability": "Identify where the old object loses information or creates cost; substitute a new object; isolate the changed object from all other components.",
+      "when_to_apply": "Use when the task is adequate but the current operator or representation is the binding limitation.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P03",
+      "name": "Liberate a Fixed Generative Component",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Find a component whose output space is fixed; change its generation process or factorization; preserve the surrounding evaluation contract.",
+      "when_to_apply": "Use when a fixed policy, generator or actuation primitive prevents a desired behavior despite adequate supervision or data.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P04",
+      "name": "Design a Confound-Isolating Diagnostic",
+      "mapped_cluster_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C07",
+        "C08"
+      ],
+      "reusable_capability": "Name one load-bearing variable; perturb it while holding the remaining interface fixed; predict a downstream outcome and include a semantic control.",
+      "when_to_apply": "Use when a system result can be explained by sensing, compute, data, tuning, human adaptation or another non-mechanistic confound.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P05",
+      "name": "Unify Heterogeneous Inputs into One Space",
+      "mapped_cluster_ids": [
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "reusable_capability": "Identify the incompatible modalities, embodiments or agents; define a common state or message space; demonstrate the information is used by the decision or control loop.",
+      "when_to_apply": "Use when the gap is caused by modality, embodiment, sensor or agent fragmentation rather than a missing predictor alone.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P06",
+      "name": "Reframe as a Solvable Object",
+      "mapped_cluster_ids": [
+        "C01",
+        "C03"
+      ],
+      "reusable_capability": "State the native intractable formulation; define a solvable surrogate with a conservation or approximation argument; test the gap between the two.",
+      "when_to_apply": "Use when the native robot problem is underconstrained, combinatorial, long-horizon or physically inaccessible in its current form.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P07",
+      "name": "Manufacture the Supervisory Signal",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Locate the missing supervisory information; derive it from demonstrations, contrasts, physics, human feedback or self-consistency; validate that it changes the target behavior.",
+      "when_to_apply": "Use when data exist but the available label, reward or feedback is too sparse, delayed, unsafe or semantically misaligned.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P08",
+      "name": "Encode Structure by Construction",
+      "mapped_cluster_ids": [
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "reusable_capability": "Name the invariant or constraint; encode it in morphology, representation, controller, architecture or protocol; test behavior outside the construction examples.",
+      "when_to_apply": "Use when a structural law is known and repeatedly rediscovered by data, or when deployment requires a guarantee that tuning cannot provide.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P09",
+      "name": "Prove Equivalence to Unify",
+      "mapped_cluster_ids": [
+        "C06",
+        "C07"
+      ],
+      "reusable_capability": "State the two objects; derive the mapping and its assumptions; use the equivalence to remove duplicated machinery or expose a new controllable quantity.",
+      "when_to_apply": "Use when parallel literatures optimize the same object under different names or when a proof can collapse an apparent trade-off.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P10",
+      "name": "Decompose for Differentiated Treatment",
+      "mapped_cluster_ids": [
+        "C03"
+      ],
+      "reusable_capability": "Identify the hidden heterogeneity; partition it by a measurable criterion; allocate distinct mechanisms or policies; test the partition boundary.",
+      "when_to_apply": "Use when one policy, model or controller is forced to average across regimes with incompatible requirements.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P11",
+      "name": "Decompose and Delegate to Solvers",
+      "mapped_cluster_ids": [
+        "C03",
+        "C08"
+      ],
+      "reusable_capability": "Define the subproblem interfaces; assign each solver a responsibility; verify composition and recovery when a solver fails.",
+      "when_to_apply": "Use when a long-horizon or multi-agent problem contains reusable subproblems with different algorithmic structure.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P12",
+      "name": "Relax Discrete Search to Continuous",
+      "mapped_cluster_ids": [
+        "C03",
+        "C06"
+      ],
+      "reusable_capability": "Specify the discrete object; build a continuous relaxation; characterize the relaxation gap and recovery procedure.",
+      "when_to_apply": "Use when planning, allocation or design is combinatorial but its geometry admits a meaningful continuous proxy.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P13",
+      "name": "Adapt by Conditioning, Not Retraining",
+      "mapped_cluster_ids": [
+        "C01"
+      ],
+      "reusable_capability": "Expose the changing context; encode it as a condition or online estimate; test adaptation under distribution shift and frozen-core controls.",
+      "when_to_apply": "Use when online changes are real but full retraining is too slow, unsafe, data hungry or difficult to certify.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P14",
+      "name": "Characterize a Limit, Then Surpass It",
+      "mapped_cluster_ids": [
+        "C02"
+      ],
+      "reusable_capability": "State the old limit; prove or measure it under the same regime; introduce one change; show a strict and reproducible improvement.",
+      "when_to_apply": "Use when a field has a sharp stability, planning, sample, sensing, bandwidth or safety boundary that can be made explicit.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "pattern_id": "P15",
+      "name": "Design a Property-Targeting Pretext Objective",
+      "mapped_cluster_ids": [
+        "C06",
+        "C07"
+      ],
+      "reusable_capability": "Name the downstream property; create a pretext that makes it observable; verify transfer and remove the auxiliary objective as a control.",
+      "when_to_apply": "Use when the desired property is latent, expensive to label or poorly represented by generic self-supervision.",
+      "failure_boundary": "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    }
+  ],
+  "subpattern_card_induction": [
+    {
+      "subpattern_id": "R01",
+      "parent_pattern_id": "P01",
+      "name": "Relocate the load-bearing locus",
+      "mapped_cluster_ids": [
+        "C02",
+        "C05"
+      ],
+      "reusable_capability": "Move the enforcement, sensing or control locus to an overlooked state, interface or representation.",
+      "when_to_apply": "Use when every prior method assumes the same location contains the decisive signal.",
+      "failure_boundary": "The new locus was already used by a close paper. / The move only changes implementation vocabulary.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R02",
+      "parent_pattern_id": "P01",
+      "name": "Remove a fixed model assumption",
+      "mapped_cluster_ids": [
+        "C02",
+        "C05"
+      ],
+      "reusable_capability": "Replace a required model, calibration or distributional assumption with a weaker observable condition.",
+      "when_to_apply": "Use when the robot must operate under unknown contact, friction, terrain or dynamics.",
+      "failure_boundary": "An equally strong hidden model is reintroduced.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R03",
+      "parent_pattern_id": "P01",
+      "name": "Replace a distributional condition with a structural one",
+      "mapped_cluster_ids": [
+        "C02",
+        "C05"
+      ],
+      "reusable_capability": "Move from a fragile statistical prior to a geometric, architectural or interface constraint.",
+      "when_to_apply": "Use when data coverage is insufficient but physical or system structure is reliable.",
+      "failure_boundary": "The structural condition is merely a renamed distributional assumption.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R04",
+      "parent_pattern_id": "P01",
+      "name": "Characterize the adversarial boundary",
+      "mapped_cluster_ids": [
+        "C02",
+        "C05"
+      ],
+      "reusable_capability": "Treat a claimed safety, robustness or imperceptibility property as a budget that can be challenged.",
+      "when_to_apply": "Use when the operating or threat model is stronger than the paper's nominal test.",
+      "failure_boundary": "Only a static or weak adversary is tested.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R05",
+      "parent_pattern_id": "P01",
+      "name": "Pivot the system interface",
+      "mapped_cluster_ids": [
+        "C02",
+        "C05"
+      ],
+      "reusable_capability": "Move the load-bearing computation across a sensing, communication, human or actuation interface.",
+      "when_to_apply": "Use when interface latency, bandwidth or authority is the inherited bottleneck.",
+      "failure_boundary": "The interface is changed without a causal account.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R06",
+      "parent_pattern_id": "P01",
+      "name": "Isolate a failure-causing convention",
+      "mapped_cluster_ids": [
+        "C02",
+        "C05"
+      ],
+      "reusable_capability": "Turn a field convention into an intervention and measure the failure it causes.",
+      "when_to_apply": "Use when benchmark success hides a known deployment failure.",
+      "failure_boundary": "The failure is anecdotal or benchmark-specific.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R07",
+      "parent_pattern_id": "P02",
+      "name": "Low-sensitivity operator substitution",
+      "mapped_cluster_ids": [
+        "C04"
+      ],
+      "reusable_capability": "Replace an operator whose output is overly sensitive to noise, contact or discretization.",
+      "when_to_apply": "Use when the same task has a brittle operator-level failure.",
+      "failure_boundary": "The gain is only a larger or more heavily tuned model.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R08",
+      "parent_pattern_id": "P02",
+      "name": "Curvature-object substitution",
+      "mapped_cluster_ids": [
+        "C04"
+      ],
+      "reusable_capability": "Substitute a scalar or local object with curvature, geometry or distributional structure that preserves the missing signal.",
+      "when_to_apply": "Use when point estimates discard the signal needed for robust state or control.",
+      "failure_boundary": "The richer object is used only as an unexamined feature.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R09",
+      "parent_pattern_id": "P02",
+      "name": "Representation-level state substitution",
+      "mapped_cluster_ids": [
+        "C04"
+      ],
+      "reusable_capability": "Replace the state representation used by estimation, planning or learning.",
+      "when_to_apply": "Use when the raw state is not invariant to embodiment, viewpoint or contact.",
+      "failure_boundary": "The representation is an opaque embedding with no failure boundary.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R10",
+      "parent_pattern_id": "P02",
+      "name": "Contact and geometry operator substitution",
+      "mapped_cluster_ids": [
+        "C04"
+      ],
+      "reusable_capability": "Replace a contact, collision or geometry operation with one that exposes the relevant physical object.",
+      "when_to_apply": "Use when contact-rich manipulation or non-Euclidean planning is bottlenecked by a standard operator.",
+      "failure_boundary": "The operator is a cosmetic reparameterization.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R11",
+      "parent_pattern_id": "P03",
+      "name": "Generative process redesign",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Change how actions, trajectories or forces are generated instead of adding a downstream correction.",
+      "when_to_apply": "Use when a fixed policy or generator cannot express the required behavior.",
+      "failure_boundary": "The generator is only wrapped by off-the-shelf modules.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R12",
+      "parent_pattern_id": "P03",
+      "name": "Residual mechanism liberation",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Expose the physical or modeling residual that a fixed generator cannot explain.",
+      "when_to_apply": "Use when sim-to-real, friction, contact or dynamics residuals dominate the error.",
+      "failure_boundary": "The residual model becomes a generic error-corrector with no mechanism.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R13",
+      "parent_pattern_id": "P03",
+      "name": "Policy-generation substrate redesign",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Change the substrate or factorization from which a policy generates actions.",
+      "when_to_apply": "Use when policy expressivity or long-horizon composition is limiting deployment.",
+      "failure_boundary": "Scaling or data alone explains the result.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R14",
+      "parent_pattern_id": "P04",
+      "name": "Controlled diagnostic construction",
+      "mapped_cluster_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C07",
+        "C08"
+      ],
+      "reusable_capability": "Build a one-variable-isolated intervention or measurement instrument.",
+      "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds.",
+      "failure_boundary": "Only the intermediate metric changes, not the task outcome.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R15",
+      "parent_pattern_id": "P05",
+      "name": "Cross-modal shared representation",
+      "mapped_cluster_ids": [
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "reusable_capability": "Align vision, touch, language, proprioception or force into a task-usable state.",
+      "when_to_apply": "Use when modalities are complementary but not jointly actionable.",
+      "failure_boundary": "The common space is a concatenation with no causal use.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R16",
+      "parent_pattern_id": "P06",
+      "name": "Sequential-control re-casting",
+      "mapped_cluster_ids": [
+        "C01",
+        "C03"
+      ],
+      "reusable_capability": "Recast long-horizon control as a sequence of measurable subgoals or phases.",
+      "when_to_apply": "Use when a single objective dilutes credit or hides the decisive phase.",
+      "failure_boundary": "The phases are arbitrary labels with no mechanism.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R17",
+      "parent_pattern_id": "P06",
+      "name": "Intractable-problem re-casting",
+      "mapped_cluster_ids": [
+        "C01",
+        "C03"
+      ],
+      "reusable_capability": "Turn a native intractable planning or contact problem into a solvable object with a bounded gap.",
+      "when_to_apply": "Use when direct optimization is combinatorial, discontinuous or physically inaccessible.",
+      "failure_boundary": "The reframe is a renamed heuristic.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R18",
+      "parent_pattern_id": "P06",
+      "name": "Feasibility-object re-casting",
+      "mapped_cluster_ids": [
+        "C01",
+        "C03"
+      ],
+      "reusable_capability": "Replace an open-ended deployment goal with an explicit operating envelope and feasibility object.",
+      "when_to_apply": "Use when field performance fails because the target was never bounded.",
+      "failure_boundary": "The envelope is selected after seeing the result.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R19",
+      "parent_pattern_id": "P07",
+      "name": "Self-supervised signal engineering",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Derive supervision from temporal, geometric, cross-view or task consistency.",
+      "when_to_apply": "Use when robot labels are expensive but structure is observable.",
+      "failure_boundary": "The pretext is generic and unrelated to the task.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R20",
+      "parent_pattern_id": "P07",
+      "name": "Residual and latent supervisory signal",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Use model residuals, uncertainty or latent disagreement as the training/adaptation signal.",
+      "when_to_apply": "Use when the error itself identifies where the policy or estimator must change.",
+      "failure_boundary": "Residual magnitude is optimized as a proxy with no task effect.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R21",
+      "parent_pattern_id": "P07",
+      "name": "Human or environment feedback as supervision",
+      "mapped_cluster_ids": [
+        "C06"
+      ],
+      "reusable_capability": "Convert intervention, preference, success/failure or contact feedback into a stable learning signal.",
+      "when_to_apply": "Use when direct reward or labels are absent but the robot already interacts.",
+      "failure_boundary": "The system treats feedback as free or ignores operator adaptation.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R22",
+      "parent_pattern_id": "P08",
+      "name": "Symmetry-group construction",
+      "mapped_cluster_ids": [
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "reusable_capability": "Encode a symmetry or invariance into the state, model or controller.",
+      "when_to_apply": "Use when changes of frame, viewpoint, embodiment or ordering should not change the decision.",
+      "failure_boundary": "The claimed symmetry is not present in the physical task.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R23",
+      "parent_pattern_id": "P08",
+      "name": "Relational topology encoded as structure",
+      "mapped_cluster_ids": [
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "reusable_capability": "Encode contact, graph, topology or relational geometry as a structural prior.",
+      "when_to_apply": "Use when relations, not individual observations, determine the robot outcome.",
+      "failure_boundary": "A topology-as-prior architecture is presented without isolating its work.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R24",
+      "parent_pattern_id": "P08",
+      "name": "Embodiment and contact constraint by construction",
+      "mapped_cluster_ids": [
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "reusable_capability": "Build morphology, compliance, contact or actuator constraints directly into the robot mechanism or controller.",
+      "when_to_apply": "Use when embodiment is the source of the capability, not merely a test platform.",
+      "failure_boundary": "One hardware instance is generalized to all embodiments without evidence.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R25",
+      "parent_pattern_id": "P09",
+      "name": "Equivalence-based objective unification",
+      "mapped_cluster_ids": [
+        "C06",
+        "C07"
+      ],
+      "reusable_capability": "Prove that two control, learning or planning objectives are equivalent in a named regime.",
+      "when_to_apply": "Use when a duplicated objective or apparent trade-off blocks a simpler design.",
+      "failure_boundary": "The proof only renames the objective.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R26",
+      "parent_pattern_id": "P10",
+      "name": "Heterogeneous regime decomposition",
+      "mapped_cluster_ids": [
+        "C03"
+      ],
+      "reusable_capability": "Split contact, terrain, object, user or agent regimes and allocate distinct treatment.",
+      "when_to_apply": "Use when a single controller or policy averages incompatible regimes.",
+      "failure_boundary": "The partition is tuned after results or has no operational meaning.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R27",
+      "parent_pattern_id": "P11",
+      "name": "Decompose and delegate to solvers",
+      "mapped_cluster_ids": [
+        "C03",
+        "C08"
+      ],
+      "reusable_capability": "Give typed subproblems to specialized planners, learned policies, agents or tools.",
+      "when_to_apply": "Use when planning or coordination contains separable subproblems.",
+      "failure_boundary": "A pipeline of modules is called a contribution without a unifying interface.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R28",
+      "parent_pattern_id": "P12",
+      "name": "Discrete-search relaxation to continuous",
+      "mapped_cluster_ids": [
+        "C03",
+        "C06"
+      ],
+      "reusable_capability": "Relax combinatorial planning or allocation into a differentiable or continuous object with recovery.",
+      "when_to_apply": "Use when a discrete robot decision has exploitable geometry.",
+      "failure_boundary": "The post-process secretly solves the original problem at full cost.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R29",
+      "parent_pattern_id": "P13",
+      "name": "Adapt by conditioning",
+      "mapped_cluster_ids": [
+        "C01"
+      ],
+      "reusable_capability": "Condition a frozen core on the current robot, environment, user or task state.",
+      "when_to_apply": "Use when the shift is local, recurrent and observable online.",
+      "failure_boundary": "The method retrains while calling it conditioning.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R30",
+      "parent_pattern_id": "P14",
+      "name": "Limit characterization and strict surpass",
+      "mapped_cluster_ids": [
+        "C02"
+      ],
+      "reusable_capability": "Establish a stability, safety, bandwidth, sample or planning boundary, then exceed it with a named mechanism.",
+      "when_to_apply": "Use when a matched baseline has a sharp and reproducible boundary.",
+      "failure_boundary": "Only an empirical improvement is shown with no boundary or tightness.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    },
+    {
+      "subpattern_id": "R31",
+      "parent_pattern_id": "P15",
+      "name": "Property-targeting pretext objective",
+      "mapped_cluster_ids": [
+        "C06",
+        "C07"
+      ],
+      "reusable_capability": "Train on the robot property that must transfer: contact, invariance, uncertainty, affordance or safety.",
+      "when_to_apply": "Use when generic self-supervision does not represent the property needed downstream.",
+      "failure_boundary": "The property is named after the result or is not observable.",
+      "induction_status": "MODEL_SIMULATED_CAPABILITY_MAPPING"
+    }
+  ],
+  "acceptance_probability": "NOT_ESTIMABLE",
+  "non_claims": [
+    "Cluster IDs and counts are not scientific findings.",
+    "The 15/31 vocabulary remains a reusable reasoning library, not an empirical taxonomy.",
+    "No award, venue, presentation, or count is treated as a decision outcome."
+  ]
+}

@@ -22,8 +22,8 @@ from .robotics_submanifold import AXIS_ORDER
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_LIBRARY = ROOT / "corpus" / "researchstudio-pattern-cards.v1.json"
-DEFAULT_SIGNATURES = ROOT / "corpus" / "researchstudio-paper-signatures.v1.json"
-DEFAULT_AXIS_REPORT = ROOT / "corpus" / "robotics-axis-strategy-analysis.v1.json"
+DEFAULT_SIGNATURES = ROOT / "corpus" / "researchstudio-paper-signatures.v2.json"
+DEFAULT_AXIS_REPORT = ROOT / "corpus" / "robotics-axis-strategy-analysis.v2.json"
 
 
 def load_json(path: str | Path) -> dict[str, Any]:
@@ -222,12 +222,21 @@ def fit_patterns_for_axis(
     chosen = next((item for item in ranked if item["pattern_id"] == preferred[0]), ranked[0] if ranked else None)
     selected_ids = [item["pattern_id"] for item in ranked[:top_k]]
     preferred_subs = [sub_map[item] for item in profile.get("preferred_subpattern_ids", []) if item in sub_map]
+    fidelity_values = {
+        str(record.get("extraction_fidelity", "METADATA_ONLY")) for record in rows
+    }
+    if fidelity_values == {"METADATA_ONLY"}:
+        data_fidelity = "METADATA_ONLY"
+    elif "METADATA_FALLBACK" in fidelity_values:
+        data_fidelity = "MIXED_MODEL_SIMULATED_LOCAL_TEXT_AND_METADATA_FALLBACK"
+    else:
+        data_fidelity = "MODEL_SIMULATED_LOCAL_TEXT"
     return {
         "axis_id": axis,
         "axis_name": profile.get("axis_name"),
         "axis_name_zh": profile.get("axis_name_zh"),
         "sample_count": total,
-        "data_fidelity": "FULL_TEXT_SIGNATURES_REQUIRED_FOR_FINAL_INDUCTION" if any(record.get("extraction_fidelity") != "METADATA_ONLY" for record in rows) else "METADATA_ONLY",
+        "data_fidelity": data_fidelity,
         "ranked_patterns": ranked[:top_k],
         "best_pattern": chosen,
         "preferred_pattern_ids": selected_ids,
