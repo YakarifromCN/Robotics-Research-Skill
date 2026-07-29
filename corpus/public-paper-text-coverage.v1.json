@@ -1,0 +1,2105 @@
+{
+  "schema_version": "robotics-public-paper-text-coverage.v1",
+  "generated_at": "2026-07-29T08:58:22+00:00",
+  "source_manifest": "corpus/public-paper-fulltext-manifest.v1.json",
+  "record_count": 100,
+  "status_counts": {
+    "NO_TEXT": 19,
+    "TEXT_BACKED_SECTION_MARKERS_INCOMPLETE": 3,
+    "TEXT_BACKED_WITH_SECTION_MARKERS": 78
+  },
+  "honesty_boundary": "Coverage and section markers do not equal semantic Stage-1/Stage-2 extraction; source locators remain required.",
+  "records": [
+    {
+      "paper_id": "C-A01",
+      "title": "ViKiNG: Vision-Based Kilometer-Scale Navigation with Geographic Hints",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2202.11271.pdf",
+      "local_path": "corpus/extracted/C-A01.txt",
+      "source_sha256": "c93ee0b1c7de074083f84f62a2216882a7c74bfaad6f05d920e20ac365ca5dfc",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 804,
+        "char_count": 85350,
+        "text_sha256": "339871c88afcd90d83b3ab18d573b6074ac910d46cb209e10a6a1c9d7fe7cdc6",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 0,
+          "method": 76,
+          "experiment": 12,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-A02",
+      "title": "Goal Masked Diffusion Policies for Unified Navigation and Exploration",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://openreview.net/pdf?id=FhQRJW71h5",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "C-A03",
+      "title": "Robot Learning on the Job: Human-in-the-Loop Adaptation of Robot Policies",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2211.08416.pdf",
+      "local_path": "corpus/extracted/C-A03.txt",
+      "source_sha256": "bd0a1258b620a882642640230faae5f9034b8ec1ffb2cb436f9cda253ac862a2",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 848,
+        "char_count": 93288,
+        "text_sha256": "7ba8b4ec703728c6c6c0621e517fa64008d853017ca52faf6eb27e702cea88d9",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 50,
+          "experiment": 19,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-A04",
+      "title": "Online LiDAR-SLAM for Legged Robots with Reinforcement Learning",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2001.10249.pdf",
+      "local_path": "corpus/extracted/C-A04.txt",
+      "source_sha256": "0eafbc59790670860fb32f8eb12b9810551629b2b92c0becee31116fc63cf33a",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 609,
+        "char_count": 65074,
+        "text_sha256": "88d1a452676d0eb5a4880b912ac24311d79d06923ad64ccdc4009f647ce6365a",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 46,
+          "experiment": 19,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-A05",
+      "title": "Hindsight Experience Replay",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1707.01495.pdf",
+      "local_path": "corpus/extracted/C-A05.txt",
+      "source_sha256": "89db330bb254d9c8818c61f2749cbe8f0535e8b487333409c5dc8cd8b3c89a04",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 857,
+        "char_count": 59903,
+        "text_sha256": "53178503f3effa7e1f2b3e79928b234c5c3f2e7427fa0718b00dcc895e71bef9",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 23,
+          "experiment": 11,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-A06",
+      "title": "The Robotarium: A Remotely Accessible Swarm Robotics Research Testbed",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1609.04730.pdf",
+      "local_path": "corpus/extracted/C-A06.txt",
+      "source_sha256": "e8afa2ab6b81081957fc0dad0bef03c53fd9720294f78ac60081fea5d2be2695",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 515,
+        "char_count": 59270,
+        "text_sha256": "7316095c0006d643d18141a99921a45fe2ae2de46e37d056aa828a3454e0e916",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 11,
+          "experiment": 21,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-C01",
+      "title": "Control Design along Trajectories with Closed-Loop Inverse Dynamics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1210.0888.pdf",
+      "local_path": "corpus/extracted/C-C01.txt",
+      "source_sha256": "1b45e6f07e9ade1d4efb0773c7f2a692e47352ba395ec3212571034b1a73a84d",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 472,
+        "char_count": 54501,
+        "text_sha256": "0fa5354101257f2396ed744a7710a26dba2b1863011bc834d5eba71b7886d0b2",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 40,
+          "experiment": 6,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-C02",
+      "title": "Distributed Data-Driven Predictive Control for Networked Systems",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2211.06917.pdf",
+      "local_path": "corpus/extracted/C-C02.txt",
+      "source_sha256": "6b79c85ae0fd2c69b865a5f0f523917c3580cfce5ea6e8d0eccecbbe66161d83",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 532,
+        "char_count": 60379,
+        "text_sha256": "638485c3b3d0118d044b52fbf1ca4673a68400b08db9f80777bd2f865bd645d3",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 64,
+          "experiment": 11,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-C03",
+      "title": "Reinforcement Learning for Safe Robot Control using Control Lyapunov Barrier Functions",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2305.09793.pdf",
+      "local_path": "corpus/extracted/C-C03.txt",
+      "source_sha256": "bbe390ad41e956d81d796f68d3381dfba77c1328b162ae5ac2038d36a9631d00",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 527,
+        "char_count": 68998,
+        "text_sha256": "b054d6199feed64b091961b6c7cad711cb1dd614021299bb6a94963d29655c5e",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 36,
+          "experiment": 7,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-C04",
+      "title": "Safe Control using Vision-based Control Barrier Function",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://researchportal.tuni.fi/en/publications/safe-control-using-vision-based-control-barrier-function-v-cbf/",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "C-C05",
+      "title": "Robust Barrier Functions for a Fully Autonomous, Remotely Accessible Swarm-Robotics Testbed",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1909.02966.pdf",
+      "local_path": "corpus/extracted/C-C05.txt",
+      "source_sha256": "4e32011f35ca8113b426e9fbe00d05fa8a4a70c243b5d1f932dd9624a3d37e0e",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 529,
+        "char_count": 56478,
+        "text_sha256": "e540b6171dc7239bdc5a2d80744457e432188be1d444401582da06d4127376ce",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 7,
+          "experiment": 30,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-C06",
+      "title": "FogROS: An Adaptive Framework for Automating Fog Robotics Deployment",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2108.11355.pdf",
+      "local_path": "corpus/extracted/C-C06.txt",
+      "source_sha256": "f54949189dfc0230256fa3958093ae3a5cf6a4c5f2957238a13d72e707f95f77",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 717,
+        "char_count": 86220,
+        "text_sha256": "0efa5fe3a25e3f9d27ed67d62f02b7f41fbcb0851944be2715cbd493225b4363",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 5,
+          "experiment": 5,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-C07",
+      "title": "Safety Under Uncertainty: Tight Bounds with Risk-Aware Control Barrier Functions",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2304.01040.pdf",
+      "local_path": "corpus/extracted/C-C07.txt",
+      "source_sha256": "b8953ab22f77cd61bf5cb8f679e78adb36a9f45903cc87c14c276f424f96a46e",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 508,
+        "char_count": 55682,
+        "text_sha256": "9c143e6ce88474257ae1822430350be231eb84c9c995520c8baa37ac6ce6c9cb",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 13,
+          "experiment": 5,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-D01",
+      "title": "Non-Euclidean Motion Planning with Graphs of Geodesically-Convex Sets",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2305.06341.pdf",
+      "local_path": "corpus/extracted/C-D01.txt",
+      "source_sha256": "996b943c4d7844fd46b325bb3073f92c4fc7eebb77c24b8f59c9f2338d661232",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 884,
+        "char_count": 90307,
+        "text_sha256": "9130c3aa92ebc82009b47f6381dd8b14bba6e26a2518fce4d0182ed8c2fea5b2",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 3,
+          "method": 9,
+          "experiment": 22,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-D02",
+      "title": "You Only Demonstrate Once: Category-Level Manipulation from a Single Demonstration",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2201.12716.pdf",
+      "local_path": "corpus/extracted/C-D02.txt",
+      "source_sha256": "1b8471223b30c00fea6039ec2d7f19135dd693c0a97a50e072d1aee5c42b001f",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 865,
+        "char_count": 101202,
+        "text_sha256": "20c84ab06c1e862ed4f18408e4bf89f679077330bef3f56b15764129a1f48096",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 51,
+          "experiment": 11,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-D03",
+      "title": "Semantic Linking Maps for Active Visual Object Search",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2006.10807.pdf",
+      "local_path": "corpus/extracted/C-D03.txt",
+      "source_sha256": "df98faa6ad035d0571e726f41e7a46e952c811eb1d4e1d57598df630397ca4c9",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 453,
+        "char_count": 50346,
+        "text_sha256": "a2eb75f6d5f121da06c5a50d5acd33fa4065caf7d26756cda632978f398a4c38",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 2,
+          "method": 26,
+          "experiment": 4,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-D04",
+      "title": "PDDLStream: Integrating Symbolic Planners and Blackbox Samplers",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1802.08705.pdf",
+      "local_path": "corpus/extracted/C-D04.txt",
+      "source_sha256": "1a5d60c8992911282fd398476fcd2832d082e78b9eddea54dc1eb7a035b51f63",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 732,
+        "char_count": 78682,
+        "text_sha256": "c7239ea216075b13ebd1f08bc176ee9ba51c7f51dd8443ba93339f080c653eed",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 2,
+          "method": 14,
+          "experiment": 14,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-D05",
+      "title": "Learning to Communicate with Deep Multi-Agent Reinforcement Learning",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1605.07736.pdf",
+      "local_path": "corpus/extracted/C-D05.txt",
+      "source_sha256": "4175a3e7ff0826884287c2b42089bd6c5d6b3312531161b8741a19580d4efa5f",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 7085,
+        "char_count": 2275448,
+        "text_sha256": "41cfb15896d1b24dd0f0f12c88ededc1daf79e0a2b5d1aad4016252ebe10819c",
+        "section_marker_counts": {
+          "abstract": 18,
+          "introduction": 6,
+          "method": 274,
+          "experiment": 8,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-D06",
+      "title": "VIMA: General Robot Manipulation with Multimodal Prompts",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2210.03094.pdf",
+      "local_path": "corpus/extracted/C-D06.txt",
+      "source_sha256": "cf849f80368749b0310b43117519ce0abff3e8ae49744e78c4a29b9d17f0695f",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 2807,
+        "char_count": 216931,
+        "text_sha256": "e46fcaff742e34816a12eff5b27cc846d0ba8c46b3f2cbd73ce2554d03760139",
+        "section_marker_counts": {
+          "abstract": 10,
+          "introduction": 1,
+          "method": 112,
+          "experiment": 34,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-E01",
+      "title": "Extrinsic Contact Sensing for Soft Robots",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2103.08108.pdf",
+      "local_path": "corpus/extracted/C-E01.txt",
+      "source_sha256": "84b3448016749f4fb526ebd56b4ec5de40beaa4becfac6853fc4574e6238feab",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 355,
+        "char_count": 34804,
+        "text_sha256": "c65ba6a0f9267a80394c502f2bab65c63cf5ea38c85aea0e29524e6051830748",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 8,
+          "experiment": 7,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-E02",
+      "title": "Compact Design of a Hydraulic Driving Robot for Intraoperative MRI-Guided Bilateral Stereotactic Neurosurgery",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://group-iris.com/wp-content/uploads/2024/09/2018-Compact-Design-of-a-Hydraulic-Driving-Robot-for-Intraoperative-MRI-Guided-Bilateral-Stereotactic-Neurosurgery-1.pdf",
+      "local_path": "corpus/extracted/C-E02.txt",
+      "source_sha256": "4d438dbd7ce336a518983f4fab37502cfb0e382c39ea090f8f3bc1813714e01c",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 485,
+        "char_count": 54871,
+        "text_sha256": "1028c7aac69d98844b0944a4993054f1147b78be511ad78ab7021096fb9e100e",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 10,
+          "experiment": 7,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-E03",
+      "title": "Cooperative Manipulation and Transportation with Aerial Robots",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://www.roboticsproceedings.org/rss05/p1.pdf",
+      "local_path": "corpus/extracted/C-E03.txt",
+      "source_sha256": "295a102d9f2ef3c32bb4cfea02dca5c44801e0ed9f46446974b34d4b44476c22",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 748,
+        "char_count": 73168,
+        "text_sha256": "a9b8b11c7a45a60054a09f83b4e92753996dd6fe484956e8e5efca30fb99632c",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 18,
+          "experiment": 14,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-E04",
+      "title": "REPLAB: A Robotic Experimentation Platform for Learning from Demonstration",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1905.07447.pdf",
+      "local_path": "corpus/extracted/C-E04.txt",
+      "source_sha256": "8b8a58d2f61ef0abfaa01c7d792b1aac291f410cbf370c72a53eda41d18d9839",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 554,
+        "char_count": 58087,
+        "text_sha256": "b699916c7f54aa9426cfb684ce5a9b4a1f78508f147434c864c88f0d4613fdaf",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 17,
+          "experiment": 14,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-E05",
+      "title": "A Convex Polynomial Force-Motion Model for Contact-Rich Manipulation",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1602.06056.pdf",
+      "local_path": "corpus/extracted/C-E05.txt",
+      "source_sha256": "c565942e80d05b081574a5796022f74f241cf3ca0dfb0b9b349988e7d0ddba0f",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 517,
+        "char_count": 77279,
+        "text_sha256": "1405bc313053b7bcad8965e6615ce8d95774b4fc8047ce188b6242d282b34c69",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 23,
+          "experiment": 4,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-E06",
+      "title": "FlingBot: The Unreasonable Effectiveness of Dynamic Manipulation for Cloth Unfolding",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2105.03655.pdf",
+      "local_path": "corpus/extracted/C-E06.txt",
+      "source_sha256": "ad6e502825c044a1ce13911164ae7817e00628ba7ac3e46358cc277c9d25dc8e",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 953,
+        "char_count": 70749,
+        "text_sha256": "1a030ac5a74b0cda130b7006c199b6172cc6998dcd9f333ef808316383653243",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 21,
+          "experiment": 20,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-H01",
+      "title": "Effects of Shared Control on Cognitive Load and Trust in Teleoperated Trajectory Tracking",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2402.02758.pdf",
+      "local_path": "corpus/extracted/C-H01.txt",
+      "source_sha256": "6eb1316196cee91b8e1a183d9fce5be67cfbd0bb8e424bd2d46d06eba6d128d5",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 603,
+        "char_count": 72097,
+        "text_sha256": "0c194dbfe8c44f58865683faaf2812ddf1ed1f4f763ec8ee622ec45bceeb995b",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 10,
+          "experiment": 21,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-H02",
+      "title": "Preference-Conditioned Language-Guided Abstraction",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2402.03081.pdf",
+      "local_path": "corpus/extracted/C-H02.txt",
+      "source_sha256": "fa1128cf3fdeeb69f297c3121315d034f0db7cd059859f829ebc8ddacbf77fd1",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 797,
+        "char_count": 100676,
+        "text_sha256": "5116ff248f7b513946804d55208cffedc4d4f27d380fe35738dff1b6753fd402",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 1,
+          "method": 21,
+          "experiment": 13,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-H03",
+      "title": "Haptic Feedback Improves Human-Robot Agreement and User Satisfaction in Shared-Autonomy Teleoperation",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2103.03453.pdf",
+      "local_path": "corpus/extracted/C-H03.txt",
+      "source_sha256": "185d211ce135ab1f76b1f1bdbfa850e630a6cb21f28db124d4a5d114893e3976",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 487,
+        "char_count": 52778,
+        "text_sha256": "ef3c7f7d2cd7b34a7332663f357d845c82f9a9d6b741f28f20801bbab122ca50",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 13,
+          "experiment": 19,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-H04",
+      "title": "Collaborative Teleoperation with Haptic Feedback for Collision-Free Navigation of Ground Robots",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://sites.bu.edu/pierson/files/2023/03/coffey2022iros.pdf",
+      "local_path": "corpus/extracted/C-H04.txt",
+      "source_sha256": "e51eb69833e51f5b003a12bb48f0d43c05ad6f050ad190dac17ac6b56f183238",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 629,
+        "char_count": 68000,
+        "text_sha256": "eb47ada721d94dd68756f4734054abc3e1d7922c6d19a971f2c3c6299b72318c",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 10,
+          "experiment": 11,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-H05",
+      "title": "Tele-Impedance with Force Feedback under Communication Time Delay",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://www.centropiaggio.unipi.it/sites/default/files/laghi_iros_2017.pdf",
+      "local_path": "corpus/extracted/C-H05.txt",
+      "source_sha256": "9b81f6acb8fef4ad8a79e7b642bf33f746d84ea8cc024045415bac5bf06cd1a9",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1055,
+        "char_count": 74945,
+        "text_sha256": "afac7f1612b65b8d2ee3c233b20319fb56f5eccf38815cedc544e639c6838db0",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 10,
+          "experiment": 19,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-H06",
+      "title": "A Reduced-Complexity Description of Arm Endpoint Stiffness with Applications to Teleimpedance Control",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://www.centropiaggio.unipi.it/sites/default/files/2015_aftb_iros.pdf",
+      "local_path": "corpus/extracted/C-H06.txt",
+      "source_sha256": "aaf6b0856b69d8b130c1bf65fdcfefaf904532a175600465f70cd8dfb272c6b1",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 598,
+        "char_count": 67196,
+        "text_sha256": "29eae704050c644c6fdd04a597ad2900cd85667db202f6c82d50cc136440f97c",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 34,
+          "experiment": 10,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-L01",
+      "title": "Distilled Feature Fields Enable Few-Shot Language-Guided Manipulation",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2308.07931.pdf",
+      "local_path": "corpus/extracted/C-L01.txt",
+      "source_sha256": "797b9348678521c3057331aa4582bf82415c376371ad56bb68f323f8d1a58fe8",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1069,
+        "char_count": 76584,
+        "text_sha256": "5b4bd15461c8d8601d0560c843f3a4577c5b477f4a93d4a14a7f808ac3d54294",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 28,
+          "experiment": 6,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-L02",
+      "title": "RoboCook: Long-Horizon Learning for Generalizable Object Rearrangement",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2306.14447.pdf",
+      "local_path": "corpus/extracted/C-L02.txt",
+      "source_sha256": "e6d51c604ad59c8afb8a00f4d84d1ffddf0031d4820598051291cafbe606a048",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1153,
+        "char_count": 76595,
+        "text_sha256": "8a92094e649c926fb7d4223af68f17b75ffcd065bc2ca870cafb9a269181b006",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 72,
+          "experiment": 21,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-L03",
+      "title": "Robots That Ask For Help: Uncertainty Alignment for Interactive Learning",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2307.01928.pdf",
+      "local_path": "corpus/extracted/C-L03.txt",
+      "source_sha256": "3a1b38dd460e03a19ce0307c135c58b7d3ae544c5fbc4aacc01f8a852a81f9c7",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1577,
+        "char_count": 114997,
+        "text_sha256": "d219ee5a7c1c43b77431d21b4e6dc4bd692cabab173b7167e3be83b77fc84208",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 2,
+          "method": 30,
+          "experiment": 17,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-L04",
+      "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2303.04137.pdf",
+      "local_path": "corpus/extracted/C-L04.txt",
+      "source_sha256": "b65c474b696a4802d8f1457d86b637ce2c5521412570d3aa928cd54563babc8f",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1366,
+        "char_count": 148122,
+        "text_sha256": "e2f1b4438ef6d7e96fdf9f403d08cbeccf79e4f5b39bc92b319872393a8567bb",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 42,
+          "experiment": 42,
+          "conclusion": 3
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-L05",
+      "title": "RT-1: Robotics Transformer for Real-World Control at Scale",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2212.06817.pdf",
+      "local_path": "corpus/extracted/C-L05.txt",
+      "source_sha256": "81efe669c8fa50ffc7097886dc78a442fa7a8f7f2451684b93069cb9fbeda767",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_SECTION_MARKERS_INCOMPLETE",
+        "line_count": 1924,
+        "char_count": 125098,
+        "text_sha256": "14756aa0cdc46b0ce646408a293ec0c2fc41d5ea45c53eeb11e6501b41f06249",
+        "section_marker_counts": {
+          "abstract": 0,
+          "introduction": 0,
+          "method": 99,
+          "experiment": 55,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-L06",
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2310.08864.pdf",
+      "local_path": "corpus/extracted/C-L06.txt",
+      "source_sha256": "13f16aff5afdee583dc25b3c570e9bb0cf6baefb59b539928d919588cd8d9246",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1168,
+        "char_count": 95274,
+        "text_sha256": "f2b83d1485ae6a2a1e81c331ec7546a61c0aa4572208d5a7050cdadbca941adb",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 53,
+          "experiment": 24,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-L07",
+      "title": "Language-Driven Representation Learning for Robotics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2302.12766.pdf",
+      "local_path": "corpus/extracted/C-L07.txt",
+      "source_sha256": "a8a83c123f203c8eb61be85740d9ad9499b6bcde063b7ecf2fff313e4ef0e962",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1529,
+        "char_count": 161809,
+        "text_sha256": "018294d5f720416a43df8269c646349ad030d666d4f581ebca82af2e1ccb39a6",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 63,
+          "experiment": 128,
+          "conclusion": 12
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-P01",
+      "title": "Probabilistic Data Association for Semantic SLAM",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://seanbow.com/papers/ICRA17.pdf",
+      "local_path": "corpus/extracted/C-P01.txt",
+      "source_sha256": "d0e3a7ac52468623cf846df6934779c07c715a7f6f6b1e551bfb31f577e42920",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 633,
+        "char_count": 76133,
+        "text_sha256": "0512e185a65ce21e998209d4e7f0b8893e261b240d41af862c9430318b5723f4",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 22,
+          "experiment": 15,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-P02",
+      "title": "Observability, Identifiability and Sensitivity of Vision-Aided Inertial Navigation",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1311.7434.pdf",
+      "local_path": "corpus/extracted/C-P02.txt",
+      "source_sha256": "e89781a22161ab4e92a57b45202fd1d75f58a19b6caeec9445a890b449fdcb04",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1453,
+        "char_count": 91680,
+        "text_sha256": "1341739f49c8101023351e925d8e0eee3a4e45a3a1df214536a3f00e6f909b3f",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 2,
+          "method": 46,
+          "experiment": 1,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-P03",
+      "title": "Translating Images into Maps",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2110.00966.pdf",
+      "local_path": "corpus/extracted/C-P03.txt",
+      "source_sha256": "23386ec2539387c78fd97c2e19c0723d280ccb7110fc7601f61a4c644d40f576",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 462,
+        "char_count": 58498,
+        "text_sha256": "3729a679a2e98b17c4091768e60a870d0528fd13793d693a17c71d79ca0ebec1",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 2,
+          "method": 34,
+          "experiment": 9,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-P04",
+      "title": "Making Sense of Vision and Touch: Learning Multimodal Representations for Contact-Rich Manipulation",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1810.10191.pdf",
+      "local_path": "corpus/extracted/C-P04.txt",
+      "source_sha256": "b4ea73bd6fc5b0e7213881b664464b7351f91a57c0639d7fb6f97244af0391b5",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 541,
+        "char_count": 63550,
+        "text_sha256": "964b297856eb7607734bb79ea755624df78df1f67c0ccf4fe4b4640f912854fd",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 40,
+          "experiment": 7,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-P05",
+      "title": "JRDB-Pose: A Large-Scale Dataset for Multi-Person Pose Estimation and Tracking",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2210.11940.pdf",
+      "local_path": "corpus/extracted/C-P05.txt",
+      "source_sha256": "6137e5e361d5ce5cc63b76c2f7f7b71288a39f137336305d631c62ab116737ee",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 961,
+        "char_count": 96380,
+        "text_sha256": "f646392d57daa8aa468eb85e543f501b766e4dae3e34f738b31c5d8e24ff1fe7",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 27,
+          "experiment": 16,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-P06",
+      "title": "JRDB-Act: A Large-Scale Dataset for Spatio-Temporal Action Recognition in Robotics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2106.08827.pdf",
+      "local_path": "corpus/extracted/C-P06.txt",
+      "source_sha256": "6455051e8c857636e976bc03102bac4c641c2202251acf58b9c82d6b388137ad",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 745,
+        "char_count": 83424,
+        "text_sha256": "caa9a7a561488498dbc8681ddf0dab2185ac2f4b1fd0ad496d0086605cadc8af",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 28,
+          "experiment": 28,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-S01",
+      "title": "ROS: an open-source Robot Operating System",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://ai.stanford.edu/~ang/papers/icraoss09-ROS.pdf",
+      "local_path": "corpus/extracted/C-S01.txt",
+      "source_sha256": "56ecc7028476a5dd58cbb4969dad490e38e412db19337f74071d9a65527da7c8",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 360,
+        "char_count": 34627,
+        "text_sha256": "fd625f7debf9036252b5b61fc2d7a07bdaa0e1e0e10cbbb6e9f51800a50b3f08",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 2,
+          "method": 4,
+          "experiment": 2,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-S02",
+      "title": "FogROS 2: An Adaptive and Extensible Platform for Cloud and Fog Robotics Using ROS 2",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2205.09778.pdf",
+      "local_path": "corpus/extracted/C-S02.txt",
+      "source_sha256": "32f01c166a7c67141cdd961bedca63184bbe89d7e988073d3e3938fbeae0e7fe",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 542,
+        "char_count": 64638,
+        "text_sha256": "60ed174dddfb9b97e2142edc733b23f47211cf12f57d1e7023ed7582eba506c8",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 3,
+          "experiment": 8,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-S03",
+      "title": "SOTER: A Runtime Verification Framework for ROS",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1808.07921.pdf",
+      "local_path": "corpus/extracted/C-S03.txt",
+      "source_sha256": "da175b055403f1f71ccdd9033716a851e7e98f343bec4ce6a3a8f03aab56f230",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 885,
+        "char_count": 100218,
+        "text_sha256": "4ab69a77e6c02291ef1178b5810cad06eb677f4ec2676a500f8cdbe342a437cf",
+        "section_marker_counts": {
+          "abstract": 4,
+          "introduction": 1,
+          "method": 30,
+          "experiment": 13,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-S04",
+      "title": "SOTER on ROS: A Runtime Verification Framework for ROS-Based Robotic Systems",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2008.09707.pdf",
+      "local_path": "corpus/extracted/C-S04.txt",
+      "source_sha256": "88d3196252e5db364836745e33a7e0941377c9e93b45150c5a65e0d6f331440e",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 459,
+        "char_count": 30930,
+        "text_sha256": "48fca7ae22d9c6d670287466a6a977959a71a37c79eab2c85cd872cc57934e71",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 5,
+          "experiment": 0,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-S05",
+      "title": "RobotCore: A Middleware for Reliable and Reproducible Robot Learning",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2205.03929.pdf",
+      "local_path": "corpus/extracted/C-S05.txt",
+      "source_sha256": "5c7e7b839913a237eeb42cc2a7f9b704355363fc12cf67f7976ba7c478abfb04",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 467,
+        "char_count": 59545,
+        "text_sha256": "dabc76bcbc79d59520395b05c9b5e4748a1f9c8d9094a49161a8ce2e09999b11",
+        "section_marker_counts": {
+          "abstract": 3,
+          "introduction": 0,
+          "method": 12,
+          "experiment": 12,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "C-S06",
+      "title": "Robot Operating System: A modular software framework for automated driving",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://www.mrt.kit.edu/z/publ/download/2016/ROSitsc2016.pdf",
+      "local_path": "corpus/extracted/C-S06.txt",
+      "source_sha256": "322cb6abba8ace890c08d8a7d470786acf943d4faf0e247489e77441d3ab9a60",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 482,
+        "char_count": 51846,
+        "text_sha256": "fc07f3fae8582155ab7f5f7b59e5dc3ed7e1bcf6b8845a69acf93a8ccbba35e2",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 3,
+          "method": 0,
+          "experiment": 14,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-A01",
+      "title": "Robot Operating System 2: Design, architecture, and uses in the wild",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2211.07752.pdf",
+      "local_path": "corpus/extracted/J-A01.txt",
+      "source_sha256": "015fc2693f3d8a04b8c61c7853aa251164e126537755c7556762e38aeb4e6a3a",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 817,
+        "char_count": 93491,
+        "text_sha256": "c7ccd578f831e014b7e739bb0ea01e8877abb8e6b9d2e59c78322f88a1386a37",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 0,
+          "method": 13,
+          "experiment": 5,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-A02",
+      "title": "Probabilistic Risk Metrics for Navigating Occluded Intersections",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://braraki.github.io/research/publications/ral19.pdf",
+      "local_path": "corpus/extracted/J-A02.txt",
+      "source_sha256": "d5afd2b9f3738ad97437c4b519bbdd1162cef4704b2c737a0c70a6a30e545dd3",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 580,
+        "char_count": 59549,
+        "text_sha256": "96c05479b56db6fc79aa1b5fb242b13cf3eeb5e641ea92a86e2f07c94a587d2e",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 52,
+          "experiment": 5,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-A03",
+      "title": "Vision-Based Reactive Planning for Aggressive Target Tracking While Avoiding Collisions and Occlusions",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://hal.science/hal-01836586/document",
+      "local_path": "corpus/extracted/J-A03.txt",
+      "source_sha256": "f023a2f991366d94de3468cf1ea3026c4e14607951575ab3fe7b76d8017056fd",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 634,
+        "char_count": 65604,
+        "text_sha256": "20dc5bd6ced02ec08ecd5868a4777c0d8ea75b538e8c578264b3885e8f467dcb",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 21,
+          "experiment": 13,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-A04",
+      "title": "WayFAST: Navigation with a Learned Fast Marching Method",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2203.12071.pdf",
+      "local_path": "corpus/extracted/J-A04.txt",
+      "source_sha256": "99d995749fbf409ded047fc42fe7315b38027f203b5415dd4d6feab5dad82016",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 561,
+        "char_count": 65432,
+        "text_sha256": "e3eac7278c3f655fccdcf1f5bc51b46e95dfc54a1e374e91ab8425cb11320309",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 71,
+          "experiment": 7,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-A05",
+      "title": "Active learning via informed search in movement parameter space for efficient robot task learning and transfer",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://link.springer.com/content/pdf/10.1007/s10514-019-09842-7.pdf",
+      "local_path": "corpus/extracted/J-A05.txt",
+      "source_sha256": "e1e2019faa462b9c4b4ae051b3ec0f455954921b609e7ac730c17f6c1ae32637",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1062,
+        "char_count": 108185,
+        "text_sha256": "9561df2709f3eb41406f7348dbb4b4610e5e45c244780029ec2e10f31f55378c",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 178,
+          "experiment": 30,
+          "conclusion": 3
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-A06",
+      "title": "NanoCockpit: Performance-optimized Application Framework for AI-based Autonomous Nanorobotics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2601.07476.pdf",
+      "local_path": "corpus/extracted/J-A06.txt",
+      "source_sha256": "1fbdf2f11e8375fc347fc8966a6ca45e38840066efe0b360e034acbbc95a4880",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 699,
+        "char_count": 81508,
+        "text_sha256": "cda2dbc1f15b8264c674d12c3f16d094fe60d4dbab284b016ca09ad7e38fc916",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 13,
+          "experiment": 12,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-C01",
+      "title": "Autonomous Quadrotor Flight Despite Rotor Failure With Onboard Vision Sensors: Frames vs. Events",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2102.13406.pdf",
+      "local_path": "corpus/extracted/J-C01.txt",
+      "source_sha256": "c05f2b155538f7a43d4f1789665595bea010f283bfc8bf70609d50a13e030317",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 637,
+        "char_count": 67334,
+        "text_sha256": "5c198cf7a1fd30626f2350c6edab88d467a99e7a5cc4e692cd7eea262f6ed2be",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 23,
+          "experiment": 5,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-C02",
+      "title": "Active Learning of Dynamics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1906.05194.pdf",
+      "local_path": "corpus/extracted/J-C02.txt",
+      "source_sha256": "461fa7e0c1769034d0a2e729f234e785c4ef571f40fcb4e99198e9a580b55198",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1039,
+        "char_count": 113760,
+        "text_sha256": "ab7bf4298cd30a330fb2f25d85abe8e1da5bdc0e0eefadd553d26d16efdca43d",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 89,
+          "experiment": 25,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-C03",
+      "title": "Optimally Controlling the Timing of Energy Transfer in Elastic Joints: Experimental Validation of the Bi-Stiffness Actuation Concept",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2309.07873.pdf",
+      "local_path": "corpus/extracted/J-C03.txt",
+      "source_sha256": "ab3a0de01403a5f7bc7c344f216803637714c678ed7468f48e316dbe2be1067e",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 528,
+        "char_count": 60376,
+        "text_sha256": "fb8027148cf0fca3be5cd7a15a6c577abd9d708c5023db642e285b8a5fe56bea",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 0,
+          "method": 24,
+          "experiment": 15,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-C04",
+      "title": "Grasping Without Squeezing",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://escholarship.org/uc/item/24t5b9vm",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-C05",
+      "title": "Experimental Characterization and Modeling of the Self-Sensing Property in Compliant Twisted String Actuators",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://ieeexplore.ieee.org/document/9360185",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-C06",
+      "title": "Model-Less Hybrid Position/Force Control: A Minimalist Approach for Continuum Manipulators in Unknown, Constrained Environments",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://ucsdarclab.com/autopublication/model-less-hybrid-position-force-control-a-minimalist-approach-for-continuum-manipulators-in-unknown-constrained-environments/",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-D01",
+      "title": "Sampling-based Algorithms for Optimal Motion Planning",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1105.1186.pdf",
+      "local_path": "corpus/extracted/J-D01.txt",
+      "source_sha256": "d06c76af8c0a3a941354aadfbf29378de50b569def1459f669a3cecc6e6a015b",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 4628,
+        "char_count": 281648,
+        "text_sha256": "2f6bdfaab1db899fe203d1d63f43ca0635371bf74b7ca0f5838881c45b7eaf83",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 4,
+          "method": 17,
+          "experiment": 36,
+          "conclusion": 6
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-D02",
+      "title": "Motion planning with sequential convex optimization and convex collision checking",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://rll.berkeley.edu/~sachin/papers/Schulman-IJRR2014.pdf",
+      "local_path": "corpus/extracted/J-D02.txt",
+      "source_sha256": "6da932a2d7c8af89077c8b7909fc4bc0c84e74df206557cb020b29e3e65f3381",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1137,
+        "char_count": 133232,
+        "text_sha256": "a9e9976dbaaaf8150f949a06e344afb4918cebf7d544d579ad266c3b39a93599",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 52,
+          "experiment": 11,
+          "conclusion": 5
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-D03",
+      "title": "Manipulation Planning for Deformable Linear Objects",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-D04",
+      "title": "Rapidly Exploring Random Cycles: A New Approach to Coverage of Unknown Environments",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-D05",
+      "title": "Kimera-Multi: Robust, Distributed, Dense Metric-Semantic SLAM for Multi-Robot Systems",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2106.14386.pdf",
+      "local_path": "corpus/extracted/J-D05.txt",
+      "source_sha256": "95fedb97d0419324b0156bb31b003508f848806425c59087d22b69b44c3d4da8",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1228,
+        "char_count": 139963,
+        "text_sha256": "ed81a8dcd0ec4d7a7cda22d8fed31d62374acf3d52fece54a6471bdd969e71d6",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 64,
+          "experiment": 32,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-D06",
+      "title": "MapLite: Autonomous Intersection Navigation Without a Detailed Prior Map",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://dhaivat1729.github.io/assets/pdf/MapLite_Autonomous_Intersection_Navigation_Without_a_Detailed_Prior_Map.pdf",
+      "local_path": "corpus/extracted/J-D06.txt",
+      "source_sha256": "5762e4170e9e7be158445a143374be26c0f95cfea5776a2cabaf9a11b2a8150f",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 551,
+        "char_count": 63632,
+        "text_sha256": "133ceae4751c63e1479f2ece81dac18f367c68f0c4aea4e42610bb9436b2dc95",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 24,
+          "experiment": 12,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-E01",
+      "title": "Design and Control of Concentric-Tube Robots",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://dash.harvard.edu/handle/1/37372563",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-E02",
+      "title": "Compliant Aerial Manipulators: Toward a New Generation of Aerial Robotic Workers",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://research.utwente.nl/en/publications/8d934700-5acf-4cbb-9417-8c71ecf07a42",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-E03",
+      "title": "Inverted and Inclined Climbing Using Capillary Adhesion in a Quadrupedal Insect-Scale Robot",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://smrl.mit.edu/wp-content/uploads/2020/09/crawler_chen_2020.pdf",
+      "local_path": "corpus/extracted/J-E03.txt",
+      "source_sha256": "f6d130647ff2c7f9287609ad3a4f854e1f5f6dfc4fd404bf055633b83b17bda8",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 573,
+        "char_count": 64811,
+        "text_sha256": "b6109c6bee4dd809a91b06803c2332b09a07339fcc5c503ce4fa5ff2ff315d3e",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 26,
+          "experiment": 18,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-E04",
+      "title": "Sim-to-Real of Soft Robots With Learned Residual Physics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2402.01086.pdf",
+      "local_path": "corpus/extracted/J-E04.txt",
+      "source_sha256": "87e436f285475c1ef61fd00f36eabb34e1982320e37af52aedeae1905e5d8635",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 644,
+        "char_count": 72759,
+        "text_sha256": "ff94adf39a018ccf6d8177dd8d35d7af13aad2ad0b7b763fc2dd980f6fb15c4e",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 49,
+          "experiment": 16,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-E05",
+      "title": "Learning agile and dynamic motor skills for legged robots",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1901.08652.pdf",
+      "local_path": "corpus/extracted/J-E05.txt",
+      "source_sha256": "c69eda2f422866925c3567ead246be231928af51dcdfa97f849222118d75ae45",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_SECTION_MARKERS_INCOMPLETE",
+        "line_count": 1004,
+        "char_count": 109384,
+        "text_sha256": "003562e9528420195697a9b766c6ff5c45d3aa0f94b49f36ffe9128c419bdc37",
+        "section_marker_counts": {
+          "abstract": 0,
+          "introduction": 2,
+          "method": 100,
+          "experiment": 24,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-E06",
+      "title": "Learning Quadrupedal Locomotion over Challenging Terrain",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2010.11251.pdf",
+      "local_path": "corpus/extracted/J-E06.txt",
+      "source_sha256": "07c5607c708ffe0b33e9c02792c699b7084895bac0e296c6895e31b18da83af3",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_SECTION_MARKERS_INCOMPLETE",
+        "line_count": 1343,
+        "char_count": 132784,
+        "text_sha256": "54afeb12d3535fdd2320ca8586eb4af1fe7cc682e8b4ab653b5bcf7598fbc0e7",
+        "section_marker_counts": {
+          "abstract": 0,
+          "introduction": 1,
+          "method": 48,
+          "experiment": 22,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-E07",
+      "title": "Pushing corridors for delivering unknown objects with a mobile robot",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://link.springer.com/content/pdf/10.1007/s10514-018-9804-8.pdf",
+      "local_path": "corpus/extracted/J-E07.txt",
+      "source_sha256": "6b42393a279a8c7c5bd2bb20d85516befb80c302a1558f18d88c421f8251bcac",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1005,
+        "char_count": 96487,
+        "text_sha256": "f94a2fc31695762a49ab0f3970d81e1d47e89e93db167dbcf91b606eabac3f68",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 48,
+          "experiment": 21,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-H01",
+      "title": "Haptic Teleoperation of UAVs through Control Barrier Functions",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1911.03418.pdf",
+      "local_path": "corpus/extracted/J-H01.txt",
+      "source_sha256": "92d047e1e2181d0e1bed138c1a8a62df5d3b855a6ee1913736e96f6c1b3dddf8",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 557,
+        "char_count": 63419,
+        "text_sha256": "27517b923abbec1519cb5e70491dad052f0ffb7bbafcf44f93c0024b1ca70792",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 21,
+          "experiment": 20,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-H02",
+      "title": "Effects of Grip-Force, Contact, and Acceleration Feedback on Teleoperation of a Robot Arm",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://is.mpg.de/ics/publications/khurshid17-th-feedback",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-H03",
+      "title": "Tele-impedance: The Role of the Human Operator in Teleoperation",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://www.centropiaggio.unipi.it/sites/default/files/2012_ATB_IJRR.pdf",
+      "local_path": "corpus/extracted/J-H03.txt",
+      "source_sha256": "eb916f46b96c68671cd65e1ac5cf63cd5c922d0f5a9f0ed788b5983d7765fa46",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1244,
+        "char_count": 133124,
+        "text_sha256": "95014f36fc82481dbfa4c3373b894b680c00e63893f71586db608255b6db1e2c",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 44,
+          "experiment": 32,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-H04",
+      "title": "Reduced-complexity representation of human arm active endpoint stiffness",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://journals.sagepub.com/doi/10.1177/0278364917744035",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-H05",
+      "title": "Human-Like Adaptation of Force and Impedance in Stable and Unstable Interactions",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://elib.dlr.de/113236/1/Human-Like_Adaptation.pdf",
+      "local_path": "corpus/extracted/J-H05.txt",
+      "source_sha256": "87473a81235e13887cc7fe4d1ee8e60905e0b0970313c277091b00be791ebb0a",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 855,
+        "char_count": 91448,
+        "text_sha256": "7a05929b64c54b4f442ea36f69f6eb558ec6b4efdae1dde9d6e79a67a7ef3c48",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 1,
+          "method": 19,
+          "experiment": 19,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-H06",
+      "title": "2.5D Laser-Cutting-Based Customized Fabrication of Long-Term Wearable Textile sEMG Sensor: From Design to Intention Recognition",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://koasas.kaist.ac.kr/handle/10203/298093",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-L01",
+      "title": "Self-Supervised Correspondence in Visuomotor Policy Learning",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1909.06933.pdf",
+      "local_path": "corpus/extracted/J-L01.txt",
+      "source_sha256": "42bd3de83ef4e04b3f3f99b1268bfc751c4fc9a627e6ebe5cb884da1b4706d95",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 662,
+        "char_count": 99898,
+        "text_sha256": "a8a3d4626be57696d3f19a0481a39c6b0d88784ff10509c9df1c2a6b048945f9",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 2,
+          "method": 67,
+          "experiment": 23,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-L02",
+      "title": "CALVIN: A Benchmark for Language-Conditioned Policy Learning for Long-Horizon Robot Manipulation Tasks",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2112.03227.pdf",
+      "local_path": "corpus/extracted/J-L02.txt",
+      "source_sha256": "c8ad4741782fa8fb773377fbf61b8772b86574f255599a229d3f6ad4d878c60e",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 703,
+        "char_count": 70521,
+        "text_sha256": "b09ec73283fdb5c2d5dfdca91dbec08bfa9abc3b5fecc30deceed2f5f0bc2db0",
+        "section_marker_counts": {
+          "abstract": 6,
+          "introduction": 0,
+          "method": 14,
+          "experiment": 26,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-L03",
+      "title": "Geometric Fabrics: Generalizing Classical Mechanics to Capture the Physics of Behavior",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2109.10443.pdf",
+      "local_path": "corpus/extracted/J-L03.txt",
+      "source_sha256": "49cabb92e79ab30d83fa7824c0bf48e452ac3de6335ca18e0576b20c6449e5f9",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1561,
+        "char_count": 158987,
+        "text_sha256": "a9dbee4ef0e0bcf1bbe86189627964047bd1f08eadc6a128610237b8710bc4d7",
+        "section_marker_counts": {
+          "abstract": 2,
+          "introduction": 3,
+          "method": 11,
+          "experiment": 15,
+          "conclusion": 8
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-L04",
+      "title": "Bimanual Handling of Deformable Objects With Hybrid Adhesion",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://snu.elsevierpure.com/en/publications/bimanual-handling-of-deformable-objects-with-hybrid-adhesion",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-L05",
+      "title": "TossingBot: Learning to Throw Arbitrary Objects with Residual Physics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1903.11239.pdf",
+      "local_path": "corpus/extracted/J-L05.txt",
+      "source_sha256": "4881b706b11206acfb5325baadb76a1056dddd72206c83278b952c6e2dd7fe94",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 913,
+        "char_count": 100044,
+        "text_sha256": "f476e3cfd47bcab365ede2581b8961b8001c2f38fc70e4df082147bac9b0f506",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 32,
+          "experiment": 15,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-L06",
+      "title": "Adaptive Neural Computed Torque Control for Robot Joints With Asymmetric Friction Model",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://sri-lab.com/publication/luo2024adaptive/",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-P01",
+      "title": "KISS-ICP: In Defense of Point-to-Point ICP – Simple, Accurate, and Robust Registration If Done the Right Way",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2209.15397.pdf",
+      "local_path": "corpus/extracted/J-P01.txt",
+      "source_sha256": "434cea904a43ace76b597fd2705d1ef4f3fa925d8fa7fe6e98e06316b6bb84e5",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 584,
+        "char_count": 66470,
+        "text_sha256": "d8cdff92c9c02f8598d5603134c61f1720fc1d564657b40009fa0bab83545c6d",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 50,
+          "experiment": 40,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-P02",
+      "title": "LONER: LiDAR Only Neural Representations for Real-Time SLAM",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2309.04937.pdf",
+      "local_path": "corpus/extracted/J-P02.txt",
+      "source_sha256": "a1f019e16e001bccd1080f63e2443c57dac183d277eb4a9390b9484ca7e8bccb",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 569,
+        "char_count": 60069,
+        "text_sha256": "95cc56f2b7a9d43175f828f94e804cbff34b0f5d5f9a3208fbd8d886c41a1df3",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 15,
+          "experiment": 24,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-P03",
+      "title": "H2-Mapping: Real-Time Dense Mapping Using Hierarchical Hybrid Representation",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://researchportal.hkust.edu.hk/en/publications/h2-mapping-real-time-dense-mapping-using-hierarchical-hybrid-repr/",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-P04",
+      "title": "TRAVEL: Traversable Ground and Above-Ground Object Segmentation Using Graph Representation of 3D LiDAR Scans",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2206.03190.pdf",
+      "local_path": "corpus/extracted/J-P04.txt",
+      "source_sha256": "ff8689ae27f2f5271951b8d8e3777c17f75575e9bfa878dfe0ea3c4b4b1dee51",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 617,
+        "char_count": 78046,
+        "text_sha256": "378f1fc8cc33378914225cab8b8971e19ec1c5c6b1079df7c6139b1a30318acd",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 18,
+          "experiment": 14,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-P05",
+      "title": "Fast Model-Based Contact Patch and Pose Estimation for Highly Deformable Dense-Geometry Tactile Sensors",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://groups.csail.mit.edu/robotics-center/public_papers/Kuppuswamy20.pdf",
+      "local_path": "corpus/extracted/J-P05.txt",
+      "source_sha256": "a51a960aa41b5ab688a3db1d36b3dfb5c89991a25e8f38dbc8d63a3e5f05e7ad",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 531,
+        "char_count": 56645,
+        "text_sha256": "3699fc77e0bb8ec014573d2f98d32bbad42abd8f495465140f378181ebb3378d",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 40,
+          "experiment": 10,
+          "conclusion": 0
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-P06",
+      "title": "On-Manifold Preintegration for Real-Time Visual–Inertial Odometry",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1512.02363.pdf",
+      "local_path": "corpus/extracted/J-P06.txt",
+      "source_sha256": "214b8bee53e1fb6218c1cec1352d74c24951feec815517e6a0cc6dfcf1fd8f32",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1992,
+        "char_count": 206155,
+        "text_sha256": "7b1274aba41052b363dc9662a43278ae73caf97ff6fd5d20cb6da29149f78a29",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 3,
+          "method": 101,
+          "experiment": 29,
+          "conclusion": 2
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-P07",
+      "title": "JRDB: A Dataset and Benchmark for Visual Perception in Robotics",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/1910.11792.pdf",
+      "local_path": "corpus/extracted/J-P07.txt",
+      "source_sha256": "74e54f2d90f5672c3bc220f74d37d7c37627baa143938f981dfb2ad35c89a006",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1395,
+        "char_count": 155435,
+        "text_sha256": "f97d9e3086c612dc72ccf0b76dcaaf8473c4e8b6620edf26a6bb7259dac4f3b7",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 0,
+          "method": 20,
+          "experiment": 54,
+          "conclusion": 5
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-S01",
+      "title": "Robot Operating System: Package reuse and community dynamics",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://www.inf.unibz.it/~rrobbes/p/JSS2019-ROS-ecosystem.pdf",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-S02",
+      "title": "Mining guidelines for architecting robotics software",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://acme.able.cs.cmu.edu/pubs/uploads/pdf/JSS_ROS_2020.pdf",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-S03",
+      "title": "Software engineering research on the Robot Operating System: A systematic mapping study",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0164121222002503",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-S04",
+      "title": "Robot Operating System 2: The need for a holistic security approach to robotic architectures",
+      "source_status": "UNRESOLVED",
+      "source_url": "https://journals.sagepub.com/doi/pdf/10.1177/1729881418770011",
+      "local_path": null,
+      "source_sha256": null,
+      "text_status": "NO_PDF",
+      "coverage": {
+        "status": "NO_TEXT"
+      }
+    },
+    {
+      "paper_id": "J-S05",
+      "title": "ROS End-Effector: A modular framework for robot end-effector integration",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://link.springer.com/content/pdf/10.1007/s10846-023-01911-5.pdf",
+      "local_path": "corpus/extracted/J-S05.txt",
+      "source_sha256": "9dda2d05a231d193c4edb6ba22f5283c8afad65349c264de41409afe29688315",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1063,
+        "char_count": 94990,
+        "text_sha256": "038bb61afce685599c54733ddae1f0ead4cef6313f89f93d110809e8ff22f454",
+        "section_marker_counts": {
+          "abstract": 6,
+          "introduction": 2,
+          "method": 17,
+          "experiment": 6,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    },
+    {
+      "paper_id": "J-S06",
+      "title": "CyberCortex.AI: An AI-based Operating System for Autonomous Robotics and Complex Automation",
+      "source_status": "DOWNLOADED",
+      "source_url": "https://arxiv.org/pdf/2409.01241.pdf",
+      "local_path": "corpus/extracted/J-S06.txt",
+      "source_sha256": "436e9c591249f970d5e162c6713f39b7951bd5d45c5e711500d6db9226de2d7c",
+      "text_status": "EXTRACTED",
+      "coverage": {
+        "status": "TEXT_BACKED_WITH_SECTION_MARKERS",
+        "line_count": 1005,
+        "char_count": 103855,
+        "text_sha256": "23862fcbaf1068419afcc9341ac95dfcb4d070638a6ce3c8b630ae02ae0ec422",
+        "section_marker_counts": {
+          "abstract": 1,
+          "introduction": 4,
+          "method": 20,
+          "experiment": 6,
+          "conclusion": 1
+        },
+        "extraction_requirement": "LLM_STAGE1_STAGE2_WITH_FIELD_LEVEL_PROVENANCE"
+      }
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "robotics-public-paper-source-overrides.v1",
+  "purpose": "Manually verified public PDF candidates for records whose indexed landing page cannot be resolved automatically.",
+  "records": {
+    "C-A02": [
+      {
+        "url": "https://openreview.net/attachment?id=FhQRJW71h5&name=main.pdf",
+        "kind": "openreview_public_attachment_candidate",
+        "checked_at": "2026-07-29",
+        "note": "OpenReview attachment convention; retain candidate status until downloaded and hash-verified."
+      }
+    ],
+    "C-C04": [
+      {
+        "url": "https://trepo.tuni.fi/bitstream/10024/150566/1/ICRA2023_Revise.pdf",
+        "kind": "institutional_accepted_author_manuscript",
+        "checked_at": "2026-07-29",
+        "note": "Tampere University repository mirror surfaced by public research-portal search."
+      },
+      {
+        "url": "https://trepo.tuni.fi/bitstream/10024/150566/1/ICRA2023_Revise.pdf?sequence=1",
+        "kind": "institutional_accepted_author_manuscript_candidate",
+        "checked_at": "2026-07-29",
+        "note": "Repository query variant."
+      }
+    ],
+    "J-C04": [
+      {
+        "url": "https://escholarship.org/content/qt24t5b9vm/qt24t5b9vm_noSplash_427028add7e77207a9b3b94a8efbf575.pdf?t=papziy",
+        "kind": "institutional_repository_pdf",
+        "checked_at": "2026-07-29",
+        "note": "UC eScholarship public PDF for the indexed repository record."
+      }
+    ],
+    "J-D02": [
+      {
+        "url": "https://rll.berkeley.edu/~sachin/papers/Schulman-IJRR2014.pdf",
+        "kind": "author_public_pdf",
+        "checked_at": "2026-07-29",
+        "note": "Author/lab public PDF surfaced by title search."
+      }
+    ],
+    "J-E01": [
+      {
+        "url": "https://dash.harvard.edu/bitstreams/7312037e-7c44-6bd4-e053-0100007fdf3b/download",
+        "kind": "institutional_repository_public_author_manuscript",
+        "checked_at": "2026-07-29",
+        "note": "Harvard DASH public NIH author manuscript download endpoint."
+      }
+    ],
+    "J-E02": [
+      {
+        "url": "https://scispace.com/pdf/compliant-aerial-manipulators-toward-a-new-generation-of-5bq91g9jjt.pdf",
+        "kind": "public_mirror_candidate",
+        "checked_at": "2026-07-29",
+        "note": "Secondary public mirror; retain manual provenance/licence review before treating as an accepted-manuscript source."
+      }
+    ],
+    "J-D04": [
+      {
+        "url": "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf",
+        "kind": "author_public_pdf",
+        "checked_at": "2026-07-29",
+        "note": "Stanford author-group PDF surfaced by exact-title search; retain unresolved status if the host returns an error."
+      }
+    ],
+    "J-H04": [
+      {
+        "url": "https://arpi.unipi.it/bitstream/11568/996027/1/0278364917744035.pdf",
+        "kind": "institutional_repository_public_pdf",
+        "checked_at": "2026-07-29",
+        "note": "University of Pisa repository PDF surfaced by exact-title search."
+      }
+    ],
+    "C-S06": [
+      {
+        "url": "https://www.mrt.kit.edu/z/publ/download/2016/ROSitsc2016.pdf",
+        "kind": "author_public_pdf",
+        "checked_at": "2026-07-29",
+        "note": "KIT public PDF surfaced by exact-title search."
+      }
+    ],
+    "J-C05": [
+      {
+        "url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9360185",
+        "kind": "ieee_public_record_pdf_candidate",
+        "checked_at": "2026-07-29",
+        "note": "IEEE stamp endpoint; retain unresolved status if access-controlled."
+      }
+    ]
+  }
+}
