@@ -257,6 +257,8 @@ Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指�
 
 公开奖项和社区复用记录只用于发现值得分析的论文，不代表某项主张已经获得充分证据。
 
+所有版本化 corpus artifact 的路径必须是仓库相对 POSIX 路径；若输入来自仓库外，生成器只记录内容 SHA-256，不记录 `E:`、`/mnt`、`/home` 等主机路径。`scripts/check_portable_corpus_paths.py` 会在发布检查中阻止这类污染。
+
 ## 仓库结构
 
 ```text
@@ -365,6 +367,8 @@ The experiment contract freezes conditions, metrics, contrasts, exclusions, deno
 ## Public corpus and regression cases
 
 The public corpus stores metadata and pattern annotations rather than copied paper text. Synthetic golden cases exercise full handoff, writing-only import, hierarchical human data, soft-body batch boundaries, industrial operation boundaries, and prior-work collision stopping behavior. Public awards and community adoption are discovery signals only.
+
+Versioned corpus artifacts may use repository-relative POSIX paths only. For input outside the repository, the generator stores a content SHA-256 reference instead of `E:`, `/mnt`, `/home`, or another host path. `scripts/check_portable_corpus_paths.py` runs as part of the release checks.
 
 ## Validation
 

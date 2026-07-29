@@ -11,6 +11,7 @@ outcome contrasts.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,23 @@ from scripts.build_researchstudio_pattern_cards import AXIS_PROFILES
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "corpus" / "public-paper-index.json"
 DEFAULT_OUTPUT = ROOT / "corpus" / "researchstudio-paper-signatures.v1.json"
+
+
+def _portable_source_reference(input_path: str | Path) -> tuple[str, str]:
+    """Return a repository-portable source reference and content digest.
+
+    生成产物不得记录本机绝对路径；仓库内文件使用相对 POSIX 路径，外部
+    输入只保留内容摘要。 / Generated artifacts must not record host-specific
+    absolute paths; repository inputs use a relative POSIX path, while external
+    inputs retain only a content digest.
+    """
+    path = Path(input_path).resolve()
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    try:
+        reference = path.relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        reference = f"external-corpus-sha256:{digest}"
+    return reference, digest
 
 
 def _contribution_type(record: dict[str, Any]) -> str:
@@ -102,9 +120,11 @@ def build(input_path: str | Path = DEFAULT_INPUT) -> dict[str, Any]:
     data = json.loads(Path(input_path).read_text(encoding="utf-8"))
     records = data.get("records", [])
     signatures = [_make_record(record) for record in records if isinstance(record, dict)]
+    source_reference, source_digest = _portable_source_reference(input_path)
     return {
         "schema_version": "researchstudio-paper-signatures.v1",
-        "source_corpus": str(Path(input_path).as_posix()),
+        "source_corpus": source_reference,
+        "source_corpus_sha256": source_digest,
         "record_count": len(signatures),
         "stage_contract": {
             "stage1_fields": ["innovation_approach", "key_step", "why_non_obvious", "trigger_condition", "reviewer_praise", "reviewer_concern", "acceptance_signal", "contribution_type"],

@@ -2,7 +2,7 @@
 
 > 状态：进行中（WIP）
 > 快照日期：2026-07-29
-> 当前工作区：`E:\Project\Robotics-Research-Skill`
+> 当前工作区：仓库根目录（使用 `git rev-parse --show-toplevel` 定位）
 
 这份文件供未来在工作站接入本环境后继续工作。先读本文件，再读
 `references/active-corpus-first-reference.md` 和
@@ -270,7 +270,8 @@ journal、Science Robotics、IJRR、T-RO、HRI、CoRL、RSS、IROS、ICRA。
 在新工作站把仓库路径替换为实际路径后：
 
 ```powershell
-Set-Location E:\Project\Robotics-Research-Skill
+$repo = git rev-parse --show-toplevel
+Set-Location $repo
 $env:PYTHONUTF8 = '1'
 python --version
 ```

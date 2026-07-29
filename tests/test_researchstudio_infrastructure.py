@@ -1,4 +1,5 @@
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -6,6 +7,7 @@ from common.researchstudio_ideation import run_ideation_chain
 from common.researchstudio_patterns import load_pattern_library, validate_pattern_library
 from common.robotics_research_context import build_research_context
 from scripts.induce_researchstudio_patterns import build as build_clusters
+from scripts.build_researchstudio_signature_index import build as build_signatures
 from scripts.validate_researchstudio_idea_card import validate as validate_idea_run
 from scripts.validate_robotics_axis_strategy_analysis import validate as validate_axis_report
 from scripts.validate_public_paper_index import load as load_public_corpus
@@ -28,6 +30,19 @@ class ResearchStudioInfrastructureTests(unittest.TestCase):
         self.assertEqual(validate_pattern_library(self.library), [])
         self.assertEqual(len(self.library["main_patterns"]), 15)
         self.assertEqual(len(self.library["subpatterns"]), 31)
+
+    def test_signature_source_reference_is_portable(self):
+        self.assertEqual(self.signatures["source_corpus"], "corpus/public-paper-index.json")
+        self.assertNotRegex(self.signatures["source_corpus"], r"^(?:[A-Za-z]:[\\/]|/)")
+        self.assertRegex(self.signatures["source_corpus_sha256"], r"^[0-9a-f]{64}$")
+
+    def test_external_signature_input_keeps_only_digest(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            external = Path(temp_dir) / "public-paper-index.json"
+            external.write_bytes((ROOT / "corpus" / "public-paper-index.json").read_bytes())
+            generated = build_signatures(external)
+        self.assertTrue(generated["source_corpus"].startswith("external-corpus-sha256:"))
+        self.assertNotIn(temp_dir, json.dumps(generated, ensure_ascii=False))
 
     def test_axis_report_is_balanced_and_has_an_anchor(self):
         errors = validate_axis_report(self.report, self.signatures, self.library, self.public)

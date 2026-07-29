@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +15,8 @@ from scripts.validate_public_paper_index import validate as validate_public_corp
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SIGNATURES = ROOT / "corpus" / "researchstudio-paper-signatures.v1.json"
 DEFAULT_REPORT = ROOT / "corpus" / "robotics-axis-strategy-analysis.v1.json"
+_DRIVE_ABSOLUTE = re.compile(r"^[A-Za-z]:[\\/]")
+_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
 def _load(path: str | Path) -> dict[str, Any]:
@@ -36,6 +39,12 @@ def validate(
         errors.append("wrong axis strategy report schema")
     if signatures.get("schema_version") != "researchstudio-paper-signatures.v1":
         errors.append("wrong signature index schema")
+    source_corpus = signatures.get("source_corpus")
+    if not isinstance(source_corpus, str) or source_corpus.startswith("/") or _DRIVE_ABSOLUTE.match(source_corpus):
+        errors.append("signature source_corpus must be repository-portable and non-absolute")
+    source_digest = signatures.get("source_corpus_sha256")
+    if not isinstance(source_digest, str) or not _SHA256.fullmatch(source_digest):
+        errors.append("signature source_corpus_sha256 must be a lowercase SHA-256 digest")
     if signatures.get("record_count") != 100 or len(signatures.get("records", [])) != 100:
         errors.append("signature index must contain exactly 100 records")
     if signatures.get("data_fidelity") != "METADATA_ONLY":

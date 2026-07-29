@@ -1,6 +1,7 @@
 {
   "schema_version": "researchstudio-paper-signatures.v1",
-  "source_corpus": "E:/Project/Robotics-Research-Skill/corpus/public-paper-index.json",
+  "source_corpus": "corpus/public-paper-index.json",
+  "source_corpus_sha256": "16cbc61ab32a64ec62bd58ad7fabd82567192279f80c28c4be85a50cb44f9b71",
   "record_count": 100,
   "stage_contract": {
     "stage1_fields": [

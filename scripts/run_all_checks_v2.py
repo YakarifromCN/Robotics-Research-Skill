@@ -23,6 +23,7 @@ def main() -> int:
     run([python, "-B", "scripts/validate_venue_catalog_v2.py"])
     run([python, "-B", "scripts/validate_robotics_submanifold.py", "--catalog", "corpus/venue-catalog.v2.json"])
     run([python, "-B", "scripts/validate_public_paper_index.py"])
+    run([python, "-B", "scripts/check_portable_corpus_paths.py"])
     run([python, "-B", "scripts/calibrate_robotics_submanifold.py"])
     run([python, "-B", "-m", "unittest", "discover", "-s", "tests", "-p", "test_public_paper_index.py", "-v"])
     run([python, "-B", "-m", "unittest", "discover", "-s", "tests", "-p", "test_venue_catalog_v2.py", "-v"])
