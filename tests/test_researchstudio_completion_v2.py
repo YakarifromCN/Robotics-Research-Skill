@@ -24,7 +24,7 @@ class ResearchStudioCompletionV2(unittest.TestCase):
         self.assertEqual(self.signatures["record_count"], 100)
         self.assertEqual(
             self.signatures["fidelity_counts"],
-            {"FULLTEXT_EXTRACTED": 81, "METADATA_FALLBACK": 19},
+            {"FULLTEXT_EXTRACTED": 81, "FULLTEXT_WEB_VERIFIED": 19},
         )
         self.assertEqual(len({row["paper_id"] for row in self.signatures["records"]}), 100)
 

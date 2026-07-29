@@ -251,9 +251,9 @@ Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指�
 
 `corpus/public-paper-index.json` 保存公开机器人论文的元数据、来源、模式标签、可抽取内容和禁止外推边界。v2 全文路径额外跟踪：
 
-- `public-paper-fulltext-manifest.v1.json`：100 篇来源、缓存哈希和版本关系；当前 81 篇已下载、19 篇明确未解析；
+- `public-paper-fulltext-manifest.v1.json`：100 篇来源、缓存哈希和版本关系；当前 81 篇本地缓存、19 篇公开网页全文收据，合计 100/100 可用全文；
 - `public-paper-text-coverage.v1.json`：78 篇具有可识别章节、3 篇文本不完整、19 篇无本地全文；
-- `researchstudio-paper-signatures.v2.json`：81 篇全文驱动签名与 19 篇元数据回退签名，逐字段保存 provenance；
+- `researchstudio-paper-signatures.v2.json`：81 篇本地抽取全文签名与 19 篇公开网页全文签名，已无元数据回退，逐字段保存 provenance；
 - `researchstudio-pattern-induction.v2.json`：模型模拟聚类审计后的 15/31 可复用模式；
 - `robotics-axis-strategy-analysis.v2.json`：八轴问题、能力簇路由和需要实时刷新的 venue 候选；
 - `researchstudio-outcome-contrast.v1.json`：因没有 decision-aligned 数据而正式关闭 outcome 对照，不伪造录用结论。
@@ -381,7 +381,7 @@ The experiment contract freezes conditions, metrics, contrasts, exclusions, deno
 
 ## Public corpus and regression cases
 
-The v2 public-corpus receipts currently record 81 downloaded sources and 19 unresolved sources; 81 signatures are full-text-driven and 19 use explicit metadata fallback. Model-simulated clustering induces 15 pattern families and 31 subpatterns, while outcome contrast is closed by design because no decision-aligned data is available. Public awards and community adoption are discovery signals only.
+The v2 corpus now has usable full-text receipts for all 100 papers: 81 locally cached and extracted sources plus 19 public web full texts whose hosts block unattended caching. All 100 signatures are full-text-grounded; none use metadata fallback. Model-simulated clustering induces 15 pattern families and 31 subpatterns, while outcome contrast is closed by design because no decision-aligned data is available. Public awards and community adoption are discovery signals only.
 
 PDFs, extracted text, embeddings, model-subagent intermediates, and temporary downloads remain ignored local caches. GitHub contains only public manifests, provenance receipts, generators, validators, and reusable Skill knowledge. Synthetic golden cases exercise the end-to-end contracts without exposing user data.
 

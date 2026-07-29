@@ -7,7 +7,7 @@
     "signature_record_count": 100,
     "signature_fidelity_counts": {
       "FULLTEXT_EXTRACTED": 81,
-      "METADATA_FALLBACK": 19
+      "FULLTEXT_WEB_VERIFIED": 19
     },
     "pattern_induction_schema": "researchstudio-pattern-induction.v2",
     "pattern_library_schema": "researchstudio-robotics-pattern-cards.v1",
@@ -27,7 +27,7 @@
       "corpus_sample_count": 35,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 27,
-        "METADATA_FALLBACK": 8
+        "FULLTEXT_WEB_VERIFIED": 8
       },
       "best_posting_strategy": {
         "anchor_pattern": {
@@ -348,7 +348,7 @@
       "corpus_sample_count": 31,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 25,
-        "METADATA_FALLBACK": 6
+        "FULLTEXT_WEB_VERIFIED": 6
       },
       "best_posting_strategy": {
         "anchor_pattern": {
@@ -648,7 +648,7 @@
       "corpus_sample_count": 47,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 38,
-        "METADATA_FALLBACK": 9
+        "FULLTEXT_WEB_VERIFIED": 9
       },
       "best_posting_strategy": {
         "anchor_pattern": {
@@ -976,7 +976,7 @@
       "corpus_sample_count": 35,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 32,
-        "METADATA_FALLBACK": 3
+        "FULLTEXT_WEB_VERIFIED": 3
       },
       "best_posting_strategy": {
         "anchor_pattern": {
@@ -1287,7 +1287,7 @@
       "corpus_sample_count": 34,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 30,
-        "METADATA_FALLBACK": 4
+        "FULLTEXT_WEB_VERIFIED": 4
       },
       "best_posting_strategy": {
         "anchor_pattern": {
@@ -1604,7 +1604,7 @@
       "corpus_sample_count": 23,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 19,
-        "METADATA_FALLBACK": 4
+        "FULLTEXT_WEB_VERIFIED": 4
       },
       "best_posting_strategy": {
         "anchor_pattern": {
@@ -1920,7 +1920,7 @@
       "corpus_sample_count": 53,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 44,
-        "METADATA_FALLBACK": 9
+        "FULLTEXT_WEB_VERIFIED": 9
       },
       "best_posting_strategy": {
         "anchor_pattern": {
@@ -2243,7 +2243,7 @@
       "corpus_sample_count": 25,
       "signature_fidelity_counts": {
         "FULLTEXT_EXTRACTED": 20,
-        "METADATA_FALLBACK": 5
+        "FULLTEXT_WEB_VERIFIED": 5
       },
       "best_posting_strategy": {
         "anchor_pattern": {

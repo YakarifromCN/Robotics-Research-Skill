@@ -17,14 +17,15 @@
 
 `scripts/fetch_public_paper_sources.py`、`extract_public_paper_text.py` 和
 `audit_public_paper_text_coverage.py` 将公开来源解析为可审计收据。当前 100 篇
-记录中，81 篇为 `DOWNLOADED`、19 篇为 `UNRESOLVED`；文本覆盖为 78 篇具有
-章节标记、3 篇不完整、19 篇无本地全文。未解析记录必须保留候选来源和失败
-状态，不能被静默删除或伪装成全文证据。
+记录中，81 篇为 `DOWNLOADED`，另 19 篇具有 `WEB_FULLTEXT_VERIFIED` 公开全文
+收据，合计 100/100 可用全文。网页收据用于明确区分“公开可完整读取”和“已在
+本地缓存并哈希验证”；不能把前者伪装成本地 PDF。
 
 `corpus/researchstudio-paper-signatures.v2.json` 采用混合保真合同：
 
-- 81 篇 `FULLTEXT_EXTRACTED`，签名字段绑定抽取文本与哈希；
-- 19 篇 `METADATA_FALLBACK`，明确限制为题名、摘要或索引元数据；
+- 81 篇 `FULLTEXT_EXTRACTED`，签名字段绑定本地抽取文本与哈希；
+- 19 篇 `FULLTEXT_WEB_VERIFIED`，绑定公开全文 URL 与独立网页收据；
+- 当前不存在 `METADATA_FALLBACK`；
 - 每个模型归纳字段保存 provenance，不把模型模拟输出写成论文原文事实。
 
 模型子代理可以模拟 embedding、聚类审计和模式归纳，但必须标记

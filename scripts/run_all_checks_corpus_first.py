@@ -26,6 +26,7 @@ def main() -> int:
     run([python, "-B", "scripts/run_researchstudio_robotics_pipeline.py"])
     run([python, "-B", "scripts/validate_researchstudio_pattern_library.py"])
     run([python, "-B", "scripts/validate_robotics_axis_strategy_analysis.py"])
+    run([python, "-B", "scripts/validate_public_paper_fulltext_receipts.py"])
     run([python, "-B", "scripts/validate_researchstudio_signatures_v2.py"])
     run([python, "-B", "scripts/validate_simulated_researchstudio.py"])
     run([python, "-B", "scripts/validate_researchstudio_pattern_induction_v2.py"])

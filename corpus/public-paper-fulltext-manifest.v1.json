@@ -1,12 +1,12 @@
 {
   "schema_version": "robotics-public-paper-fulltext-manifest.v1",
-  "generated_at": "2026-07-29T08:50:07+00:00",
+  "generated_at": "2026-07-29T09:59:41+00:00",
   "source_index": "corpus/public-paper-index.json",
   "cache_policy": "PDFs are local ignored cache; manifest contains provenance and hashes only",
   "record_count": 100,
   "status_counts": {
     "DOWNLOADED": 81,
-    "UNRESOLVED": 19
+    "WEB_FULLTEXT_VERIFIED": 19
   },
   "records": [
     {
@@ -17,8 +17,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://roboticsproceedings.org/rss18/p012.pdf",
-      "checked_at": "2026-07-29T08:49:54+00:00",
-      "retrieved_at": "2026-07-29T08:49:57+00:00",
+      "checked_at": "2026-07-29T09:59:31+00:00",
+      "retrieved_at": "2026-07-29T09:59:33+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 10572388,
@@ -33,17 +33,17 @@
       "text_bytes": 85830,
       "text_sha256": "339871c88afcd90d83b3ab18d573b6074ac910d46cb209e10a6a1c9d7fe7cdc6",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:15+00:00"
     },
     {
       "paper_id": "C-A02",
       "title": "Goal Masked Diffusion Policies for Unified Navigation and Exploration",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://openreview.net/pdf?id=FhQRJW71h5",
       "source_override": false,
       "source_kind": "open_review_pdf",
       "final_publication_url": "https://openreview.net/forum?id=FhQRJW71h5",
-      "checked_at": "2026-07-29T08:49:56+00:00",
+      "checked_at": "2026-07-29T09:59:31+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -56,8 +56,10 @@
         "https://openreview.net/pdf?id=FhQRJW71h5",
         "https://openreview.net/forum?id=FhQRJW71h5"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -68,8 +70,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://roboticsproceedings.org/rss19/p008.pdf",
-      "checked_at": "2026-07-29T08:49:57+00:00",
-      "retrieved_at": "2026-07-29T08:49:59+00:00",
+      "checked_at": "2026-07-29T09:59:33+00:00",
+      "retrieved_at": "2026-07-29T09:59:33+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 9342978,
@@ -84,7 +86,7 @@
       "text_bytes": 93969,
       "text_sha256": "7ba8b4ec703728c6c6c0621e517fa64008d853017ca52faf6eb27e702cea88d9",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:15+00:00"
     },
     {
       "paper_id": "C-A04",
@@ -94,8 +96,8 @@
       "source_override": false,
       "source_kind": "open_preprint_and_author_record",
       "final_publication_url": "https://doi.org/10.1109/ICRA40945.2020.9196769",
-      "checked_at": "2026-07-29T08:49:57+00:00",
-      "retrieved_at": "2026-07-29T08:49:59+00:00",
+      "checked_at": "2026-07-29T09:59:33+00:00",
+      "retrieved_at": "2026-07-29T09:59:34+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 6228499,
@@ -110,7 +112,7 @@
       "text_bytes": 65386,
       "text_sha256": "88d1a452676d0eb5a4880b912ac24311d79d06923ad64ccdc4009f647ce6365a",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:15+00:00"
     },
     {
       "paper_id": "C-A05",
@@ -120,8 +122,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_record",
       "final_publication_url": "https://papers.nips.cc/paper/7090-hindsight-experience-replay",
-      "checked_at": "2026-07-29T08:49:57+00:00",
-      "retrieved_at": "2026-07-29T08:49:58+00:00",
+      "checked_at": "2026-07-29T09:59:34+00:00",
+      "retrieved_at": "2026-07-29T09:59:34+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2464277,
@@ -136,7 +138,7 @@
       "text_bytes": 60184,
       "text_sha256": "53178503f3effa7e1f2b3e79928b234c5c3f2e7427fa0718b00dcc895e71bef9",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:15+00:00"
     },
     {
       "paper_id": "C-A06",
@@ -146,8 +148,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA.2017.7989200",
-      "checked_at": "2026-07-29T08:49:58+00:00",
-      "retrieved_at": "2026-07-29T08:50:01+00:00",
+      "checked_at": "2026-07-29T09:59:34+00:00",
+      "retrieved_at": "2026-07-29T09:59:35+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3829051,
@@ -162,7 +164,7 @@
       "text_bytes": 59742,
       "text_sha256": "7316095c0006d643d18141a99921a45fe2ae2de46e37d056aa828a3454e0e916",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:15+00:00"
     },
     {
       "paper_id": "C-C01",
@@ -172,8 +174,8 @@
       "source_override": false,
       "source_kind": "public_author_pdf",
       "final_publication_url": "https://groups.csail.mit.edu/robotics-center/public_papers/Majumdar13.pdf",
-      "checked_at": "2026-07-29T08:49:39+00:00",
-      "retrieved_at": "2026-07-29T08:49:41+00:00",
+      "checked_at": "2026-07-29T09:59:17+00:00",
+      "retrieved_at": "2026-07-29T09:59:17+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2065628,
@@ -188,7 +190,7 @@
       "text_bytes": 55099,
       "text_sha256": "0fa5354101257f2396ed744a7710a26dba2b1863011bc834d5eba71b7886d0b2",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-C02",
@@ -198,8 +200,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160914",
-      "checked_at": "2026-07-29T08:49:40+00:00",
-      "retrieved_at": "2026-07-29T08:49:57+00:00",
+      "checked_at": "2026-07-29T09:59:17+00:00",
+      "retrieved_at": "2026-07-29T09:59:19+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 15267416,
@@ -214,7 +216,7 @@
       "text_bytes": 61123,
       "text_sha256": "638485c3b3d0118d044b52fbf1ca4673a68400b08db9f80777bd2f865bd645d3",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-C03",
@@ -224,8 +226,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160991",
-      "checked_at": "2026-07-29T08:49:41+00:00",
-      "retrieved_at": "2026-07-29T08:49:42+00:00",
+      "checked_at": "2026-07-29T09:59:17+00:00",
+      "retrieved_at": "2026-07-29T09:59:18+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 929439,
@@ -240,17 +242,17 @@
       "text_bytes": 70057,
       "text_sha256": "b054d6199feed64b091961b6c7cad711cb1dd614021299bb6a94963d29655c5e",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-C04",
       "title": "Safe Control using Vision-based Control Barrier Function",
-      "status": "UNRESOLVED",
-      "source_url": "https://researchportal.tuni.fi/en/publications/safe-control-using-vision-based-control-barrier-function-v-cbf/",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://researchportal.tuni.fi/files/92371727/ICRA2023_Revise.pdf",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160805",
-      "checked_at": "2026-07-29T08:49:41+00:00",
+      "checked_at": "2026-07-29T09:59:17+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -264,12 +266,14 @@
         "https://researchportal.tuni.fi/files/92371727/ICRA2023_Revise.pdf",
         "https://doi.org/10.1109/ICRA48891.2023.10160805"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://trepo.tuni.fi/bitstream/10024/150566/1/ICRA2023_Revise.pdf: HTTP Error 404: Not Found",
         "https://trepo.tuni.fi/bitstream/10024/150566/1/ICRA2023_Revise.pdf?sequence=1: HTTP Error 404: Not Found",
         "https://researchportal.tuni.fi/files/92371727/ICRA2023_Revise.pdf: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -280,8 +284,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://arxiv.org/abs/1909.02966",
-      "checked_at": "2026-07-29T08:49:42+00:00",
-      "retrieved_at": "2026-07-29T08:49:43+00:00",
+      "checked_at": "2026-07-29T09:59:18+00:00",
+      "retrieved_at": "2026-07-29T09:59:19+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 5884802,
@@ -296,7 +300,7 @@
       "text_bytes": 57265,
       "text_sha256": "e540b6171dc7239bdc5a2d80744457e432188be1d444401582da06d4127376ce",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-C06",
@@ -306,8 +310,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/CASE49439.2021.9551628",
-      "checked_at": "2026-07-29T08:49:42+00:00",
-      "retrieved_at": "2026-07-29T08:49:43+00:00",
+      "checked_at": "2026-07-29T09:59:19+00:00",
+      "retrieved_at": "2026-07-29T09:59:20+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3509913,
@@ -322,7 +326,7 @@
       "text_bytes": 86480,
       "text_sha256": "0efa5fe3a25e3f9d27ed67d62f02b7f41fbcb0851944be2715cbd493225b4363",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-C07",
@@ -332,8 +336,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10161379",
-      "checked_at": "2026-07-29T08:49:42+00:00",
-      "retrieved_at": "2026-07-29T08:49:43+00:00",
+      "checked_at": "2026-07-29T09:59:19+00:00",
+      "retrieved_at": "2026-07-29T09:59:20+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2148194,
@@ -348,7 +352,7 @@
       "text_bytes": 56882,
       "text_sha256": "9c143e6ce88474257ae1822430350be231eb84c9c995520c8baa37ac6ce6c9cb",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-D01",
@@ -358,8 +362,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://roboticsproceedings.org/rss19/p025.pdf",
-      "checked_at": "2026-07-29T08:49:46+00:00",
-      "retrieved_at": "2026-07-29T08:49:48+00:00",
+      "checked_at": "2026-07-29T09:59:24+00:00",
+      "retrieved_at": "2026-07-29T09:59:25+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3849707,
@@ -374,7 +378,7 @@
       "text_bytes": 91112,
       "text_sha256": "9130c3aa92ebc82009b47f6381dd8b14bba6e26a2518fce4d0182ed8c2fea5b2",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-D02",
@@ -384,8 +388,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://roboticsproceedings.org/rss18/p020.pdf",
-      "checked_at": "2026-07-29T08:49:47+00:00",
-      "retrieved_at": "2026-07-29T08:50:00+00:00",
+      "checked_at": "2026-07-29T09:59:24+00:00",
+      "retrieved_at": "2026-07-29T09:59:29+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 17314431,
@@ -400,7 +404,7 @@
       "text_bytes": 102485,
       "text_sha256": "20c84ab06c1e862ed4f18408e4bf89f679077330bef3f56b15764129a1f48096",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-D03",
@@ -410,8 +414,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA40945.2020.9196830",
-      "checked_at": "2026-07-29T08:49:47+00:00",
-      "retrieved_at": "2026-07-29T08:49:49+00:00",
+      "checked_at": "2026-07-29T09:59:25+00:00",
+      "retrieved_at": "2026-07-29T09:59:26+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1358074,
@@ -426,7 +430,7 @@
       "text_bytes": 50752,
       "text_sha256": "a2eb75f6d5f121da06c5a50d5acd33fa4065caf7d26756cda632978f398a4c38",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-D04",
@@ -436,8 +440,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_record",
       "final_publication_url": "https://ojs.aaai.org/index.php/ICAPS/article/view/6683",
-      "checked_at": "2026-07-29T08:49:48+00:00",
-      "retrieved_at": "2026-07-29T08:49:50+00:00",
+      "checked_at": "2026-07-29T09:59:25+00:00",
+      "retrieved_at": "2026-07-29T09:59:27+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2535090,
@@ -452,7 +456,7 @@
       "text_bytes": 79440,
       "text_sha256": "c7239ea216075b13ebd1f08bc176ee9ba51c7f51dd8443ba93339f080c653eed",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:08+00:00"
+      "extracted_at": "2026-07-29T10:07:16+00:00"
     },
     {
       "paper_id": "C-D05",
@@ -462,8 +466,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://www.ifaamas.org/Proceedings/aamas2016/papers/p147.pdf",
-      "checked_at": "2026-07-29T08:49:49+00:00",
-      "retrieved_at": "2026-07-29T08:49:51+00:00",
+      "checked_at": "2026-07-29T09:59:26+00:00",
+      "retrieved_at": "2026-07-29T09:59:28+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4334465,
@@ -478,7 +482,7 @@
       "text_bytes": 2276075,
       "text_sha256": "41cfb15896d1b24dd0f0f12c88ededc1daf79e0a2b5d1aad4016252ebe10819c",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:17+00:00"
     },
     {
       "paper_id": "C-D06",
@@ -488,8 +492,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://www.corl2022.org/accepted-papers",
-      "checked_at": "2026-07-29T08:49:50+00:00",
-      "retrieved_at": "2026-07-29T08:50:00+00:00",
+      "checked_at": "2026-07-29T09:59:27+00:00",
+      "retrieved_at": "2026-07-29T09:59:31+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 30270724,
@@ -504,7 +508,7 @@
       "text_bytes": 217587,
       "text_sha256": "e46fcaff742e34816a12eff5b27cc846d0ba8c46b3f2cbd73ce2554d03760139",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:17+00:00"
     },
     {
       "paper_id": "C-E01",
@@ -514,8 +518,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA48506.2021.9561781",
-      "checked_at": "2026-07-29T08:49:37+00:00",
-      "retrieved_at": "2026-07-29T08:49:38+00:00",
+      "checked_at": "2026-07-29T09:59:13+00:00",
+      "retrieved_at": "2026-07-29T09:59:14+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3873938,
@@ -530,7 +534,7 @@
       "text_bytes": 34972,
       "text_sha256": "c65ba6a0f9267a80394c502f2bab65c63cf5ea38c85aea0e29524e6051830748",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:17+00:00"
     },
     {
       "paper_id": "C-E02",
@@ -540,8 +544,8 @@
       "source_override": false,
       "source_kind": "public_author_pdf",
       "final_publication_url": "https://www.ieee-ras.org/images/conferences/ICRA/ICRA_Awards_Brochures/ICRA_Brochure_2018_v3.pdf",
-      "checked_at": "2026-07-29T08:49:37+00:00",
-      "retrieved_at": "2026-07-29T08:49:38+00:00",
+      "checked_at": "2026-07-29T09:59:13+00:00",
+      "retrieved_at": "2026-07-29T09:59:13+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 820775,
@@ -556,7 +560,7 @@
       "text_bytes": 55236,
       "text_sha256": "1028c7aac69d98844b0944a4993054f1147b78be511ad78ab7021096fb9e100e",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:17+00:00"
     },
     {
       "paper_id": "C-E03",
@@ -566,8 +570,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://www.roboticsproceedings.org/rss05/p1.pdf",
-      "checked_at": "2026-07-29T08:49:38+00:00",
-      "retrieved_at": "2026-07-29T08:49:44+00:00",
+      "checked_at": "2026-07-29T09:59:13+00:00",
+      "retrieved_at": "2026-07-29T09:59:17+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 6305554,
@@ -582,7 +586,7 @@
       "text_bytes": 74035,
       "text_sha256": "a9b8b11c7a45a60054a09f83b4e92753996dd6fe484956e8e5efca30fb99632c",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-E04",
@@ -592,8 +596,8 @@
       "source_override": false,
       "source_kind": "open_author_pdf",
       "final_publication_url": "https://www.seas.upenn.edu/~dineshj/publication/yang-2019-replab-2/yang-2019-replab-2.pdf",
-      "checked_at": "2026-07-29T08:49:38+00:00",
-      "retrieved_at": "2026-07-29T08:49:38+00:00",
+      "checked_at": "2026-07-29T09:59:14+00:00",
+      "retrieved_at": "2026-07-29T09:59:15+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3005520,
@@ -608,7 +612,7 @@
       "text_bytes": 58313,
       "text_sha256": "b699916c7f54aa9426cfb684ce5a9b4a1f78508f147434c864c88f0d4613fdaf",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-E05",
@@ -618,8 +622,8 @@
       "source_override": false,
       "source_kind": "public_author_pdf",
       "final_publication_url": "https://www.ri.cmu.edu/pub_files/2016/5/ICRA16_0686_FI.pdf",
-      "checked_at": "2026-07-29T08:49:38+00:00",
-      "retrieved_at": "2026-07-29T08:49:38+00:00",
+      "checked_at": "2026-07-29T09:59:14+00:00",
+      "retrieved_at": "2026-07-29T09:59:15+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1661425,
@@ -634,7 +638,7 @@
       "text_bytes": 77660,
       "text_sha256": "1405bc313053b7bcad8965e6615ce8d95774b4fc8047ce188b6242d282b34c69",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-E06",
@@ -644,8 +648,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://www.corl2021.org/accepted-papers",
-      "checked_at": "2026-07-29T08:49:38+00:00",
-      "retrieved_at": "2026-07-29T08:49:39+00:00",
+      "checked_at": "2026-07-29T09:59:15+00:00",
+      "retrieved_at": "2026-07-29T09:59:15+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2555001,
@@ -660,7 +664,7 @@
       "text_bytes": 70997,
       "text_sha256": "1a030ac5a74b0cda130b7006c199b6172cc6998dcd9f333ef808316383653243",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-H01",
@@ -670,8 +674,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://humanrobotinteraction.org/2024/accepted-papers/",
-      "checked_at": "2026-07-29T08:49:51+00:00",
-      "retrieved_at": "2026-07-29T08:49:54+00:00",
+      "checked_at": "2026-07-29T09:59:27+00:00",
+      "retrieved_at": "2026-07-29T09:59:29+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 5706431,
@@ -686,7 +690,7 @@
       "text_bytes": 72760,
       "text_sha256": "0c194dbfe8c44f58865683faaf2812ddf1ed1f4f763ec8ee622ec45bceeb995b",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-H02",
@@ -696,8 +700,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://humanrobotinteraction.org/2024/accepted-papers/",
-      "checked_at": "2026-07-29T08:49:51+00:00",
-      "retrieved_at": "2026-07-29T08:49:52+00:00",
+      "checked_at": "2026-07-29T09:59:28+00:00",
+      "retrieved_at": "2026-07-29T09:59:30+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2378256,
@@ -712,7 +716,7 @@
       "text_bytes": 102627,
       "text_sha256": "5116ff248f7b513946804d55208cffedc4d4f27d380fe35738dff1b6753fd402",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-H03",
@@ -722,8 +726,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://ieeexplore.ieee.org/document/9561378",
-      "checked_at": "2026-07-29T08:49:52+00:00",
-      "retrieved_at": "2026-07-29T08:49:54+00:00",
+      "checked_at": "2026-07-29T09:59:29+00:00",
+      "retrieved_at": "2026-07-29T09:59:31+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4982938,
@@ -738,7 +742,7 @@
       "text_bytes": 53099,
       "text_sha256": "ef3c7f7d2cd7b34a7332663f357d845c82f9a9d6b741f28f20801bbab122ca50",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-H04",
@@ -748,8 +752,8 @@
       "source_override": false,
       "source_kind": "open_author_pdf",
       "final_publication_url": "https://doi.org/10.1109/IROS47612.2022.9981426",
-      "checked_at": "2026-07-29T08:49:52+00:00",
-      "retrieved_at": "2026-07-29T08:49:54+00:00",
+      "checked_at": "2026-07-29T09:59:29+00:00",
+      "retrieved_at": "2026-07-29T09:59:31+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1289706,
@@ -764,7 +768,7 @@
       "text_bytes": 68636,
       "text_sha256": "eb47ada721d94dd68756f4734054abc3e1d7922c6d19a971f2c3c6299b72318c",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-H05",
@@ -774,8 +778,8 @@
       "source_override": false,
       "source_kind": "open_author_pdf",
       "final_publication_url": "https://arpi.unipi.it/handle/11568/999539",
-      "checked_at": "2026-07-29T08:49:54+00:00",
-      "retrieved_at": "2026-07-29T08:50:07+00:00",
+      "checked_at": "2026-07-29T09:59:30+00:00",
+      "retrieved_at": "2026-07-29T09:59:40+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4446614,
@@ -790,7 +794,7 @@
       "text_bytes": 75299,
       "text_sha256": "afac7f1612b65b8d2ee3c233b20319fb56f5eccf38815cedc544e639c6838db0",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-H06",
@@ -800,8 +804,8 @@
       "source_override": false,
       "source_kind": "open_author_pdf",
       "final_publication_url": "https://doi.org/10.1109/IROS.2015.7353495",
-      "checked_at": "2026-07-29T08:49:54+00:00",
-      "retrieved_at": "2026-07-29T08:50:04+00:00",
+      "checked_at": "2026-07-29T09:59:31+00:00",
+      "retrieved_at": "2026-07-29T09:59:40+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1479242,
@@ -816,7 +820,7 @@
       "text_bytes": 67625,
       "text_sha256": "29eae704050c644c6fdd04a597ad2900cd85667db202f6c82d50cc136440f97c",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-L01",
@@ -826,8 +830,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://proceedings.mlr.press/v229/shen23a.html",
-      "checked_at": "2026-07-29T08:49:42+00:00",
-      "retrieved_at": "2026-07-29T08:49:51+00:00",
+      "checked_at": "2026-07-29T09:59:20+00:00",
+      "retrieved_at": "2026-07-29T09:59:23+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 21786550,
@@ -842,7 +846,7 @@
       "text_bytes": 76839,
       "text_sha256": "5b4bd15461c8d8601d0560c843f3a4577c5b477f4a93d4a14a7f808ac3d54294",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-L02",
@@ -852,8 +856,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://proceedings.mlr.press/v229/shi23a.html",
-      "checked_at": "2026-07-29T08:49:43+00:00",
-      "retrieved_at": "2026-07-29T08:49:52+00:00",
+      "checked_at": "2026-07-29T09:59:20+00:00",
+      "retrieved_at": "2026-07-29T09:59:23+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 13878444,
@@ -868,7 +872,7 @@
       "text_bytes": 77009,
       "text_sha256": "8a92094e649c926fb7d4223af68f17b75ffcd065bc2ca870cafb9a269181b006",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:10+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-L03",
@@ -878,8 +882,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://proceedings.mlr.press/v229/ren23a.html",
-      "checked_at": "2026-07-29T08:49:43+00:00",
-      "retrieved_at": "2026-07-29T08:49:47+00:00",
+      "checked_at": "2026-07-29T09:59:21+00:00",
+      "retrieved_at": "2026-07-29T09:59:24+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 9182010,
@@ -894,7 +898,7 @@
       "text_bytes": 116261,
       "text_sha256": "d219ee5a7c1c43b77431d21b4e6dc4bd692cabab173b7167e3be83b77fc84208",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-L04",
@@ -904,8 +908,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://proceedings.mlr.press/v229/chi23a.html",
-      "checked_at": "2026-07-29T08:49:43+00:00",
-      "retrieved_at": "2026-07-29T08:49:47+00:00",
+      "checked_at": "2026-07-29T09:59:23+00:00",
+      "retrieved_at": "2026-07-29T09:59:24+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 6192199,
@@ -920,7 +924,7 @@
       "text_bytes": 148545,
       "text_sha256": "e2f1b4438ef6d7e96fdf9f403d08cbeccf79e4f5b39bc92b319872393a8567bb",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-L05",
@@ -930,8 +934,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://www.corl2022.org/accepted-papers",
-      "checked_at": "2026-07-29T08:49:43+00:00",
-      "retrieved_at": "2026-07-29T08:49:57+00:00",
+      "checked_at": "2026-07-29T09:59:23+00:00",
+      "retrieved_at": "2026-07-29T09:59:25+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 14672588,
@@ -946,7 +950,7 @@
       "text_bytes": 125645,
       "text_sha256": "14756aa0cdc46b0ce646408a293ec0c2fc41d5ea45c53eeb11e6501b41f06249",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-L06",
@@ -956,8 +960,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA57147.2024.10611477",
-      "checked_at": "2026-07-29T08:49:44+00:00",
-      "retrieved_at": "2026-07-29T08:49:46+00:00",
+      "checked_at": "2026-07-29T09:59:23+00:00",
+      "retrieved_at": "2026-07-29T09:59:24+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4011306,
@@ -972,7 +976,7 @@
       "text_bytes": 96026,
       "text_sha256": "f2b83d1485ae6a2a1e81c331ec7546a61c0aa4572208d5a7050cdadbca941adb",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:18+00:00"
     },
     {
       "paper_id": "C-L07",
@@ -982,8 +986,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://roboticsproceedings.org/rss19/p032.pdf",
-      "checked_at": "2026-07-29T08:49:46+00:00",
-      "retrieved_at": "2026-07-29T08:49:56+00:00",
+      "checked_at": "2026-07-29T09:59:24+00:00",
+      "retrieved_at": "2026-07-29T09:59:27+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 23395946,
@@ -998,7 +1002,7 @@
       "text_bytes": 163396,
       "text_sha256": "018294d5f720416a43df8269c646349ad030d666d4f581ebca82af2e1ccb39a6",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-P01",
@@ -1008,8 +1012,8 @@
       "source_override": false,
       "source_kind": "public_author_pdf",
       "final_publication_url": "https://doi.org/10.1109/ICRA.2017.7989203",
-      "checked_at": "2026-07-29T08:49:38+00:00",
-      "retrieved_at": "2026-07-29T08:49:39+00:00",
+      "checked_at": "2026-07-29T09:59:15+00:00",
+      "retrieved_at": "2026-07-29T09:59:15+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1161687,
@@ -1024,7 +1028,7 @@
       "text_bytes": 76677,
       "text_sha256": "0512e185a65ce21e998209d4e7f0b8893e261b240d41af862c9430318b5723f4",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-P02",
@@ -1034,8 +1038,8 @@
       "source_override": false,
       "source_kind": "public_preprint_and_author_pdf",
       "final_publication_url": "https://www.ijcai.org/Proceedings/16/Papers/624.pdf",
-      "checked_at": "2026-07-29T08:49:39+00:00",
-      "retrieved_at": "2026-07-29T08:49:39+00:00",
+      "checked_at": "2026-07-29T09:59:15+00:00",
+      "retrieved_at": "2026-07-29T09:59:16+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1071059,
@@ -1050,7 +1054,7 @@
       "text_bytes": 93955,
       "text_sha256": "1341739f49c8101023351e925d8e0eee3a4e45a3a1df214536a3f00e6f909b3f",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-P03",
@@ -1060,8 +1064,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA46639.2022.9811901",
-      "checked_at": "2026-07-29T08:49:39+00:00",
-      "retrieved_at": "2026-07-29T08:49:39+00:00",
+      "checked_at": "2026-07-29T09:59:15+00:00",
+      "retrieved_at": "2026-07-29T09:59:16+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1029536,
@@ -1076,7 +1080,7 @@
       "text_bytes": 58925,
       "text_sha256": "3729a679a2e98b17c4091768e60a870d0528fd13793d693a17c71d79ca0ebec1",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-P04",
@@ -1086,8 +1090,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://arxiv.org/abs/1907.13098",
-      "checked_at": "2026-07-29T08:49:39+00:00",
-      "retrieved_at": "2026-07-29T08:49:39+00:00",
+      "checked_at": "2026-07-29T09:59:16+00:00",
+      "retrieved_at": "2026-07-29T09:59:16+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1310418,
@@ -1102,7 +1106,7 @@
       "text_bytes": 63982,
       "text_sha256": "964b297856eb7607734bb79ea755624df78df1f67c0ccf4fe4b4640f912854fd",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-P05",
@@ -1112,8 +1116,8 @@
       "source_override": false,
       "source_kind": "open_proceedings_pdf",
       "final_publication_url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Vendrow_JRDB-Pose_A_Large-Scale_Dataset_for_Multi-Person_Pose_Estimation_and_Tracking_CVPR_2023_paper.pdf",
-      "checked_at": "2026-07-29T08:49:39+00:00",
-      "retrieved_at": "2026-07-29T08:49:42+00:00",
+      "checked_at": "2026-07-29T09:59:16+00:00",
+      "retrieved_at": "2026-07-29T09:59:21+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 20211804,
@@ -1128,7 +1132,7 @@
       "text_bytes": 96651,
       "text_sha256": "f646392d57daa8aa468eb85e543f501b766e4dae3e34f738b31c5d8e24ff1fe7",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-P06",
@@ -1138,8 +1142,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://jrdb.erc.monash.edu/",
-      "checked_at": "2026-07-29T08:49:39+00:00",
-      "retrieved_at": "2026-07-29T08:49:40+00:00",
+      "checked_at": "2026-07-29T09:59:16+00:00",
+      "retrieved_at": "2026-07-29T09:59:17+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1977180,
@@ -1154,7 +1158,7 @@
       "text_bytes": 83815,
       "text_sha256": "caa9a7a561488498dbc8681ddf0dab2185ac2f4b1fd0ad496d0086605cadc8af",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-S01",
@@ -1164,8 +1168,8 @@
       "source_override": false,
       "source_kind": "public_author_pdf",
       "final_publication_url": "https://ai.stanford.edu/~ang/papers/icraoss09-ROS.pdf",
-      "checked_at": "2026-07-29T08:49:59+00:00",
-      "retrieved_at": "2026-07-29T08:50:01+00:00",
+      "checked_at": "2026-07-29T09:59:34+00:00",
+      "retrieved_at": "2026-07-29T09:59:36+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 453656,
@@ -1180,7 +1184,7 @@
       "text_bytes": 34797,
       "text_sha256": "fd625f7debf9036252b5b61fc2d7a07bdaa0e1e0e10cbbb6e9f51800a50b3f08",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-S02",
@@ -1190,8 +1194,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160874",
-      "checked_at": "2026-07-29T08:49:59+00:00",
-      "retrieved_at": "2026-07-29T08:50:00+00:00",
+      "checked_at": "2026-07-29T09:59:35+00:00",
+      "retrieved_at": "2026-07-29T09:59:36+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4417038,
@@ -1206,7 +1210,7 @@
       "text_bytes": 64972,
       "text_sha256": "60ed174dddfb9b97e2142edc733b23f47211cf12f57d1e7023ed7582eba506c8",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-S03",
@@ -1216,8 +1220,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/DSN.2019.00027",
-      "checked_at": "2026-07-29T08:49:59+00:00",
-      "retrieved_at": "2026-07-29T08:50:01+00:00",
+      "checked_at": "2026-07-29T09:59:36+00:00",
+      "retrieved_at": "2026-07-29T09:59:36+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3267151,
@@ -1232,7 +1236,7 @@
       "text_bytes": 101141,
       "text_sha256": "4ab69a77e6c02291ef1178b5810cad06eb677f4ec2676a500f8cdbe342a437cf",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-S04",
@@ -1242,8 +1246,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1007/978-3-030-60508-7_10",
-      "checked_at": "2026-07-29T08:50:00+00:00",
-      "retrieved_at": "2026-07-29T08:50:00+00:00",
+      "checked_at": "2026-07-29T09:59:36+00:00",
+      "retrieved_at": "2026-07-29T09:59:37+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1242488,
@@ -1258,7 +1262,7 @@
       "text_bytes": 31034,
       "text_sha256": "48fca7ae22d9c6d670287466a6a977959a71a37c79eab2c85cd872cc57934e71",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-S05",
@@ -1268,8 +1272,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/IROS47612.2022.9982082",
-      "checked_at": "2026-07-29T08:50:00+00:00",
-      "retrieved_at": "2026-07-29T08:50:01+00:00",
+      "checked_at": "2026-07-29T09:59:36+00:00",
+      "retrieved_at": "2026-07-29T09:59:37+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 514824,
@@ -1284,7 +1288,7 @@
       "text_bytes": 59908,
       "text_sha256": "dabc76bcbc79d59520395b05c9b5e4748a1f9c8d9094a49161a8ce2e09999b11",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "C-S06",
@@ -1294,8 +1298,8 @@
       "source_override": true,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://publikationen.bibliothek.kit.edu/1000135281",
-      "checked_at": "2026-07-29T08:50:00+00:00",
-      "retrieved_at": "2026-07-29T08:50:05+00:00",
+      "checked_at": "2026-07-29T09:59:37+00:00",
+      "retrieved_at": "2026-07-29T09:59:41+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1799555,
@@ -1310,7 +1314,7 @@
       "text_bytes": 52098,
       "text_sha256": "fc07f3fae8582155ab7f5f7b59e5dc3ed7e1bcf6b8845a69acf93a8ccbba35e2",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "J-A01",
@@ -1320,8 +1324,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1126/scirobotics.abm6074",
-      "checked_at": "2026-07-29T08:49:33+00:00",
-      "retrieved_at": "2026-07-29T08:49:35+00:00",
+      "checked_at": "2026-07-29T09:59:08+00:00",
+      "retrieved_at": "2026-07-29T09:59:09+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 17403974,
@@ -1336,7 +1340,7 @@
       "text_bytes": 93756,
       "text_sha256": "c7ccd578f831e014b7e739bb0ea01e8877abb8e6b9d2e59c78322f88a1386a37",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "J-A02",
@@ -1346,8 +1350,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2019.2931823",
-      "checked_at": "2026-07-29T08:49:33+00:00",
-      "retrieved_at": "2026-07-29T08:49:36+00:00",
+      "checked_at": "2026-07-29T09:59:08+00:00",
+      "retrieved_at": "2026-07-29T09:59:10+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4974393,
@@ -1362,7 +1366,7 @@
       "text_bytes": 59960,
       "text_sha256": "96c05479b56db6fc79aa1b5fb242b13cf3eeb5e641ea92a86e2f07c94a587d2e",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "J-A03",
@@ -1372,8 +1376,8 @@
       "source_override": false,
       "source_kind": "accepted_author_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2018.2856526",
-      "checked_at": "2026-07-29T08:49:34+00:00",
-      "retrieved_at": "2026-07-29T08:49:43+00:00",
+      "checked_at": "2026-07-29T09:59:08+00:00",
+      "retrieved_at": "2026-07-29T09:59:13+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4739274,
@@ -1388,7 +1392,7 @@
       "text_bytes": 66287,
       "text_sha256": "20dc5bd6ced02ec08ecd5868a4777c0d8ea75b538e8c578264b3885e8f467dcb",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:11+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "J-A04",
@@ -1398,8 +1402,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2022.3193464",
-      "checked_at": "2026-07-29T08:49:34+00:00",
-      "retrieved_at": "2026-07-29T08:49:35+00:00",
+      "checked_at": "2026-07-29T09:59:09+00:00",
+      "retrieved_at": "2026-07-29T09:59:10+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 5399010,
@@ -1414,7 +1418,7 @@
       "text_bytes": 66451,
       "text_sha256": "e3eac7278c3f655fccdcf1f5bc51b46e95dfc54a1e374e91ab8425cb11320309",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:12+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "J-A05",
@@ -1425,8 +1429,8 @@
       "landing_url": "https://link.springer.com/article/10.1007/s10514-019-09842-7",
       "source_kind": "open_full_text_record",
       "final_publication_url": "https://doi.org/10.1007/s10514-019-09842-7",
-      "checked_at": "2026-07-29T08:49:34+00:00",
-      "retrieved_at": "2026-07-29T08:49:37+00:00",
+      "checked_at": "2026-07-29T09:59:10+00:00",
+      "retrieved_at": "2026-07-29T09:59:12+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3839964,
@@ -1442,7 +1446,7 @@
       "text_bytes": 108562,
       "text_sha256": "9561df2709f3eb41406f7348dbb4b4610e5e45c244780029ec2e10f31f55378c",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:12+00:00"
+      "extracted_at": "2026-07-29T10:07:19+00:00"
     },
     {
       "paper_id": "J-A06",
@@ -1452,8 +1456,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/RAP.2026.3687493",
-      "checked_at": "2026-07-29T08:49:35+00:00",
-      "retrieved_at": "2026-07-29T08:49:35+00:00",
+      "checked_at": "2026-07-29T09:59:10+00:00",
+      "retrieved_at": "2026-07-29T09:59:11+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2332184,
@@ -1468,7 +1472,7 @@
       "text_bytes": 82097,
       "text_sha256": "cda2dbc1f15b8264c674d12c3f16d094fe60d4dbab284b016ca09ad7e38fc916",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:12+00:00"
+      "extracted_at": "2026-07-29T10:07:20+00:00"
     },
     {
       "paper_id": "J-C01",
@@ -1478,8 +1482,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2020.3048875",
-      "checked_at": "2026-07-29T08:49:25+00:00",
-      "retrieved_at": "2026-07-29T08:49:26+00:00",
+      "checked_at": "2026-07-29T09:58:55+00:00",
+      "retrieved_at": "2026-07-29T09:58:57+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 5382278,
@@ -1494,7 +1498,7 @@
       "text_bytes": 69379,
       "text_sha256": "5c198cf7a1fd30626f2350c6edab88d467a99e7a5cc4e692cd7eea262f6ed2be",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:12+00:00"
+      "extracted_at": "2026-07-29T10:07:20+00:00"
     },
     {
       "paper_id": "J-C02",
@@ -1504,8 +1508,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TRO.2019.2923880",
-      "checked_at": "2026-07-29T08:49:25+00:00",
-      "retrieved_at": "2026-07-29T08:49:27+00:00",
+      "checked_at": "2026-07-29T09:58:56+00:00",
+      "retrieved_at": "2026-07-29T09:58:59+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4669961,
@@ -1520,7 +1524,7 @@
       "text_bytes": 115219,
       "text_sha256": "ab7bf4298cd30a330fb2f25d85abe8e1da5bdc0e0eefadd553d26d16efdca43d",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:12+00:00"
+      "extracted_at": "2026-07-29T10:07:20+00:00"
     },
     {
       "paper_id": "J-C03",
@@ -1530,8 +1534,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2023.3325782",
-      "checked_at": "2026-07-29T08:49:26+00:00",
-      "retrieved_at": "2026-07-29T08:49:33+00:00",
+      "checked_at": "2026-07-29T09:58:57+00:00",
+      "retrieved_at": "2026-07-29T09:59:00+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 19119521,
@@ -1546,17 +1550,17 @@
       "text_bytes": 60943,
       "text_sha256": "fb8027148cf0fca3be5cd7a15a6c577abd9d708c5023db642e285b8a5fe56bea",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:12+00:00"
+      "extracted_at": "2026-07-29T10:07:20+00:00"
     },
     {
       "paper_id": "J-C04",
       "title": "Grasping Without Squeezing",
-      "status": "UNRESOLVED",
-      "source_url": "https://escholarship.org/uc/item/24t5b9vm",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://escholarship.org/content/qt24t5b9vm/qt24t5b9vm_noSplash_427028add7e77207a9b3b94a8efbf575.pdf?t=papziy",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/TRO.2017.2776312",
-      "checked_at": "2026-07-29T08:49:26+00:00",
+      "checked_at": "2026-07-29T09:58:58+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -1568,22 +1572,24 @@
         "https://escholarship.org/uc/item/24t5b9vm",
         "https://doi.org/10.1109/TRO.2017.2776312"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://escholarship.org/content/qt24t5b9vm/qt24t5b9vm_noSplash_427028add7e77207a9b3b94a8efbf575.pdf?t=papziy: HTTP Error 403: Forbidden",
         "https://escholarship.org/uc/item/24t5b9vm: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
       "paper_id": "J-C05",
       "title": "Experimental Characterization and Modeling of the Self-Sensing Property in Compliant Twisted String Actuators",
-      "status": "UNRESOLVED",
-      "source_url": "https://ieeexplore.ieee.org/document/9360185",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://www.researchgate.net/publication/348999771_Experimental_Characterization_and_Modeling_of_the_Self-Sensing_Property_in_Compliant_Twisted_String_Actuators",
       "source_override": false,
       "source_kind": "open_author_or_ieee_record",
       "final_publication_url": "https://doi.org/10.1109/LRA.2021.3056372",
-      "checked_at": "2026-07-29T08:49:26+00:00",
+      "checked_at": "2026-07-29T09:58:59+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -1595,19 +1601,21 @@
         "https://ieeexplore.ieee.org/document/9360185",
         "https://doi.org/10.1109/LRA.2021.3056372"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
       "paper_id": "J-C06",
       "title": "Model-Less Hybrid Position/Force Control: A Minimalist Approach for Continuum Manipulators in Unknown, Constrained Environments",
-      "status": "UNRESOLVED",
-      "source_url": "https://ucsdarclab.com/autopublication/model-less-hybrid-position-force-control-a-minimalist-approach-for-continuum-manipulators-in-unknown-constrained-environments/",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://www.ucsdarclab.com/_files/ugd/e4c3d0_12d0605b188248f8b97dfb0547a43248.pdf",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/LRA.2016.2526062",
-      "checked_at": "2026-07-29T08:49:27+00:00",
+      "checked_at": "2026-07-29T09:58:59+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -1618,8 +1626,10 @@
         "https://ucsdarclab.com/autopublication/model-less-hybrid-position-force-control-a-minimalist-approach-for-continuum-manipulators-in-unknown-constrained-environments/",
         "https://doi.org/10.1109/LRA.2016.2526062"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -1630,8 +1640,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1177/0278364911406761",
-      "checked_at": "2026-07-29T08:49:29+00:00",
-      "retrieved_at": "2026-07-29T08:49:30+00:00",
+      "checked_at": "2026-07-29T09:59:02+00:00",
+      "retrieved_at": "2026-07-29T09:59:03+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 10197043,
@@ -1646,7 +1656,7 @@
       "text_bytes": 287512,
       "text_sha256": "2f6bdfaab1db899fe203d1d63f43ca0635371bf74b7ca0f5838881c45b7eaf83",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-D02",
@@ -1656,8 +1666,8 @@
       "source_override": true,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1177/0278364914528132",
-      "checked_at": "2026-07-29T08:49:29+00:00",
-      "retrieved_at": "2026-07-29T08:49:42+00:00",
+      "checked_at": "2026-07-29T09:59:02+00:00",
+      "retrieved_at": "2026-07-29T09:59:08+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 12651080,
@@ -1672,17 +1682,17 @@
       "text_bytes": 133964,
       "text_sha256": "a9e9976dbaaaf8150f949a06e344afb4918cebf7d544d579ad266c3b39a93599",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-D03",
       "title": "Manipulation Planning for Deformable Linear Objects",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects",
       "source_override": false,
       "source_kind": "public_author_record",
       "final_publication_url": "https://doi.org/10.1109/TRO.2007.907486",
-      "checked_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:02+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -1693,21 +1703,23 @@
         "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects",
         "https://doi.org/10.1109/TRO.2007.907486"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
       "paper_id": "J-D04",
       "title": "Rapidly Exploring Random Cycles: A New Approach to Coverage of Unknown Environments",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf",
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TRO.2016.2596772",
-      "checked_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:02+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -1718,10 +1730,12 @@
         "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf",
         "https://doi.org/10.1109/TRO.2016.2596772"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf: HTTP Error 404: Not Found"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -1732,8 +1746,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TRO.2021.3137751",
-      "checked_at": "2026-07-29T08:49:30+00:00",
-      "retrieved_at": "2026-07-29T08:49:32+00:00",
+      "checked_at": "2026-07-29T09:59:02+00:00",
+      "retrieved_at": "2026-07-29T09:59:04+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 17890930,
@@ -1748,7 +1762,7 @@
       "text_bytes": 140873,
       "text_sha256": "ed81a8dcd0ec4d7a7cda22d8fed31d62374acf3d52fece54a6471bdd969e71d6",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-D06",
@@ -1758,8 +1772,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2019.2961051",
-      "checked_at": "2026-07-29T08:49:30+00:00",
-      "retrieved_at": "2026-07-29T08:49:31+00:00",
+      "checked_at": "2026-07-29T09:59:03+00:00",
+      "retrieved_at": "2026-07-29T09:59:04+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1956697,
@@ -1774,17 +1788,17 @@
       "text_bytes": 64035,
       "text_sha256": "133ceae4751c63e1479f2ece81dac18f367c68f0c4aea4e42610bb9436b2dc95",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-E01",
       "title": "Design and Control of Concentric-Tube Robots",
-      "status": "UNRESOLVED",
-      "source_url": "https://dash.harvard.edu/handle/1/37372563",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3022350/",
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TRO.2009.2035740",
-      "checked_at": "2026-07-29T08:49:23+00:00",
+      "checked_at": "2026-07-29T09:58:50+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -1796,22 +1810,24 @@
         "https://dash.harvard.edu/handle/1/37372563",
         "https://doi.org/10.1109/TRO.2009.2035740"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://dash.harvard.edu/bitstreams/7312037e-7c44-6bd4-e053-0100007fdf3b/download: HTTP Error 405: Not Allowed",
         "https://dash.harvard.edu/handle/1/37372563: HTTP Error 405: Not Allowed"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
       "paper_id": "J-E02",
       "title": "Compliant Aerial Manipulators: Toward a New Generation of Aerial Robotic Workers",
-      "status": "UNRESOLVED",
-      "source_url": "https://research.utwente.nl/en/publications/8d934700-5acf-4cbb-9417-8c71ecf07a42",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://ris.utwente.nl/ws/files/78260376/Bartelds2016.pdf",
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2016.2519948",
-      "checked_at": "2026-07-29T08:49:23+00:00",
+      "checked_at": "2026-07-29T09:58:50+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -1824,11 +1840,13 @@
         "https://research.utwente.nl/files/78260376/Bartelds2016.pdf",
         "https://doi.org/10.1109/LRA.2016.2519948"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://scispace.com/pdf/compliant-aerial-manipulators-toward-a-new-generation-of-5bq91g9jjt.pdf: HTTP Error 403: Forbidden",
         "https://research.utwente.nl/files/78260376/Bartelds2016.pdf: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -1839,8 +1857,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2020.3003870",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:33+00:00",
+      "checked_at": "2026-07-29T09:58:50+00:00",
+      "retrieved_at": "2026-07-29T09:58:54+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3000210,
@@ -1855,7 +1873,7 @@
       "text_bytes": 65138,
       "text_sha256": "b6109c6bee4dd809a91b06803c2332b09a07339fcc5c503ce4fa5ff2ff315d3e",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-E04",
@@ -1865,8 +1883,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2024.3446287",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:24+00:00",
+      "checked_at": "2026-07-29T09:58:50+00:00",
+      "retrieved_at": "2026-07-29T09:58:50+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3136421,
@@ -1881,7 +1899,7 @@
       "text_bytes": 73155,
       "text_sha256": "ff94adf39a018ccf6d8177dd8d35d7af13aad2ad0b7b763fc2dd980f6fb15c4e",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-E05",
@@ -1891,8 +1909,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1126/scirobotics.aau5872",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:25+00:00",
+      "checked_at": "2026-07-29T09:58:50+00:00",
+      "retrieved_at": "2026-07-29T09:58:52+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 7975310,
@@ -1907,7 +1925,7 @@
       "text_bytes": 109784,
       "text_sha256": "003562e9528420195697a9b766c6ff5c45d3aa0f94b49f36ffe9128c419bdc37",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-E06",
@@ -1917,8 +1935,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1126/scirobotics.abc5986",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:23+00:00",
+      "checked_at": "2026-07-29T09:58:51+00:00",
+      "retrieved_at": "2026-07-29T09:58:51+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2112594,
@@ -1933,7 +1951,7 @@
       "text_bytes": 133366,
       "text_sha256": "54afeb12d3535fdd2320ca8586eb4af1fe7cc682e8b4ab653b5bcf7598fbc0e7",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:13+00:00"
+      "extracted_at": "2026-07-29T10:07:21+00:00"
     },
     {
       "paper_id": "J-E07",
@@ -1944,8 +1962,8 @@
       "landing_url": "https://link.springer.com/article/10.1007/s10514-018-9804-8",
       "source_kind": "open_full_text_record",
       "final_publication_url": "https://doi.org/10.1007/s10514-018-9804-8",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:27+00:00",
+      "checked_at": "2026-07-29T09:58:51+00:00",
+      "retrieved_at": "2026-07-29T09:58:55+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3018605,
@@ -1961,7 +1979,7 @@
       "text_bytes": 97101,
       "text_sha256": "f94a2fc31695762a49ab0f3970d81e1d47e89e93db167dbcf91b606eabac3f68",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-H01",
@@ -1971,8 +1989,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TOH.2020.2966485",
-      "checked_at": "2026-07-29T08:49:30+00:00",
-      "retrieved_at": "2026-07-29T08:49:32+00:00",
+      "checked_at": "2026-07-29T09:59:03+00:00",
+      "retrieved_at": "2026-07-29T09:59:04+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 4922414,
@@ -1987,17 +2005,17 @@
       "text_bytes": 63717,
       "text_sha256": "27517b923abbec1519cb5e70491dad052f0ffb7bbafcf44f93c0024b1ca70792",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-H02",
       "title": "Effects of Grip-Force, Contact, and Acceleration Feedback on Teleoperation of a Robot Arm",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://is.mpg.de/ics/publications/khurshid17-th-feedback",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/TOH.2016.2573301",
-      "checked_at": "2026-07-29T08:49:31+00:00",
+      "checked_at": "2026-07-29T09:59:04+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2008,8 +2026,10 @@
         "https://is.mpg.de/ics/publications/khurshid17-th-feedback",
         "https://doi.org/10.1109/TOH.2016.2573301"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -2020,8 +2040,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1177/0278364912464668",
-      "checked_at": "2026-07-29T08:49:31+00:00",
-      "retrieved_at": "2026-07-29T08:49:39+00:00",
+      "checked_at": "2026-07-29T09:59:04+00:00",
+      "retrieved_at": "2026-07-29T09:59:11+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2279010,
@@ -2036,17 +2056,17 @@
       "text_bytes": 133625,
       "text_sha256": "95014f36fc82481dbfa4c3373b894b680c00e63893f71586db608255b6db1e2c",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-H04",
       "title": "Reduced-complexity representation of human arm active endpoint stiffness",
-      "status": "UNRESOLVED",
-      "source_url": "https://journals.sagepub.com/doi/10.1177/0278364917744035",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://arpi.unipi.it/bitstream/11568/996027/1/0278364917744035.pdf",
       "source_override": false,
       "source_kind": "open_full_text_record",
       "final_publication_url": "https://doi.org/10.1177/0278364917744035",
-      "checked_at": "2026-07-29T08:49:32+00:00",
+      "checked_at": "2026-07-29T09:59:04+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2058,12 +2078,14 @@
         "https://journals.sagepub.com/doi/10.1177/0278364917744035",
         "https://doi.org/10.1177/0278364917744035"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://arpi.unipi.it/bitstream/11568/996027/1/0278364917744035.pdf: HTTP Error 403: Forbidden",
         "https://journals.sagepub.com/doi/10.1177/0278364917744035: HTTP Error 403: Forbidden",
         "https://doi.org/10.1177/0278364917744035: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -2074,8 +2096,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TRO.2011.2158251",
-      "checked_at": "2026-07-29T08:49:32+00:00",
-      "retrieved_at": "2026-07-29T08:49:42+00:00",
+      "checked_at": "2026-07-29T09:59:06+00:00",
+      "retrieved_at": "2026-07-29T09:59:08+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1360547,
@@ -2090,17 +2112,17 @@
       "text_bytes": 92989,
       "text_sha256": "7a05929b64c54b4f442ea36f69f6eb558ec6b4efdae1dde9d6e79a67a7ef3c48",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-H06",
       "title": "2.5D Laser-Cutting-Based Customized Fabrication of Long-Term Wearable Textile sEMG Sensor: From Design to Intention Recognition",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://koasas.kaist.ac.kr/handle/10203/298093",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/LRA.2022.3190620",
-      "checked_at": "2026-07-29T08:49:33+00:00",
+      "checked_at": "2026-07-29T09:59:07+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2111,8 +2133,10 @@
         "https://koasas.kaist.ac.kr/handle/10203/298093",
         "https://doi.org/10.1109/LRA.2022.3190620"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -2123,8 +2147,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2019.2956365",
-      "checked_at": "2026-07-29T08:49:27+00:00",
-      "retrieved_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:00+00:00",
+      "retrieved_at": "2026-07-29T09:59:01+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 8426861,
@@ -2139,7 +2163,7 @@
       "text_bytes": 100479,
       "text_sha256": "a8a3d4626be57696d3f19a0481a39c6b0d88784ff10509c9df1c2a6b048945f9",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-L02",
@@ -2149,8 +2173,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2022.3180108",
-      "checked_at": "2026-07-29T08:49:27+00:00",
-      "retrieved_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:01+00:00",
+      "retrieved_at": "2026-07-29T09:59:01+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2092247,
@@ -2165,7 +2189,7 @@
       "text_bytes": 71017,
       "text_sha256": "b09ec73283fdb5c2d5dfdca91dbec08bfa9abc3b5fecc30deceed2f5f0bc2db0",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-L03",
@@ -2175,8 +2199,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2022.3143311",
-      "checked_at": "2026-07-29T08:49:28+00:00",
-      "retrieved_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:01+00:00",
+      "retrieved_at": "2026-07-29T09:59:02+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 1687537,
@@ -2191,17 +2215,17 @@
       "text_bytes": 161661,
       "text_sha256": "a9dbee4ef0e0bcf1bbe86189627964047bd1f08eadc6a128610237b8710bc4d7",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-L04",
       "title": "Bimanual Handling of Deformable Objects With Hybrid Adhesion",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://snu.elsevierpure.com/en/publications/bimanual-handling-of-deformable-objects-with-hybrid-adhesion",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/LRA.2022.3158231",
-      "checked_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:01+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2212,8 +2236,10 @@
         "https://snu.elsevierpure.com/en/publications/bimanual-handling-of-deformable-objects-with-hybrid-adhesion",
         "https://doi.org/10.1109/LRA.2022.3158231"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -2224,8 +2250,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TRO.2020.2988642",
-      "checked_at": "2026-07-29T08:49:29+00:00",
-      "retrieved_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:01+00:00",
+      "retrieved_at": "2026-07-29T09:59:02+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3122292,
@@ -2240,17 +2266,17 @@
       "text_bytes": 100391,
       "text_sha256": "f476e3cfd47bcab365ede2581b8961b8001c2f38fc70e4df082147bac9b0f506",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-L06",
       "title": "Adaptive Neural Computed Torque Control for Robot Joints With Asymmetric Friction Model",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://sri-lab.com/publication/luo2024adaptive/",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/LRA.2024.3512372",
-      "checked_at": "2026-07-29T08:49:29+00:00",
+      "checked_at": "2026-07-29T09:59:01+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2261,8 +2287,10 @@
         "https://sri-lab.com/publication/luo2024adaptive/",
         "https://doi.org/10.1109/LRA.2024.3512372"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -2273,8 +2301,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2023.3236571",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:23+00:00",
+      "checked_at": "2026-07-29T09:58:52+00:00",
+      "retrieved_at": "2026-07-29T09:58:52+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 2379281,
@@ -2289,7 +2317,7 @@
       "text_bytes": 66883,
       "text_sha256": "d8cdff92c9c02f8598d5603134c61f1720fc1d564657b40009fa0bab83545c6d",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-P02",
@@ -2299,8 +2327,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://umautobots.github.io/loner/",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:25+00:00",
+      "checked_at": "2026-07-29T09:58:52+00:00",
+      "retrieved_at": "2026-07-29T09:58:53+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 7380617,
@@ -2315,17 +2343,17 @@
       "text_bytes": 60468,
       "text_sha256": "95cc56f2b7a9d43175f828f94e804cbff34b0f5d5f9a3208fbd8d886c41a1df3",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-P03",
       "title": "H2-Mapping: Real-Time Dense Mapping Using Hierarchical Hybrid Representation",
-      "status": "UNRESOLVED",
-      "source_url": "https://researchportal.hkust.edu.hk/en/publications/h2-mapping-real-time-dense-mapping-using-hierarchical-hybrid-repr/",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://arxiv.org/pdf/2306.03207.pdf",
       "source_override": false,
       "source_kind": "institutional_public_record",
       "final_publication_url": "https://doi.org/10.1109/LRA.2023.3313051",
-      "checked_at": "2026-07-29T08:49:23+00:00",
+      "checked_at": "2026-07-29T09:58:53+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2336,8 +2364,10 @@
         "https://researchportal.hkust.edu.hk/en/publications/h2-mapping-real-time-dense-mapping-using-hierarchical-hybrid-repr/",
         "https://doi.org/10.1109/LRA.2023.3313051"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -2348,8 +2378,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2022.3182096",
-      "checked_at": "2026-07-29T08:49:23+00:00",
-      "retrieved_at": "2026-07-29T08:49:25+00:00",
+      "checked_at": "2026-07-29T09:58:54+00:00",
+      "retrieved_at": "2026-07-29T09:58:55+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 7354176,
@@ -2364,7 +2394,7 @@
       "text_bytes": 78597,
       "text_sha256": "378f1fc8cc33378914225cab8b8971e19ec1c5c6b1079df7c6139b1a30318acd",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-P05",
@@ -2374,8 +2404,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/LRA.2019.2961050",
-      "checked_at": "2026-07-29T08:49:24+00:00",
-      "retrieved_at": "2026-07-29T08:49:34+00:00",
+      "checked_at": "2026-07-29T09:58:54+00:00",
+      "retrieved_at": "2026-07-29T09:59:01+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 5852672,
@@ -2390,7 +2420,7 @@
       "text_bytes": 56895,
       "text_sha256": "3699fc77e0bb8ec014573d2f98d32bbad42abd8f495465140f378181ebb3378d",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-P06",
@@ -2400,8 +2430,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TRO.2016.2597321",
-      "checked_at": "2026-07-29T08:49:25+00:00",
-      "retrieved_at": "2026-07-29T08:49:26+00:00",
+      "checked_at": "2026-07-29T09:58:55+00:00",
+      "retrieved_at": "2026-07-29T09:58:56+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 3816161,
@@ -2416,7 +2446,7 @@
       "text_bytes": 209499,
       "text_sha256": "7b1274aba41052b363dc9662a43278ae73caf97ff6fd5d20cb6da29149f78a29",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-P07",
@@ -2426,8 +2456,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1109/TPAMI.2021.3070543",
-      "checked_at": "2026-07-29T08:49:25+00:00",
-      "retrieved_at": "2026-07-29T08:49:28+00:00",
+      "checked_at": "2026-07-29T09:58:55+00:00",
+      "retrieved_at": "2026-07-29T09:58:58+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 15954937,
@@ -2442,17 +2472,17 @@
       "text_bytes": 156210,
       "text_sha256": "f97d9e3086c612dc72ccf0b76dcaaf8473c4e8b6620edf26a6bb7259dac4f3b7",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:22+00:00"
     },
     {
       "paper_id": "J-S01",
       "title": "Robot Operating System: Package reuse and community dynamics",
-      "status": "UNRESOLVED",
-      "source_url": "https://www.inf.unibz.it/~rrobbes/p/JSS2019-ROS-ecosystem.pdf",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://repositorio.uchile.cl/handle/2250/171676",
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1016/j.jss.2019.02.024",
-      "checked_at": "2026-07-29T08:49:35+00:00",
+      "checked_at": "2026-07-29T09:59:11+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2463,22 +2493,24 @@
         "https://www.inf.unibz.it/~rrobbes/p/JSS2019-ROS-ecosystem.pdf",
         "https://doi.org/10.1016/j.jss.2019.02.024"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://www.inf.unibz.it/~rrobbes/p/JSS2019-ROS-ecosystem.pdf: HTTP Error 404: Not Found",
         "https://doi.org/10.1016/j.jss.2019.02.024: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
       "paper_id": "J-S02",
       "title": "Mining guidelines for architecting robotics software",
-      "status": "UNRESOLVED",
-      "source_url": "https://acme.able.cs.cmu.edu/pubs/uploads/pdf/JSS_ROS_2020.pdf",
+      "status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://research.chalmers.se/publication/549122/file/549122_Fulltext.pdf",
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://doi.org/10.1016/j.jss.2021.110969",
-      "checked_at": "2026-07-29T08:49:35+00:00",
+      "checked_at": "2026-07-29T09:59:11+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2489,22 +2521,24 @@
         "https://acme.able.cs.cmu.edu/pubs/uploads/pdf/JSS_ROS_2020.pdf",
         "https://doi.org/10.1016/j.jss.2021.110969"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://acme.able.cs.cmu.edu/pubs/uploads/pdf/JSS_ROS_2020.pdf: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1145)>",
         "https://doi.org/10.1016/j.jss.2021.110969: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
       "paper_id": "J-S03",
       "title": "Software engineering research on the Robot Operating System: A systematic mapping study",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://www.sciencedirect.com/science/article/pii/S0164121222002503",
       "source_override": false,
       "source_kind": "open_full_text_record",
       "final_publication_url": "https://doi.org/10.1016/j.jss.2022.111574",
-      "checked_at": "2026-07-29T08:49:36+00:00",
+      "checked_at": "2026-07-29T09:59:12+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2515,22 +2549,24 @@
         "https://www.sciencedirect.com/science/article/pii/S0164121222002503",
         "https://doi.org/10.1016/j.jss.2022.111574"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://www.sciencedirect.com/science/article/pii/S0164121222002503: HTTP Error 403: Forbidden",
         "https://doi.org/10.1016/j.jss.2022.111574: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
       "paper_id": "J-S04",
       "title": "Robot Operating System 2: The need for a holistic security approach to robotic architectures",
-      "status": "UNRESOLVED",
+      "status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://journals.sagepub.com/doi/pdf/10.1177/1729881418770011",
       "source_override": false,
       "source_kind": "open_full_text_record",
       "final_publication_url": "https://doi.org/10.1177/1729881418770011",
-      "checked_at": "2026-07-29T08:49:37+00:00",
+      "checked_at": "2026-07-29T09:59:13+00:00",
       "retrieved_at": null,
       "http_status": null,
       "content_type": null,
@@ -2541,11 +2577,13 @@
         "https://journals.sagepub.com/doi/pdf/10.1177/1729881418770011",
         "https://doi.org/10.1177/1729881418770011"
       ],
-      "resolution_note": "No public PDF resolved automatically; manual source verification required",
+      "resolution_note": "Public full text verified through an interactive/indexed web source; host blocks or does not support unattended local PDF caching.",
       "errors": [
         "https://journals.sagepub.com/doi/pdf/10.1177/1729881418770011: HTTP Error 403: Forbidden",
         "https://doi.org/10.1177/1729881418770011: HTTP Error 403: Forbidden"
       ],
+      "web_receipt": "corpus/public-paper-web-fulltext-receipts.v1.json",
+      "web_access": "PUBLIC_FULLTEXT_WEB",
       "text_status": "NO_PDF"
     },
     {
@@ -2557,8 +2595,8 @@
       "landing_url": "https://link.springer.com/article/10.1007/s10846-023-01911-5",
       "source_kind": "open_full_text_record",
       "final_publication_url": "https://doi.org/10.1007/s10846-023-01911-5",
-      "checked_at": "2026-07-29T08:49:37+00:00",
-      "retrieved_at": "2026-07-29T08:49:41+00:00",
+      "checked_at": "2026-07-29T09:59:13+00:00",
+      "retrieved_at": "2026-07-29T09:59:17+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 5702318,
@@ -2574,7 +2612,7 @@
       "text_bytes": 95229,
       "text_sha256": "038bb61afce685599c54733ddae1f0ead4cef6313f89f93d110809e8ff22f454",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:14+00:00"
+      "extracted_at": "2026-07-29T10:07:23+00:00"
     },
     {
       "paper_id": "J-S06",
@@ -2584,8 +2622,8 @@
       "source_override": false,
       "source_kind": "open_preprint_or_accepted_manuscript",
       "final_publication_url": "https://onlinelibrary.wiley.com/doi/full/10.1002/rob.22426",
-      "checked_at": "2026-07-29T08:49:37+00:00",
-      "retrieved_at": "2026-07-29T08:49:38+00:00",
+      "checked_at": "2026-07-29T09:59:13+00:00",
+      "retrieved_at": "2026-07-29T09:59:14+00:00",
       "http_status": 200,
       "content_type": "application/pdf",
       "bytes": 5313369,
@@ -2600,12 +2638,14 @@
       "text_bytes": 104262,
       "text_sha256": "23862fcbaf1068419afcc9341ac95dfcb4d070638a6ce3c8b630ae02ae0ec422",
       "extraction_tool": "pdftotext -layout",
-      "extracted_at": "2026-07-29T08:58:15+00:00"
+      "extracted_at": "2026-07-29T10:07:23+00:00"
     }
   ],
+  "usable_fulltext_count": 100,
+  "usable_fulltext_contract": "DOWNLOADED is locally hash-verified; WEB_FULLTEXT_VERIFIED is publicly readable but not represented as a cached PDF.",
   "text_extraction": {
     "tool": "pdftotext -layout",
-    "updated_at": "2026-07-29T08:58:15+00:00",
+    "updated_at": "2026-07-29T10:07:23+00:00",
     "status_counts": {
       "EXTRACTED": 81,
       "NO_PDF": 19

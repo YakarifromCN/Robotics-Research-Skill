@@ -26,8 +26,8 @@ def main() -> int:
     assert len(set(observed_ids)) == 100
     manifest_fidelity = {
         row["paper_id"]: (
-            "FULLTEXT_EXTRACTED"
-            if row.get("text_status") == "EXTRACTED"
+            "FULLTEXT_EXTRACTED" if row.get("text_status") == "EXTRACTED"
+            else "FULLTEXT_WEB_VERIFIED" if row.get("status") == "WEB_FULLTEXT_VERIFIED"
             else "METADATA_FALLBACK"
         )
         for row in manifest["records"]
@@ -47,6 +47,7 @@ def main() -> int:
         assert row["model_simulation_status"] == "MODEL_SIMULATED_NO_EXTERNAL_API"
         assert len(row["record_digest"]) == 64
     assert dict(counts) == data["fidelity_counts"]
+    assert set(counts) <= {"FULLTEXT_EXTRACTED", "FULLTEXT_WEB_VERIFIED"}
     print(f"RESEARCHSTUDIO_SIGNATURES_V2: PASS records=100 fidelity={dict(counts)}")
     return 0
 

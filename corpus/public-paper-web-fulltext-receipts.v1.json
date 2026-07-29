@@ -1,0 +1,27 @@
+{
+  "schema_version": "robotics-public-paper-web-fulltext-receipts.v1",
+  "checked_at": "2026-07-29",
+  "purpose": "Public full-text receipts for core records whose hosts block unattended PDF caching.",
+  "records": [
+    {"paper_id": "C-A02", "url": "https://openreview.net/pdf?id=FhQRJW71h5", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "C-C04", "url": "https://researchportal.tuni.fi/files/92371727/ICRA2023_Revise.pdf", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-C04", "url": "https://escholarship.org/content/qt24t5b9vm/qt24t5b9vm_noSplash_427028add7e77207a9b3b94a8efbf575.pdf?t=papziy", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-C05", "url": "https://www.researchgate.net/publication/348999771_Experimental_Characterization_and_Modeling_of_the_Self-Sensing_Property_in_Compliant_Twisted_String_Actuators", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-C06", "url": "https://www.ucsdarclab.com/_files/ugd/e4c3d0_12d0605b188248f8b97dfb0547a43248.pdf", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-D03", "url": "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-D04", "url": "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-E01", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3022350/", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-E02", "url": "https://ris.utwente.nl/ws/files/78260376/Bartelds2016.pdf", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-H02", "url": "https://is.mpg.de/ics/publications/khurshid17-th-feedback", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-H04", "url": "https://arpi.unipi.it/bitstream/11568/996027/1/0278364917744035.pdf", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-H06", "url": "https://koasas.kaist.ac.kr/handle/10203/298093", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-L04", "url": "https://snu.elsevierpure.com/en/publications/bimanual-handling-of-deformable-objects-with-hybrid-adhesion", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-L06", "url": "https://sri-lab.com/publication/luo2024adaptive/", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-P03", "url": "https://arxiv.org/pdf/2306.03207.pdf", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-S01", "url": "https://repositorio.uchile.cl/handle/2250/171676", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-S02", "url": "https://research.chalmers.se/publication/549122/file/549122_Fulltext.pdf", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-S03", "url": "https://www.sciencedirect.com/science/article/pii/S0164121222002503", "access": "PUBLIC_FULLTEXT_WEB"},
+    {"paper_id": "J-S04", "url": "https://journals.sagepub.com/doi/pdf/10.1177/1729881418770011", "access": "PUBLIC_FULLTEXT_WEB"}
+  ],
+  "boundary": "A web receipt proves public full-text availability, not successful local caching. Hosts may require an interactive browser or prohibit unattended retrieval."
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": "robotics-public-paper-text-coverage.v1",
-  "generated_at": "2026-07-29T08:58:22+00:00",
+  "generated_at": "2026-07-29T10:07:23+00:00",
   "source_manifest": "corpus/public-paper-fulltext-manifest.v1.json",
   "record_count": 100,
   "status_counts": {
@@ -36,7 +36,7 @@
     {
       "paper_id": "C-A02",
       "title": "Goal Masked Diffusion Policies for Unified Navigation and Exploration",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://openreview.net/pdf?id=FhQRJW71h5",
       "local_path": null,
       "source_sha256": null,
@@ -209,8 +209,8 @@
     {
       "paper_id": "C-C04",
       "title": "Safe Control using Vision-based Control Barrier Function",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://researchportal.tuni.fi/en/publications/safe-control-using-vision-based-control-barrier-function-v-cbf/",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://researchportal.tuni.fi/files/92371727/ICRA2023_Revise.pdf",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -1348,8 +1348,8 @@
     {
       "paper_id": "J-C04",
       "title": "Grasping Without Squeezing",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://escholarship.org/uc/item/24t5b9vm",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://escholarship.org/content/qt24t5b9vm/qt24t5b9vm_noSplash_427028add7e77207a9b3b94a8efbf575.pdf?t=papziy",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -1360,8 +1360,8 @@
     {
       "paper_id": "J-C05",
       "title": "Experimental Characterization and Modeling of the Self-Sensing Property in Compliant Twisted String Actuators",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://ieeexplore.ieee.org/document/9360185",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://www.researchgate.net/publication/348999771_Experimental_Characterization_and_Modeling_of_the_Self-Sensing_Property_in_Compliant_Twisted_String_Actuators",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -1372,8 +1372,8 @@
     {
       "paper_id": "J-C06",
       "title": "Model-Less Hybrid Position/Force Control: A Minimalist Approach for Continuum Manipulators in Unknown, Constrained Environments",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://ucsdarclab.com/autopublication/model-less-hybrid-position-force-control-a-minimalist-approach-for-continuum-manipulators-in-unknown-constrained-environments/",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://www.ucsdarclab.com/_files/ugd/e4c3d0_12d0605b188248f8b97dfb0547a43248.pdf",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -1430,7 +1430,7 @@
     {
       "paper_id": "J-D03",
       "title": "Manipulation Planning for Deformable Linear Objects",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects",
       "local_path": null,
       "source_sha256": null,
@@ -1442,7 +1442,7 @@
     {
       "paper_id": "J-D04",
       "title": "Rapidly Exploring Random Cycles: A New Approach to Coverage of Unknown Environments",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf",
       "local_path": null,
       "source_sha256": null,
@@ -1500,8 +1500,8 @@
     {
       "paper_id": "J-E01",
       "title": "Design and Control of Concentric-Tube Robots",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://dash.harvard.edu/handle/1/37372563",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3022350/",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -1512,8 +1512,8 @@
     {
       "paper_id": "J-E02",
       "title": "Compliant Aerial Manipulators: Toward a New Generation of Aerial Robotic Workers",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://research.utwente.nl/en/publications/8d934700-5acf-4cbb-9417-8c71ecf07a42",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://ris.utwente.nl/ws/files/78260376/Bartelds2016.pdf",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -1662,7 +1662,7 @@
     {
       "paper_id": "J-H02",
       "title": "Effects of Grip-Force, Contact, and Acceleration Feedback on Teleoperation of a Robot Arm",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://is.mpg.de/ics/publications/khurshid17-th-feedback",
       "local_path": null,
       "source_sha256": null,
@@ -1697,8 +1697,8 @@
     {
       "paper_id": "J-H04",
       "title": "Reduced-complexity representation of human arm active endpoint stiffness",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://journals.sagepub.com/doi/10.1177/0278364917744035",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://arpi.unipi.it/bitstream/11568/996027/1/0278364917744035.pdf",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -1732,7 +1732,7 @@
     {
       "paper_id": "J-H06",
       "title": "2.5D Laser-Cutting-Based Customized Fabrication of Long-Term Wearable Textile sEMG Sensor: From Design to Intention Recognition",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://koasas.kaist.ac.kr/handle/10203/298093",
       "local_path": null,
       "source_sha256": null,
@@ -1813,7 +1813,7 @@
     {
       "paper_id": "J-L04",
       "title": "Bimanual Handling of Deformable Objects With Hybrid Adhesion",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://snu.elsevierpure.com/en/publications/bimanual-handling-of-deformable-objects-with-hybrid-adhesion",
       "local_path": null,
       "source_sha256": null,
@@ -1848,7 +1848,7 @@
     {
       "paper_id": "J-L06",
       "title": "Adaptive Neural Computed Torque Control for Robot Joints With Asymmetric Friction Model",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://sri-lab.com/publication/luo2024adaptive/",
       "local_path": null,
       "source_sha256": null,
@@ -1906,8 +1906,8 @@
     {
       "paper_id": "J-P03",
       "title": "H2-Mapping: Real-Time Dense Mapping Using Hierarchical Hybrid Representation",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://researchportal.hkust.edu.hk/en/publications/h2-mapping-real-time-dense-mapping-using-hierarchical-hybrid-repr/",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://arxiv.org/pdf/2306.03207.pdf",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -2010,8 +2010,8 @@
     {
       "paper_id": "J-S01",
       "title": "Robot Operating System: Package reuse and community dynamics",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://www.inf.unibz.it/~rrobbes/p/JSS2019-ROS-ecosystem.pdf",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://repositorio.uchile.cl/handle/2250/171676",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -2022,8 +2022,8 @@
     {
       "paper_id": "J-S02",
       "title": "Mining guidelines for architecting robotics software",
-      "source_status": "UNRESOLVED",
-      "source_url": "https://acme.able.cs.cmu.edu/pubs/uploads/pdf/JSS_ROS_2020.pdf",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
+      "source_url": "https://research.chalmers.se/publication/549122/file/549122_Fulltext.pdf",
       "local_path": null,
       "source_sha256": null,
       "text_status": "NO_PDF",
@@ -2034,7 +2034,7 @@
     {
       "paper_id": "J-S03",
       "title": "Software engineering research on the Robot Operating System: A systematic mapping study",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://www.sciencedirect.com/science/article/pii/S0164121222002503",
       "local_path": null,
       "source_sha256": null,
@@ -2046,7 +2046,7 @@
     {
       "paper_id": "J-S04",
       "title": "Robot Operating System 2: The need for a holistic security approach to robotic architectures",
-      "source_status": "UNRESOLVED",
+      "source_status": "WEB_FULLTEXT_VERIFIED",
       "source_url": "https://journals.sagepub.com/doi/pdf/10.1177/1729881418770011",
       "local_path": null,
       "source_sha256": null,

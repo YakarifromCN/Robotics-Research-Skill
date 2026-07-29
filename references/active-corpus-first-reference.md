@@ -42,7 +42,7 @@ dependencies and vectors are absent. For the current Skill-learning path, model
 subagents simulate Stage-2 embedding and grouping without an external API. The
 runtime consumes only the derived capability questions and 15/31 mapping; it
 does not expose internal cluster IDs or claim real UMAP/HDBSCAN. Signatures v2
-separately report `FULLTEXT_EXTRACTED` and `METADATA_FALLBACK` records with
+separately report `FULLTEXT_EXTRACTED` and `FULLTEXT_WEB_VERIFIED` records with
 field-level provenance.
 
 ## Online idea chain

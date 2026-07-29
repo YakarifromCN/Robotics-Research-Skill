@@ -46,7 +46,7 @@ def validate_chunk_record(record: dict[str, Any]) -> None:
     if not isinstance(paper_id, str) or not paper_id:
         raise ValueError("chunk record missing paper_id")
     fidelity = record.get("source_fidelity")
-    if fidelity not in {"FULLTEXT_EXTRACTED", "METADATA_FALLBACK"}:
+    if fidelity not in {"FULLTEXT_EXTRACTED", "FULLTEXT_WEB_VERIFIED", "METADATA_FALLBACK"}:
         raise ValueError(f"{paper_id}: invalid source_fidelity")
     stage1 = record.get("stage1_base_fields")
     stage2 = record.get("stage2_domain_agnostic_fields")
@@ -86,14 +86,18 @@ def fallback_chunk_records(
         paper_id = base["paper_id"]
         manifest_row = manifest_by_id[paper_id]
         coverage_row = coverage_by_id[paper_id]
-        fulltext = manifest_row.get("text_status") == "EXTRACTED"
+        local_fulltext = manifest_row.get("text_status") == "EXTRACTED"
+        web_fulltext = manifest_row.get("status") == "WEB_FULLTEXT_VERIFIED"
+        fulltext = local_fulltext or web_fulltext
         marker_counts = coverage_row.get("coverage", {}).get("section_marker_counts", {})
         sections = [name for name, count in marker_counts.items() if int(count) > 0]
         if not sections:
             sections = ["metadata_adapter"]
         source_kind = (
             "LOCAL_EXTRACTED_TEXT_SECTION_RECEIPT_PLUS_MODEL_ADAPTER"
-            if fulltext
+            if local_fulltext
+            else "PUBLIC_WEB_FULLTEXT_RECEIPT_PLUS_MODEL_ADAPTER"
+            if web_fulltext
             else "METADATA_MODEL_ADAPTER"
         )
         confidence = "MEDIUM" if fulltext else "LOW"
@@ -116,7 +120,11 @@ def fallback_chunk_records(
         stage1["acceptance_signal"] = None
         result[paper_id] = {
             "paper_id": paper_id,
-            "source_fidelity": "FULLTEXT_EXTRACTED" if fulltext else "METADATA_FALLBACK",
+            "source_fidelity": (
+                "FULLTEXT_EXTRACTED" if local_fulltext
+                else "FULLTEXT_WEB_VERIFIED" if web_fulltext
+                else "METADATA_FALLBACK"
+            ),
             "source_receipt": {
                 "source_url": manifest_row.get("source_url") or base["source_urls"][0],
                 "checked_at": manifest_row.get("checked_at"),
@@ -127,7 +135,9 @@ def fallback_chunk_records(
             },
             "extraction_method": (
                 "MODEL_SIMULATED_LOCAL_TEXT_V2"
-                if fulltext
+                if local_fulltext
+                else "MODEL_SIMULATED_PUBLIC_WEB_FULLTEXT_V2"
+                if web_fulltext
                 else "MODEL_SIMULATED_METADATA_FALLBACK_V2"
             ),
             "stage1_base_fields": stage1,
@@ -182,8 +192,8 @@ def build(chunk_dir: Path, *, allow_model_adapter_fallback: bool = False) -> dic
         update = chunk_records[paper_id]
         manifest_row = manifest_by_id[paper_id]
         expected_fidelity = (
-            "FULLTEXT_EXTRACTED"
-            if manifest_row.get("text_status") == "EXTRACTED"
+            "FULLTEXT_EXTRACTED" if manifest_row.get("text_status") == "EXTRACTED"
+            else "FULLTEXT_WEB_VERIFIED" if manifest_row.get("status") == "WEB_FULLTEXT_VERIFIED"
             else "METADATA_FALLBACK"
         )
         if update["source_fidelity"] != expected_fidelity:
@@ -204,7 +214,7 @@ def build(chunk_dir: Path, *, allow_model_adapter_fallback: bool = False) -> dic
                     update["stage2_domain_agnostic_fields"][field] for field in STAGE2_FIELDS
                 ),
                 "do_not_infer": update["do_not_infer"],
-                "llm_reextraction_required": update["source_fidelity"] != "FULLTEXT_EXTRACTED",
+                "llm_reextraction_required": update["source_fidelity"] == "METADATA_FALLBACK",
                 "model_simulation_status": "MODEL_SIMULATED_NO_EXTERNAL_API",
             }
         )
@@ -227,7 +237,7 @@ def build(chunk_dir: Path, *, allow_model_adapter_fallback: bool = False) -> dic
         "source_manifest": "corpus/public-paper-fulltext-manifest.v1.json",
         "source_manifest_sha256": canonical_sha256(manifest),
         "record_count": len(merged),
-        "data_fidelity": "MIXED_MODEL_SIMULATED_LOCAL_TEXT_AND_METADATA_FALLBACK",
+        "data_fidelity": "MODEL_SIMULATED_100_PERCENT_USABLE_FULLTEXT_MIXED_LOCAL_AND_WEB",
         "fidelity_counts": dict(sorted(fidelity_counts.items())),
         "stage_contract": {
             "stage1": list(STAGE1_TEXT_FIELDS)

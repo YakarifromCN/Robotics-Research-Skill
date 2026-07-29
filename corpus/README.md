@@ -5,8 +5,10 @@
 公开全文工作流使用 `scripts/fetch_public_paper_sources.py` 将 PDF 放入被 Git
 忽略的 `corpus/papers/`，用 `scripts/extract_public_paper_text.py` 生成被忽略的
 `corpus/extracted/`，并把 URL、日期、字节数、SHA-256 和解析状态写入受版本控制的
-`public-paper-fulltext-manifest.v1.json`。未解析来源保留为 `UNRESOLVED`，不会被
-landing page 或 DOI 记录冒充全文。
+`public-paper-fulltext-manifest.v1.json`。对禁止无人值守缓存、但可在公开网页完整
+读取的 19 篇论文，另用 `public-paper-web-fulltext-receipts.v1.json` 保存独立收据。
+当前核心语料为 81 篇本地抽取全文加 19 篇公开网页全文，合计 100/100 可用全文；
+网页收据不会被冒充为本地 PDF 或本地文本哈希。
 
 模拟 embedding、模拟聚类和审计只保存于被忽略的 `agent/internal/`；它们必须标记
 `SIMULATED_NOT_MODEL_EMBEDDING` 或 `SIMULATED_NOT_REAL_UMAP_HDBSCAN`，不能作为真实
@@ -25,10 +27,11 @@ ResearchStudio 统计结果。
 This directory stores only public-paper metadata, verifiable sources, pattern labels, and synthetic regression cases. It contains no private projects or copied paper text. Awards or community reuse are sampling signals, never proof of sufficient evidence.
 
 The public-full-text workflow keeps downloaded PDFs and extracted text in ignored local
-caches (`corpus/papers/` and `corpus/extracted/`). The tracked
-`public-paper-fulltext-manifest.v1.json` stores provenance, hashes, and resolution status
-only. Unresolved sources remain explicit and are never promoted from a landing page or DOI
-record to full text. Model-simulated embedding, clustering, and audit artifacts stay under
+caches (`corpus/papers/` and `corpus/extracted/`). The tracked manifest records 81 locally
+extracted papers, while `public-paper-web-fulltext-receipts.v1.json` records 19 complete
+public web texts whose hosts block unattended caching. The core corpus therefore has
+100/100 usable full texts, while web receipts are never represented as local PDF or text
+hashes. Model-simulated embedding, clustering, and audit artifacts stay under
 ignored `agent/internal/` and are not real UMAP/HDBSCAN evidence.
 
 The open runtime uses the mixed-fidelity v2 signature index, the complete
