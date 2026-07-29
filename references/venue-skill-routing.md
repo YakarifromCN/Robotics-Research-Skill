@@ -1,10 +1,10 @@
 # Robotics venue workflow routing
 
-本文件把外部 venue workflow 的可迁移能力压缩为本仓库的四个原子 Skill，而不是把外部 `SKILL.md` 原样复制进来。所有 workflow 先通过 `robotics-submanifold.v1` 生成项目向量，再把 venue 的贡献门槛、证据压力和流程节奏叠加到该向量上。
+本文件把外部 venue workflow 的可迁移能力压缩为本仓库的四个原子 Skill，而不是把外部 `SKILL.md` 原样复制进来，也不是在仓库中生成十套内部 workflow。统一方法的规范版本见 `unified-venue-workflow-adapter.v1.md`，外部来源与内容哈希见 `external-workflow-source-receipt.v1.json`。所有目标 venue 先经过同一组研究流形问题，再把贡献门槛、证据压力和流程节奏映射到项目向量。
 
 ## 统一路由合同
 
-每次 venue 判断必须先回答六个问题：
+每次 venue 判断必须先回答八个问题：
 
 1. 论文的 load-bearing contribution 是具身机制、感知、控制、学习、规划、交互、自主部署，还是系统基础设施？
 2. 该贡献在八轴向量中的主轴和副轴是什么？
@@ -12,6 +12,8 @@
 4. 目标 venue 的官方范围是否把该贡献当作主体，而不是机器人应用案例？
 5. 还缺哪一个最可能导致 desk reject 或低可信度的证据？
 6. 投稿周期、补充材料、视频、rebuttal、伦理审批和 artifact 是否已经进入负责人—截止日期表？
+7. 哪些规则来自当前官方来源，哪些只是需要刷新的历史快照？
+8. 该 workflow 中哪项能力可沉淀为跨 venue 的 Skill 知识，哪项只能保留为 venue adapter？
 
 输出固定为：主 venue、条件备选、不要投的相邻 venue、最大缺口、下一步；不输出仅由 venue 名称推断的录用概率。
 
@@ -43,7 +45,7 @@
 
 ## 使用顺序
 
-1. `scripts/analyze_robotics_submanifold.py` 生成项目向量、研究强度和 venue candidates。
+1. `scripts/analyze_robotics_submanifold.py` 或 v2 八轴策略工件生成项目向量、研究强度和 venue candidates；未实时核验的 venue 候选必须标记 `REFRESH_REQUIRED`。
 2. Idea Skill 将 venue 的 contribution gate 转为候选主张和最小证据，不改写 Claim Lock。
 3. Experiment Skill 将活动轴的 evidence pressure 转为设计锁、条件矩阵、trial registry、伦理/安全和 artifact 任务。
 4. Writing Skill 按 venue 模式选择“广泛重要性 / 长文概念框架 / 完整严谨验证 / 交互贡献 / 学习 benchmark”等叙事，并逐条绑定 Claim Ledger。

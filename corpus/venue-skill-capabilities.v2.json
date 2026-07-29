@@ -4,6 +4,12 @@
   "canonical_router": "scripts/route_robotics_submanifold.py",
   "canonical_catalog": "corpus/venue-catalog.v2.json",
   "canonical_model": "corpus/robotics-submanifold.v1.json",
+  "unified_adapter_reference": "references/unified-venue-workflow-adapter.v1.md",
+  "external_source_receipt": "references/external-workflow-source-receipt.v1.json",
+  "signature_index": "corpus/researchstudio-paper-signatures.v2.json",
+  "pattern_induction": "corpus/researchstudio-pattern-induction.v2.json",
+  "axis_strategy_analysis": "corpus/robotics-axis-strategy-analysis.v2.json",
+  "outcome_contrast": "corpus/researchstudio-outcome-contrast.v1.json",
   "redirect_targets": [
     "develop-robotics-idea",
     "design-robotics-experiment",

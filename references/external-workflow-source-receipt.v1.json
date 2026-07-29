@@ -1,0 +1,38 @@
+{
+  "schema_version": "external-workflow-source-receipt.v1",
+  "checked_at": "2026-07-29",
+  "source_repository": "https://github.com/brycewang-stanford/Awesome-Journal-Skills",
+  "snapshot_commit": "9f86f094d6a7a680fb14e169336dd98bf75436ec",
+  "current_read_receipts": [
+    {
+      "url": "https://raw.githubusercontent.com/brycewang-stanford/Awesome-Journal-Skills/main/README.md",
+      "content_class": "public_repository_index",
+      "observed": [
+        "The repository describes venue packs as fit plus current submission-requirement checklists.",
+        "The index includes ICRA, RSS, CoRL, IROS, HRI, and Science Robotics entries.",
+        "The repository itself is a capability source; current official venue rules still require primary-source refresh."
+      ]
+    }
+  ],
+  "target_resolution": {
+    "general_ai_conference": "LOCAL_SNAPSHOT_PLUS_PUBLIC_INDEX; OFFICIAL_REFRESH_REQUIRED",
+    "general_engineering_technology_journal": "LOCAL_SNAPSHOT; OFFICIAL_REFRESH_REQUIRED",
+    "science_robotics": "LOCAL_SNAPSHOT_PLUS_PUBLIC_INDEX; OFFICIAL_REFRESH_REQUIRED",
+    "ijrr": "LOCAL_SNAPSHOT; OFFICIAL_REFRESH_REQUIRED",
+    "t_ro": "LOCAL_SNAPSHOT; OFFICIAL_REFRESH_REQUIRED",
+    "hri": "LOCAL_SNAPSHOT_PLUS_PUBLIC_INDEX; OFFICIAL_REFRESH_REQUIRED",
+    "corl": "LOCAL_SNAPSHOT_PLUS_PUBLIC_INDEX; OFFICIAL_REFRESH_REQUIRED",
+    "rss": "LOCAL_SNAPSHOT_PLUS_PUBLIC_INDEX; OFFICIAL_REFRESH_REQUIRED",
+    "iros": "LOCAL_SNAPSHOT_PLUS_PUBLIC_INDEX; OFFICIAL_REFRESH_REQUIRED",
+    "icra": "LOCAL_SNAPSHOT_PLUS_PUBLIC_INDEX; OFFICIAL_REFRESH_REQUIRED"
+  },
+  "integration_boundary": {
+    "learn_into": "references/unified-venue-workflow-adapter.v1.md and the four existing robotics skills",
+    "do_not_create": "ten new internal venue workflows or skills/icra-* directories",
+    "do_not_infer": [
+      "acceptance probability",
+      "venue quality or prestige",
+      "scientific claim strength from packaging rules"
+    ]
+  }
+}

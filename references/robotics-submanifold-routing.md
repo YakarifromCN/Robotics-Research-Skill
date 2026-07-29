@@ -35,3 +35,8 @@
 ## 外部 workflow 的能力映射
 
 CS/AI router 的贡献族、受众、证据形状、周期和 sibling 消歧进入 Idea/Experiment/Review；工程期刊 router 的 theory/method/system/device 与 proof/simulation/bench/field 进入 Experiment/Writing；Science Robotics、IJRR、T-RO、HRI、CoRL、RSS、IROS 和 ICRA 的范围与流程约束进入 `references/venue-skill-routing.md` 的 venue gates。外部仓库的名称不作为本 Skill 的目录层级。
+
+统一的外部 workflow 学习结果记录在
+`references/unified-venue-workflow-adapter.v1.md`：它提取“轴形状 → 贡献中心/证据
+形状 → 四个 stage adapter → 官方 scope”的共同方法，不创建十个内部 workflow，
+也不把 venue fit 转成录用概率。

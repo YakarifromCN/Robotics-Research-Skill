@@ -24,3 +24,8 @@ Every route returns factor-fit ranking or fixed-venue fit, evidence pressure,
 and official-scope refresh status. It never returns a calibrated acceptance
 probability. Use `corpus/venue-skill-capabilities.v2.json` for the machine-
 readable redirect map.
+
+The reusable cross-venue method is documented in
+`references/unified-venue-workflow-adapter.v1.md`; it explains how the
+robotics-manifold axis shape is translated into the four existing skill stages.
+It is a shared adapter, not a set of ten internal venue workflows.
