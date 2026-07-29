@@ -1,0 +1,10 @@
+# Idea 阶段的子流形路由
+
+在生成或审计 Research Card 前，调用根目录 `scripts/analyze_robotics_submanifold.py` 的 v2 等价入口（catalog 使用 `corpus/venue-catalog.v2.json`），或读取 `corpus/robotics-submanifold-calibration.v1.json`。记录：
+
+- `submanifold_axes`：E/P/C/L/D/H/A/S 的 0–3 向量；
+- `active_axes` 与 `research_intensity`；
+- `proposed_evidence_pressures`；
+- 指定 venue 的逐轴适配和官方范围待核验项。
+
+这些字段是候选审计的输入，不是自动生成的 Claim Lock。若向量显示跨轴系统，只能提出更高证据负担的审计问题；只有用户/研究者明确冻结后才能写入 Claim Lock。评级字段不参与 Idea 路由。

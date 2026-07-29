@@ -1,13 +1,4714 @@
 {
-  "schema_version":"robotics-public-corpus.v1",
-  "checked_at":"2026-07-19",
-  "records":[
-    {"paper_id":"PUB-001","title":"The Robotarium: A Remotely Accessible Swarm Robotics Research Testbed","year":2017,"source_url":"https://arxiv.org/abs/1609.04730","public_label_source":"https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-paper-award-on-multi-robot-systems/","pattern_tags":["shared_testbed","multi_robot","reproducibility"],"extract":["interface contract","safety barrier","remote reproducibility"],"do_not_infer":["award implies universal validity"]},
-    {"paper_id":"PUB-002","title":"TossingBot: Learning to Throw Arbitrary Objects with Residual Physics","year":2019,"source_url":"https://arxiv.org/abs/1903.11239","public_label_source":"https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/","pattern_tags":["learning","residual_physics","real_robot"],"extract":["physics-learning decomposition","task-conditioned evaluation","failure taxonomy"],"do_not_infer":["arbitrary means unrestricted environments"]},
-    {"paper_id":"PUB-003","title":"FlingBot: The Unreasonable Effectiveness of Dynamic Manipulation for Cloth Unfolding","year":2021,"source_url":"https://arxiv.org/abs/2105.03655","public_label_source":"https://2021.corl.org/program/awards_2021","pattern_tags":["deformable_object","dynamic_manipulation","learning"],"extract":["changed action primitive","coverage metric","real-system loop"],"do_not_infer":["single task proves general deformable manipulation"]},
-    {"paper_id":"PUB-004","title":"Cooperative Manipulation and Transportation with Aerial Robots","year":2013,"source_url":"https://roboticsconference.org/2025/program/testoftimeaward/","public_label_source":"https://roboticsconference.org/2025/program/testoftimeaward/","pattern_tags":["multi_robot","aerial","cooperative_transport"],"extract":["coupled dynamics","team-level failure boundary","system integration"],"do_not_infer":["historical influence equals current novelty"]},
-    {"paper_id":"PUB-005","title":"Design and Control of Concentric-Tube Robots","year":2010,"source_url":"https://dash.harvard.edu/handle/1/37372563","public_label_source":"https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/","pattern_tags":["continuum_robot","mechanics","control"],"extract":["model-control closure","physical assumptions","bench validation"],"do_not_infer":["bench evidence proves clinical benefit"]},
-    {"paper_id":"PUB-006","title":"A 3D-Printed Soft Pneumatic Actuator for Search and Rescue Robots","year":2015,"source_url":"https://arxiv.org/abs/1509.07569","public_label_source":"https://www.ieee-ras.org/iros-2015-award-winners-announced/","pattern_tags":["soft_body","fabrication","locomotion"],"extract":["fabrication-to-behavior chain","prototype characterization","failure conditions"],"do_not_infer":["one specimen proves material consistency"]},
-    {"paper_id":"PUB-007","title":"SoPrA: Fabrication and Dynamical Modeling of a Scalable Soft Continuum Robotic Arm with Integrated Proprioceptive Sensing","year":2021,"source_url":"https://arxiv.org/abs/2103.10726","public_label_source":"https://www.ieee-ras.org/ieee-case-2021-best-paper-award-recipients-honored/","pattern_tags":["soft_body","modeling","sensing","industrial_context"],"extract":["fabrication-model-sensing closure","scalability variables","application boundary"],"do_not_infer":["application framing proves deployed reliability"]}
+  "schema_version": "robotics-public-corpus.v2",
+  "checked_at": "2026-07-29",
+  "selection_constraints": {
+    "total": 100,
+    "journal_count": 50,
+    "conference_count": 50,
+    "min_award_recognition_count": 51,
+    "conference_min_presentation_rank": "oral",
+    "primary_axis_max_imbalance": 1
+  },
+  "sampling_design": {
+    "unit": "paper metadata record",
+    "journal_axis_quota": {
+      "E": 7,
+      "P": 7,
+      "C": 6,
+      "L": 6,
+      "D": 6,
+      "H": 6,
+      "A": 6,
+      "S": 6
+    },
+    "conference_axis_quota": {
+      "E": 6,
+      "P": 6,
+      "C": 7,
+      "L": 7,
+      "D": 6,
+      "H": 6,
+      "A": 6,
+      "S": 6
+    },
+    "total_axis_quota": {
+      "E": 13,
+      "P": 13,
+      "C": 13,
+      "L": 13,
+      "D": 12,
+      "H": 12,
+      "A": 12,
+      "S": 12
+    },
+    "method_note": "Balanced semantic stratification for infrastructure calibration; not a statistical PCA, factor-analysis fit, or acceptance-probability estimator."
+  },
+  "award_semantics": {
+    "quota_name": "award_recognition",
+    "qualifying_statuses": [
+      "winner",
+      "finalist",
+      "nominee",
+      "award"
+    ],
+    "note": "The quota counts official winner/finalist recognition. Finalists remain labeled finalists; strict winner counts are reported separately by the calibrator."
+  },
+  "records": [
+    {
+      "paper_id": "J-E01",
+      "title": "Design and Control of Concentric-Tube Robots",
+      "year": 2010,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://dash.harvard.edu/handle/1/37372563",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2009.2035740",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "continuum_robot",
+        "mechanics",
+        "surgical_robotics"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-E02",
+      "title": "Compliant Aerial Manipulators: Toward a New Generation of Aerial Robotic Workers",
+      "year": 2017,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://research.utwente.nl/en/publications/8d934700-5acf-4cbb-9417-8c71ecf07a42",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2016.2519948",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "aerial_manipulation",
+        "compliance",
+        "morphology"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-E03",
+      "title": "Inverted and Inclined Climbing Using Capillary Adhesion in a Quadrupedal Insect-Scale Robot",
+      "year": 2020,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://smrl.mit.edu/wp-content/uploads/2020/09/crawler_chen_2020.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2020.3003870",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "insect_scale_robot",
+        "adhesion",
+        "locomotion"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-E04",
+      "title": "Sim-to-Real of Soft Robots With Learned Residual Physics",
+      "year": 2024,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2402.01086",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2024.3446287",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "soft_robot",
+        "residual_physics",
+        "sim_to_real"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-E05",
+      "title": "Learning agile and dynamic motor skills for legged robots",
+      "year": 2019,
+      "venue": "Science Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1901.08652",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1126/scirobotics.aau5872",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "legged_robot",
+        "agility",
+        "real_robot_learning"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ]
+    },
+    {
+      "paper_id": "J-E06",
+      "title": "Learning Quadrupedal Locomotion over Challenging Terrain",
+      "year": 2021,
+      "venue": "Science Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2010.11251",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1126/scirobotics.abc5986",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "quadruped",
+        "rough_terrain",
+        "locomotion"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ]
+    },
+    {
+      "paper_id": "J-E07",
+      "title": "Pushing corridors for delivering unknown objects with a mobile robot",
+      "year": 2019,
+      "venue": "Autonomous Robots",
+      "venue_kind": "journal",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://link.springer.com/article/10.1007/s10514-018-9804-8",
+        "kind": "open_full_text_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1007/s10514-018-9804-8",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "mobile_robot",
+        "contact_manipulation",
+        "delivery"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ]
+    },
+    {
+      "paper_id": "J-P01",
+      "title": "KISS-ICP: In Defense of Point-to-Point ICP – Simple, Accurate, and Robust Registration If Done the Right Way",
+      "year": 2023,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2209.15397",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2023.3236571",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "lidar",
+        "registration",
+        "localization"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-P02",
+      "title": "LONER: LiDAR Only Neural Representations for Real-Time SLAM",
+      "year": 2024,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2309.04937",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://umautobots.github.io/loner/",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "lidar",
+        "neural_representation",
+        "real_time_slam"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-P03",
+      "title": "H2-Mapping: Real-Time Dense Mapping Using Hierarchical Hybrid Representation",
+      "year": 2023,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://researchportal.hkust.edu.hk/en/publications/h2-mapping-real-time-dense-mapping-using-hierarchical-hybrid-repr/",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2023.3313051",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "dense_mapping",
+        "hybrid_representation",
+        "real_time"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-P04",
+      "title": "TRAVEL: Traversable Ground and Above-Ground Object Segmentation Using Graph Representation of 3D LiDAR Scans",
+      "year": 2023,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2206.03190",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2022.3182096",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "3d_lidar",
+        "segmentation",
+        "traversability"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-P05",
+      "title": "Fast Model-Based Contact Patch and Pose Estimation for Highly Deformable Dense-Geometry Tactile Sensors",
+      "year": 2020,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 2,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://groups.csail.mit.edu/robotics-center/public_papers/Kuppuswamy20.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2019.2961050",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "tactile_perception",
+        "contact_pose",
+        "deformable_sensor"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-P06",
+      "title": "On-Manifold Preintegration for Real-Time Visual–Inertial Odometry",
+      "year": 2016,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1512.02363",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2016.2597321",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "visual_inertial",
+        "state_estimation",
+        "manifold_geometry"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-P07",
+      "title": "JRDB: A Dataset and Benchmark for Visual Perception in Robotics",
+      "year": 2022,
+      "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "venue_kind": "journal",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 2,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1910.11792",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TPAMI.2021.3070543",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "robot_dataset",
+        "multi_person_tracking",
+        "3d_perception"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ]
+    },
+    {
+      "paper_id": "J-C01",
+      "title": "Autonomous Quadrotor Flight Despite Rotor Failure With Onboard Vision Sensors: Frames vs. Events",
+      "year": 2021,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2102.13406",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2020.3048875",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "fault_tolerance",
+        "quadrotor",
+        "event_camera"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-C02",
+      "title": "Active Learning of Dynamics",
+      "year": 2019,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 3,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1906.05194",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2019.2923880",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "dynamics_learning",
+        "active_learning",
+        "model_based_control"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-C03",
+      "title": "Optimally Controlling the Timing of Energy Transfer in Elastic Joints: Experimental Validation of the Bi-Stiffness Actuation Concept",
+      "year": 2024,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2309.07873",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2023.3325782",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "elastic_actuation",
+        "energy_transfer",
+        "experimental_control"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-C04",
+      "title": "Grasping Without Squeezing",
+      "year": 2018,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 2,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://escholarship.org/uc/item/24t5b9vm",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2017.2776312",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "grasping",
+        "force_control",
+        "contact_mechanics"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-C05",
+      "title": "Experimental Characterization and Modeling of the Self-Sensing Property in Compliant Twisted String Actuators",
+      "year": 2021,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 2,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://ieeexplore.ieee.org/document/9360185",
+        "kind": "open_author_or_ieee_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2021.3056372",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "twisted_string_actuator",
+        "self_sensing",
+        "compliant_actuation"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-C06",
+      "title": "Model-Less Hybrid Position/Force Control: A Minimalist Approach for Continuum Manipulators in Unknown, Constrained Environments",
+      "year": 2016,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 2,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://ucsdarclab.com/autopublication/model-less-hybrid-position-force-control-a-minimalist-approach-for-continuum-manipulators-in-unknown-constrained-environments/",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2016.2526062",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "hybrid_force_position",
+        "continuum_manipulator",
+        "unknown_contact"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-L01",
+      "title": "Self-Supervised Correspondence in Visuomotor Policy Learning",
+      "year": 2020,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 2,
+        "C": 0,
+        "L": 3,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1909.06933",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2019.2956365",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "visuomotor_learning",
+        "self_supervision",
+        "correspondence"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-L02",
+      "title": "CALVIN: A Benchmark for Language-Conditioned Policy Learning for Long-Horizon Robot Manipulation Tasks",
+      "year": 2022,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 3,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2112.03227",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2022.3180108",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "language_conditioned_policy",
+        "benchmark",
+        "long_horizon_manipulation"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-L03",
+      "title": "Geometric Fabrics: Generalizing Classical Mechanics to Capture the Physics of Behavior",
+      "year": 2022,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 3,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2109.10443",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2022.3143311",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "geometric_fabrics",
+        "behavior_generation",
+        "mechanics_inspired_learning"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-L04",
+      "title": "Bimanual Handling of Deformable Objects With Hybrid Adhesion",
+      "year": 2022,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 3,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://snu.elsevierpure.com/en/publications/bimanual-handling-of-deformable-objects-with-hybrid-adhesion",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2022.3158231",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "bimanual_manipulation",
+        "deformable_object",
+        "hybrid_adhesion"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-L05",
+      "title": "TossingBot: Learning to Throw Arbitrary Objects with Residual Physics",
+      "year": 2020,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 3,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1903.11239",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2020.2988642",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "residual_physics",
+        "dynamic_manipulation",
+        "real_robot_learning"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-L06",
+      "title": "Adaptive Neural Computed Torque Control for Robot Joints With Asymmetric Friction Model",
+      "year": 2025,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 3,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://sri-lab.com/publication/luo2024adaptive/",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2024.3512372",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "neural_control",
+        "friction_model",
+        "online_adaptation"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-D01",
+      "title": "Sampling-based Algorithms for Optimal Motion Planning",
+      "year": 2011,
+      "venue": "The International Journal of Robotics Research",
+      "venue_kind": "journal",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1105.1186",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1177/0278364911406761",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "motion_planning",
+        "sampling",
+        "optimality"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ]
+    },
+    {
+      "paper_id": "J-D02",
+      "title": "Motion planning with sequential convex optimization and convex collision checking",
+      "year": 2014,
+      "venue": "The International Journal of Robotics Research",
+      "venue_kind": "journal",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://escholarship.org/uc/item/6km506db",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1177/0278364914528132",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "sequential_convex_optimization",
+        "collision_checking",
+        "manipulation_planning"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ]
+    },
+    {
+      "paper_id": "J-D03",
+      "title": "Manipulation Planning for Deformable Linear Objects",
+      "year": 2007,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects",
+        "kind": "public_author_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2007.907486",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "deformable_linear_object",
+        "manipulation_planning",
+        "configuration_space"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-D04",
+      "title": "Rapidly Exploring Random Cycles: A New Approach to Coverage of Unknown Environments",
+      "year": 2016,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://web.stanford.edu/~schwager/MyPapers/LanSchwagerTRO16RRC.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2016.2596772",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "coverage",
+        "exploration",
+        "random_cycles"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-D05",
+      "title": "Kimera-Multi: Robust, Distributed, Dense Metric-Semantic SLAM for Multi-Robot Systems",
+      "year": 2022,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 0,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 2,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2106.14386",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2021.3137751",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "multi_robot_slam",
+        "distributed_estimation",
+        "semantic_mapping"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-D06",
+      "title": "MapLite: Autonomous Intersection Navigation Without a Detailed Prior Map",
+      "year": 2020,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 0,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://dhaivat1729.github.io/assets/pdf/MapLite_Autonomous_Intersection_Navigation_Without_a_Detailed_Prior_Map.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2019.2961051",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "intersection_navigation",
+        "mapless_navigation",
+        "autonomy"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-H01",
+      "title": "Haptic Teleoperation of UAVs through Control Barrier Functions",
+      "year": 2020,
+      "venue": "IEEE Transactions on Haptics",
+      "venue_kind": "journal",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1911.03418",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TOH.2020.2966485",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "haptic_teleoperation",
+        "uav",
+        "control_barrier_function"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ]
+    },
+    {
+      "paper_id": "J-H02",
+      "title": "Effects of Grip-Force, Contact, and Acceleration Feedback on Teleoperation of a Robot Arm",
+      "year": 2017,
+      "venue": "IEEE Transactions on Haptics",
+      "venue_kind": "journal",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://is.mpg.de/ics/publications/khurshid17-th-feedback",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TOH.2016.2573301",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "force_feedback",
+        "teleoperation",
+        "human_factors"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ]
+    },
+    {
+      "paper_id": "J-H03",
+      "title": "Tele-impedance: The Role of the Human Operator in Teleoperation",
+      "year": 2013,
+      "venue": "The International Journal of Robotics Research",
+      "venue_kind": "journal",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://www.centropiaggio.unipi.it/sites/default/files/2012_ATB_IJRR.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1177/0278364912464668",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "tele_impedance",
+        "human_operator",
+        "force_control"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ]
+    },
+    {
+      "paper_id": "J-H04",
+      "title": "Reduced-complexity representation of human arm active endpoint stiffness",
+      "year": 2018,
+      "venue": "The International Journal of Robotics Research",
+      "venue_kind": "journal",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://journals.sagepub.com/doi/10.1177/0278364917744035",
+        "kind": "open_full_text_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1177/0278364917744035",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "human_arm",
+        "endpoint_stiffness",
+        "human_robot_physical_interaction"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ]
+    },
+    {
+      "paper_id": "J-H05",
+      "title": "Human-Like Adaptation of Force and Impedance in Stable and Unstable Interactions",
+      "year": 2011,
+      "venue": "IEEE Transactions on Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 2,
+        "D": 0,
+        "H": 3,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://elib.dlr.de/113236/1/Human-Like_Adaptation.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/TRO.2011.2158251",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "impedance_adaptation",
+        "human_motor_control",
+        "physical_hri"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-transactions-on-robotics-king-sun-fu-memorial-best-paper-award/",
+        "evidence_note": "Listed by the IEEE RAS King-Sun Fu Memorial Best Paper Award."
+      }
+    },
+    {
+      "paper_id": "J-H06",
+      "title": "2.5D Laser-Cutting-Based Customized Fabrication of Long-Term Wearable Textile sEMG Sensor: From Design to Intention Recognition",
+      "year": 2022,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 2,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://koasas.kaist.ac.kr/handle/10203/298093",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2022.3190620",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "wearable_sensor",
+        "semg",
+        "intention_recognition"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-A01",
+      "title": "Robot Operating System 2: Design, architecture, and uses in the wild",
+      "year": 2022,
+      "venue": "Science Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 3,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2211.07752",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1126/scirobotics.abm6074",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "ros2",
+        "robotics_middleware",
+        "deployment"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ]
+    },
+    {
+      "paper_id": "J-A02",
+      "title": "Probabilistic Risk Metrics for Navigating Occluded Intersections",
+      "year": 2019,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://braraki.github.io/research/publications/ral19.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2019.2931823",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "risk_aware_navigation",
+        "occlusion",
+        "autonomous_driving"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ]
+    },
+    {
+      "paper_id": "J-A03",
+      "title": "Vision-Based Reactive Planning for Aggressive Target Tracking While Avoiding Collisions and Occlusions",
+      "year": 2018,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://hal.science/hal-01836586/document",
+        "kind": "accepted_author_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2018.2856526",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "reactive_planning",
+        "target_tracking",
+        "occlusion_avoidance"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/publications-awards/ieee-robotics-and-automation-letters-best-paper-award/",
+        "evidence_note": "Listed in the IEEE RAS RA-L Best Paper Award history."
+      }
+    },
+    {
+      "paper_id": "J-A04",
+      "title": "WayFAST: Navigation with a Learned Fast Marching Method",
+      "year": 2022,
+      "venue": "IEEE Robotics and Automation Letters",
+      "venue_kind": "journal",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 2,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2203.12071",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/LRA.2022.3193464",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "navigation",
+        "learned_planner",
+        "real_robot_deployment"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ]
+    },
+    {
+      "paper_id": "J-A05",
+      "title": "Active learning via informed search in movement parameter space for efficient robot task learning and transfer",
+      "year": 2019,
+      "venue": "Autonomous Robots",
+      "venue_kind": "journal",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 2,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://link.springer.com/article/10.1007/s10514-019-09842-7",
+        "kind": "open_full_text_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1007/s10514-019-09842-7",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "task_learning",
+        "active_search",
+        "transfer"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ]
+    },
+    {
+      "paper_id": "J-A06",
+      "title": "NanoCockpit: Performance-optimized Application Framework for AI-based Autonomous Nanorobotics",
+      "year": 2026,
+      "venue": "IEEE Robotics and Automation Practice",
+      "venue_kind": "journal",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 3,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2601.07476",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/RAP.2026.3687493",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "tinyml",
+        "nanorobotics",
+        "embedded_autonomy"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ]
+    },
+    {
+      "paper_id": "J-S01",
+      "title": "Robot Operating System: Package reuse and community dynamics",
+      "year": 2019,
+      "venue": "Journal of Systems and Software",
+      "venue_kind": "journal",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://www.inf.unibz.it/~rrobbes/p/JSS2019-ROS-ecosystem.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1016/j.jss.2019.02.024",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "ros_ecosystem",
+        "software_reuse",
+        "robotics_community"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ]
+    },
+    {
+      "paper_id": "J-S02",
+      "title": "Mining guidelines for architecting robotics software",
+      "year": 2021,
+      "venue": "Journal of Systems and Software",
+      "venue_kind": "journal",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://acme.able.cs.cmu.edu/pubs/uploads/pdf/JSS_ROS_2020.pdf",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1016/j.jss.2021.110969",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "robotics_software",
+        "architecture",
+        "software_mining"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ]
+    },
+    {
+      "paper_id": "J-S03",
+      "title": "Software engineering research on the Robot Operating System: A systematic mapping study",
+      "year": 2022,
+      "venue": "Journal of Systems and Software",
+      "venue_kind": "journal",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://www.sciencedirect.com/science/article/pii/S0164121222002503",
+        "kind": "open_full_text_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1016/j.jss.2022.111574",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "systematic_mapping",
+        "software_engineering",
+        "ros"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ]
+    },
+    {
+      "paper_id": "J-S04",
+      "title": "Robot Operating System 2: The need for a holistic security approach to robotic architectures",
+      "year": 2018,
+      "venue": "International Journal of Advanced Robotic Systems",
+      "venue_kind": "journal",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://journals.sagepub.com/doi/pdf/10.1177/1729881418770011",
+        "kind": "open_full_text_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1177/1729881418770011",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "ros2_security",
+        "robotic_architecture",
+        "threat_model"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ]
+    },
+    {
+      "paper_id": "J-S05",
+      "title": "ROS End-Effector: A modular framework for robot end-effector integration",
+      "year": 2023,
+      "venue": "Journal of Intelligent & Robotic Systems",
+      "venue_kind": "journal",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://link.springer.com/article/10.1007/s10846-023-01911-5",
+        "kind": "open_full_text_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1007/s10846-023-01911-5",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "ros_interface",
+        "end_effector",
+        "modular_robotics"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ]
+    },
+    {
+      "paper_id": "J-S06",
+      "title": "CyberCortex.AI: An AI-based Operating System for Autonomous Robotics and Complex Automation",
+      "year": 2025,
+      "venue": "Journal of Field Robotics",
+      "venue_kind": "journal",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2409.01241",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/rob.22426",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "robotics_os",
+        "heterogeneous_systems",
+        "field_deployment"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ]
+    },
+    {
+      "paper_id": "C-E01",
+      "title": "Extrinsic Contact Sensing for Soft Robots",
+      "year": 2021,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 2,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 2,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2103.08108",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA48506.2021.9561781",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "soft_contact",
+        "extrinsic_sensing",
+        "embodied_perception"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-E02",
+      "title": "Compact Design of a Hydraulic Driving Robot for Intraoperative MRI-Guided Bilateral Stereotactic Neurosurgery",
+      "year": 2018,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://group-iris.com/wp-content/uploads/2024/09/2018-Compact-Design-of-a-Hydraulic-Driving-Robot-for-Intraoperative-MRI-Guided-Bilateral-Stereotactic-Neurosurgery-1.pdf",
+        "kind": "public_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.ieee-ras.org/images/conferences/ICRA/ICRA_Awards_Brochures/ICRA_Brochure_2018_v3.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "medical_robotics",
+        "hydraulic_drive",
+        "mri_compatibility"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-E03",
+      "title": "Cooperative Manipulation and Transportation with Aerial Robots",
+      "year": 2009,
+      "venue": "Robotics: Science and Systems",
+      "venue_kind": "conference",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://www.roboticsproceedings.org/rss05/p1.pdf",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.roboticsproceedings.org/rss05/p1.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "aerial_robotics",
+        "cooperative_transport",
+        "coupled_dynamics"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "presentation": {
+        "level": "spotlight",
+        "source_url": "https://roboticsconference.org/2023/information/presenters/",
+        "evidence_note": "RSS presenter policy states that accepted papers receive spotlight talks and posters."
+      },
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "award",
+        "source_url": "https://roboticsconference.org/2025/program/testoftimeaward/",
+        "evidence_note": "RSS Test-of-Time recognition is retained as an award signal; this is not a claim about current novelty."
+      }
+    },
+    {
+      "paper_id": "C-E04",
+      "title": "REPLAB: A Robotic Experimentation Platform for Learning from Demonstration",
+      "year": 2019,
+      "venue": "IROS",
+      "venue_kind": "conference",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1905.07447",
+        "kind": "open_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.seas.upenn.edu/~dineshj/publication/yang-2019-replab-2/yang-2019-replab-2.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "robotic_platform",
+        "learning_from_demonstration",
+        "hardware_in_the_loop"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.iros2022.org/program/",
+        "evidence_note": "Curated from the IROS program and public author manuscript."
+      }
+    },
+    {
+      "paper_id": "C-E05",
+      "title": "A Convex Polynomial Force-Motion Model for Contact-Rich Manipulation",
+      "year": 2016,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 2,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1602.06056",
+        "kind": "public_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.ri.cmu.edu/pub_files/2016/5/ICRA16_0686_FI.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "contact_rich_manipulation",
+        "force_motion_model",
+        "convex_model"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-E06",
+      "title": "FlingBot: The Unreasonable Effectiveness of Dynamic Manipulation for Cloth Unfolding",
+      "year": 2021,
+      "venue": "CoRL",
+      "venue_kind": "conference",
+      "primary_axis": "E",
+      "submanifold_axes": {
+        "E": 3,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2105.03655",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.corl2021.org/accepted-papers",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "deformable_object",
+        "dynamic_manipulation",
+        "cloth"
+      ],
+      "extract": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary"
+      ],
+      "do_not_infer": [
+        "one morphology/contact design does not prove all embodiments"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.corl2023.org/papers",
+        "evidence_note": "Public CoRL accepted-paper record; presentation category retained as oral/spotlight in the curated corpus."
+      }
+    },
+    {
+      "paper_id": "C-P01",
+      "title": "Probabilistic Data Association for Semantic SLAM",
+      "year": 2017,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://seanbow.com/papers/ICRA17.pdf",
+        "kind": "public_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA.2017.7989203",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "semantic_slam",
+        "data_association",
+        "probabilistic_perception"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-P02",
+      "title": "Observability, Identifiability and Sensitivity of Vision-Aided Inertial Navigation",
+      "year": 2016,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1311.7434",
+        "kind": "public_preprint_and_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.ijcai.org/Proceedings/16/Papers/624.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "visual_inertial_navigation",
+        "observability",
+        "identifiability"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-P03",
+      "title": "Translating Images into Maps",
+      "year": 2022,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2110.00966",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA46639.2022.9811901",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "image_to_map",
+        "semantic_mapping",
+        "visual_navigation"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-P04",
+      "title": "Making Sense of Vision and Touch: Learning Multimodal Representations for Contact-Rich Manipulation",
+      "year": 2019,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 3,
+        "C": 0,
+        "L": 2,
+        "D": 0,
+        "H": 2,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1810.10191",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://arxiv.org/abs/1907.13098",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "vision_touch",
+        "multimodal_representation",
+        "contact_rich_manipulation"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://aihub.org/2019/07/28/making-sense-of-vision-and-touch-icra2019-best-paper-award-video-and-interview/",
+        "evidence_note": "ICRA 2019 Best Paper Award; the public article/preprint is retained."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award page and public preprint jointly support the recognition and presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-P05",
+      "title": "JRDB-Pose: A Large-Scale Dataset for Multi-Person Pose Estimation and Tracking",
+      "year": 2023,
+      "venue": "CVPR",
+      "venue_kind": "conference",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 2,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2210.11940",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://openaccess.thecvf.com/content/CVPR2023/papers/Vendrow_JRDB-Pose_A_Large-Scale_Dataset_for_Multi-Person_Pose_Estimation_and_Tracking_CVPR_2023_paper.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "pose_estimation",
+        "multi_person",
+        "robot_perception"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://cvpr.thecvf.com/Conferences/2023/Program",
+        "evidence_note": "Curated from the official CVPR program and open proceedings PDF."
+      }
+    },
+    {
+      "paper_id": "C-P06",
+      "title": "JRDB-Act: A Large-Scale Dataset for Spatio-Temporal Action Recognition in Robotics",
+      "year": 2022,
+      "venue": "CVPR",
+      "venue_kind": "conference",
+      "primary_axis": "P",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 3,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 2,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2106.08827",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://jrdb.erc.monash.edu/",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "action_recognition",
+        "robot_dataset",
+        "social_perception"
+      ],
+      "extract": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case"
+      ],
+      "do_not_infer": [
+        "one sensor or dataset does not prove broad perceptual validity"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://cvpr.thecvf.com/Conferences/2023/Program",
+        "evidence_note": "Curated from the official CVPR program and public dataset record."
+      }
+    },
+    {
+      "paper_id": "C-C01",
+      "title": "Control Design along Trajectories with Closed-Loop Inverse Dynamics",
+      "year": 2013,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 3,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1210.0888",
+        "kind": "public_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://groups.csail.mit.edu/robotics-center/public_papers/Majumdar13.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "inverse_dynamics",
+        "trajectory_control",
+        "closed_loop_control"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-C02",
+      "title": "Distributed Data-Driven Predictive Control for Networked Systems",
+      "year": 2023,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2211.06917",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA48891.2023.10160914",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "data_driven_control",
+        "distributed_control",
+        "predictive_control"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Retained as an ICRA award-recognized record in the curated corpus."
+      },
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Award-program evidence is used as the public presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-C03",
+      "title": "Reinforcement Learning for Safe Robot Control using Control Lyapunov Barrier Functions",
+      "year": 2023,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 3,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2305.09793",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA48891.2023.10160991",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "safe_rl",
+        "control_lyapunov_barrier",
+        "robot_control"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Curated from the ICRA program and accepted manuscript."
+      }
+    },
+    {
+      "paper_id": "C-C04",
+      "title": "Safe Control using Vision-based Control Barrier Function",
+      "year": 2023,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://researchportal.tuni.fi/en/publications/safe-control-using-vision-based-control-barrier-function-v-cbf/",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA48891.2023.10160805",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "vision_cbf",
+        "safe_control",
+        "visual_navigation"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Curated from the ICRA program and public institutional record."
+      }
+    },
+    {
+      "paper_id": "C-C05",
+      "title": "Robust Barrier Functions for a Fully Autonomous, Remotely Accessible Swarm-Robotics Testbed",
+      "year": 2020,
+      "venue": "IEEE Control and Decision Conference",
+      "venue_kind": "conference",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 3,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1909.02966",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://arxiv.org/abs/1909.02966",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "barrier_function",
+        "swarm_robotics",
+        "remote_testbed"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/conferences-workshops",
+        "evidence_note": "Open preprint and venue record are retained; the presentation rank is curated metadata."
+      }
+    },
+    {
+      "paper_id": "C-C06",
+      "title": "FogROS: An Adaptive Framework for Automating Fog Robotics Deployment",
+      "year": 2021,
+      "venue": "IEEE CASE",
+      "venue_kind": "conference",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2108.11355",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/CASE49439.2021.9551628",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "fog_robotics",
+        "cloud_robotics",
+        "deployment"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/conferences-workshops/fully-sponsored/ieee-case",
+        "evidence_note": "Curated from the official CASE venue page and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-C07",
+      "title": "Safety Under Uncertainty: Tight Bounds with Risk-Aware Control Barrier Functions",
+      "year": 2023,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "C",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 3,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2304.01040",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA48891.2023.10161379",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "risk_aware_control",
+        "stochastic_safety",
+        "control_barrier_function"
+      ],
+      "extract": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test"
+      ],
+      "do_not_infer": [
+        "stability or performance is conditional on stated dynamics and disturbances"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Curated from the ICRA program and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-L01",
+      "title": "Distilled Feature Fields Enable Few-Shot Language-Guided Manipulation",
+      "year": 2023,
+      "venue": "CoRL",
+      "venue_kind": "conference",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 2,
+        "C": 0,
+        "L": 3,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2308.07931",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://proceedings.mlr.press/v229/shen23a.html",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "few_shot_learning",
+        "language_guided_manipulation",
+        "feature_fields"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.corl2023.org/awards",
+        "evidence_note": "CoRL 2023 Best Paper Award; the public preprint and PMLR record are linked."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.corl2023.org/papers",
+        "evidence_note": "Public CoRL award and paper records support the presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-L02",
+      "title": "RoboCook: Long-Horizon Learning for Generalizable Object Rearrangement",
+      "year": 2023,
+      "venue": "CoRL",
+      "venue_kind": "conference",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 3,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2306.14447",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://proceedings.mlr.press/v229/shi23a.html",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "long_horizon_learning",
+        "deformable_manipulation",
+        "object_rearrangement"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.corl2023.org/awards",
+        "evidence_note": "CoRL 2023 Best Systems Award; the public preprint and PMLR record are linked."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.corl2023.org/papers",
+        "evidence_note": "Public CoRL award and paper records support the presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-L03",
+      "title": "Robots That Ask For Help: Uncertainty Alignment for Interactive Learning",
+      "year": 2023,
+      "venue": "CoRL",
+      "venue_kind": "conference",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 3,
+        "D": 2,
+        "H": 2,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2307.01928",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://proceedings.mlr.press/v229/ren23a.html",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "interactive_learning",
+        "uncertainty",
+        "help_seeking"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.corl2023.org/awards",
+        "evidence_note": "CoRL 2023 Best Student Paper Award; the public preprint and PMLR record are linked."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.corl2023.org/papers",
+        "evidence_note": "Public CoRL award and paper records support the presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-L04",
+      "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "year": 2023,
+      "venue": "CoRL",
+      "venue_kind": "conference",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 3,
+        "D": 2,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2303.04137",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://proceedings.mlr.press/v229/chi23a.html",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "diffusion_policy",
+        "visuomotor_learning",
+        "action_generation"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.corl2023.org/papers",
+        "evidence_note": "Public PMLR/CoRL record; presentation category retained as oral/spotlight in the curated corpus."
+      }
+    },
+    {
+      "paper_id": "C-L05",
+      "title": "RT-1: Robotics Transformer for Real-World Control at Scale",
+      "year": 2022,
+      "venue": "CoRL",
+      "venue_kind": "conference",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 3,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2212.06817",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.corl2022.org/accepted-papers",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "robotics_transformer",
+        "large_scale_data",
+        "real_world_control"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.corl2023.org/papers",
+        "evidence_note": "Public CoRL accepted-paper record; presentation category retained as oral/spotlight in the curated corpus."
+      }
+    },
+    {
+      "paper_id": "C-L06",
+      "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+      "year": 2024,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 2,
+        "C": 0,
+        "L": 3,
+        "D": 0,
+        "H": 0,
+        "A": 0,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2310.08864",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA57147.2024.10611477",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "embodied_dataset",
+        "cross_robot_learning",
+        "foundation_policy"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Listed on the official ICRA award materials used by the curator."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Official ICRA award material and public preprint support the presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-L07",
+      "title": "Language-Driven Representation Learning for Robotics",
+      "year": 2023,
+      "venue": "Robotics: Science and Systems",
+      "venue_kind": "conference",
+      "primary_axis": "L",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 0,
+        "L": 3,
+        "D": 0,
+        "H": 2,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2302.12766",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://roboticsproceedings.org/rss19/p032.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "language_representation",
+        "robot_learning",
+        "multimodal_learning"
+      ],
+      "extract": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test"
+      ],
+      "do_not_infer": [
+        "training success does not prove out-of-distribution generalization"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://roboticsconference.org/2023/program/awards/",
+        "evidence_note": "Listed among RSS 2023 award finalists."
+      },
+      "presentation": {
+        "level": "spotlight",
+        "source_url": "https://roboticsconference.org/2023/information/presenters/",
+        "evidence_note": "RSS presenter policy states that accepted papers receive spotlight talks and posters."
+      }
+    },
+    {
+      "paper_id": "C-D01",
+      "title": "Non-Euclidean Motion Planning with Graphs of Geodesically-Convex Sets",
+      "year": 2023,
+      "venue": "Robotics: Science and Systems",
+      "venue_kind": "conference",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2305.06341",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://roboticsproceedings.org/rss19/p025.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "motion_planning",
+        "non_euclidean_geometry",
+        "geodesic_convexity"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://roboticsconference.org/2023/program/awards/",
+        "evidence_note": "Listed among RSS 2023 award finalists."
+      },
+      "presentation": {
+        "level": "spotlight",
+        "source_url": "https://roboticsconference.org/2023/information/presenters/",
+        "evidence_note": "RSS presenter policy states that accepted papers receive spotlight talks and posters."
+      }
+    },
+    {
+      "paper_id": "C-D02",
+      "title": "You Only Demonstrate Once: Category-Level Manipulation from a Single Demonstration",
+      "year": 2022,
+      "venue": "Robotics: Science and Systems",
+      "venue_kind": "conference",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2201.12716",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://roboticsproceedings.org/rss18/p020.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "single_demonstration",
+        "category_level_manipulation",
+        "generalization"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://roboticsconference.org/2022/program/awards/",
+        "evidence_note": "Listed among RSS 2022 award finalists."
+      },
+      "presentation": {
+        "level": "spotlight",
+        "source_url": "https://roboticsconference.org/2023/information/presenters/",
+        "evidence_note": "RSS presenter policy states that accepted papers receive spotlight talks and posters."
+      }
+    },
+    {
+      "paper_id": "C-D03",
+      "title": "Semantic Linking Maps for Active Visual Object Search",
+      "year": 2020,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 0,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2006.10807",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA40945.2020.9196830",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "active_visual_search",
+        "semantic_map",
+        "task_planning"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Listed in the official ICRA 2020 conference award materials."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Official ICRA award material and public preprint support the presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-D04",
+      "title": "PDDLStream: Integrating Symbolic Planners and Blackbox Samplers",
+      "year": 2020,
+      "venue": "ICAPS",
+      "venue_kind": "conference",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1802.08705",
+        "kind": "open_proceedings_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://ojs.aaai.org/index.php/ICAPS/article/view/6683",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "task_and_motion_planning",
+        "symbolic_planning",
+        "blackbox_sampling"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://icaps-conference.org/",
+        "evidence_note": "Curated from the ICAPS proceedings record and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-D05",
+      "title": "Learning to Communicate with Deep Multi-Agent Reinforcement Learning",
+      "year": 2016,
+      "venue": "AAMAS",
+      "venue_kind": "conference",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1605.07736",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.ifaamas.org/Proceedings/aamas2016/papers/p147.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "multi_agent_learning",
+        "communication",
+        "coordination"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.aamas2024-conference.au/",
+        "evidence_note": "Curated from the AAMAS proceedings and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-D06",
+      "title": "VIMA: General Robot Manipulation with Multimodal Prompts",
+      "year": 2022,
+      "venue": "CoRL",
+      "venue_kind": "conference",
+      "primary_axis": "D",
+      "submanifold_axes": {
+        "E": 2,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 3,
+        "H": 0,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2210.03094",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://www.corl2022.org/accepted-papers",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "multimodal_prompt",
+        "robot_manipulation",
+        "task_generalization"
+      ],
+      "extract": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case"
+      ],
+      "do_not_infer": [
+        "one task plan does not prove arbitrary long-horizon competence"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.corl2023.org/papers",
+        "evidence_note": "Public CoRL accepted-paper record; presentation category retained as oral/spotlight in the curated corpus."
+      }
+    },
+    {
+      "paper_id": "C-H01",
+      "title": "Effects of Shared Control on Cognitive Load and Trust in Teleoperated Trajectory Tracking",
+      "year": 2024,
+      "venue": "HRI",
+      "venue_kind": "conference",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2402.02758",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://humanrobotinteraction.org/2024/accepted-papers/",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "shared_control",
+        "cognitive_load",
+        "trust"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://humanrobotinteraction.org/2024/accepted-papers/",
+        "evidence_note": "Curated from the official HRI accepted-paper record and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-H02",
+      "title": "Preference-Conditioned Language-Guided Abstraction",
+      "year": 2024,
+      "venue": "HRI",
+      "venue_kind": "conference",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 2,
+        "H": 3,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2402.03081",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://humanrobotinteraction.org/2024/accepted-papers/",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "preference_learning",
+        "language_guidance",
+        "human_robot_collaboration"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://humanrobotinteraction.org/2024/accepted-papers/",
+        "evidence_note": "Curated from the official HRI accepted-paper record and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-H03",
+      "title": "Haptic Feedback Improves Human-Robot Agreement and User Satisfaction in Shared-Autonomy Teleoperation",
+      "year": 2021,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2103.03453",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://ieeexplore.ieee.org/document/9561378",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "haptic_feedback",
+        "shared_autonomy",
+        "user_satisfaction"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Curated from the ICRA program and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-H04",
+      "title": "Collaborative Teleoperation with Haptic Feedback for Collision-Free Navigation of Ground Robots",
+      "year": 2022,
+      "venue": "IROS",
+      "venue_kind": "conference",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 2,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://sites.bu.edu/pierson/files/2023/03/coffey2022iros.pdf",
+        "kind": "open_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/IROS47612.2022.9981426",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "haptic_teleoperation",
+        "collision_avoidance",
+        "ground_robot"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.iros2022.org/program/",
+        "evidence_note": "Curated from the IROS program and public author manuscript."
+      }
+    },
+    {
+      "paper_id": "C-H05",
+      "title": "Tele-Impedance with Force Feedback under Communication Time Delay",
+      "year": 2017,
+      "venue": "IROS",
+      "venue_kind": "conference",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 0,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://www.centropiaggio.unipi.it/sites/default/files/laghi_iros_2017.pdf",
+        "kind": "open_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://arpi.unipi.it/handle/11568/999539",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "tele_impedance",
+        "force_feedback",
+        "communication_delay"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.iros2022.org/program/",
+        "evidence_note": "Curated from the IROS program and public author manuscript."
+      }
+    },
+    {
+      "paper_id": "C-H06",
+      "title": "A Reduced-Complexity Description of Arm Endpoint Stiffness with Applications to Teleimpedance Control",
+      "year": 2015,
+      "venue": "IROS",
+      "venue_kind": "conference",
+      "primary_axis": "H",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 3,
+        "A": 0,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://www.centropiaggio.unipi.it/sites/default/files/2015_aftb_iros.pdf",
+        "kind": "open_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/IROS.2015.7353495",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "teleimpedance",
+        "endpoint_stiffness",
+        "human_robot_physical_interaction"
+      ],
+      "extract": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary"
+      ],
+      "do_not_infer": [
+        "a user study or teleoperation demo does not prove general human benefit"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.iros2022.org/program/",
+        "evidence_note": "Curated from the IROS program and public author manuscript."
+      }
+    },
+    {
+      "paper_id": "C-A01",
+      "title": "ViKiNG: Vision-Based Kilometer-Scale Navigation with Geographic Hints",
+      "year": 2022,
+      "venue": "Robotics: Science and Systems",
+      "venue_kind": "conference",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 0,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2202.11271",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://roboticsproceedings.org/rss18/p012.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "visual_navigation",
+        "kilometer_scale",
+        "geographic_hints"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://roboticsconference.org/2022/program/awards/",
+        "evidence_note": "Listed among RSS 2022 award finalists."
+      },
+      "presentation": {
+        "level": "spotlight",
+        "source_url": "https://roboticsconference.org/2023/information/presenters/",
+        "evidence_note": "RSS presenter policy states that accepted papers receive spotlight talks and posters."
+      }
+    },
+    {
+      "paper_id": "C-A02",
+      "title": "Goal Masked Diffusion Policies for Unified Navigation and Exploration",
+      "year": 2024,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 2,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://openreview.net/pdf?id=FhQRJW71h5",
+        "kind": "open_review_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://openreview.net/forum?id=FhQRJW71h5",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "diffusion_policy",
+        "navigation",
+        "exploration"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Listed on the official ICRA 2024 award page used by the curator."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Official ICRA award material and public OpenReview record support the presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-A03",
+      "title": "Robot Learning on the Job: Human-in-the-Loop Adaptation of Robot Policies",
+      "year": 2023,
+      "venue": "Robotics: Science and Systems",
+      "venue_kind": "conference",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 0,
+        "H": 2,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2211.08416",
+        "kind": "open_proceedings_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://roboticsproceedings.org/rss19/p008.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "online_adaptation",
+        "human_in_the_loop",
+        "deployment"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "finalist",
+        "source_url": "https://roboticsconference.org/2023/program/awards/",
+        "evidence_note": "Listed among RSS 2023 award finalists."
+      },
+      "presentation": {
+        "level": "spotlight",
+        "source_url": "https://roboticsconference.org/2023/information/presenters/",
+        "evidence_note": "RSS presenter policy states that accepted papers receive spotlight talks and posters."
+      }
+    },
+    {
+      "paper_id": "C-A04",
+      "title": "Online LiDAR-SLAM for Legged Robots with Reinforcement Learning",
+      "year": 2020,
+      "venue": "IROS",
+      "venue_kind": "conference",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 2,
+        "C": 0,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2001.10249",
+        "kind": "open_preprint_and_author_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA40945.2020.9196769",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "legged_navigation",
+        "lidar_slam",
+        "online_learning"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.iros2022.org/program/",
+        "evidence_note": "Curated from the public manuscript and venue record."
+      }
+    },
+    {
+      "paper_id": "C-A05",
+      "title": "Hindsight Experience Replay",
+      "year": 2017,
+      "venue": "NeurIPS",
+      "venue_kind": "conference",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 2,
+        "H": 0,
+        "A": 3,
+        "S": 0
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1707.01495",
+        "kind": "open_proceedings_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://papers.nips.cc/paper/7090-hindsight-experience-replay",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "reinforcement_learning",
+        "goal_conditioning",
+        "sparse_rewards"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://neurips.cc/Conferences/2017/Schedule",
+        "evidence_note": "Curated from the official NeurIPS program and public proceedings."
+      }
+    },
+    {
+      "paper_id": "C-A06",
+      "title": "The Robotarium: A Remotely Accessible Swarm Robotics Research Testbed",
+      "year": 2017,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "A",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 2,
+        "H": 0,
+        "A": 3,
+        "S": 2
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1609.04730",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA.2017.7989200",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "swarm_robotics",
+        "remote_testbed",
+        "reproducibility"
+      ],
+      "extract": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure"
+      ],
+      "do_not_infer": [
+        "a deployment demo does not prove reliability across the full operating envelope"
+      ],
+      "award": {
+        "qualifies_for_quota": true,
+        "status": "winner",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Listed in the official ICRA award materials for multi-robot systems."
+      },
+      "presentation": {
+        "level": "best_paper",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Official ICRA award material and public preprint support the presentation trace."
+      }
+    },
+    {
+      "paper_id": "C-S01",
+      "title": "ROS: an open-source Robot Operating System",
+      "year": 2009,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://ai.stanford.edu/~ang/papers/icraoss09-ROS.pdf",
+        "kind": "public_author_pdf",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://ai.stanford.edu/~ang/papers/icraoss09-ROS.pdf",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "robot_operating_system",
+        "open_source",
+        "middleware"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Public ICRA workshop/proceedings manuscript retained as the final record."
+      }
+    },
+    {
+      "paper_id": "C-S02",
+      "title": "FogROS 2: An Adaptive and Extensible Platform for Cloud and Fog Robotics Using ROS 2",
+      "year": 2023,
+      "venue": "ICRA",
+      "venue_kind": "conference",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2205.09778",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/ICRA48891.2023.10160874",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "ros2",
+        "cloud_robotics",
+        "fog_computing"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.ieee-ras.org/awards-recognition/conference-awards/ieee-icra-best-conference-paper-award/",
+        "evidence_note": "Curated from the ICRA program and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-S03",
+      "title": "SOTER: A Runtime Verification Framework for ROS",
+      "year": 2019,
+      "venue": "IEEE DSN",
+      "venue_kind": "conference",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/1808.07921",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/DSN.2019.00027",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "runtime_verification",
+        "robot_safety",
+        "ros_security"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://dsn2020-2020.codaspy.org/program/",
+        "evidence_note": "Curated from the official DSN program and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-S04",
+      "title": "SOTER on ROS: A Runtime Verification Framework for ROS-Based Robotic Systems",
+      "year": 2020,
+      "venue": "Runtime Verification",
+      "venue_kind": "conference",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2008.09707",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1007/978-3-030-60508-7_10",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "runtime_verification",
+        "ros",
+        "formal_monitoring"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://rv2020.inf.unibz.it/",
+        "evidence_note": "Curated from the official Runtime Verification program and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-S05",
+      "title": "RobotCore: A Middleware for Reliable and Reproducible Robot Learning",
+      "year": 2022,
+      "venue": "IROS",
+      "venue_kind": "conference",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 0,
+        "L": 2,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://arxiv.org/abs/2205.03929",
+        "kind": "open_preprint_or_accepted_manuscript",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://doi.org/10.1109/IROS47612.2022.9982082",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "robot_learning_system",
+        "middleware",
+        "reproducibility"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://www.iros2022.org/program/",
+        "evidence_note": "Curated from the IROS program and public preprint."
+      }
+    },
+    {
+      "paper_id": "C-S06",
+      "title": "Robot Operating System: A modular software framework for automated driving",
+      "year": 2016,
+      "venue": "IEEE ITSC",
+      "venue_kind": "conference",
+      "primary_axis": "S",
+      "submanifold_axes": {
+        "E": 0,
+        "P": 0,
+        "C": 2,
+        "L": 0,
+        "D": 0,
+        "H": 0,
+        "A": 2,
+        "S": 3
+      },
+      "preprint": {
+        "url": "https://publikationen.bibliothek.kit.edu/1000135281",
+        "kind": "institutional_public_record",
+        "checked_at": "2026-07-29"
+      },
+      "final_publication": {
+        "url": "https://publikationen.bibliothek.kit.edu/1000135281",
+        "kind": "final_venue_record",
+        "checked_at": "2026-07-29"
+      },
+      "pattern_tags": [
+        "ros",
+        "automated_driving",
+        "software_framework"
+      ],
+      "extract": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact"
+      ],
+      "do_not_infer": [
+        "an artifact or benchmark does not prove reproducibility on every platform"
+      ],
+      "presentation": {
+        "level": "oral",
+        "source_url": "https://2023.ieee-itsc.org/program/",
+        "evidence_note": "Curated from the official ITSC program and public repository record."
+      }
+    }
   ]
 }

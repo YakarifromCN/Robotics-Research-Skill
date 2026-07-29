@@ -1,0 +1,9 @@
+# Writing 阶段的子流形路由
+
+Claim Ledger 的每个承重主张应绑定一个或多个 E/P/C/L/D/H/A/S 轴，并绑定相应结果、数字、引文、图表和证据状态。轴向量用于：
+
+1. 检查叙事高度是否超过证据形状；
+2. 将指定 venue 的官方 scope 转成组织、压缩和补充材料要求；
+3. 明确未覆盖的轴向负担，输出 `EVIDENCE_GAPS` 或收窄 claim boundary。
+
+factor-fit ranking 只能帮助选择候选载体，不能在正文中写成录用概率、领域等级或“适合所以有效”。ratings 不进入 Claim Ledger。

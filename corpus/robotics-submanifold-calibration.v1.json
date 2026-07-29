@@ -1,0 +1,187 @@
+{
+  "schema_version": "robotics-submanifold-calibration.v1",
+  "generated_from": {
+    "corpus": "corpus/public-paper-index.json",
+    "corpus_schema": "robotics-public-corpus.v2",
+    "model": "corpus/robotics-submanifold.v1.json",
+    "catalog": "corpus/venue-catalog.v2.json",
+    "model_digest": "sha256:74038a217c44852fbc50cf7788e54fa3ab7eab3d24a0a1797cbd68b57e2db06c"
+  },
+  "interpretation": {
+    "status": "DESCRIPTIVE_BALANCED_CALIBRATION",
+    "method": "semantic axis coding plus stratified corpus summaries",
+    "not_claimed": [
+      "statistical PCA",
+      "statistical latent-factor fit",
+      "venue acceptance probability",
+      "causal effect of a venue label or award"
+    ],
+    "balance_note": "Because the corpus is sampled evenly across axes, vector means diagnose coding coverage and evidence patterns; they are not field prevalence estimates."
+  },
+  "corpus_summary": {
+    "records": 100,
+    "journal_count": 50,
+    "conference_count": 50,
+    "award_recognition_count": 51,
+    "strict_winner_count": 37,
+    "award_status_counts": {
+      "award": 1,
+      "finalist": 13,
+      "winner": 37
+    }
+  },
+  "primary_axis_counts": {
+    "E": 13,
+    "P": 13,
+    "C": 13,
+    "L": 13,
+    "D": 12,
+    "H": 12,
+    "A": 12,
+    "S": 12
+  },
+  "primary_axis_uniformity": {
+    "max_minus_min": 1,
+    "required_max_minus_min": 1,
+    "status": "PASS"
+  },
+  "primary_axis_counts_by_kind": {
+    "journal": {
+      "E": 7,
+      "P": 7,
+      "C": 6,
+      "L": 6,
+      "D": 6,
+      "H": 6,
+      "A": 6,
+      "S": 6
+    },
+    "conference": {
+      "E": 6,
+      "P": 6,
+      "C": 7,
+      "L": 7,
+      "D": 6,
+      "H": 6,
+      "A": 6,
+      "S": 6
+    }
+  },
+  "primary_axis_uniformity_by_kind": {
+    "journal": {
+      "max_minus_min": 1,
+      "status": "PASS"
+    },
+    "conference": {
+      "max_minus_min": 1,
+      "status": "PASS"
+    }
+  },
+  "mean_axis_loading": {
+    "E": 0.83,
+    "P": 0.75,
+    "C": 1.07,
+    "L": 0.83,
+    "D": 0.8,
+    "H": 0.58,
+    "A": 1.18,
+    "S": 0.62
+  },
+  "mean_axis_loading_by_kind": {
+    "journal": {
+      "E": 0.94,
+      "P": 0.78,
+      "C": 1.12,
+      "L": 0.72,
+      "D": 0.68,
+      "H": 0.48,
+      "A": 1.12,
+      "S": 0.6
+    },
+    "conference": {
+      "E": 0.72,
+      "P": 0.72,
+      "C": 1.02,
+      "L": 0.94,
+      "D": 0.92,
+      "H": 0.68,
+      "A": 1.24,
+      "S": 0.64
+    }
+  },
+  "active_axis_coverage": {
+    "E": 35,
+    "P": 31,
+    "C": 47,
+    "L": 35,
+    "D": 34,
+    "H": 23,
+    "A": 53,
+    "S": 25
+  },
+  "active_axis_coverage_by_kind": {
+    "journal": {
+      "E": 20,
+      "P": 16,
+      "C": 25,
+      "L": 15,
+      "D": 14,
+      "H": 9,
+      "A": 25,
+      "S": 12
+    },
+    "conference": {
+      "E": 15,
+      "P": 15,
+      "C": 22,
+      "L": 20,
+      "D": 20,
+      "H": 14,
+      "A": 28,
+      "S": 13
+    }
+  },
+  "venue_record_counts": {
+    "AAMAS": 1,
+    "Autonomous Robots": 2,
+    "CVPR": 2,
+    "CoRL": 7,
+    "HRI": 2,
+    "ICAPS": 1,
+    "ICRA": 19,
+    "IEEE CASE": 1,
+    "IEEE Control and Decision Conference": 1,
+    "IEEE DSN": 1,
+    "IEEE ITSC": 1,
+    "IEEE Robotics and Automation Letters": 22,
+    "IEEE Robotics and Automation Practice": 1,
+    "IEEE Transactions on Haptics": 2,
+    "IEEE Transactions on Pattern Analysis and Machine Intelligence": 1,
+    "IEEE Transactions on Robotics": 9,
+    "IROS": 6,
+    "International Journal of Advanced Robotic Systems": 1,
+    "Journal of Field Robotics": 1,
+    "Journal of Intelligent & Robotic Systems": 1,
+    "Journal of Systems and Software": 3,
+    "NeurIPS": 1,
+    "Robotics: Science and Systems": 6,
+    "Runtime Verification": 1,
+    "Science Robotics": 3,
+    "The International Journal of Robotics Research": 4
+  },
+  "axis_order": [
+    "E",
+    "P",
+    "C",
+    "L",
+    "D",
+    "H",
+    "A",
+    "S"
+  ],
+  "next_use": [
+    "Use axis means to inspect whether an evidence rule is underrepresented in the corpus.",
+    "Use project vectors and venue vectors for routing; preserve claim and design locks.",
+    "Recalibrate only after adding a new, auditable corpus version; do not convert the report into an acceptance model."
+  ]
+}

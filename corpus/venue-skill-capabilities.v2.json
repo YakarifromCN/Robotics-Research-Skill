@@ -1,0 +1,37 @@
+{
+  "schema_version": "robotics-venue-skill-capabilities.v2",
+  "model_kind": "workflow_capability_redirect_map",
+  "canonical_router": "scripts/route_robotics_submanifold.py",
+  "canonical_catalog": "corpus/venue-catalog.v2.json",
+  "canonical_model": "corpus/robotics-submanifold.v1.json",
+  "redirect_targets": [
+    "develop-robotics-idea",
+    "design-robotics-experiment",
+    "write-robotics-paper",
+    "review-robotic-feedback"
+  ],
+  "contract": {
+    "required_outputs": [
+      "project_vector",
+      "research_intensity",
+      "proposed_evidence_pressures",
+      "factor_fit_or_fixed_venue_fit",
+      "official_scope_status",
+      "acceptance_probability_NOT_ESTIMABLE"
+    ],
+    "ranking_semantics": "factor-fit ranking only; directness is a prior, not a rating",
+    "official_scope_rule": "refresh the current official venue scope and author guide before submission"
+  },
+  "records": [
+    {"source_skill":"cs-ai-conference-workflow","axes":["L","P","D","S"],"redirect_stage":"Idea→Experiment→Review","modules":["contribution_family","evidence_shape","audience_fit","official_cycle","sibling_disambiguation","fallback_plan"]},
+    {"source_skill":"en-engtech-journal-workflow","axes":["E","P","C","L","S"],"redirect_stage":"Idea→Writing→Review","modules":["theory_method_system_device","proof_simulation_bench_field","generality_depth","reproducibility","official_checklist"]},
+    {"source_skill":"science-robotics","axes":["E","P","A","H","S"],"redirect_stage":"Experiment→Writing→Review","modules":["broad_significance","physical_realism","repeatability","statistics","hardware_reproducibility","video"]},
+    {"source_skill":"the-international-journal-of-robotics-research","axes":["E","P","C","L","D"],"redirect_stage":"Idea→Experiment→Writing","modules":["long_form","conceptual_framing","mechanism_generality","cross_condition_analysis","complete_validation"]},
+    {"source_skill":"ieee-transactions-on-robotics","axes":["E","P","C","L","S"],"redirect_stage":"Experiment→Writing→Review","modules":["complete_validation","quantitative_trials","baselines_ablations","real_robot_or_high_fidelity_sim","sim_to_real","failure_boundary"]},
+    {"source_skill":"HRI-Skills","axes":["H","P","A"],"redirect_stage":"Experiment→Writing→Review","modules":["human_subjects","interaction_mechanism","ethics_and_irb","preregister_or_effect_size","recruitment","rebuttal_camera_ready"]},
+    {"source_skill":"CoRL-Skills","axes":["L","P","C","S"],"redirect_stage":"Idea→Experiment→Review","modules":["seeds_splits_baselines","real_robot_spot_check","limitations","supplement","rebuttal","artifact"]},
+    {"source_skill":"RSS-Skills","axes":["E","P","C","D","S"],"redirect_stage":"Experiment→Writing→Review","modules":["single_track_contribution","mechanism_ablation","failure_attribution","hardware_campaign","anonymization","artifact"]},
+    {"source_skill":"IROS-Skills","axes":["E","P","C","A","S"],"redirect_stage":"Experiment→Writing→Review","modules":["integrated_robot_system","real_robot_evidence","sim_to_real","video","paper_video_deadlines","no_traditional_rebuttal"]},
+    {"source_skill":"ICRA-Skills","axes":["E","P","C","L","S"],"redirect_stage":"Idea→Experiment→Writing","modules":["broad_robotics_relevance","hardware_campaign","logged_trials","video","paper_video_windows","ral_iros_corl_fallback"]}
+  ]
+}

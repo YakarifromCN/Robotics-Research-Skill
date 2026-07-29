@@ -1,0 +1,2335 @@
+{
+  "schema_version": "robotics-axis-strategy-analysis.v1",
+  "analysis_id": "ROBOTICS-AXIS-STRATEGY-BASELINE-100",
+  "method": {
+    "source": "ResearchStudio.pdf",
+    "chain": "paper metadata/full text + outcome -> Stage-1 fields -> domain-agnostic Stage-2 strategy signature -> embedding/UMAP/HDBSCAN infrastructure -> pattern-card fit -> axis-level posting strategy",
+    "current_run": "metadata adapter + transparent expert structural fit; not full-text LLM extraction and not an upstream PCA/factor-analysis result",
+    "selection_unit": "research-axis bottleneck",
+    "pattern_composition": {
+      "min": 1,
+      "max": 3,
+      "default": 2
+    }
+  },
+  "input": {
+    "signature_schema": "researchstudio-paper-signatures.v1",
+    "signature_record_count": 100,
+    "signature_fidelity": "METADATA_ONLY",
+    "pattern_library_schema": "researchstudio-robotics-pattern-cards.v1",
+    "axis_model_schema": "robotics-submanifold.v1",
+    "venue_catalog_schema": "robotics-venue-catalog.v2"
+  },
+  "axes": [
+    {
+      "axis_id": "E",
+      "axis_name": "embodiment_contact",
+      "axis_name_zh": "具身形态与接触",
+      "corpus_sample_count": 13,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P08",
+          "name": "Encode Structure by Construction",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 13,
+            "total": 13,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.5288,
+          "venue_diversity": {
+            "count": 8,
+            "names": [
+              "Autonomous Robots",
+              "CoRL",
+              "ICRA",
+              "IEEE Robotics and Automation Letters",
+              "IEEE Transactions on Robotics",
+              "IROS",
+              "Robotics: Science and Systems",
+              "Science Robotics"
+            ]
+          },
+          "directness_weighted_support": 0.9462,
+          "fit_score": 93.6058,
+          "evidence_paper_ids": [
+            "J-E01",
+            "J-E02",
+            "J-E03",
+            "J-E04",
+            "J-E05",
+            "J-E06",
+            "J-E07",
+            "C-E01"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P02",
+            "name": "Substitute the Operator or Representation",
+            "structural_prior": 0.86,
+            "corpus_coverage": {
+              "matched": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.2051,
+            "venue_diversity": {
+              "count": 8,
+              "names": [
+                "Autonomous Robots",
+                "CoRL",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics",
+                "IROS",
+                "Robotics: Science and Systems",
+                "Science Robotics"
+              ]
+            },
+            "directness_weighted_support": 0.9462,
+            "fit_score": 82.6774,
+            "evidence_paper_ids": [
+              "J-E01",
+              "J-E02",
+              "J-E03",
+              "J-E04",
+              "J-E05",
+              "J-E06",
+              "J-E07",
+              "C-E01"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P04",
+            "name": "Design a Confound-Isolating Diagnostic",
+            "structural_prior": 0.78,
+            "corpus_coverage": {
+              "matched": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.4,
+            "venue_diversity": {
+              "count": 8,
+              "names": [
+                "Autonomous Robots",
+                "CoRL",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics",
+                "IROS",
+                "Robotics: Science and Systems",
+                "Science Robotics"
+              ]
+            },
+            "directness_weighted_support": 0.9462,
+            "fit_score": 81.3708,
+            "evidence_paper_ids": [
+              "J-E01",
+              "J-E02",
+              "J-E03",
+              "J-E04",
+              "J-E05",
+              "J-E06",
+              "J-E07",
+              "C-E01"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P08",
+          "P02"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R24",
+            "parent_pattern_id": "P08",
+            "name": "Embodiment and contact constraint by construction",
+            "when_to_apply": "Use when embodiment is the source of the capability, not merely a test platform."
+          },
+          {
+            "subpattern_id": "R10",
+            "parent_pattern_id": "P02",
+            "name": "Contact and geometry operator substitution",
+            "when_to_apply": "Use when contact-rich manipulation or non-Euclidean planning is bottlenecked by a standard operator."
+          },
+          {
+            "subpattern_id": "R14",
+            "parent_pattern_id": "P04",
+            "name": "Controlled diagnostic construction",
+            "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds."
+          }
+        ],
+        "strategy_signature": "Encode the load-bearing body, material and contact constraint into the mechanism, then isolate its contribution against matched embodiment and control alternatives.",
+        "evidence_recipe": [
+          "mechanism-to-body map",
+          "matched non-embodied or post-hoc-control comparator",
+          "contact/morphology stress sweep",
+          "cross-platform or boundary test"
+        ],
+        "failure_guard": "Do not generalize from one morphology or hardware instance without a mechanism boundary and an explicit transfer test.",
+        "claim_altitude": "embodied mechanism or morphology-to-task principle"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-E01",
+          "J-E02",
+          "J-E03",
+          "J-E04",
+          "J-E05",
+          "J-E06",
+          "J-E07",
+          "C-E01",
+          "C-E02",
+          "C-E03",
+          "C-E04",
+          "C-E05",
+          "C-E06"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "ICRA": 3,
+            "IEEE Robotics and Automation Letters": 3,
+            "Science Robotics": 2,
+            "Autonomous Robots": 1,
+            "CoRL": 1,
+            "IEEE Transactions on Robotics": 1,
+            "IROS": 1,
+            "Robotics: Science and Systems": 1
+          },
+          "observed_directness_weight_mean": 0.9125,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "conf-robio",
+          "name": "ROBIO",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "bioinspired",
+            "manipulation",
+            "robotics"
+          ],
+          "scope_fit": 0.625,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-aim",
+          "name": "AIM",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "mechatronics",
+            "robotics"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-biorob",
+          "name": "BioRob",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "mechatronics",
+            "robotics"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-humanoids",
+          "name": "Humanoids",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "manipulation",
+            "robotics"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icra",
+          "name": "ICRA",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "manipulation",
+            "robotics"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-arm",
+          "name": "IEEE ARM",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "mechatronics",
+            "robotics"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-cis-ram",
+          "name": "IEEE CIS-RAM",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "mechatronics",
+            "robotics"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-icma",
+          "name": "IEEE ICMA",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "mechatronics",
+            "robotics"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    },
+    {
+      "axis_id": "P",
+      "axis_name": "perception_state",
+      "axis_name_zh": "感知与状态估计",
+      "corpus_sample_count": 13,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P04",
+          "name": "Design a Confound-Isolating Diagnostic",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 13,
+            "total": 13,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.5192,
+          "venue_diversity": {
+            "count": 5,
+            "names": [
+              "CVPR",
+              "ICRA",
+              "IEEE Robotics and Automation Letters",
+              "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+              "IEEE Transactions on Robotics"
+            ]
+          },
+          "directness_weighted_support": 0.9192,
+          "fit_score": 93.3462,
+          "evidence_paper_ids": [
+            "J-P01",
+            "J-P02",
+            "J-P03",
+            "J-P04",
+            "J-P05",
+            "J-P06",
+            "J-P07",
+            "C-P01"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P05",
+            "name": "Unify Heterogeneous Inputs into One Space",
+            "structural_prior": 0.92,
+            "corpus_coverage": {
+              "matched": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.5055,
+            "venue_diversity": {
+              "count": 5,
+              "names": [
+                "CVPR",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+                "IEEE Transactions on Robotics"
+              ]
+            },
+            "directness_weighted_support": 0.9192,
+            "fit_score": 89.3276,
+            "evidence_paper_ids": [
+              "J-P01",
+              "J-P02",
+              "J-P03",
+              "J-P04",
+              "J-P05",
+              "J-P06",
+              "J-P07",
+              "C-P01"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P08",
+            "name": "Encode Structure by Construction",
+            "structural_prior": 0.8,
+            "corpus_coverage": {
+              "matched": 3,
+              "total": 13,
+              "rate": 0.2308
+            },
+            "mean_signal_density": 0.2667,
+            "venue_diversity": {
+              "count": 2,
+              "names": [
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics"
+              ]
+            },
+            "directness_weighted_support": 1.0,
+            "fit_score": 55.8974,
+            "evidence_paper_ids": [
+              "J-P04",
+              "J-P05",
+              "J-P06"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P04",
+          "P05"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R14",
+            "parent_pattern_id": "P04",
+            "name": "Controlled diagnostic construction",
+            "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds."
+          },
+          {
+            "subpattern_id": "R15",
+            "parent_pattern_id": "P05",
+            "name": "Cross-modal shared representation",
+            "when_to_apply": "Use when modalities are complementary but not jointly actionable."
+          },
+          {
+            "subpattern_id": "R23",
+            "parent_pattern_id": "P08",
+            "name": "Relational topology encoded as structure",
+            "when_to_apply": "Use when relations, not individual observations, determine the robot outcome."
+          }
+        ],
+        "strategy_signature": "Design a confound-isolating sensing-to-state diagnostic, and use calibrated or shared representations only when they change a downstream robot decision.",
+        "evidence_recipe": [
+          "sensor-to-state causal diagram",
+          "leave-one-sensor-out and calibration controls",
+          "failure-case stratification",
+          "held-out scene/robot/domain test"
+        ],
+        "failure_guard": "Do not report a perception metric gain as a robotics contribution unless the changed state alters task, control or safety outcomes.",
+        "claim_altitude": "state representation, observability or perception-to-action mechanism"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-P01",
+          "J-P02",
+          "J-P03",
+          "J-P04",
+          "J-P05",
+          "J-P06",
+          "J-P07",
+          "C-P01",
+          "C-P02",
+          "C-P03",
+          "C-P04",
+          "C-P05",
+          "C-P06"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "IEEE Robotics and Automation Letters": 5,
+            "ICRA": 4,
+            "CVPR": 2,
+            "IEEE Transactions on Pattern Analysis and Machine Intelligence": 1,
+            "IEEE Transactions on Robotics": 1
+          },
+          "observed_directness_weight_mean": 0.86,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "conf-ieee-sensors",
+          "name": "IEEE SENSORS",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "multisensor",
+            "perception",
+            "sensing"
+          ],
+          "scope_fit": 0.4839,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-cvpr",
+          "name": "CVPR",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "3d perception",
+            "computer vision"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-c viu",
+          "name": "Computer Vision and Image Understanding",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "3d perception",
+            "computer vision"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-eccv",
+          "name": "ECCV",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "3d perception",
+            "computer vision"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-iccv",
+          "name": "ICCV",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "3d perception",
+            "computer vision"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-tcsvt",
+          "name": "IEEE Transactions on Circuits and Systems for Video Technology",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "computer vision",
+            "perception"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-tip",
+          "name": "IEEE Transactions on Image Processing",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "computer vision",
+            "perception"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-tmm",
+          "name": "IEEE Transactions on Multimedia",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "computer vision",
+            "perception"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    },
+    {
+      "axis_id": "C",
+      "axis_name": "control_dynamics",
+      "axis_name_zh": "控制、动力学与安全",
+      "corpus_sample_count": 13,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P01",
+          "name": "Audit and Pivot an Assumption",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 13,
+            "total": 13,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.2991,
+          "venue_diversity": {
+            "count": 5,
+            "names": [
+              "ICRA",
+              "IEEE CASE",
+              "IEEE Control and Decision Conference",
+              "IEEE Robotics and Automation Letters",
+              "IEEE Transactions on Robotics"
+            ]
+          },
+          "directness_weighted_support": 0.9731,
+          "fit_score": 90.7543,
+          "evidence_paper_ids": [
+            "J-C01",
+            "J-C02",
+            "J-C03",
+            "J-C04",
+            "J-C05",
+            "J-C06",
+            "C-C01",
+            "C-C02"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P14",
+            "name": "Characterize a Limit, Then Surpass It",
+            "structural_prior": 0.95,
+            "corpus_coverage": {
+              "matched": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.4327,
+            "venue_diversity": {
+              "count": 5,
+              "names": [
+                "ICRA",
+                "IEEE CASE",
+                "IEEE Control and Decision Conference",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics"
+              ]
+            },
+            "directness_weighted_support": 0.9731,
+            "fit_score": 90.0904,
+            "evidence_paper_ids": [
+              "J-C01",
+              "J-C02",
+              "J-C03",
+              "J-C04",
+              "J-C05",
+              "J-C06",
+              "C-C01",
+              "C-C02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P04",
+            "name": "Design a Confound-Isolating Diagnostic",
+            "structural_prior": 0.84,
+            "corpus_coverage": {
+              "matched": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.4462,
+            "venue_diversity": {
+              "count": 5,
+              "names": [
+                "ICRA",
+                "IEEE CASE",
+                "IEEE Control and Decision Conference",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics"
+              ]
+            },
+            "directness_weighted_support": 0.9731,
+            "fit_score": 84.9854,
+            "evidence_paper_ids": [
+              "J-C01",
+              "J-C02",
+              "J-C03",
+              "J-C04",
+              "J-C05",
+              "J-C06",
+              "C-C01",
+              "C-C02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P01",
+          "P14"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R02",
+            "parent_pattern_id": "P01",
+            "name": "Remove a fixed model assumption",
+            "when_to_apply": "Use when the robot must operate under unknown contact, friction, terrain or dynamics."
+          },
+          {
+            "subpattern_id": "R30",
+            "parent_pattern_id": "P14",
+            "name": "Limit characterization and strict surpass",
+            "when_to_apply": "Use when a matched baseline has a sharp and reproducible boundary."
+          },
+          {
+            "subpattern_id": "R14",
+            "parent_pattern_id": "P04",
+            "name": "Controlled diagnostic construction",
+            "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds."
+          }
+        ],
+        "strategy_signature": "Audit the inherited model, stability or safety assumption, characterize its boundary, and show a matched mechanism-level improvement under disturbance.",
+        "evidence_recipe": [
+          "assumption-to-equation map",
+          "stability/safety proof or certificate",
+          "matched disturbance and uncertainty sweep",
+          "semantic negative control on the load-bearing variable"
+        ],
+        "failure_guard": "Do not call a controller safe or robust from nominal trajectories; identify the boundary and test the intervention on downstream failure.",
+        "claim_altitude": "dynamical mechanism, stability/safety certificate or control law"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-C01",
+          "J-C02",
+          "J-C03",
+          "J-C04",
+          "J-C05",
+          "J-C06",
+          "C-C01",
+          "C-C02",
+          "C-C03",
+          "C-C04",
+          "C-C05",
+          "C-C06",
+          "C-C07"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "ICRA": 5,
+            "IEEE Robotics and Automation Letters": 4,
+            "IEEE Transactions on Robotics": 2,
+            "IEEE CASE": 1,
+            "IEEE Control and Decision Conference": 1
+          },
+          "observed_directness_weight_mean": 0.93,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "conf-acc",
+          "name": "ACC",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "dynamics",
+            "optimization",
+            "stability"
+          ],
+          "scope_fit": 0.5911,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-cdc",
+          "name": "IEEE CDC",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "dynamics",
+            "optimization",
+            "stability"
+          ],
+          "scope_fit": 0.5911,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ecc",
+          "name": "ECC",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "dynamics",
+            "optimization"
+          ],
+          "scope_fit": 0.4839,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-aiaa-gnc",
+          "name": "AIAA GNC",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "guidance navigation control"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-esa-cgncs",
+          "name": "ESA-CGNCS",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "guidance navigation control"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-eurog n c",
+          "name": "EuroGNC",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "guidance navigation control"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icgnc",
+          "name": "ICGNC",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "guidance navigation control"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-ccta",
+          "name": "IEEE CCTA",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "control",
+            "optimization"
+          ],
+          "scope_fit": 0.3768,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    },
+    {
+      "axis_id": "L",
+      "axis_name": "learning_adaptation",
+      "axis_name_zh": "学习、表示与适应",
+      "corpus_sample_count": 13,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P07",
+          "name": "Manufacture the Supervisory Signal",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 13,
+            "total": 13,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.375,
+          "venue_diversity": {
+            "count": 5,
+            "names": [
+              "CoRL",
+              "ICRA",
+              "IEEE Robotics and Automation Letters",
+              "IEEE Transactions on Robotics",
+              "Robotics: Science and Systems"
+            ]
+          },
+          "directness_weighted_support": 0.8385,
+          "fit_score": 91.0673,
+          "evidence_paper_ids": [
+            "J-L01",
+            "J-L02",
+            "J-L03",
+            "J-L04",
+            "J-L05",
+            "J-L06",
+            "C-L01",
+            "C-L02"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P03",
+            "name": "Liberate a Fixed Generative Component",
+            "structural_prior": 0.92,
+            "corpus_coverage": {
+              "matched": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.2179,
+            "venue_diversity": {
+              "count": 5,
+              "names": [
+                "CoRL",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics",
+                "Robotics: Science and Systems"
+              ]
+            },
+            "directness_weighted_support": 0.8385,
+            "fit_score": 85.1856,
+            "evidence_paper_ids": [
+              "J-L01",
+              "J-L02",
+              "J-L03",
+              "J-L04",
+              "J-L05",
+              "J-L06",
+              "C-L01",
+              "C-L02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P05",
+            "name": "Unify Heterogeneous Inputs into One Space",
+            "structural_prior": 0.9,
+            "corpus_coverage": {
+              "matched": 13,
+              "total": 13,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.2198,
+            "venue_diversity": {
+              "count": 5,
+              "names": [
+                "CoRL",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics",
+                "Robotics: Science and Systems"
+              ]
+            },
+            "directness_weighted_support": 0.8385,
+            "fit_score": 84.2495,
+            "evidence_paper_ids": [
+              "J-L01",
+              "J-L02",
+              "J-L03",
+              "J-L04",
+              "J-L05",
+              "J-L06",
+              "C-L01",
+              "C-L02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P07",
+          "P03"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R19",
+            "parent_pattern_id": "P07",
+            "name": "Self-supervised signal engineering",
+            "when_to_apply": "Use when robot labels are expensive but structure is observable."
+          },
+          {
+            "subpattern_id": "R12",
+            "parent_pattern_id": "P03",
+            "name": "Residual mechanism liberation",
+            "when_to_apply": "Use when sim-to-real, friction, contact or dynamics residuals dominate the error."
+          },
+          {
+            "subpattern_id": "R15",
+            "parent_pattern_id": "P05",
+            "name": "Cross-modal shared representation",
+            "when_to_apply": "Use when modalities are complementary but not jointly actionable."
+          }
+        ],
+        "strategy_signature": "Manufacture a task-relevant supervisory signal or redesign the policy-generation substrate, then prove transfer with signal-removal and held-out embodiment or task tests.",
+        "evidence_recipe": [
+          "signal provenance and mechanism map",
+          "signal-removal or shuffled-signal control",
+          "same-data/compute baseline",
+          "held-out task, embodiment or environment transfer"
+        ],
+        "failure_guard": "Do not present scale, data or a benchmark gain as a learning mechanism without isolating the supervisory signal or policy substrate that caused it.",
+        "claim_altitude": "learning signal, policy-generation mechanism or transfer principle"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-L01",
+          "J-L02",
+          "J-L03",
+          "J-L04",
+          "J-L05",
+          "J-L06",
+          "C-L01",
+          "C-L02",
+          "C-L03",
+          "C-L04",
+          "C-L05",
+          "C-L06",
+          "C-L07"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "CoRL": 5,
+            "IEEE Robotics and Automation Letters": 5,
+            "ICRA": 1,
+            "IEEE Transactions on Robotics": 1,
+            "Robotics: Science and Systems": 1
+          },
+          "observed_directness_weight_mean": 0.86,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "conf-iclr",
+          "name": "ICLR",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "foundation model",
+            "representation learning",
+            "robot learning",
+            "vla"
+          ],
+          "scope_fit": 0.5375,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icml",
+          "name": "ICML",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "imitation learning",
+            "reinforcement learning",
+            "representation learning",
+            "robot learning"
+          ],
+          "scope_fit": 0.5375,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-neurips",
+          "name": "NeurIPS",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "reinforcement learning",
+            "robot learning",
+            "world model"
+          ],
+          "scope_fit": 0.4437,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-autonomous-robots",
+          "name": "Autonomous Robots",
+          "kind": "journal",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "learning"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-humanoids",
+          "name": "Humanoids",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "learning"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icra",
+          "name": "ICRA",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "learning"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-ral",
+          "name": "IEEE Robotics and Automation Letters",
+          "kind": "journal",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "learning"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-t-robotics",
+          "name": "IEEE Transactions on Robotics",
+          "kind": "journal",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "learning"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    },
+    {
+      "axis_id": "D",
+      "axis_name": "planning_decision_coordination",
+      "axis_name_zh": "规划、决策与协同",
+      "corpus_sample_count": 12,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P10",
+          "name": "Decompose for Differentiated Treatment",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 12,
+            "total": 12,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.4524,
+          "venue_diversity": {
+            "count": 8,
+            "names": [
+              "AAMAS",
+              "CoRL",
+              "ICAPS",
+              "ICRA",
+              "IEEE Robotics and Automation Letters",
+              "IEEE Transactions on Robotics",
+              "Robotics: Science and Systems",
+              "The International Journal of Robotics Research"
+            ]
+          },
+          "directness_weighted_support": 0.8542,
+          "fit_score": 92.1518,
+          "evidence_paper_ids": [
+            "J-D01",
+            "J-D02",
+            "J-D03",
+            "J-D04",
+            "J-D05",
+            "J-D06",
+            "C-D01",
+            "C-D02"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P11",
+            "name": "Decompose and Delegate to Solvers",
+            "structural_prior": 0.9,
+            "corpus_coverage": {
+              "matched": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.2024,
+            "venue_diversity": {
+              "count": 8,
+              "names": [
+                "AAMAS",
+                "CoRL",
+                "ICAPS",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics",
+                "Robotics: Science and Systems",
+                "The International Journal of Robotics Research"
+              ]
+            },
+            "directness_weighted_support": 0.8542,
+            "fit_score": 84.1018,
+            "evidence_paper_ids": [
+              "J-D01",
+              "J-D02",
+              "J-D03",
+              "J-D04",
+              "J-D05",
+              "J-D06",
+              "C-D01",
+              "C-D02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P06",
+            "name": "Reframe as a Solvable Object",
+            "structural_prior": 0.86,
+            "corpus_coverage": {
+              "matched": 4,
+              "total": 12,
+              "rate": 0.3333
+            },
+            "mean_signal_density": 0.2083,
+            "venue_diversity": {
+              "count": 4,
+              "names": [
+                "CoRL",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Robotics",
+                "Robotics: Science and Systems"
+              ]
+            },
+            "directness_weighted_support": 0.825,
+            "fit_score": 62.7133,
+            "evidence_paper_ids": [
+              "J-D04",
+              "J-D06",
+              "C-D02",
+              "C-D06"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P10",
+          "P11"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R26",
+            "parent_pattern_id": "P10",
+            "name": "Heterogeneous regime decomposition",
+            "when_to_apply": "Use when a single controller or policy averages incompatible regimes."
+          },
+          {
+            "subpattern_id": "R27",
+            "parent_pattern_id": "P11",
+            "name": "Decompose and delegate to solvers",
+            "when_to_apply": "Use when planning or coordination contains separable subproblems."
+          },
+          {
+            "subpattern_id": "R18",
+            "parent_pattern_id": "P06",
+            "name": "Feasibility-object re-casting",
+            "when_to_apply": "Use when field performance fails because the target was never bounded."
+          }
+        ],
+        "strategy_signature": "Decompose heterogeneous long-horizon decision structure into typed subproblems, delegate or relax them with explicit interface and recovery guarantees.",
+        "evidence_recipe": [
+          "task/decision decomposition",
+          "typed state and solver interfaces",
+          "coordination and recovery tests",
+          "long-horizon or multi-agent stress cases"
+        ],
+        "failure_guard": "Do not call a pipeline a planning contribution when the subproblem interfaces, coordination cost or failure recovery are unspecified.",
+        "claim_altitude": "planning decomposition, coordination protocol or long-horizon decision mechanism"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-D01",
+          "J-D02",
+          "J-D03",
+          "J-D04",
+          "J-D05",
+          "J-D06",
+          "C-D01",
+          "C-D02",
+          "C-D03",
+          "C-D04",
+          "C-D05",
+          "C-D06"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "IEEE Transactions on Robotics": 3,
+            "Robotics: Science and Systems": 2,
+            "The International Journal of Robotics Research": 2,
+            "AAMAS": 1,
+            "CoRL": 1,
+            "ICAPS": 1,
+            "ICRA": 1,
+            "IEEE Robotics and Automation Letters": 1
+          },
+          "observed_directness_weight_mean": 0.825,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "conf-aaai",
+          "name": "AAAI",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "multi agent",
+            "planning",
+            "reasoning"
+          ],
+          "scope_fit": 0.4437,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-aamas",
+          "name": "AAMAS",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "coordination",
+            "multi agent",
+            "multi robot"
+          ],
+          "scope_fit": 0.4437,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-artificial-intelligence",
+          "name": "Artificial Intelligence",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "decision",
+            "planning",
+            "reasoning"
+          ],
+          "scope_fit": 0.4437,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-aamas",
+          "name": "Autonomous Agents and Multi-Agent Systems",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "coordination",
+            "multi agent",
+            "multi robot"
+          ],
+          "scope_fit": 0.4437,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icaps",
+          "name": "ICAPS",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "planning",
+            "scheduling",
+            "task motion planning"
+          ],
+          "scope_fit": 0.4437,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ijcai",
+          "name": "IJCAI",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "multi agent",
+            "planning",
+            "reasoning"
+          ],
+          "scope_fit": 0.4437,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ecai",
+          "name": "ECAI",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "planning",
+            "reasoning"
+          ],
+          "scope_fit": 0.35,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-jair",
+          "name": "Journal of Artificial Intelligence Research",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "planning",
+            "reasoning"
+          ],
+          "scope_fit": 0.35,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    },
+    {
+      "axis_id": "H",
+      "axis_name": "human_interaction",
+      "axis_name_zh": "人机交互、触觉与 XR",
+      "corpus_sample_count": 12,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P04",
+          "name": "Design a Confound-Isolating Diagnostic",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 12,
+            "total": 12,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.5208,
+          "venue_diversity": {
+            "count": 7,
+            "names": [
+              "HRI",
+              "ICRA",
+              "IEEE Robotics and Automation Letters",
+              "IEEE Transactions on Haptics",
+              "IEEE Transactions on Robotics",
+              "IROS",
+              "The International Journal of Robotics Research"
+            ]
+          },
+          "directness_weighted_support": 0.9417,
+          "fit_score": 93.4792,
+          "evidence_paper_ids": [
+            "J-H01",
+            "J-H02",
+            "J-H03",
+            "J-H04",
+            "J-H05",
+            "J-H06",
+            "C-H01",
+            "C-H02"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P05",
+            "name": "Unify Heterogeneous Inputs into One Space",
+            "structural_prior": 0.86,
+            "corpus_coverage": {
+              "matched": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.381,
+            "venue_diversity": {
+              "count": 7,
+              "names": [
+                "HRI",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Haptics",
+                "IEEE Transactions on Robotics",
+                "IROS",
+                "The International Journal of Robotics Research"
+              ]
+            },
+            "directness_weighted_support": 0.9417,
+            "fit_score": 84.9407,
+            "evidence_paper_ids": [
+              "J-H01",
+              "J-H02",
+              "J-H03",
+              "J-H04",
+              "J-H05",
+              "J-H06",
+              "C-H01",
+              "C-H02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P01",
+            "name": "Audit and Pivot an Assumption",
+            "structural_prior": 0.78,
+            "corpus_coverage": {
+              "matched": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.3611,
+            "venue_diversity": {
+              "count": 7,
+              "names": [
+                "HRI",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Transactions on Haptics",
+                "IEEE Transactions on Robotics",
+                "IROS",
+                "The International Journal of Robotics Research"
+              ]
+            },
+            "directness_weighted_support": 0.9417,
+            "fit_score": 80.8428,
+            "evidence_paper_ids": [
+              "J-H01",
+              "J-H02",
+              "J-H03",
+              "J-H04",
+              "J-H05",
+              "J-H06",
+              "C-H01",
+              "C-H02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P04",
+          "P05"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R14",
+            "parent_pattern_id": "P04",
+            "name": "Controlled diagnostic construction",
+            "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds."
+          },
+          {
+            "subpattern_id": "R15",
+            "parent_pattern_id": "P05",
+            "name": "Cross-modal shared representation",
+            "when_to_apply": "Use when modalities are complementary but not jointly actionable."
+          },
+          {
+            "subpattern_id": "R05",
+            "parent_pattern_id": "P01",
+            "name": "Pivot the system interface",
+            "when_to_apply": "Use when interface latency, bandwidth or authority is the inherited bottleneck."
+          }
+        ],
+        "strategy_signature": "Construct a confound-isolating interaction or haptic diagnostic whose load-bearing interface changes human–robot behavior, workload, trust or physical safety.",
+        "evidence_recipe": [
+          "interaction mechanism and authority map",
+          "counterbalanced participant/operator study",
+          "matched workload/trust/safety measures",
+          "delay, novice, expert and failure-boundary tests"
+        ],
+        "failure_guard": "Do not submit a robot method plus a small user demo to an HRI/HCI venue; the interaction mechanism and human measure must be the contribution.",
+        "claim_altitude": "interaction mechanism, haptic channel or human-factor effect"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-H01",
+          "J-H02",
+          "J-H03",
+          "J-H04",
+          "J-H05",
+          "J-H06",
+          "C-H01",
+          "C-H02",
+          "C-H03",
+          "C-H04",
+          "C-H05",
+          "C-H06"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "IROS": 3,
+            "HRI": 2,
+            "IEEE Transactions on Haptics": 2,
+            "The International Journal of Robotics Research": 2,
+            "ICRA": 1,
+            "IEEE Robotics and Automation Letters": 1,
+            "IEEE Transactions on Robotics": 1
+          },
+          "observed_directness_weight_mean": 0.95,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "conf-ieee-haptics-symposium",
+          "name": "IEEE Haptics Symposium",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "force feedback",
+            "haptics",
+            "hri",
+            "teleoperation"
+          ],
+          "scope_fit": 0.5833,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-t-haptics",
+          "name": "IEEE Transactions on Haptics",
+          "kind": "journal",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "force feedback",
+            "haptics",
+            "hri",
+            "teleoperation"
+          ],
+          "scope_fit": 0.5833,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-thri",
+          "name": "ACM Transactions on Human-Robot Interaction",
+          "kind": "journal",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "hri",
+            "social robotics",
+            "user study"
+          ],
+          "scope_fit": 0.5,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-chi",
+          "name": "CHI",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "hri",
+            "human factors",
+            "social robotics",
+            "user study"
+          ],
+          "scope_fit": 0.4958,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-tochi",
+          "name": "ACM Transactions on Computer-Human Interaction",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "hri",
+            "human factors",
+            "user study"
+          ],
+          "scope_fit": 0.4125,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-vr",
+          "name": "IEEE VR",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "hri",
+            "teleoperation",
+            "virtual reality"
+          ],
+          "scope_fit": 0.4125,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ismar",
+          "name": "ISMAR",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "augmented reality",
+            "hri",
+            "teleoperation"
+          ],
+          "scope_fit": 0.4125,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-ijhcs",
+          "name": "International Journal of Human-Computer Studies",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "hri",
+            "human factors",
+            "user study"
+          ],
+          "scope_fit": 0.4125,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    },
+    {
+      "axis_id": "A",
+      "axis_name": "autonomy_deployment",
+      "axis_name_zh": "自主系统与部署运行",
+      "corpus_sample_count": 12,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P06",
+          "name": "Reframe as a Solvable Object",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 12,
+            "total": 12,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.5556,
+          "venue_diversity": {
+            "count": 8,
+            "names": [
+              "Autonomous Robots",
+              "ICRA",
+              "IEEE Robotics and Automation Letters",
+              "IEEE Robotics and Automation Practice",
+              "IROS",
+              "NeurIPS",
+              "Robotics: Science and Systems",
+              "Science Robotics"
+            ]
+          },
+          "directness_weighted_support": 0.9125,
+          "fit_score": 93.7847,
+          "evidence_paper_ids": [
+            "J-A01",
+            "J-A02",
+            "J-A03",
+            "J-A04",
+            "J-A05",
+            "J-A06",
+            "C-A01",
+            "C-A02"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P04",
+            "name": "Design a Confound-Isolating Diagnostic",
+            "structural_prior": 0.86,
+            "corpus_coverage": {
+              "matched": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.5417,
+            "venue_diversity": {
+              "count": 8,
+              "names": [
+                "Autonomous Robots",
+                "ICRA",
+                "IEEE Robotics and Automation Letters",
+                "IEEE Robotics and Automation Practice",
+                "IROS",
+                "NeurIPS",
+                "Robotics: Science and Systems",
+                "Science Robotics"
+              ]
+            },
+            "directness_weighted_support": 0.9125,
+            "fit_score": 86.8842,
+            "evidence_paper_ids": [
+              "J-A01",
+              "J-A02",
+              "J-A03",
+              "J-A04",
+              "J-A05",
+              "J-A06",
+              "C-A01",
+              "C-A02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P13",
+            "name": "Adapt by Conditioning, Not Retraining",
+            "structural_prior": 0.9,
+            "corpus_coverage": {
+              "matched": 2,
+              "total": 12,
+              "rate": 0.1667
+            },
+            "mean_signal_density": 0.4167,
+            "venue_diversity": {
+              "count": 2,
+              "names": [
+                "Autonomous Robots",
+                "Robotics: Science and Systems"
+              ]
+            },
+            "directness_weighted_support": 0.825,
+            "fit_score": 60.0417,
+            "evidence_paper_ids": [
+              "J-A05",
+              "C-A03"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P06",
+          "P04"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R18",
+            "parent_pattern_id": "P06",
+            "name": "Feasibility-object re-casting",
+            "when_to_apply": "Use when field performance fails because the target was never bounded."
+          },
+          {
+            "subpattern_id": "R29",
+            "parent_pattern_id": "P13",
+            "name": "Adapt by conditioning",
+            "when_to_apply": "Use when the shift is local, recurrent and observable online."
+          },
+          {
+            "subpattern_id": "R14",
+            "parent_pattern_id": "P04",
+            "name": "Controlled diagnostic construction",
+            "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds."
+          }
+        ],
+        "strategy_signature": "Recast an open deployment goal as a measurable operating envelope, then adapt or diagnose the autonomy loop under real field constraints and recovery failures.",
+        "evidence_recipe": [
+          "explicit operating-envelope definition",
+          "closed-loop field or simulator-to-real test",
+          "recovery and failure logging",
+          "frozen-core or no-adaptation control"
+        ],
+        "failure_guard": "Do not equate a single successful run with autonomy; bound the envelope, report recoveries and expose the deployment failure mode.",
+        "claim_altitude": "autonomy loop, operating envelope or deployment mechanism"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-A01",
+          "J-A02",
+          "J-A03",
+          "J-A04",
+          "J-A05",
+          "J-A06",
+          "C-A01",
+          "C-A02",
+          "C-A03",
+          "C-A04",
+          "C-A05",
+          "C-A06"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "IEEE Robotics and Automation Letters": 3,
+            "ICRA": 2,
+            "Robotics: Science and Systems": 2,
+            "Autonomous Robots": 1,
+            "IEEE Robotics and Automation Practice": 1,
+            "IROS": 1,
+            "NeurIPS": 1,
+            "Science Robotics": 1
+          },
+          "observed_directness_weight_mean": 0.9125,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "journal-robotics-automation-practice",
+          "name": "IEEE Robotics and Automation Practice",
+          "kind": "journal",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "deployment",
+            "field",
+            "industrial robotics"
+          ],
+          "scope_fit": 0.5312,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-icus",
+          "name": "IEEE ICUS",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "autonomy",
+            "unmanned systems"
+          ],
+          "scope_fit": 0.4375,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icsane",
+          "name": "ICSANE",
+          "kind": "conference",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "autonomy",
+            "navigation"
+          ],
+          "scope_fit": 0.35,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ion-navigation-series",
+          "name": "ION navigation conferences",
+          "kind": "conference_series",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "autonomy",
+            "navigation"
+          ],
+          "scope_fit": 0.35,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-autonomous-robots",
+          "name": "Autonomous Robots",
+          "kind": "journal",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "autonomous systems"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icuasac",
+          "name": "ICUASAC",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "autonomy"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-case",
+          "name": "IEEE CASE",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "industrial robotics"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-iv",
+          "name": "IEEE IV",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "intelligent vehicle"
+          ],
+          "scope_fit": 0.3438,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    },
+    {
+      "axis_id": "S",
+      "axis_name": "systems_realtime",
+      "axis_name_zh": "系统集成、实时与基础设施",
+      "corpus_sample_count": 12,
+      "data_fidelity": "METADATA_ONLY",
+      "best_posting_strategy": {
+        "anchor_pattern": {
+          "pattern_id": "P08",
+          "name": "Encode Structure by Construction",
+          "structural_prior": 1.0,
+          "corpus_coverage": {
+            "matched": 12,
+            "total": 12,
+            "rate": 1.0
+          },
+          "mean_signal_density": 0.6667,
+          "venue_diversity": {
+            "count": 9,
+            "names": [
+              "ICRA",
+              "IEEE DSN",
+              "IEEE ITSC",
+              "IROS",
+              "International Journal of Advanced Robotic Systems",
+              "Journal of Field Robotics",
+              "Journal of Intelligent & Robotic Systems",
+              "Journal of Systems and Software",
+              "Runtime Verification"
+            ]
+          },
+          "directness_weighted_support": 0.7375,
+          "fit_score": 94.3542,
+          "evidence_paper_ids": [
+            "J-S01",
+            "J-S02",
+            "J-S03",
+            "J-S04",
+            "J-S05",
+            "J-S06",
+            "C-S01",
+            "C-S02"
+          ],
+          "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+        },
+        "supporting_patterns": [
+          {
+            "pattern_id": "P04",
+            "name": "Design a Confound-Isolating Diagnostic",
+            "structural_prior": 0.91,
+            "corpus_coverage": {
+              "matched": 12,
+              "total": 12,
+              "rate": 1.0
+            },
+            "mean_signal_density": 0.4028,
+            "venue_diversity": {
+              "count": 9,
+              "names": [
+                "ICRA",
+                "IEEE DSN",
+                "IEEE ITSC",
+                "IROS",
+                "International Journal of Advanced Robotic Systems",
+                "Journal of Field Robotics",
+                "Journal of Intelligent & Robotic Systems",
+                "Journal of Systems and Software",
+                "Runtime Verification"
+              ]
+            },
+            "directness_weighted_support": 0.7375,
+            "fit_score": 86.6036,
+            "evidence_paper_ids": [
+              "J-S01",
+              "J-S02",
+              "J-S03",
+              "J-S04",
+              "J-S05",
+              "J-S06",
+              "C-S01",
+              "C-S02"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          },
+          {
+            "pattern_id": "P11",
+            "name": "Decompose and Delegate to Solvers",
+            "structural_prior": 0.82,
+            "corpus_coverage": {
+              "matched": 5,
+              "total": 12,
+              "rate": 0.4167
+            },
+            "mean_signal_density": 0.2286,
+            "venue_diversity": {
+              "count": 5,
+              "names": [
+                "ICRA",
+                "IEEE DSN",
+                "IEEE ITSC",
+                "Journal of Intelligent & Robotic Systems",
+                "Runtime Verification"
+              ]
+            },
+            "directness_weighted_support": 0.72,
+            "fit_score": 64.1814,
+            "evidence_paper_ids": [
+              "J-S05",
+              "C-S02",
+              "C-S03",
+              "C-S04",
+              "C-S06"
+            ],
+            "selection_semantics": "structural_fit_and_descriptive_corpus_support; not acceptance probability"
+          }
+        ],
+        "composition_default": [
+          "P08",
+          "P04"
+        ],
+        "tactical_subpatterns": [
+          {
+            "subpattern_id": "R24",
+            "parent_pattern_id": "P08",
+            "name": "Embodiment and contact constraint by construction",
+            "when_to_apply": "Use when embodiment is the source of the capability, not merely a test platform."
+          },
+          {
+            "subpattern_id": "R14",
+            "parent_pattern_id": "P04",
+            "name": "Controlled diagnostic construction",
+            "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds."
+          },
+          {
+            "subpattern_id": "R27",
+            "parent_pattern_id": "P11",
+            "name": "Decompose and delegate to solvers",
+            "when_to_apply": "Use when planning or coordination contains separable subproblems."
+          }
+        ],
+        "strategy_signature": "Encode the software–hardware, timing and reproducibility contract into the system architecture, then diagnose end-to-end latency, failure propagation and deployment behavior.",
+        "evidence_recipe": [
+          "component and interface contract",
+          "end-to-end latency/resource/fault propagation trace",
+          "reproducible artifact or deployment recipe",
+          "failure injection and recovery test"
+        ],
+        "failure_guard": "Do not present an architecture diagram as a systems contribution without reproducible artifacts and load-bearing end-to-end measurements.",
+        "claim_altitude": "integrated system, real-time contract or reproducible infrastructure"
+      },
+      "corpus_support": {
+        "paper_ids": [
+          "J-S01",
+          "J-S02",
+          "J-S03",
+          "J-S04",
+          "J-S05",
+          "J-S06",
+          "C-S01",
+          "C-S02",
+          "C-S03",
+          "C-S04",
+          "C-S05",
+          "C-S06"
+        ],
+        "observed_venue_context": {
+          "observed_venue_counts": {
+            "Journal of Systems and Software": 3,
+            "ICRA": 2,
+            "IEEE DSN": 1,
+            "IEEE ITSC": 1,
+            "IROS": 1,
+            "International Journal of Advanced Robotic Systems": 1,
+            "Journal of Field Robotics": 1,
+            "Journal of Intelligent & Robotic Systems": 1,
+            "Runtime Verification": 1
+          },
+          "observed_directness_weight_mean": 0.7278,
+          "semantics": "coverage context only; not a venue quality or acceptance measure"
+        },
+        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
+      },
+      "venue_scope_candidates": [
+        {
+          "venue_id": "conf-aim",
+          "name": "AIM",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "automation",
+            "systems"
+          ],
+          "scope_fit": 0.4167,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-rcar",
+          "name": "RCAR",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "real time",
+            "systems"
+          ],
+          "scope_fit": 0.4167,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "journal-tecs",
+          "name": "ACM Transactions on Embedded Computing Systems",
+          "kind": "journal",
+          "layer": "robotics_strong_related",
+          "directness_weight": 0.65,
+          "matched_scope_tags": [
+            "embedded",
+            "hardware software",
+            "real time"
+          ],
+          "scope_fit": 0.4125,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-icarcv",
+          "name": "ICARCV",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "automation"
+          ],
+          "scope_fit": 0.3333,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-arm",
+          "name": "IEEE ARM",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "systems"
+          ],
+          "scope_fit": 0.3333,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-case",
+          "name": "IEEE CASE",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "automation"
+          ],
+          "scope_fit": 0.3333,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-cis-ram",
+          "name": "IEEE CIS-RAM",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "automation"
+          ],
+          "scope_fit": 0.3333,
+          "official_scope_status": "REFRESH_REQUIRED"
+        },
+        {
+          "venue_id": "conf-ieee-cyber",
+          "name": "IEEE CYBER",
+          "kind": "conference",
+          "layer": "direct_robotics",
+          "directness_weight": 1.0,
+          "matched_scope_tags": [
+            "automation"
+          ],
+          "scope_fit": 0.3333,
+          "official_scope_status": "REFRESH_REQUIRED"
+        }
+      ],
+      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+    }
+  ],
+  "non_claims": [
+    "No acceptance probability is estimated.",
+    "No rating or prestige field is used.",
+    "Directness weight is a scope-routing prior only.",
+    "Recognition and presentation fields are not treated as reviewer decisions.",
+    "Metadata-only signatures do not establish true semantic clusters or outcome-conditioned pattern effects."
+  ],
+  "upgrade_gate": {
+    "next_required_input": "full-text or abstract-backed Stage-1/Stage-2 signatures for every selected paper",
+    "then_run": [
+      "scripts/induce_researchstudio_patterns.py",
+      "scripts/analyze_robotics_axis_strategies.py",
+      "scripts/validate_robotics_axis_strategy_analysis.py"
+    ],
+    "outcome_comparison_requires": "decision-aligned Oral/Reject labels plus independently sourced High-Cited labels with denominator provenance"
+  }
+}

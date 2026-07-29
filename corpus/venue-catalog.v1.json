@@ -1,0 +1,1122 @@
+{
+  "schema_version": "robotics-venue-catalog.v1",
+  "catalog_id": "ROBOTICS-VENUES-CAA2024-CCF2026",
+  "catalog_status": "user_distilled_directory",
+  "provenance": [
+    {
+      "source_id": "CAA-2024",
+      "authority": "中国自动化学会",
+      "title": "推荐学术会议目录（2024年）",
+      "scope": "conference_only",
+      "source_status": "user_provided_digest",
+      "coverage_note": "会议分 A/B 类；不提供期刊分级。"
+    },
+    {
+      "source_id": "CCF-2026",
+      "authority": "中国计算机学会",
+      "title": "推荐国际学术会议和期刊目录（2026年）",
+      "scope": "conference_and_journal",
+      "source_status": "user_provided_digest",
+      "coverage_note": "会议与期刊分级；本 catalog 只纳入用户指定的 CCF B 及以上期刊。"
+    },
+    {
+      "source_id": "USER-ROBOTICS-NATIVE-SUPPLEMENT",
+      "authority": "用户补充",
+      "title": "机器人领域公认的重要期刊补充",
+      "scope": "journal_only",
+      "source_status": "user_provided_digest",
+      "coverage_note": "不赋予 CCF 或自动化学会等级；用于避免目录中心化造成的遗漏。"
+    }
+  ],
+  "rules": {
+    "rating_scopes_are_not_comparable": true,
+    "direct_robotics": "机器人、无人系统、机电一体化、触觉、HRI 或自动化科学是贡献主体。",
+    "robotics_strong_related": "机器人是验证或系统载体，但核心贡献必须落在对应学科。",
+    "journal_scope": "自动化学会目录不含期刊分级；期刊等级只引用 CCF-2026，补充期刊不填等级。",
+    "routing_is_not_acceptance_prediction": "目录等级、样本数量和主题标签不能推出录用概率、审稿人行为或声望总分。",
+    "official_policy_boundary": "目录用于候选路由；当前投稿规则仍必须通过目标 venue 官方来源刷新 target-fit snapshot。"
+  },
+  "records": [
+    {
+      "venue_id": "conf-icra",
+      "name": "ICRA",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "manipulation", "learning", "control", "perception"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-iros",
+      "name": "IROS",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "intelligent_systems", "learning", "control", "perception"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "C"}
+    },
+    {
+      "venue_id": "conf-aim",
+      "name": "AIM",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "mechatronics", "control", "automation", "systems"],
+      "contribution_gate": ["robotics_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-robio",
+      "name": "ROBIO",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "bioinspired", "manipulation", "perception", "learning"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ieee-arm",
+      "name": "IEEE ARM",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "mechatronics", "control", "systems"],
+      "contribution_gate": ["robotics_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-rss",
+      "name": "RSS",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "learning", "planning", "control", "perception"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-humanoids",
+      "name": "Humanoids",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "humanoid", "whole_body_control", "manipulation", "learning"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-haptics-symposium",
+      "name": "IEEE Haptics Symposium",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["haptics", "force_feedback", "teleoperation", "hri", "robotics"],
+      "contribution_gate": ["robotics_core", "hri_core", "haptics_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-biorob",
+      "name": "BioRob",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["biomedical_robotics", "biorobotics", "mechatronics", "robotics"],
+      "contribution_gate": ["robotics_core", "biomedical_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-icorr",
+      "name": "ICORR",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["rehabilitation_robotics", "human", "robotics", "biomedical_robotics"],
+      "contribution_gate": ["robotics_core", "hri_core", "biomedical_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-iv",
+      "name": "IEEE IV",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["intelligent_vehicle", "autonomous_driving", "perception", "control", "robotics"],
+      "contribution_gate": ["robotics_core", "autonomy_core", "control_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-icarcv",
+      "name": "ICARCV",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["control", "automation", "robotics", "computer_vision"],
+      "contribution_gate": ["robotics_core", "control_core", "vision_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-icira",
+      "name": "ICIRA",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "intelligent_systems", "applications"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-cyber",
+      "name": "IEEE CYBER",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["automation", "control", "intelligent_systems", "robotics"],
+      "contribution_gate": ["robotics_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-rcar",
+      "name": "RCAR",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["real_time", "robotics", "control", "systems"],
+      "contribution_gate": ["robotics_core", "realtime_core", "control_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ifac-hms",
+      "name": "IFAC HMS",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["human", "hri", "human_machine_systems", "control"],
+      "contribution_gate": ["hri_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ifac-robotics",
+      "name": "IFAC Robotics",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["mechatronics", "robotics", "control", "systems"],
+      "contribution_gate": ["robotics_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-case",
+      "name": "IEEE CASE",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["automation", "industrial_robotics", "logistics", "manufacturing", "robotics"],
+      "contribution_gate": ["robotics_core", "industrial_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-icma",
+      "name": "IEEE ICMA",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["mechatronics", "automation", "robotics", "control"],
+      "contribution_gate": ["robotics_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-icus",
+      "name": "IEEE ICUS",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["unmanned_systems", "autonomy", "robotics", "control"],
+      "contribution_gate": ["robotics_core", "autonomy_core", "control_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-cis-ram",
+      "name": "IEEE CIS-RAM",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["control", "intelligent_systems", "robotics", "automation", "mechatronics"],
+      "contribution_gate": ["robotics_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-icuasac",
+      "name": "ICUASAC",
+      "kind": "conference",
+      "layer": "direct_robotics",
+      "topic_tags": ["unmanned_aerial_systems", "autonomy", "control", "robotics"],
+      "contribution_gate": ["robotics_core", "autonomy_core", "control_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-neurips",
+      "name": "NeurIPS",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["machine_learning", "robot_learning", "reinforcement_learning", "embodied_ai", "world_model"],
+      "contribution_gate": ["learning_core", "embodied_ai_core", "theory_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-icml",
+      "name": "ICML",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["machine_learning", "robot_learning", "reinforcement_learning", "imitation_learning", "representation_learning"],
+      "contribution_gate": ["learning_core", "theory_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-iclr",
+      "name": "ICLR",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["representation_learning", "generative_policy", "vla", "foundation_model", "robot_learning"],
+      "contribution_gate": ["learning_core", "embodied_ai_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-aaai",
+      "name": "AAAI",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["planning", "reasoning", "multi_agent", "robot_learning", "artificial_intelligence"],
+      "contribution_gate": ["ai_core", "planning_core", "learning_core", "multi_agent_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-cvpr",
+      "name": "CVPR",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "3d_perception", "visual_manipulation", "embodied_vision"],
+      "contribution_gate": ["vision_core", "embodied_ai_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-iccv",
+      "name": "ICCV",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "3d_perception", "scene_understanding", "embodied_vision"],
+      "contribution_gate": ["vision_core", "embodied_ai_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-ijcai",
+      "name": "IJCAI",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["planning", "reasoning", "robot_learning", "multi_agent", "artificial_intelligence"],
+      "contribution_gate": ["ai_core", "planning_core", "learning_core", "multi_agent_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-eccv",
+      "name": "ECCV",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "3d_perception", "visual_manipulation", "embodied_vision"],
+      "contribution_gate": ["vision_core", "embodied_ai_core"],
+      "ratings": {"CAA-2024": "A", "CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-aamas",
+      "name": "AAMAS",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["multi_agent", "multi_robot", "coordination", "game_theory", "robot_learning"],
+      "contribution_gate": ["multi_agent_core", "planning_core", "learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-icaps",
+      "name": "ICAPS",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["planning", "task_motion_planning", "scheduling", "long_horizon"],
+      "contribution_gate": ["planning_core", "ai_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-uai",
+      "name": "UAI",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["uncertainty", "probabilistic_robotics", "bayesian_decision", "robot_learning"],
+      "contribution_gate": ["ai_core", "learning_core", "control_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-ecai",
+      "name": "ECAI",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["artificial_intelligence", "planning", "reasoning", "robot_learning"],
+      "contribution_gate": ["ai_core", "planning_core", "learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-colt",
+      "name": "COLT",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["learning_theory", "robot_learning", "theory"],
+      "contribution_gate": ["theory_core", "learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-cdc",
+      "name": "IEEE CDC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "dynamics", "stability", "optimization", "robotics"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-acc",
+      "name": "ACC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "dynamics", "stability", "optimization", "robotics"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ifac-world-congress",
+      "name": "IFAC World Congress",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "automation", "dynamics", "robotics", "systems"],
+      "contribution_gate": ["control_core", "autonomy_core", "systems_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ccc",
+      "name": "CCC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "automation", "robotics"],
+      "contribution_gate": ["control_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ccdc",
+      "name": "CCDC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "automation", "robotics"],
+      "contribution_gate": ["control_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ddcls",
+      "name": "DDCLS",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["data_driven_control", "learning_control", "control", "robotics"],
+      "contribution_gate": ["control_core", "learning_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ieee-itsc",
+      "name": "IEEE ITSC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["intelligent_transportation", "autonomous_driving", "control", "robotics"],
+      "contribution_gate": ["autonomy_core", "control_core", "systems_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-aiaa-gnc",
+      "name": "AIAA GNC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["guidance_navigation_control", "aerial_robotics", "autonomy", "control"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-icgnc",
+      "name": "ICGNC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["guidance_navigation_control", "autonomy", "control", "robotics"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ifac-aca",
+      "name": "IFAC ACA",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "automation", "autonomy", "robotics"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ifac-ngcuv",
+      "name": "IFAC NGCUV",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["unmanned_vehicle", "guidance_navigation_control", "autonomy", "robotics"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "A"}
+    },
+    {
+      "venue_id": "conf-ecc",
+      "name": "ECC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "dynamics", "optimization", "robotics"],
+      "contribution_gate": ["control_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-ccta",
+      "name": "IEEE CCTA",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "automation", "robotics", "optimization"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ascc",
+      "name": "ASCC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["control", "automation", "robotics"],
+      "contribution_gate": ["control_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-icnsc",
+      "name": "IEEE ICNSC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["networked_control", "sensing", "autonomy", "robotics"],
+      "contribution_gate": ["control_core", "systems_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-sensors",
+      "name": "IEEE SENSORS",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["sensing", "multisensor", "perception", "robotics"],
+      "contribution_gate": ["sensing_core", "vision_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ieee-acm-ipsn",
+      "name": "IEEE/ACM IPSN",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["sensing", "embedded", "distributed_systems", "robotics"],
+      "contribution_gate": ["sensing_core", "embedded_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-esa-cgncs",
+      "name": "ESA-CGNCS",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["guidance_navigation_control", "space_robotics", "control", "autonomy"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-eurog n c",
+      "name": "EuroGNC",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["guidance_navigation_control", "aerial_robotics", "control", "autonomy"],
+      "contribution_gate": ["control_core", "autonomy_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-icsane",
+      "name": "ICSANE",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["navigation", "sensing", "autonomy", "robotics"],
+      "contribution_gate": ["autonomy_core", "sensing_core", "systems_core"],
+      "ratings": {"CAA-2024": "B"}
+    },
+    {
+      "venue_id": "conf-ion-navigation-series",
+      "name": "ION navigation conferences",
+      "kind": "conference_series",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["navigation", "localization", "sensing", "autonomy", "robotics"],
+      "contribution_gate": ["autonomy_core", "sensing_core", "control_core"],
+      "ratings": {"CAA-2024": "B"},
+      "notes": "目录以 ION 系列导航会议合并列示；具体会议须在 target-fit 阶段拆分并核验。"
+    },
+    {
+      "venue_id": "conf-chi",
+      "name": "CHI",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hri", "human", "user_study", "human_factors", "social_robotics"],
+      "contribution_gate": ["hri_core", "hci_core", "social_computing_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-uist",
+      "name": "UIST",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hri", "haptics", "teleoperation", "interactive_devices", "human"],
+      "contribution_gate": ["hci_core", "hri_core", "haptics_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-ubicomp",
+      "name": "UbiComp",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["ubiquitous_computing", "mobile", "sensing", "hri", "robotics"],
+      "contribution_gate": ["hci_core", "sensing_core", "systems_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-cscw",
+      "name": "CSCW",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["social_computing", "hri", "human", "collaboration"],
+      "contribution_gate": ["social_computing_core", "hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-ieee-vr",
+      "name": "IEEE VR",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["virtual_reality", "teleoperation", "hri", "digital_twin", "robotics"],
+      "contribution_gate": ["xr_core", "hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "conf-siggraph",
+      "name": "SIGGRAPH",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["graphics", "simulation", "geometry", "animation", "interaction"],
+      "contribution_gate": ["graphics_core", "geometry_core", "xr_core"],
+      "ratings": {"CCF-2026": "A"},
+      "notes": "机器人只能在图形学、几何、仿真或交互贡献达到该学科标准时路由。"
+    },
+    {
+      "venue_id": "conf-iui",
+      "name": "IUI",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hri", "intelligent_interface", "human", "collaboration"],
+      "contribution_gate": ["hci_core", "hri_core", "ai_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-percom",
+      "name": "PERCOM",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["pervasive_computing", "sensing", "mobile", "robotics"],
+      "contribution_gate": ["hci_core", "sensing_core", "systems_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-mobilehci",
+      "name": "MobileHCI",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["mobile", "hri", "teleoperation", "human"],
+      "contribution_gate": ["hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-ismar",
+      "name": "ISMAR",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["augmented_reality", "mixed_reality", "teleoperation", "hri", "robotics"],
+      "contribution_gate": ["xr_core", "hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "conf-iss",
+      "name": "ISS",
+      "kind": "conference",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["interactive_surfaces", "tangible_interaction", "hri", "human"],
+      "contribution_gate": ["hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-artificial-intelligence",
+      "name": "Artificial Intelligence",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["artificial_intelligence", "planning", "reasoning", "decision", "robotics"],
+      "contribution_gate": ["ai_core", "planning_core", "learning_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-tpami",
+      "name": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "abbreviation": "TPAMI",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "3d_perception", "visual_manipulation", "embodied_vision"],
+      "contribution_gate": ["vision_core", "embodied_ai_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-ijcv",
+      "name": "International Journal of Computer Vision",
+      "abbreviation": "IJCV",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "3d_perception", "scene_understanding", "robotics"],
+      "contribution_gate": ["vision_core", "embodied_ai_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-jmlr",
+      "name": "Journal of Machine Learning Research",
+      "abbreviation": "JMLR",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["machine_learning", "robot_learning", "learning_theory", "generalization"],
+      "contribution_gate": ["learning_core", "theory_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-tochi",
+      "name": "ACM Transactions on Computer-Human Interaction",
+      "abbreviation": "TOCHI",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hci", "hri", "human", "user_study", "human_factors"],
+      "contribution_gate": ["hci_core", "hri_core", "social_computing_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-ijhcs",
+      "name": "International Journal of Human-Computer Studies",
+      "abbreviation": "IJHCS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hci", "hri", "human", "user_study", "human_factors"],
+      "contribution_gate": ["hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-aamas",
+      "name": "Autonomous Agents and Multi-Agent Systems",
+      "abbreviation": "AAMAS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["multi_agent", "multi_robot", "coordination", "game_theory", "robot_learning"],
+      "contribution_gate": ["multi_agent_core", "planning_core", "learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-c viu",
+      "name": "Computer Vision and Image Understanding",
+      "abbreviation": "CVIU",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "scene_understanding", "3d_perception", "robotics"],
+      "contribution_gate": ["vision_core", "embodied_ai_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-ieee-t-cyb",
+      "name": "IEEE Transactions on Cybernetics",
+      "abbreviation": "TCYB",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["intelligent_control", "robot_learning", "complex_systems", "robotics"],
+      "contribution_gate": ["control_core", "learning_core", "ai_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tnnls",
+      "name": "IEEE Transactions on Neural Networks and Learning Systems",
+      "abbreviation": "TNNLS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["neural_networks", "machine_learning", "robot_learning", "learning_control"],
+      "contribution_gate": ["learning_core", "control_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-jair",
+      "name": "Journal of Artificial Intelligence Research",
+      "abbreviation": "JAIR",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["artificial_intelligence", "planning", "reasoning", "robotics"],
+      "contribution_gate": ["ai_core", "planning_core", "learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-machine-learning",
+      "name": "Machine Learning",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["machine_learning", "robot_learning", "generalization"],
+      "contribution_gate": ["learning_core", "theory_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-neural-computation",
+      "name": "Neural Computation",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["neural_networks", "learning_theory", "computational_models", "robot_learning"],
+      "contribution_gate": ["learning_core", "theory_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-neural-networks",
+      "name": "Neural Networks",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["neural_networks", "machine_learning", "robot_learning"],
+      "contribution_gate": ["learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-pattern-recognition",
+      "name": "Pattern Recognition",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "recognition", "3d_perception", "robotics"],
+      "contribution_gate": ["vision_core", "learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tap",
+      "name": "TAP",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["perception", "hri", "haptics", "multimodal"],
+      "contribution_gate": ["vision_core", "hri_core", "haptics_core"],
+      "ratings": {"CCF-2026": "B"},
+      "notes": "保留用户目录中的缩写；正式投稿前核验 CCF 官方全称与当前 scope。"
+    },
+    {
+      "venue_id": "journal-tec",
+      "name": "IEEE Transactions on Evolutionary Computation",
+      "abbreviation": "TEC",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["evolutionary_computation", "optimization", "robotics"],
+      "contribution_gate": ["optimization_core", "learning_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tfs",
+      "name": "IEEE Transactions on Fuzzy Systems",
+      "abbreviation": "TFS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["fuzzy_control", "intelligent_control", "robotics"],
+      "contribution_gate": ["control_core", "ai_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-ijar",
+      "name": "International Journal of Approximate Reasoning",
+      "abbreviation": "IJAR",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["uncertainty", "probabilistic_reasoning", "decision", "robotics"],
+      "contribution_gate": ["ai_core", "learning_core", "control_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-ieee-thms",
+      "name": "IEEE Transactions on Human-Machine Systems",
+      "abbreviation": "THMS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hri", "human", "human_machine_systems", "human_factors"],
+      "contribution_gate": ["hri_core", "hci_core", "systems_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-hci",
+      "name": "Human-Computer Interaction",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hci", "hri", "human", "user_study"],
+      "contribution_gate": ["hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-ijhci",
+      "name": "International Journal of Human-Computer Interaction",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["hci", "hri", "human", "user_study"],
+      "contribution_gate": ["hci_core", "hri_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-ieee-tsmc-systems",
+      "name": "IEEE Transactions on Systems, Man, and Cybernetics: Systems",
+      "abbreviation": "TSMC: Systems",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["systems", "intelligent_control", "hri", "robotics"],
+      "contribution_gate": ["systems_core", "control_core", "hri_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-um uai",
+      "name": "User Modeling and User-Adapted Interaction",
+      "abbreviation": "UMUAI",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["user_modeling", "hri", "human", "personalization"],
+      "contribution_gate": ["hci_core", "hri_core", "social_computing_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tog",
+      "name": "ACM Transactions on Graphics",
+      "abbreviation": "TOG",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["graphics", "geometry", "simulation", "robotics"],
+      "contribution_gate": ["graphics_core", "geometry_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-tip",
+      "name": "IEEE Transactions on Image Processing",
+      "abbreviation": "TIP",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "image_processing", "perception", "robotics"],
+      "contribution_gate": ["vision_core", "embodied_ai_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-tvcg",
+      "name": "IEEE Transactions on Visualization and Computer Graphics",
+      "abbreviation": "TVCG",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["graphics", "visualization", "virtual_reality", "robotics"],
+      "contribution_gate": ["graphics_core", "xr_core", "hci_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-tmm",
+      "name": "IEEE Transactions on Multimedia",
+      "abbreviation": "TMM",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["multimodal", "perception", "hri", "computer_vision", "robotics"],
+      "contribution_gate": ["vision_core", "hri_core", "learning_core"],
+      "ratings": {"CCF-2026": "A"}
+    },
+    {
+      "venue_id": "journal-computer-graphics-forum",
+      "name": "Computer Graphics Forum",
+      "abbreviation": "CGF",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["graphics", "geometry", "simulation", "robotics"],
+      "contribution_gate": ["graphics_core", "geometry_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-computer-aided-design",
+      "name": "Computer-Aided Design",
+      "abbreviation": "CAD",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["geometry", "design", "manufacturing", "robotics"],
+      "contribution_gate": ["geometry_core", "industrial_core", "graphics_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-computer-aided-geometric-design",
+      "name": "Computer Aided Geometric Design",
+      "abbreviation": "CAGD",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["geometry", "design", "robotics"],
+      "contribution_gate": ["geometry_core", "graphics_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-siam-imaging-sciences",
+      "name": "SIAM Journal on Imaging Sciences",
+      "abbreviation": "SIIMS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["imaging", "computer_vision", "inverse_problem", "robotics"],
+      "contribution_gate": ["vision_core", "theory_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-computational-visual-media",
+      "name": "Computational Visual Media",
+      "abbreviation": "CVM",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "graphics", "visual_media", "robotics"],
+      "contribution_gate": ["vision_core", "graphics_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tcsvt",
+      "name": "IEEE Transactions on Circuits and Systems for Video Technology",
+      "abbreviation": "TCSVT",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["computer_vision", "video", "perception", "robotics"],
+      "contribution_gate": ["vision_core", "embedded_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tomm",
+      "name": "ACM Transactions on Multimedia Computing, Communications, and Applications",
+      "abbreviation": "TOMM",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["multimodal", "perception", "hri", "robotics"],
+      "contribution_gate": ["vision_core", "hri_core", "systems_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-taas",
+      "name": "ACM Transactions on Autonomous and Adaptive Systems",
+      "abbreviation": "TAAS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["autonomous_systems", "adaptive_systems", "robotics", "multi_agent"],
+      "contribution_gate": ["autonomy_core", "systems_core", "multi_agent_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tecs",
+      "name": "ACM Transactions on Embedded Computing Systems",
+      "abbreviation": "TECS",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["embedded", "real_time", "robotics", "hardware_software"],
+      "contribution_gate": ["embedded_core", "realtime_core", "systems_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-tosn",
+      "name": "ACM Transactions on Sensor Networks",
+      "abbreviation": "TOSN",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["sensor_networks", "distributed_sensing", "multi_robot", "robotics"],
+      "contribution_gate": ["sensing_core", "systems_core", "multi_agent_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-global-optimization",
+      "name": "Journal of Global Optimization",
+      "kind": "journal",
+      "layer": "robotics_strong_related",
+      "topic_tags": ["optimization", "robot_optimization", "control", "robotics"],
+      "contribution_gate": ["optimization_core", "control_core", "theory_core"],
+      "ratings": {"CCF-2026": "B"}
+    },
+    {
+      "venue_id": "journal-t-robotics",
+      "name": "IEEE Transactions on Robotics",
+      "abbreviation": "T-RO",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "manipulation", "learning", "control", "perception", "systems"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {},
+      "source_ids": ["USER-ROBOTICS-NATIVE-SUPPLEMENT"],
+      "notes": "机器人原生补充期刊；不从 CCF/自动化学会目录推导等级。"
+    },
+    {
+      "venue_id": "journal-ral",
+      "name": "IEEE Robotics and Automation Letters",
+      "abbreviation": "RA-L",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "automation", "manipulation", "learning", "control", "perception"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {},
+      "source_ids": ["USER-ROBOTICS-NATIVE-SUPPLEMENT"],
+      "notes": "机器人原生补充期刊；不从 CCF/自动化学会目录推导等级。"
+    },
+    {
+      "venue_id": "journal-ijrr",
+      "name": "The International Journal of Robotics Research",
+      "abbreviation": "IJRR",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "mechanism", "manipulation", "learning", "control", "perception"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {},
+      "source_ids": ["USER-ROBOTICS-NATIVE-SUPPLEMENT"],
+      "notes": "机器人原生补充期刊；不从 CCF/自动化学会目录推导等级。"
+    },
+    {
+      "venue_id": "journal-science-robotics",
+      "name": "Science Robotics",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "embodied_systems", "bioinspired", "human", "field", "systems"],
+      "contribution_gate": ["robotics_core"],
+      "ratings": {},
+      "source_ids": ["USER-ROBOTICS-NATIVE-SUPPLEMENT"],
+      "notes": "机器人原生补充期刊；不从 CCF/自动化学会目录推导等级。"
+    },
+    {
+      "venue_id": "journal-autonomous-robots",
+      "name": "Autonomous Robots",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "autonomous_systems", "learning", "control", "perception"],
+      "contribution_gate": ["robotics_core", "autonomy_core"],
+      "ratings": {},
+      "source_ids": ["USER-ROBOTICS-NATIVE-SUPPLEMENT"],
+      "notes": "机器人原生补充期刊；不从 CCF/自动化学会目录推导等级。"
+    },
+    {
+      "venue_id": "journal-robotics-automation-practice",
+      "name": "IEEE Robotics and Automation Practice",
+      "abbreviation": "RAP",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["robotics", "automation", "deployment", "field", "industrial_robotics"],
+      "contribution_gate": ["robotics_core", "industrial_core", "field_core"],
+      "ratings": {},
+      "source_ids": ["USER-ROBOTICS-NATIVE-SUPPLEMENT"],
+      "notes": "机器人原生补充期刊；不从 CCF/自动化学会目录推导等级。"
+    },
+    {
+      "venue_id": "journal-t-haptics",
+      "name": "IEEE Transactions on Haptics",
+      "abbreviation": "T-Haptics",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["haptics", "force_feedback", "teleoperation", "hri", "robotics"],
+      "contribution_gate": ["haptics_core", "hri_core", "robotics_core"],
+      "ratings": {},
+      "source_ids": ["USER-ROBOTICS-NATIVE-SUPPLEMENT"],
+      "notes": "机器人/触觉原生补充期刊；不从 CCF/自动化学会目录推导等级。"
+    },
+    {
+      "venue_id": "journal-thri",
+      "name": "ACM Transactions on Human-Robot Interaction",
+      "abbreviation": "THRI",
+      "kind": "journal",
+      "layer": "direct_robotics",
+      "topic_tags": ["hri", "human", "social_robotics", "user_study", "robotics"],
+      "contribution_gate": ["hri_core", "robotics_core"],
+      "ratings": {"CCF-2026": "C"},
+      "source_ids": ["CCF-2026"],
+      "notes": "保留为目录差异记录；CCF C，不纳入本次 CCF B 及以上期刊候选。"
+    }
+  ]
+}

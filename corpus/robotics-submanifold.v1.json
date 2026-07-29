@@ -1,0 +1,138 @@
+{
+  "schema_version": "robotics-submanifold.v1",
+  "model_id": "ROBOTICS-SUBMANIFOLD-8-EXPERT-CODED",
+  "model_kind": "transparent_expert_coded_factor_model",
+  "version": "1.0.0",
+  "scale": {
+    "min": 0,
+    "max": 3,
+    "interpretation": {
+      "0": "not evidenced by the venue or project profile",
+      "1": "peripheral or supporting role",
+      "2": "substantive research axis",
+      "3": "load-bearing research center"
+    }
+  },
+  "method_note": "This is an auditable expert-coded reduction from the user-provided venue descriptions. It is not PCA, an acceptance model, or a claim that venue labels are sufficient observations. Refit with paper-level data when available.",
+  "axes": [
+    {
+      "axis_id": "E",
+      "name": "embodiment_contact",
+      "name_zh": "具身形态与接触",
+      "question": "What physical body, material, morphology, contact or embodiment makes the result possible?",
+      "signals": ["morphology", "mechatronics", "manipulation", "humanoid", "soft/bio-inspired body", "hardware", "contact"],
+      "evidence_pressures": ["E", "M", "S", "V"],
+      "claim_altitude_signals": ["mechanism", "embodied_system", "cross_platform"]
+    },
+    {
+      "axis_id": "P",
+      "name": "perception_state",
+      "name_zh": "感知与状态估计",
+      "question": "How are the world, robot state, contact or human state sensed and represented?",
+      "signals": ["vision", "3D", "sensing", "localization", "multimodal", "state estimation", "uncertainty"],
+      "evidence_pressures": ["S", "V", "G", "A"],
+      "claim_altitude_signals": ["perception", "generalization", "cross_context"]
+    },
+    {
+      "axis_id": "C",
+      "name": "control_dynamics",
+      "name_zh": "控制、动力学与安全",
+      "question": "What dynamical, control, optimization, stability or safety property is being established?",
+      "signals": ["dynamics", "stability", "control", "optimization", "guidance/navigation", "networked control", "safety"],
+      "evidence_pressures": ["M", "S", "V", "T"],
+      "claim_altitude_signals": ["mechanism", "stability", "safety", "autonomy"]
+    },
+    {
+      "axis_id": "L",
+      "name": "learning_adaptation",
+      "name_zh": "学习、表示与适应",
+      "question": "What learning, representation, adaptation, policy or foundation-model contribution is load-bearing?",
+      "signals": ["RL", "imitation", "representation", "neural models", "VLA", "world models", "learning theory"],
+      "evidence_pressures": ["V", "G", "A", "T"],
+      "claim_altitude_signals": ["learning", "generalization", "transfer"]
+    },
+    {
+      "axis_id": "D",
+      "name": "planning_decision_coordination",
+      "name_zh": "规划、决策与协同",
+      "question": "What planning, reasoning, scheduling, decision, game or multi-agent property is central?",
+      "signals": ["task/motion planning", "reasoning", "long horizon", "scheduling", "multi-agent", "coordination", "games"],
+      "evidence_pressures": ["T", "G", "S", "V"],
+      "claim_altitude_signals": ["task_level", "multi_robot", "long_horizon", "generalization"]
+    },
+    {
+      "axis_id": "H",
+      "name": "human_interaction",
+      "name_zh": "人机交互、触觉与 XR",
+      "question": "What human behavior, human factors, interaction mechanism, haptic channel or XR interface is being established?",
+      "signals": ["HRI", "user study", "human factors", "haptics", "teleoperation", "XR", "social interaction"],
+      "evidence_pressures": ["P", "S", "V", "T"],
+      "claim_altitude_signals": ["human", "interaction", "usability", "social_robotics"]
+    },
+    {
+      "axis_id": "A",
+      "name": "autonomy_deployment",
+      "name_zh": "自主系统与部署运行",
+      "question": "What autonomous operating envelope, navigation, field, industrial or deployment outcome is central?",
+      "signals": ["autonomy", "navigation", "unmanned systems", "intelligent vehicles", "field", "industrial", "deployment"],
+      "evidence_pressures": ["P", "S", "V", "G"],
+      "claim_altitude_signals": ["autonomy", "field", "industrial", "practice"]
+    },
+    {
+      "axis_id": "S",
+      "name": "systems_realtime",
+      "name_zh": "系统集成、实时与基础设施",
+      "question": "What integrated hardware/software, timing, communication, sensing infrastructure or reproducible artifact is load-bearing?",
+      "signals": ["real time", "embedded", "distributed systems", "sensor networks", "hardware/software", "automation", "simulation infrastructure"],
+      "evidence_pressures": ["S", "A", "V", "P"],
+      "claim_altitude_signals": ["integrated_system", "reproducibility", "deployment"]
+    }
+  ],
+  "tag_groups": [
+    {"axis_id": "E", "weight": 3, "tags": ["robotics", "embodied_systems", "manipulation", "humanoid", "mechatronics", "bioinspired", "biomedical_robotics", "biorobotics", "rehabilitation_robotics", "industrial_robotics", "space_robotics", "aerial_robotics", "unmanned_aerial_systems", "unmanned_systems", "unmanned_vehicle", "force_feedback", "hardware_software"]},
+    {"axis_id": "E", "weight": 2, "tags": ["whole_body_control", "contact", "design", "manufacturing", "applications", "robot_optimization", "intelligent_vehicle"]},
+    {"axis_id": "P", "weight": 3, "tags": ["perception", "computer_vision", "3d_perception", "embodied_vision", "scene_understanding", "sensing", "multisensor", "distributed_sensing", "sensor_networks", "localization", "recognition", "imaging", "image_processing", "multimodal"]},
+    {"axis_id": "P", "weight": 2, "tags": ["probabilistic_robotics", "uncertainty", "bayesian_decision", "video", "visual_media", "intelligent_interface"]},
+    {"axis_id": "C", "weight": 3, "tags": ["control", "dynamics", "stability", "data_driven_control", "learning_control", "guidance_navigation_control", "intelligent_control", "fuzzy_control", "networked_control", "optimization"]},
+    {"axis_id": "C", "weight": 2, "tags": ["autonomy", "robot_optimization", "real_time", "navigation", "safety", "intelligent_transportation"]},
+    {"axis_id": "L", "weight": 3, "tags": ["machine_learning", "robot_learning", "reinforcement_learning", "imitation_learning", "representation_learning", "generative_policy", "foundation_model", "vla", "world_model", "learning_theory", "neural_networks", "embodied_ai"]},
+    {"axis_id": "L", "weight": 2, "tags": ["learning", "adaptive_systems", "evolutionary_computation", "generalization", "computational_models", "artificial_intelligence"]},
+    {"axis_id": "D", "weight": 3, "tags": ["planning", "task_motion_planning", "reasoning", "decision", "long_horizon", "multi_agent", "multi_robot", "coordination", "game_theory", "scheduling"]},
+    {"axis_id": "D", "weight": 2, "tags": ["artificial_intelligence", "complex_systems", "probabilistic_reasoning", "bayesian_decision", "collaboration"]},
+    {"axis_id": "H", "weight": 3, "tags": ["hri", "human", "user_study", "human_factors", "haptics", "force_feedback", "teleoperation", "virtual_reality", "augmented_reality", "mixed_reality", "social_robotics", "social_computing"]},
+    {"axis_id": "H", "weight": 2, "tags": ["hci", "interactive_devices", "interactive_surfaces", "tangible_interaction", "user_modeling", "personalization", "intelligent_interface", "collaboration", "digital_twin"]},
+    {"axis_id": "A", "weight": 3, "tags": ["autonomous_systems", "autonomy", "autonomous_driving", "intelligent_transportation", "intelligent_vehicle", "navigation", "field", "deployment", "industrial_robotics", "unmanned_systems", "unmanned_aerial_systems", "unmanned_vehicle"]},
+    {"axis_id": "A", "weight": 2, "tags": ["logistics", "manufacturing", "applications", "space_robotics", "pervasive_computing", "ubiquitous_computing"]},
+    {"axis_id": "S", "weight": 3, "tags": ["real_time", "embedded", "distributed_systems", "sensor_networks", "hardware_software", "automation", "systems", "networked_control"]},
+    {"axis_id": "S", "weight": 2, "tags": ["simulation", "digital_twin", "mechatronics", "logistics", "manufacturing", "pervasive_computing", "ubiquitous_computing", "graphics", "geometry", "visualization", "animation", "video"]}
+  ],
+  "claim_shape_to_tags": {
+    "embodied_system": ["robotics", "embodied_systems"],
+    "learning": ["learning", "robot_learning"],
+    "mechanism": ["mechanism", "control"],
+    "human": ["human", "hri"],
+    "soft_material": ["embodied_systems", "mechatronics"],
+    "practice": ["deployment", "field", "industrial_robotics"],
+    "cross_context": ["generalization"]
+  },
+  "domain_pack_to_tags": {
+    "learning": ["robot_learning", "machine_learning"],
+    "soft-body": ["embodied_systems", "mechatronics"],
+    "morphology": ["embodied_systems", "robotics"],
+    "human-interaction": ["hri", "human"],
+    "clinical": ["biomedical_robotics", "human"],
+    "industrial": ["industrial_robotics", "deployment"],
+    "field": ["field", "autonomy"],
+    "multi-robot": ["multi_robot", "multi_agent", "coordination"]
+  },
+  "evidence_pressure_map": {
+    "E": ["hardware_or_embodiment_control", "mechanism_intervention", "matched_comparison", "fabrication_or_contact_boundary"],
+    "P": ["sensor_or_state_validity", "held_out_perception_conditions", "uncertainty_and_failure_logging"],
+    "C": ["dynamics_or_control_baseline", "stability_or_safety_boundary", "timing_and_recovery"],
+    "L": ["data_lineage_and_split", "seed_and_checkpoint_discipline", "held_out_generalization", "learned_engineered_boundary"],
+    "D": ["identifiable_planning_or_coordination_contrast", "long_horizon_or_failure_case", "team_size_or_budget_control"],
+    "H": ["participant_or_operator_unit", "interaction_task_and_protocol", "human_risk_and_stop_rule"],
+    "A": ["operating_envelope", "duration_and_recovery", "cross_environment_or_site_boundary"],
+    "S": ["interface_and_timing_contract", "hardware_software_versioning", "rerunnable_or_auditable_artifact"]
+  }
+}

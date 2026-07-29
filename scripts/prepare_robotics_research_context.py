@@ -1,0 +1,39 @@
+"""Prepare the mandatory first-core-reference context for a robotics stage."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from common.robotics_research_context import build_research_context  # noqa: E402
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("profile", help="project profile, Research Card, or stage input JSON")
+    parser.add_argument("--stage", choices=("idea", "experiment", "writing", "review"), default="idea")
+    parser.add_argument("--venue")
+    parser.add_argument("--per-axis", type=int, default=4)
+    parser.add_argument("--output")
+    args = parser.parse_args()
+    if args.per_axis < 1:
+        parser.error("--per-axis must be positive")
+    profile = json.loads(Path(args.profile).read_text(encoding="utf-8"))
+    context = build_research_context(profile, stage=args.stage, target_venue=args.venue, per_axis=args.per_axis)
+    payload = json.dumps(context, ensure_ascii=False, indent=2) + "\n"
+    if args.output:
+        path = Path(args.output)
+        path.write_text(payload, encoding="utf-8")
+        print(path.resolve())
+    else:
+        print(payload, end="")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,1565 @@
+{
+  "schema_version": "researchstudio-robotics-pattern-cards.v1",
+  "library_id": "ROBOTICS-RESEARCHSTUDIO-15-31",
+  "provenance": {
+    "method_source": "assets/ResearchStudio.pdf",
+    "method_paper": "https://arxiv.org/abs/2607.04439v1",
+    "upstream_operator_count": 15,
+    "upstream_tactical_cluster_count": 31,
+    "adaptation_note": "Parent operator names and workflow are transferred; tactical cards and axis profiles are robotics adaptations, not a claim of upstream robotics clustering."
+  },
+  "selection_contract": {
+    "pattern_role": "diagnostic operator and evidence recipe",
+    "selection": "fit the diagnosed structural gap before considering frequency or venue context",
+    "composition": {
+      "min": 1,
+      "max": 3,
+      "default": 2
+    },
+    "outcome_signal": "descriptive audit context only; no acceptance probability",
+    "directness_weight": "optional venue-routing prior only; no rating or prestige field"
+  },
+  "main_patterns": [
+    {
+      "pattern_id": "P01",
+      "level": 1,
+      "name": "Audit and Pivot an Assumption",
+      "plain_language_alias": "审计并转向承重假设",
+      "definition": "Expose a convention that the field treats as fixed, then replace it with a weaker, testable or structurally different condition.",
+      "operational_signature": "Name the inherited assumption; show why it is load-bearing; pivot its locus, strength or representation; test the changed condition.",
+      "when_to_apply": "Use when several recent methods inherit the same unexamined prerequisite and the proposed change can produce a qualitatively new result.",
+      "success_conditions": [
+        "The relaxed condition is exhibited and measurable.",
+        "A tightness, counterexample or mechanism test shows the pivot matters."
+      ],
+      "failure_modes": [
+        "The result is unchanged after the relaxation.",
+        "An equally strong or unverifiable assumption is smuggled back in."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P02",
+      "level": 1,
+      "name": "Substitute the Operator or Representation",
+      "plain_language_alias": "替换算子或表示",
+      "definition": "Replace the operator, state representation or computational object that carries the bottleneck while preserving the task contract.",
+      "operational_signature": "Identify where the old object loses information or creates cost; substitute a new object; isolate the changed object from all other components.",
+      "when_to_apply": "Use when the task is adequate but the current operator or representation is the binding limitation.",
+      "success_conditions": [
+        "The substituted object is load-bearing and mechanistically justified.",
+        "Controls show the gain is not only a larger model or a tuned implementation."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P03",
+      "level": 1,
+      "name": "Liberate a Fixed Generative Component",
+      "plain_language_alias": "释放固定的生成组件",
+      "definition": "Redesign a fixed generator, policy, actuation primitive or synthesis process so it can express the missing behavior.",
+      "operational_signature": "Find a component whose output space is fixed; change its generation process or factorization; preserve the surrounding evaluation contract.",
+      "when_to_apply": "Use when a fixed policy, generator or actuation primitive prevents a desired behavior despite adequate supervision or data.",
+      "success_conditions": [
+        "The new process adds a reachable capability rather than another wrapper.",
+        "The component-level change is isolated and its new behavior is characterized."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P04",
+      "level": 1,
+      "name": "Design a Confound-Isolating Diagnostic",
+      "plain_language_alias": "设计隔离混杂因素的诊断",
+      "definition": "Construct a measurement or intervention that separates a claimed mechanism from plausible confounds.",
+      "operational_signature": "Name one load-bearing variable; perturb it while holding the remaining interface fixed; predict a downstream outcome and include a semantic control.",
+      "when_to_apply": "Use when a system result can be explained by sensing, compute, data, tuning, human adaptation or another non-mechanistic confound.",
+      "success_conditions": [
+        "The diagnostic changes the downstream outcome, not only a definition of the manipulated variable.",
+        "The negative control is matched in cost and preserves the same surface signal."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P05",
+      "level": 1,
+      "name": "Unify Heterogeneous Inputs into One Space",
+      "plain_language_alias": "将异质输入统一到一个空间",
+      "definition": "Build a shared representation or interface that makes previously incompatible information jointly usable.",
+      "operational_signature": "Identify the incompatible modalities, embodiments or agents; define a common state or message space; demonstrate the information is used by the decision or control loop.",
+      "when_to_apply": "Use when the gap is caused by modality, embodiment, sensor or agent fragmentation rather than a missing predictor alone.",
+      "success_conditions": [
+        "The common space preserves task-relevant information across conditions.",
+        "Cross-modal or cross-embodiment controls show that alignment is causal."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P06",
+      "level": 1,
+      "name": "Reframe as a Solvable Object",
+      "plain_language_alias": "把不可解问题重构成可解对象",
+      "definition": "Change the problem object, constraint, state or decomposition so the unresolved question becomes a tractable, falsifiable object.",
+      "operational_signature": "State the native intractable formulation; define a solvable surrogate with a conservation or approximation argument; test the gap between the two.",
+      "when_to_apply": "Use when the native robot problem is underconstrained, combinatorial, long-horizon or physically inaccessible in its current form.",
+      "success_conditions": [
+        "The reframe retains the decision-relevant property.",
+        "The approximation error or scope boundary is explicit and measured."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P07",
+      "level": 1,
+      "name": "Manufacture the Supervisory Signal",
+      "plain_language_alias": "制造监督信号",
+      "definition": "Create a trustworthy training or adaptation signal from structure, interaction or outcomes when direct labels are unavailable or misaligned.",
+      "operational_signature": "Locate the missing supervisory information; derive it from demonstrations, contrasts, physics, human feedback or self-consistency; validate that it changes the target behavior.",
+      "when_to_apply": "Use when data exist but the available label, reward or feedback is too sparse, delayed, unsafe or semantically misaligned.",
+      "success_conditions": [
+        "The signal is tied to the target mechanism rather than a proxy metric alone.",
+        "A signal-removal or misplacement control returns performance toward baseline."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P08",
+      "level": 1,
+      "name": "Encode Structure by Construction",
+      "plain_language_alias": "通过构造编码结构",
+      "definition": "Put geometry, symmetry, contact, safety, timing or interface structure into the mechanism so it is available before optimization or tuning.",
+      "operational_signature": "Name the invariant or constraint; encode it in morphology, representation, controller, architecture or protocol; test behavior outside the construction examples.",
+      "when_to_apply": "Use when a structural law is known and repeatedly rediscovered by data, or when deployment requires a guarantee that tuning cannot provide.",
+      "success_conditions": [
+        "The encoded structure is identifiable and survives held-out conditions.",
+        "A matched unstructured or post-hoc-regularized control shows why construction matters."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P09",
+      "level": 1,
+      "name": "Prove Equivalence to Unify",
+      "plain_language_alias": "用等价性证明实现统一",
+      "definition": "Prove that two apparently different objectives, representations or system formulations are equivalent or linked under explicit conditions.",
+      "operational_signature": "State the two objects; derive the mapping and its assumptions; use the equivalence to remove duplicated machinery or expose a new controllable quantity.",
+      "when_to_apply": "Use when parallel literatures optimize the same object under different names or when a proof can collapse an apparent trade-off.",
+      "success_conditions": [
+        "The equivalence is exact in the claimed regime.",
+        "The practical consequence is more than a renamed formulation."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P10",
+      "level": 1,
+      "name": "Decompose for Differentiated Treatment",
+      "plain_language_alias": "分解并差异化处理",
+      "definition": "Split a heterogeneous task, population, trajectory or operating regime and treat its parts according to their distinct constraints.",
+      "operational_signature": "Identify the hidden heterogeneity; partition it by a measurable criterion; allocate distinct mechanisms or policies; test the partition boundary.",
+      "when_to_apply": "Use when one policy, model or controller is forced to average across regimes with incompatible requirements.",
+      "success_conditions": [
+        "The partition corresponds to a causal or operational distinction.",
+        "The per-regime treatment beats a single compromise under matched budget."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P11",
+      "level": 1,
+      "name": "Decompose and Delegate to Solvers",
+      "plain_language_alias": "分解并委托给求解器",
+      "definition": "Break a complex decision into typed subproblems and delegate them to specialized planners, learned modules, agents or tools.",
+      "operational_signature": "Define the subproblem interfaces; assign each solver a responsibility; verify composition and recovery when a solver fails.",
+      "when_to_apply": "Use when a long-horizon or multi-agent problem contains reusable subproblems with different algorithmic structure.",
+      "success_conditions": [
+        "Interfaces expose enough state for the delegated solver.",
+        "End-to-end gain remains after accounting for coordination and failure recovery."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P12",
+      "level": 1,
+      "name": "Relax Discrete Search to Continuous",
+      "plain_language_alias": "把离散搜索松弛为连续搜索",
+      "definition": "Replace an intractable discrete search with a continuous surrogate that preserves the decision-relevant objective and can be rounded or recovered.",
+      "operational_signature": "Specify the discrete object; build a continuous relaxation; characterize the relaxation gap and recovery procedure.",
+      "when_to_apply": "Use when planning, allocation or design is combinatorial but its geometry admits a meaningful continuous proxy.",
+      "success_conditions": [
+        "The recovered solution respects the original constraints.",
+        "The relaxation gives a measurable benefit without hiding an exponential post-process."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P13",
+      "level": 1,
+      "name": "Adapt by Conditioning, Not Retraining",
+      "plain_language_alias": "通过条件化而非重训练实现适应",
+      "definition": "Adapt behavior through context, system identification or conditioning while keeping the core model or policy fixed.",
+      "operational_signature": "Expose the changing context; encode it as a condition or online estimate; test adaptation under distribution shift and frozen-core controls.",
+      "when_to_apply": "Use when online changes are real but full retraining is too slow, unsafe, data hungry or difficult to certify.",
+      "success_conditions": [
+        "The condition captures the shift that matters.",
+        "The frozen-core control and recovery test separate adaptation from memorization."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P14",
+      "level": 1,
+      "name": "Characterize a Limit, Then Surpass It",
+      "plain_language_alias": "刻画极限后超越它",
+      "definition": "First establish a boundary imposed by a current formulation, then show a principled mechanism that exceeds or exactly meets it.",
+      "operational_signature": "State the old limit; prove or measure it under the same regime; introduce one change; show a strict and reproducible improvement.",
+      "when_to_apply": "Use when a field has a sharp stability, planning, sample, sensing, bandwidth or safety boundary that can be made explicit.",
+      "success_conditions": [
+        "The limit is real under a matched baseline.",
+        "The improvement is outside uncertainty and the mechanism explains why the boundary moved."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    },
+    {
+      "pattern_id": "P15",
+      "level": 1,
+      "name": "Design a Property-Targeting Pretext Objective",
+      "plain_language_alias": "设计针对性质的预训练目标",
+      "definition": "Construct a pretext or auxiliary objective that targets a property the downstream robot must preserve, rather than generic prediction alone.",
+      "operational_signature": "Name the downstream property; create a pretext that makes it observable; verify transfer and remove the auxiliary objective as a control.",
+      "when_to_apply": "Use when the desired property is latent, expensive to label or poorly represented by generic self-supervision.",
+      "success_conditions": [
+        "The pretext predicts the property that matters downstream.",
+        "A matched generic pretext does not explain the transfer gain."
+      ],
+      "failure_modes": [
+        "The proposed change is not load-bearing or its evidence cannot separate it from a simpler explanation."
+      ],
+      "source_kind": "researchstudio_parent_operator",
+      "status": "transferable_operator_seed",
+      "selection_rule": "structural_fit_to_gap_only"
+    }
+  ],
+  "subpatterns": [
+    {
+      "subpattern_id": "R01",
+      "level": 2,
+      "parent_pattern_id": "P01",
+      "name": "Relocate the load-bearing locus",
+      "tactical_move": "Move the enforcement, sensing or control locus to an overlooked state, interface or representation.",
+      "when_to_apply": "Use when every prior method assumes the same location contains the decisive signal.",
+      "success_conditions": [
+        "The new locus is structurally distinct and observable.",
+        "An informed adversary or disturbance cannot erase the signal at the same cost."
+      ],
+      "failure_modes": [
+        "The new locus was already used by a close paper.",
+        "The move only changes implementation vocabulary."
+      ],
+      "upstream_reference": "ResearchStudio Appendix C01",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R02",
+      "level": 2,
+      "parent_pattern_id": "P01",
+      "name": "Remove a fixed model assumption",
+      "tactical_move": "Replace a required model, calibration or distributional assumption with a weaker observable condition.",
+      "when_to_apply": "Use when the robot must operate under unknown contact, friction, terrain or dynamics.",
+      "success_conditions": [
+        "The weaker condition occurs in the target operating envelope.",
+        "A tightness or failure-case analysis shows the removed assumption was binding."
+      ],
+      "failure_modes": [
+        "An equally strong hidden model is reintroduced."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R03",
+      "level": 2,
+      "parent_pattern_id": "P01",
+      "name": "Replace a distributional condition with a structural one",
+      "tactical_move": "Move from a fragile statistical prior to a geometric, architectural or interface constraint.",
+      "when_to_apply": "Use when data coverage is insufficient but physical or system structure is reliable.",
+      "success_conditions": [
+        "The structural condition is independently testable.",
+        "The replacement transfers across environments without copying a distribution."
+      ],
+      "failure_modes": [
+        "The structural condition is merely a renamed distributional assumption."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R04",
+      "level": 2,
+      "parent_pattern_id": "P01",
+      "name": "Characterize the adversarial boundary",
+      "tactical_move": "Treat a claimed safety, robustness or imperceptibility property as a budget that can be challenged.",
+      "when_to_apply": "Use when the operating or threat model is stronger than the paper's nominal test.",
+      "success_conditions": [
+        "The strongest relevant disturbance or operator is included.",
+        "The boundary yields a reusable design constraint."
+      ],
+      "failure_modes": [
+        "Only a static or weak adversary is tested."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R05",
+      "level": 2,
+      "parent_pattern_id": "P01",
+      "name": "Pivot the system interface",
+      "tactical_move": "Move the load-bearing computation across a sensing, communication, human or actuation interface.",
+      "when_to_apply": "Use when interface latency, bandwidth or authority is the inherited bottleneck.",
+      "success_conditions": [
+        "The interface change is isolated from downstream tuning.",
+        "The new interface changes end-to-end behavior."
+      ],
+      "failure_modes": [
+        "The interface is changed without a causal account."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R06",
+      "level": 2,
+      "parent_pattern_id": "P01",
+      "name": "Isolate a failure-causing convention",
+      "tactical_move": "Turn a field convention into an intervention and measure the failure it causes.",
+      "when_to_apply": "Use when benchmark success hides a known deployment failure.",
+      "success_conditions": [
+        "The intervention reproduces the failure and its repair.",
+        "The result generalizes beyond one example."
+      ],
+      "failure_modes": [
+        "The failure is anecdotal or benchmark-specific."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R07",
+      "level": 2,
+      "parent_pattern_id": "P02",
+      "name": "Low-sensitivity operator substitution",
+      "tactical_move": "Replace an operator whose output is overly sensitive to noise, contact or discretization.",
+      "when_to_apply": "Use when the same task has a brittle operator-level failure.",
+      "success_conditions": [
+        "Sensitivity is measured at matched compute.",
+        "The replacement preserves the task interface."
+      ],
+      "failure_modes": [
+        "The gain is only a larger or more heavily tuned model."
+      ],
+      "upstream_reference": "ResearchStudio C09 Low-Sensitivity Operator Substitution",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R08",
+      "level": 2,
+      "parent_pattern_id": "P02",
+      "name": "Curvature-object substitution",
+      "tactical_move": "Substitute a scalar or local object with curvature, geometry or distributional structure that preserves the missing signal.",
+      "when_to_apply": "Use when point estimates discard the signal needed for robust state or control.",
+      "success_conditions": [
+        "The extra object has a mechanistic interpretation.",
+        "A point-estimate control loses the claimed downstream benefit."
+      ],
+      "failure_modes": [
+        "The richer object is used only as an unexamined feature."
+      ],
+      "upstream_reference": "ResearchStudio C30 Curvature-Object Substitution",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R09",
+      "level": 2,
+      "parent_pattern_id": "P02",
+      "name": "Representation-level state substitution",
+      "tactical_move": "Replace the state representation used by estimation, planning or learning.",
+      "when_to_apply": "Use when the raw state is not invariant to embodiment, viewpoint or contact.",
+      "success_conditions": [
+        "The representation removes a named nuisance without deleting the task signal.",
+        "Held-out conditions test invariance."
+      ],
+      "failure_modes": [
+        "The representation is an opaque embedding with no failure boundary."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R10",
+      "level": 2,
+      "parent_pattern_id": "P02",
+      "name": "Contact and geometry operator substitution",
+      "tactical_move": "Replace a contact, collision or geometry operation with one that exposes the relevant physical object.",
+      "when_to_apply": "Use when contact-rich manipulation or non-Euclidean planning is bottlenecked by a standard operator.",
+      "success_conditions": [
+        "The operation is validated on the physical boundary cases.",
+        "A geometric or force control explains the improvement."
+      ],
+      "failure_modes": [
+        "The operator is a cosmetic reparameterization."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R11",
+      "level": 2,
+      "parent_pattern_id": "P03",
+      "name": "Generative process redesign",
+      "tactical_move": "Change how actions, trajectories or forces are generated instead of adding a downstream correction.",
+      "when_to_apply": "Use when a fixed policy or generator cannot express the required behavior.",
+      "success_conditions": [
+        "The reachable behavior set expands.",
+        "Equal-data and equal-compute controls isolate the generator change."
+      ],
+      "failure_modes": [
+        "The generator is only wrapped by off-the-shelf modules."
+      ],
+      "upstream_reference": "ResearchStudio generative process redesign",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R12",
+      "level": 2,
+      "parent_pattern_id": "P03",
+      "name": "Residual mechanism liberation",
+      "tactical_move": "Expose the physical or modeling residual that a fixed generator cannot explain.",
+      "when_to_apply": "Use when sim-to-real, friction, contact or dynamics residuals dominate the error.",
+      "success_conditions": [
+        "The residual is measurable and closed by the mechanism.",
+        "A residual-removal control returns performance toward baseline."
+      ],
+      "failure_modes": [
+        "The residual model becomes a generic error-corrector with no mechanism."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R13",
+      "level": 2,
+      "parent_pattern_id": "P03",
+      "name": "Policy-generation substrate redesign",
+      "tactical_move": "Change the substrate or factorization from which a policy generates actions.",
+      "when_to_apply": "Use when policy expressivity or long-horizon composition is limiting deployment.",
+      "success_conditions": [
+        "The factorization matches the action horizon or morphology.",
+        "The policy remains stable under perturbation."
+      ],
+      "failure_modes": [
+        "Scaling or data alone explains the result."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R14",
+      "level": 2,
+      "parent_pattern_id": "P04",
+      "name": "Controlled diagnostic construction",
+      "tactical_move": "Build a one-variable-isolated intervention or measurement instrument.",
+      "when_to_apply": "Use when a robot claim can be explained by hardware, data, tuning or human adaptation confounds.",
+      "success_conditions": [
+        "The intervention has a downstream prediction.",
+        "Controls are matched in cost and information."
+      ],
+      "failure_modes": [
+        "Only the intermediate metric changes, not the task outcome."
+      ],
+      "upstream_reference": "ResearchStudio C02 Controlled Diagnostic Construction",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R15",
+      "level": 2,
+      "parent_pattern_id": "P05",
+      "name": "Cross-modal shared representation",
+      "tactical_move": "Align vision, touch, language, proprioception or force into a task-usable state.",
+      "when_to_apply": "Use when modalities are complementary but not jointly actionable.",
+      "success_conditions": [
+        "Each modality has a leave-one-out test.",
+        "Alignment improves a downstream decision rather than only retrieval similarity."
+      ],
+      "failure_modes": [
+        "The common space is a concatenation with no causal use."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R16",
+      "level": 2,
+      "parent_pattern_id": "P06",
+      "name": "Sequential-control re-casting",
+      "tactical_move": "Recast long-horizon control as a sequence of measurable subgoals or phases.",
+      "when_to_apply": "Use when a single objective dilutes credit or hides the decisive phase.",
+      "success_conditions": [
+        "The phase boundaries are observable.",
+        "The re-casting improves the long-horizon outcome."
+      ],
+      "failure_modes": [
+        "The phases are arbitrary labels with no mechanism."
+      ],
+      "upstream_reference": "ResearchStudio C21 Sequential-Control Re-Casting",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R17",
+      "level": 2,
+      "parent_pattern_id": "P06",
+      "name": "Intractable-problem re-casting",
+      "tactical_move": "Turn a native intractable planning or contact problem into a solvable object with a bounded gap.",
+      "when_to_apply": "Use when direct optimization is combinatorial, discontinuous or physically inaccessible.",
+      "success_conditions": [
+        "The solvable object preserves the decision-relevant property.",
+        "The approximation or recovery error is characterized."
+      ],
+      "failure_modes": [
+        "The reframe is a renamed heuristic."
+      ],
+      "upstream_reference": "ResearchStudio C27 Intractable-Problem Re-Casting",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R18",
+      "level": 2,
+      "parent_pattern_id": "P06",
+      "name": "Feasibility-object re-casting",
+      "tactical_move": "Replace an open-ended deployment goal with an explicit operating envelope and feasibility object.",
+      "when_to_apply": "Use when field performance fails because the target was never bounded.",
+      "success_conditions": [
+        "The envelope is measurable before deployment.",
+        "The resulting claim is falsifiable and transferable."
+      ],
+      "failure_modes": [
+        "The envelope is selected after seeing the result."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R19",
+      "level": 2,
+      "parent_pattern_id": "P07",
+      "name": "Self-supervised signal engineering",
+      "tactical_move": "Derive supervision from temporal, geometric, cross-view or task consistency.",
+      "when_to_apply": "Use when robot labels are expensive but structure is observable.",
+      "success_conditions": [
+        "The pretext signal is tied to the downstream property.",
+        "Signal removal degrades the intended behavior."
+      ],
+      "failure_modes": [
+        "The pretext is generic and unrelated to the task."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R20",
+      "level": 2,
+      "parent_pattern_id": "P07",
+      "name": "Residual and latent supervisory signal",
+      "tactical_move": "Use model residuals, uncertainty or latent disagreement as the training/adaptation signal.",
+      "when_to_apply": "Use when the error itself identifies where the policy or estimator must change.",
+      "success_conditions": [
+        "The residual predicts the downstream correction.",
+        "A shuffled or detached residual is a negative control."
+      ],
+      "failure_modes": [
+        "Residual magnitude is optimized as a proxy with no task effect."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R21",
+      "level": 2,
+      "parent_pattern_id": "P07",
+      "name": "Human or environment feedback as supervision",
+      "tactical_move": "Convert intervention, preference, success/failure or contact feedback into a stable learning signal.",
+      "when_to_apply": "Use when direct reward or labels are absent but the robot already interacts.",
+      "success_conditions": [
+        "Feedback cost and operator burden are measured.",
+        "The signal improves behavior without eroding safety or trust."
+      ],
+      "failure_modes": [
+        "The system treats feedback as free or ignores operator adaptation."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R22",
+      "level": 2,
+      "parent_pattern_id": "P08",
+      "name": "Symmetry-group construction",
+      "tactical_move": "Encode a symmetry or invariance into the state, model or controller.",
+      "when_to_apply": "Use when changes of frame, viewpoint, embodiment or ordering should not change the decision.",
+      "success_conditions": [
+        "The symmetry is tested outside training transforms.",
+        "Breaking the symmetry produces the predicted failure."
+      ],
+      "failure_modes": [
+        "The claimed symmetry is not present in the physical task."
+      ],
+      "upstream_reference": "ResearchStudio C16 Symmetry-Group Construction",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R23",
+      "level": 2,
+      "parent_pattern_id": "P08",
+      "name": "Relational topology encoded as structure",
+      "tactical_move": "Encode contact, graph, topology or relational geometry as a structural prior.",
+      "when_to_apply": "Use when relations, not individual observations, determine the robot outcome.",
+      "success_conditions": [
+        "The relation is identifiable over standard alternatives.",
+        "A topology-free control fails on the same boundary cases."
+      ],
+      "failure_modes": [
+        "A topology-as-prior architecture is presented without isolating its work."
+      ],
+      "upstream_reference": "ResearchStudio C13 Relational-Topology Encoded as Structure",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R24",
+      "level": 2,
+      "parent_pattern_id": "P08",
+      "name": "Embodiment and contact constraint by construction",
+      "tactical_move": "Build morphology, compliance, contact or actuator constraints directly into the robot mechanism or controller.",
+      "when_to_apply": "Use when embodiment is the source of the capability, not merely a test platform.",
+      "success_conditions": [
+        "The body–task mechanism is explicit.",
+        "A matched embodiment or post-hoc control baseline isolates the construction."
+      ],
+      "failure_modes": [
+        "One hardware instance is generalized to all embodiments without evidence."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R25",
+      "level": 2,
+      "parent_pattern_id": "P09",
+      "name": "Equivalence-based objective unification",
+      "tactical_move": "Prove that two control, learning or planning objectives are equivalent in a named regime.",
+      "when_to_apply": "Use when a duplicated objective or apparent trade-off blocks a simpler design.",
+      "success_conditions": [
+        "The assumptions are explicit.",
+        "The equivalence yields a simpler or more powerful robot procedure."
+      ],
+      "failure_modes": [
+        "The proof only renames the objective."
+      ],
+      "upstream_reference": "ResearchStudio C06 Probabilistic-Objective Unification via Equivalence Proof",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R26",
+      "level": 2,
+      "parent_pattern_id": "P10",
+      "name": "Heterogeneous regime decomposition",
+      "tactical_move": "Split contact, terrain, object, user or agent regimes and allocate distinct treatment.",
+      "when_to_apply": "Use when a single controller or policy averages incompatible regimes.",
+      "success_conditions": [
+        "The partition variable is measurable online or at design time.",
+        "A single-policy control fails under the same budget."
+      ],
+      "failure_modes": [
+        "The partition is tuned after results or has no operational meaning."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R27",
+      "level": 2,
+      "parent_pattern_id": "P11",
+      "name": "Decompose and delegate to solvers",
+      "tactical_move": "Give typed subproblems to specialized planners, learned policies, agents or tools.",
+      "when_to_apply": "Use when planning or coordination contains separable subproblems.",
+      "success_conditions": [
+        "Interfaces and failure recovery are explicit.",
+        "Coordination cost is included in the end-to-end evaluation."
+      ],
+      "failure_modes": [
+        "A pipeline of modules is called a contribution without a unifying interface."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R28",
+      "level": 2,
+      "parent_pattern_id": "P12",
+      "name": "Discrete-search relaxation to continuous",
+      "tactical_move": "Relax combinatorial planning or allocation into a differentiable or continuous object with recovery.",
+      "when_to_apply": "Use when a discrete robot decision has exploitable geometry.",
+      "success_conditions": [
+        "Rounded decisions remain feasible.",
+        "The relaxation gap is measured."
+      ],
+      "failure_modes": [
+        "The post-process secretly solves the original problem at full cost."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R29",
+      "level": 2,
+      "parent_pattern_id": "P13",
+      "name": "Adapt by conditioning",
+      "tactical_move": "Condition a frozen core on the current robot, environment, user or task state.",
+      "when_to_apply": "Use when the shift is local, recurrent and observable online.",
+      "success_conditions": [
+        "The condition is causally tied to the shift.",
+        "Frozen-core, no-adaptation and recovery tests are included."
+      ],
+      "failure_modes": [
+        "The method retrains while calling it conditioning."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R30",
+      "level": 2,
+      "parent_pattern_id": "P14",
+      "name": "Limit characterization and strict surpass",
+      "tactical_move": "Establish a stability, safety, bandwidth, sample or planning boundary, then exceed it with a named mechanism.",
+      "when_to_apply": "Use when a matched baseline has a sharp and reproducible boundary.",
+      "success_conditions": [
+        "The boundary is measured under the same regime.",
+        "The improvement exceeds uncertainty and has a mechanism."
+      ],
+      "failure_modes": [
+        "Only an empirical improvement is shown with no boundary or tightness."
+      ],
+      "upstream_reference": null,
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    },
+    {
+      "subpattern_id": "R31",
+      "level": 2,
+      "parent_pattern_id": "P15",
+      "name": "Property-targeting pretext objective",
+      "tactical_move": "Train on the robot property that must transfer: contact, invariance, uncertainty, affordance or safety.",
+      "when_to_apply": "Use when generic self-supervision does not represent the property needed downstream.",
+      "success_conditions": [
+        "The pretext targets a measurable task property.",
+        "A generic-pretext control and property-removal control are both present."
+      ],
+      "failure_modes": [
+        "The property is named after the result or is not observable."
+      ],
+      "upstream_reference": "ResearchStudio targeted self-supervised objective",
+      "source_kind": "robotics_adapted_tactical_seed",
+      "status": "seed_card_requires_full_text_induction",
+      "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
+    }
+  ],
+  "axis_profiles": {
+    "E": {
+      "axis_name": "embodiment_contact",
+      "axis_name_zh": "具身形态与接触",
+      "strategy_signature_template": "Encode the load-bearing body, material and contact constraint into the mechanism, then isolate its contribution against matched embodiment and control alternatives.",
+      "keyword_terms": [
+        "mechanism-to-body mapping",
+        "contact or morphology condition",
+        "hardware boundary",
+        "morphology",
+        "compliance",
+        "contact",
+        "mechanics",
+        "embodied"
+      ],
+      "pattern_scores": {
+        "P08": {
+          "prior": 1.0,
+          "terms": [
+            "mechanism-to-body mapping",
+            "contact or morphology condition",
+            "hardware boundary",
+            "morphology",
+            "compliance",
+            "contact",
+            "mechanics",
+            "embodied"
+          ]
+        },
+        "P02": {
+          "prior": 0.86,
+          "terms": [
+            "operator",
+            "representation",
+            "residual physics",
+            "geometry",
+            "force",
+            "model"
+          ]
+        },
+        "P04": {
+          "prior": 0.78,
+          "terms": [
+            "stress",
+            "failure",
+            "boundary",
+            "validation",
+            "contact"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P08",
+        "P02",
+        "P04"
+      ],
+      "preferred_subpattern_ids": [
+        "R24",
+        "R10",
+        "R14"
+      ],
+      "evidence_recipe": [
+        "mechanism-to-body map",
+        "matched non-embodied or post-hoc-control comparator",
+        "contact/morphology stress sweep",
+        "cross-platform or boundary test"
+      ],
+      "failure_guard": "Do not generalize from one morphology or hardware instance without a mechanism boundary and an explicit transfer test.",
+      "venue_scope_tags": [
+        "robotics",
+        "mechatronics",
+        "manipulation",
+        "bioinspired",
+        "hardware",
+        "contact"
+      ],
+      "claim_altitude": "embodied mechanism or morphology-to-task principle"
+    },
+    "P": {
+      "axis_name": "perception_state",
+      "axis_name_zh": "感知与状态估计",
+      "strategy_signature_template": "Design a confound-isolating sensing-to-state diagnostic, and use calibrated or shared representations only when they change a downstream robot decision.",
+      "keyword_terms": [
+        "sensor-to-state pipeline",
+        "calibration or representation choice",
+        "perception failure case",
+        "observability",
+        "identifiability",
+        "uncertainty",
+        "multimodal",
+        "sensing",
+        "mapping"
+      ],
+      "pattern_scores": {
+        "P04": {
+          "prior": 1.0,
+          "terms": [
+            "sensor-to-state pipeline",
+            "calibration or representation choice",
+            "perception failure case",
+            "observability",
+            "identifiability",
+            "uncertainty",
+            "failure",
+            "diagnostic"
+          ]
+        },
+        "P05": {
+          "prior": 0.92,
+          "terms": [
+            "multimodal",
+            "vision and touch",
+            "shared",
+            "sensor",
+            "mapping",
+            "representation",
+            "lidar"
+          ]
+        },
+        "P08": {
+          "prior": 0.8,
+          "terms": [
+            "manifold",
+            "graph",
+            "geometry",
+            "topology",
+            "structure"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P04",
+        "P05",
+        "P08"
+      ],
+      "preferred_subpattern_ids": [
+        "R14",
+        "R15",
+        "R23"
+      ],
+      "evidence_recipe": [
+        "sensor-to-state causal diagram",
+        "leave-one-sensor-out and calibration controls",
+        "failure-case stratification",
+        "held-out scene/robot/domain test"
+      ],
+      "failure_guard": "Do not report a perception metric gain as a robotics contribution unless the changed state alters task, control or safety outcomes.",
+      "venue_scope_tags": [
+        "perception",
+        "computer_vision",
+        "3d_perception",
+        "sensing",
+        "multisensor",
+        "localization",
+        "uncertainty"
+      ],
+      "claim_altitude": "state representation, observability or perception-to-action mechanism"
+    },
+    "C": {
+      "axis_name": "control_dynamics",
+      "axis_name_zh": "控制、动力学与安全",
+      "strategy_signature_template": "Audit the inherited model, stability or safety assumption, characterize its boundary, and show a matched mechanism-level improvement under disturbance.",
+      "keyword_terms": [
+        "dynamics or controller mechanism",
+        "stability/safety condition",
+        "stress or disturbance test",
+        "uncertainty",
+        "risk",
+        "barrier",
+        "fault",
+        "disturbance",
+        "control"
+      ],
+      "pattern_scores": {
+        "P01": {
+          "prior": 1.0,
+          "terms": [
+            "dynamics or controller mechanism",
+            "stability/safety condition",
+            "unknown",
+            "uncertainty",
+            "risk",
+            "model-less",
+            "fault",
+            "assumption",
+            "barrier"
+          ]
+        },
+        "P14": {
+          "prior": 0.95,
+          "terms": [
+            "tight",
+            "bound",
+            "limit",
+            "stability",
+            "safety",
+            "optimal",
+            "barrier",
+            "formal"
+          ]
+        },
+        "P04": {
+          "prior": 0.84,
+          "terms": [
+            "stress or disturbance test",
+            "fault",
+            "uncertainty",
+            "test",
+            "failure"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P01",
+        "P14",
+        "P04"
+      ],
+      "preferred_subpattern_ids": [
+        "R02",
+        "R30",
+        "R14"
+      ],
+      "evidence_recipe": [
+        "assumption-to-equation map",
+        "stability/safety proof or certificate",
+        "matched disturbance and uncertainty sweep",
+        "semantic negative control on the load-bearing variable"
+      ],
+      "failure_guard": "Do not call a controller safe or robust from nominal trajectories; identify the boundary and test the intervention on downstream failure.",
+      "venue_scope_tags": [
+        "control",
+        "dynamics",
+        "stability",
+        "optimization",
+        "safety",
+        "guidance_navigation_control",
+        "networked_control"
+      ],
+      "claim_altitude": "dynamical mechanism, stability/safety certificate or control law"
+    },
+    "L": {
+      "axis_name": "learning_adaptation",
+      "axis_name_zh": "学习、表示与适应",
+      "strategy_signature_template": "Manufacture a task-relevant supervisory signal or redesign the policy-generation substrate, then prove transfer with signal-removal and held-out embodiment or task tests.",
+      "keyword_terms": [
+        "training or adaptation loop",
+        "data/representation dependency",
+        "held-out or transfer test",
+        "self-supervision",
+        "residual",
+        "policy",
+        "adaptation",
+        "feedback",
+        "learning"
+      ],
+      "pattern_scores": {
+        "P07": {
+          "prior": 1.0,
+          "terms": [
+            "training or adaptation loop",
+            "self-supervision",
+            "supervisory",
+            "residual",
+            "feedback",
+            "help",
+            "uncertainty",
+            "learning"
+          ]
+        },
+        "P03": {
+          "prior": 0.92,
+          "terms": [
+            "generative",
+            "diffusion",
+            "residual",
+            "policy",
+            "behavior",
+            "action generation"
+          ]
+        },
+        "P05": {
+          "prior": 0.9,
+          "terms": [
+            "language",
+            "multimodal",
+            "correspondence",
+            "feature",
+            "cross robot",
+            "shared",
+            "representation"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P07",
+        "P03",
+        "P05"
+      ],
+      "preferred_subpattern_ids": [
+        "R19",
+        "R12",
+        "R15"
+      ],
+      "evidence_recipe": [
+        "signal provenance and mechanism map",
+        "signal-removal or shuffled-signal control",
+        "same-data/compute baseline",
+        "held-out task, embodiment or environment transfer"
+      ],
+      "failure_guard": "Do not present scale, data or a benchmark gain as a learning mechanism without isolating the supervisory signal or policy substrate that caused it.",
+      "venue_scope_tags": [
+        "robot_learning",
+        "learning",
+        "reinforcement_learning",
+        "imitation_learning",
+        "representation_learning",
+        "foundation_model",
+        "vla",
+        "world_model"
+      ],
+      "claim_altitude": "learning signal, policy-generation mechanism or transfer principle"
+    },
+    "D": {
+      "axis_name": "planning_decision_coordination",
+      "axis_name_zh": "规划、决策与协同",
+      "strategy_signature_template": "Decompose heterogeneous long-horizon decision structure into typed subproblems, delegate or relax them with explicit interface and recovery guarantees.",
+      "keyword_terms": [
+        "planning/decision decomposition",
+        "task or coordination constraint",
+        "long-horizon failure case",
+        "decomposition",
+        "coordination",
+        "multi-robot",
+        "solver",
+        "sampling",
+        "planning"
+      ],
+      "pattern_scores": {
+        "P10": {
+          "prior": 1.0,
+          "terms": [
+            "planning/decision decomposition",
+            "task or coordination constraint",
+            "decomposition",
+            "multi-robot",
+            "coordination",
+            "long horizon",
+            "heterogeneous"
+          ]
+        },
+        "P11": {
+          "prior": 0.9,
+          "terms": [
+            "delegate",
+            "solver",
+            "symbolic",
+            "blackbox",
+            "multi-agent",
+            "communication",
+            "coordination"
+          ]
+        },
+        "P06": {
+          "prior": 0.86,
+          "terms": [
+            "intractable",
+            "mapless",
+            "generalization",
+            "single demonstration",
+            "recast",
+            "unknown"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P10",
+        "P11",
+        "P06"
+      ],
+      "preferred_subpattern_ids": [
+        "R26",
+        "R27",
+        "R18"
+      ],
+      "evidence_recipe": [
+        "task/decision decomposition",
+        "typed state and solver interfaces",
+        "coordination and recovery tests",
+        "long-horizon or multi-agent stress cases"
+      ],
+      "failure_guard": "Do not call a pipeline a planning contribution when the subproblem interfaces, coordination cost or failure recovery are unspecified.",
+      "venue_scope_tags": [
+        "planning",
+        "task_motion_planning",
+        "reasoning",
+        "multi_agent",
+        "multi_robot",
+        "coordination",
+        "scheduling",
+        "decision"
+      ],
+      "claim_altitude": "planning decomposition, coordination protocol or long-horizon decision mechanism"
+    },
+    "H": {
+      "axis_name": "human_interaction",
+      "axis_name_zh": "人机交互、触觉与 XR",
+      "strategy_signature_template": "Construct a confound-isolating interaction or haptic diagnostic whose load-bearing interface changes human–robot behavior, workload, trust or physical safety.",
+      "keyword_terms": [
+        "human or haptic interaction mechanism",
+        "participant/operator measure",
+        "interface or workload boundary",
+        "human factors",
+        "cognitive load",
+        "trust",
+        "operator",
+        "feedback",
+        "participant"
+      ],
+      "pattern_scores": {
+        "P04": {
+          "prior": 1.0,
+          "terms": [
+            "human or haptic interaction mechanism",
+            "participant/operator measure",
+            "interface or workload boundary",
+            "human factors",
+            "cognitive load",
+            "trust",
+            "operator",
+            "participant"
+          ]
+        },
+        "P05": {
+          "prior": 0.86,
+          "terms": [
+            "shared",
+            "haptic",
+            "multimodal",
+            "human robot",
+            "language",
+            "preference",
+            "feedback"
+          ]
+        },
+        "P01": {
+          "prior": 0.78,
+          "terms": [
+            "delay",
+            "uncertainty",
+            "safety",
+            "control barrier",
+            "failure",
+            "boundary"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P04",
+        "P05",
+        "P01"
+      ],
+      "preferred_subpattern_ids": [
+        "R14",
+        "R15",
+        "R05"
+      ],
+      "evidence_recipe": [
+        "interaction mechanism and authority map",
+        "counterbalanced participant/operator study",
+        "matched workload/trust/safety measures",
+        "delay, novice, expert and failure-boundary tests"
+      ],
+      "failure_guard": "Do not submit a robot method plus a small user demo to an HRI/HCI venue; the interaction mechanism and human measure must be the contribution.",
+      "venue_scope_tags": [
+        "hri",
+        "haptics",
+        "force_feedback",
+        "teleoperation",
+        "human_factors",
+        "user_study",
+        "virtual_reality",
+        "augmented_reality",
+        "social_robotics"
+      ],
+      "claim_altitude": "interaction mechanism, haptic channel or human-factor effect"
+    },
+    "A": {
+      "axis_name": "autonomy_deployment",
+      "axis_name_zh": "自主系统与部署运行",
+      "strategy_signature_template": "Recast an open deployment goal as a measurable operating envelope, then adapt or diagnose the autonomy loop under real field constraints and recovery failures.",
+      "keyword_terms": [
+        "autonomy loop",
+        "operating-envelope condition",
+        "deployment or field failure",
+        "mapless",
+        "field",
+        "deployment",
+        "operating",
+        "unknown",
+        "autonomy"
+      ],
+      "pattern_scores": {
+        "P06": {
+          "prior": 1.0,
+          "terms": [
+            "autonomy loop",
+            "operating-envelope condition",
+            "deployment or field failure",
+            "mapless",
+            "field",
+            "deployment",
+            "operating",
+            "unknown",
+            "reframe"
+          ]
+        },
+        "P13": {
+          "prior": 0.9,
+          "terms": [
+            "online adaptation",
+            "on the job",
+            "conditioned",
+            "human in the loop",
+            "transfer",
+            "adaptation"
+          ]
+        },
+        "P04": {
+          "prior": 0.86,
+          "terms": [
+            "risk",
+            "occlusion",
+            "failure",
+            "safety",
+            "test",
+            "operating envelope"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P06",
+        "P13",
+        "P04"
+      ],
+      "preferred_subpattern_ids": [
+        "R18",
+        "R29",
+        "R14"
+      ],
+      "evidence_recipe": [
+        "explicit operating-envelope definition",
+        "closed-loop field or simulator-to-real test",
+        "recovery and failure logging",
+        "frozen-core or no-adaptation control"
+      ],
+      "failure_guard": "Do not equate a single successful run with autonomy; bound the envelope, report recoveries and expose the deployment failure mode.",
+      "venue_scope_tags": [
+        "autonomy",
+        "autonomous_systems",
+        "navigation",
+        "field",
+        "deployment",
+        "intelligent_vehicle",
+        "unmanned_systems",
+        "industrial_robotics"
+      ],
+      "claim_altitude": "autonomy loop, operating envelope or deployment mechanism"
+    },
+    "S": {
+      "axis_name": "systems_realtime",
+      "axis_name_zh": "系统集成、实时与基础设施",
+      "strategy_signature_template": "Encode the software–hardware, timing and reproducibility contract into the system architecture, then diagnose end-to-end latency, failure propagation and deployment behavior.",
+      "keyword_terms": [
+        "software/hardware contract",
+        "latency or resource measure",
+        "reproduction/deployment artifact",
+        "architecture",
+        "middleware",
+        "runtime",
+        "contract",
+        "reproducibility",
+        "security"
+      ],
+      "pattern_scores": {
+        "P08": {
+          "prior": 1.0,
+          "terms": [
+            "software/hardware contract",
+            "latency or resource measure",
+            "reproduction/deployment artifact",
+            "architecture",
+            "middleware",
+            "runtime",
+            "contract",
+            "reproducibility"
+          ]
+        },
+        "P04": {
+          "prior": 0.91,
+          "terms": [
+            "runtime verification",
+            "security",
+            "failure",
+            "latency",
+            "monitor",
+            "diagnostic"
+          ]
+        },
+        "P11": {
+          "prior": 0.82,
+          "terms": [
+            "modular",
+            "distributed",
+            "framework",
+            "cloud",
+            "fog",
+            "component",
+            "delegation"
+          ]
+        }
+      },
+      "preferred_pattern_ids": [
+        "P08",
+        "P04",
+        "P11"
+      ],
+      "preferred_subpattern_ids": [
+        "R24",
+        "R14",
+        "R27"
+      ],
+      "evidence_recipe": [
+        "component and interface contract",
+        "end-to-end latency/resource/fault propagation trace",
+        "reproducible artifact or deployment recipe",
+        "failure injection and recovery test"
+      ],
+      "failure_guard": "Do not present an architecture diagram as a systems contribution without reproducible artifacts and load-bearing end-to-end measurements.",
+      "venue_scope_tags": [
+        "systems",
+        "real_time",
+        "embedded",
+        "middleware",
+        "distributed",
+        "robotics_software",
+        "hardware_software",
+        "automation",
+        "reproducibility"
+      ],
+      "claim_altitude": "integrated system, real-time contract or reproducible infrastructure"
+    }
+  },
+  "validation_expectations": {
+    "required_for_full_induction": [
+      "full-text or abstract-backed Stage-1 fields",
+      "domain-agnostic Stage-2 rewrites",
+      "embedding manifest",
+      "UMAP/HDBSCAN run metadata",
+      "cluster audit",
+      "outcome labels with provenance"
+    ],
+    "current_corpus_status": "metadata_adapter_only"
+  }
+}
