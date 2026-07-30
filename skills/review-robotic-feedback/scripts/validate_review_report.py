@@ -18,8 +18,11 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from common.canonical_json import JsonIntegrityError, load_json
-from common.contract_core import Findings, validate_finite_tree
+try:
+    from common.canonical_json import JsonIntegrityError, load_json
+    from common.contract_core import Findings, validate_finite_tree
+except ModuleNotFoundError:  # 独立安装兼容 / standalone installed Skill
+    from review_runtime import JsonIntegrityError, Findings, load_json, validate_finite_tree
 
 
 REVIEWERS = {

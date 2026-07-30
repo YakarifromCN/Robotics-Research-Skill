@@ -23,7 +23,10 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from common.canonical_json import JsonIntegrityError, load_json, sha256_file, write_json
+try:
+    from common.canonical_json import JsonIntegrityError, load_json, sha256_file, write_json
+except ModuleNotFoundError:  # 独立安装兼容 / standalone installed Skill
+    from review_runtime import JsonIntegrityError, load_json, sha256_file, write_json
 from review_language import language_mode, normalize_language
 from validate_review_report import normalize_report, validate, validate_report_set
 
@@ -232,6 +235,7 @@ def render_markdown(meta: dict[str, Any]) -> str:
         "",
         f"决策 / Decision: **{decision}**",
         f"评审语言 / Review language: **{meta.get('review_language')}**",
+        f"编排模式 / Execution mode: **{meta.get('execution_mode') or 'UNSPECIFIED'}**",
         f"适用评审数 / Applicable reviewers: {summary['applicable_reviewers']}",
         f"分数 / Scores: mean={summary['mean']}, median={summary['median']}, range={summary['minimum']}–{summary['maximum']}",
         "",
@@ -312,6 +316,7 @@ def synthesize(context_path: Path, report_paths: list[Path], json_arg: str | Non
     if drift:
         raise SynthesisFailure("snapshot_lock", "discovery snapshot changed", drift)
     run_state_path = context_path.parent / "run-state.json"
+    execution_mode = None
     if run_state_path.is_file():
         try:
             run_state = load_json(run_state_path)
@@ -320,6 +325,7 @@ def synthesize(context_path: Path, report_paths: list[Path], json_arg: str | Non
             if expected_context_hash and expected_context_hash != actual_context_hash:
                 raise SynthesisFailure("run_state_lock", "run-state context hash does not match review context")
             agents = run_state.get("agents", {})
+            execution_mode = run_state.get("execution_mode")
             incomplete = [reviewer for reviewer, item in agents.items() if item.get("status") != "COMPLETE" or item.get("validation") != "PASS"]
             if incomplete:
                 raise SynthesisFailure("run_state_gate", "panel agents are not terminal and validated", incomplete)
@@ -421,6 +427,7 @@ def synthesize(context_path: Path, report_paths: list[Path], json_arg: str | Non
         "review_id": context.get("review_id"),
         "review_language": review_language,
         "review_language_mode": language_mode(review_language),
+        "execution_mode": execution_mode,
         "source_reports": [source_report_id(report) for report in reports],
         "source_registry": source_registry,
         "score_summary": {"applicable_reviewers": len(applicable), "mean": mean, "median": median, "minimum": minimum, "maximum": maximum, "spread": (maximum - minimum if scores else None), "low_confidence_reviewers": [report.get("reviewer_id") for report in applicable if report.get("score", {}).get("confidence", 0) <= 2], "by_reviewer": {report.get("reviewer_id"): {"score": report["score"]["overall"], "confidence": report["score"]["confidence"], "recommendation": report.get("recommendation")} for report in applicable}},

@@ -1,4 +1,6 @@
 import json
+import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -100,6 +102,63 @@ class ReviewFeedbackV2(unittest.TestCase):
             self.assertEqual(context["paper"]["main_file"], str(pdf))
             self.assertEqual(context["paper"]["include_graph"], [str(pdf)])
             self.assertNotIn(str(root / "neighbor.tex"), context["scope_guard"]["allowed_files"])
+
+    def test_pdf_text_extraction_populates_context_without_expanding_scope(self):
+        script = SKILL / "scripts" / "discover_manuscript.py"
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            fake_bin = root / "bin"
+            fake_bin.mkdir()
+            pdftotext = fake_bin / "pdftotext"
+            pdftotext.write_text(
+                "#!/bin/sh\nprintf 'Title: Contact-Aware Robot Control\\n\\nAbstract\\nA robot controller uses feedback and hardware timing.\\n\\n1 Introduction\\n'\n",
+                encoding="utf-8",
+            )
+            pdftotext.chmod(pdftotext.stat().st_mode | 0o111)
+            pdf = root / "paper.pdf"
+            pdf.write_bytes(b"%PDF-1.4\n")
+            output = root / "reviews" / "review-202601010605" / "jsons" / "context.json"
+            env = os.environ.copy()
+            env["PATH"] = str(fake_bin) + os.pathsep + env.get("PATH", "")
+            subprocess.run([sys.executable, "-B", str(script), str(pdf), "--language", "en", "--output", str(output)], check=True, env=env)
+            context = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(context["paper"]["title"], "Contact-Aware Robot Control")
+            self.assertIn("feedback", context["paper"]["abstract"])
+            self.assertEqual(context["paper"]["pdf_text_extraction"]["status"], "EXTRACTED")
+            self.assertIn("control-optimization", context["domain_packs"])
+            self.assertEqual(context["scope_guard"]["allowed_files"], [str(pdf)])
+
+    def test_standalone_discovery_uses_bundled_runtime_without_common_package(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            bundle = root / "skill" / "scripts"
+            bundle.mkdir(parents=True)
+            for name in ("discover_manuscript.py", "review_runtime.py", "review_language.py"):
+                shutil.copy2(SKILL / "scripts" / name, bundle / name)
+            pdf = root / "paper.pdf"
+            pdf.write_bytes(b"%PDF-1.4\n")
+            output = root / "reviews" / "review-202601010606" / "jsons" / "context.json"
+            env = os.environ.copy()
+            env.pop("PYTHONPATH", None)
+            checked = subprocess.run([sys.executable, "-B", str(bundle / "discover_manuscript.py"), str(pdf), "--language", "zh", "--output", str(output)], capture_output=True, text=True, env=env)
+            self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+            context = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(context["review_language"], "zh")
+            self.assertEqual(context["paper"]["main_file"], str(pdf))
+
+    def test_standalone_router_reports_explicit_fallback(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            bundle = root / "skill" / "scripts"
+            bundle.mkdir(parents=True)
+            shutil.copy2(SKILL / "scripts" / "route_robotics_research.py", bundle / "route_robotics_research.py")
+            profile = root / "profile.json"
+            profile.write_text(json.dumps({"topic_tags": ["control", "robotics"]}), encoding="utf-8")
+            checked = subprocess.run([sys.executable, "-B", str(bundle / "route_robotics_research.py"), str(profile), "--stage", "review", "--venue", "ROBIO"], capture_output=True, text=True)
+            self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+            routing = json.loads(checked.stdout)
+            self.assertEqual(routing["routing_status"], "LOCAL_FALLBACK_NO_CORPUS")
+            self.assertIn("C", routing["active_axes"])
 
     def test_language_is_required(self):
         script = SKILL / "scripts" / "discover_manuscript.py"
@@ -206,8 +265,10 @@ class ReviewFeedbackV2(unittest.TestCase):
             self.assertEqual(prompts["review_language"], "en+zh")
             self.assertIn("fresh reviewer", prompts["reviewers"][0]["prompt"])
             self.assertIn("project memory", prompts["reviewers"][0]["prompt"])
+            self.assertEqual(prompts["execution_mode"], "FRESH_SUBAGENT_PANEL")
             state = json.loads((json_dir / "run-state.json").read_text(encoding="utf-8"))
             self.assertEqual(set(state["agents"]), set(REVIEWERS))
+            self.assertEqual(state["execution_mode"], "FRESH_SUBAGENT_PANEL")
 
     def test_language_policy_accepts_arbitrary_single_or_en_plus_language(self):
         from importlib.util import module_from_spec, spec_from_file_location

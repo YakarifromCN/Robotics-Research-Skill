@@ -15,7 +15,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
-from common.canonical_json import load_json, sha256_file, write_json
+try:
+    from common.canonical_json import load_json, sha256_file, write_json
+except ModuleNotFoundError:  # 独立安装兼容 / standalone installed Skill
+    from review_runtime import load_json, sha256_file, write_json
 
 
 STATUSES = {"PENDING", "RUNNING", "VALIDATING", "RETRYING", "COMPLETE", "FAILED"}

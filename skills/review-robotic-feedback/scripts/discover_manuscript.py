@@ -24,7 +24,10 @@ import sys
 
 sys.path.insert(0, str(ROOT))
 
-from common.canonical_json import JsonIntegrityError, load_json, sha256_file, write_json
+try:
+    from common.canonical_json import JsonIntegrityError, load_json, sha256_file, write_json
+except ModuleNotFoundError:  # 独立安装兼容 / standalone installed Skill
+    from review_runtime import JsonIntegrityError, load_json, sha256_file, write_json
 from review_language import language_mode, normalize_language
 
 
@@ -222,9 +225,76 @@ def bibliography_dependencies(files: list[Path], root: Path) -> tuple[list[Path]
     )
 
 
-def title_abstract(main: Path) -> tuple[str | None, str | None]:
+def extract_pdf_text(path: Path, max_chars: int = 120_000) -> dict[str, Any]:
+    """在内存中抽取 PDF 文本供路由使用。
+
+    Extract PDF text in memory for routing.  The source PDF remains the only
+    allowed manuscript file; extracted text is bounded and is not written as a
+    second manuscript artifact.
+    """
+    result: dict[str, Any] = {
+        "status": "UNAVAILABLE",
+        "tool": "pdftotext -layout",
+        "char_count": 0,
+        "text": "",
+        "error": None,
+    }
+    if not path.is_file():
+        result["status"] = "MISSING"
+        result["error"] = "PDF file does not exist"
+        return result
+    pdftotext = shutil.which("pdftotext")
+    if not pdftotext:
+        result["error"] = "pdftotext executable is unavailable"
+        return result
+    try:
+        proc = subprocess.run(
+            [pdftotext, "-layout", str(path), "-"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=30,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        result["status"] = "FAILED"
+        result["error"] = str(exc)
+        return result
+    if proc.returncode != 0:
+        result["status"] = "FAILED"
+        result["error"] = (proc.stderr or "pdftotext failed").strip()[:500]
+        return result
+    text = (proc.stdout or "").replace("\x00", "").strip()
+    result["text"] = text[:max_chars]
+    result["char_count"] = len(text)
+    result["truncated"] = len(text) > max_chars
+    result["status"] = "EXTRACTED" if text else "EMPTY"
+    return result
+
+
+def title_abstract(main: Path, pdf_text: str = "") -> tuple[str | None, str | None]:
     if main.suffix.lower() == ".pdf":
-        return None, None
+        if not pdf_text.strip():
+            return None, None
+        lines = [re.sub(r"\s+", " ", line).strip() for line in pdf_text.splitlines() if line.strip()]
+        title = None
+        explicit_title = next((line.split(":", 1)[1].strip() for line in lines[:20] if re.match(r"^title\s*:", line, re.I)), None)
+        if explicit_title:
+            title = explicit_title
+        else:
+            for line in lines[:25]:
+                if len(line) <= 240 and not re.match(r"^(?:arxiv|preprint|abstract|keywords?|author|\d+\s+introduction)\b", line, re.I):
+                    title = line
+                    break
+        abstract = None
+        abstract_match = re.search(
+            r"(?is)\babstract\b\s*[:.]?\s*(.+?)(?=\n\s*(?:1\.?\s+)?(?:introduction|keywords?)\b|\Z)",
+            pdf_text,
+        )
+        if abstract_match:
+            abstract = re.sub(r"\s+", " ", abstract_match.group(1)).strip()
+        return title, abstract
     source = read_text(main)
     if main.suffix.lower() == ".md":
         lines = source.splitlines()
@@ -362,7 +432,7 @@ def filename_warnings(paths: list[Path]) -> list[str]:
     return sorted(set(warnings))
 
 
-def pdf_preflight(path: Path) -> dict[str, Any]:
+def pdf_preflight(path: Path, text_extraction: dict[str, Any] | None = None) -> dict[str, Any]:
     result: dict[str, Any] = {
         "path": str(path),
         "status": "UNAVAILABLE",
@@ -371,6 +441,11 @@ def pdf_preflight(path: Path) -> dict[str, Any]:
         "font_inventory": None,
         "missing_embeds": None,
         "unresolved_references": None,
+        "text_extraction": {
+            key: value
+            for key, value in (text_extraction or {}).items()
+            if key != "text"
+        },
         "compilation_timestamp": dt.datetime.fromtimestamp(path.stat().st_mtime, dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z") if path.is_file() else None,
         "checked_at": utc_now(),
     }
@@ -498,10 +573,13 @@ def main() -> None:
                 all_files.append(path.resolve())
 
     rendered_assets = [p for p in all_files if p.suffix.lower() == ".pdf" and p not in figures]
+    pdf_text_extraction = extract_pdf_text(main_file) if main_file.suffix.lower() == ".pdf" else {"status": "NOT_APPLICABLE", "tool": None, "char_count": 0, "text": "", "error": None}
     all_text = "\n".join(read_text(path) for path in files if path.suffix.lower() in {".tex", ".md", ".txt"})
+    if pdf_text_extraction.get("text"):
+        all_text = str(pdf_text_extraction["text"]) + "\n" + all_text
     for path in contract_paths.values():
         all_text += "\n" + read_text(path)
-    title, abstract = title_abstract(main_file)
+    title, abstract = title_abstract(main_file, str(pdf_text_extraction.get("text") or ""))
 
     artifact_records: dict[str, dict[str, Any]] = {}
     def add_record(path: Path, role: str, reason: str) -> None:
@@ -553,6 +631,8 @@ def main() -> None:
     warnings = filename_warnings([Path(item["path"]) for item in artifact_records.values() if item["exists"]])
     warnings.extend(check_claim_ledger_reference(contract_paths.get("claim_ledger"), contract_candidates.get("result_bundle", [])))
     warnings.extend(f"Missing dependency reference: {item['path']}" for item in missing_records)
+    if main_file.suffix.lower() == ".pdf" and pdf_text_extraction.get("status") != "EXTRACTED":
+        warnings.append("PDF_TEXT_UNAVAILABLE: title, abstract and domain-pack detection may be incomplete")
 
     detected_packs = [name for name, pattern in PACK_RULES.items() if pattern.search(all_text)]
     pack_root = Path(__file__).resolve().parents[1] / "references"
@@ -566,7 +646,7 @@ def main() -> None:
         "notes": {name: "activated by manuscript/contract signal" for name in activated_packs},
     }
 
-    compiled = [pdf_preflight(path) for path in rendered_assets if path.is_file()]
+    compiled = [pdf_preflight(path, pdf_text_extraction if path.resolve() == main_file.resolve() else None) for path in rendered_assets if path.is_file()]
     source_language = "zh-en" if re.search(r"[\u3400-\u9fff]", all_text) and re.search(r"[A-Za-z]", all_text) else ("zh" if re.search(r"[\u3400-\u9fff]", all_text) else ("en" if all_text else "unknown"))
     review_id = args.review_id or "REV-" + utc_now().replace("-", "").replace(":", "").replace("T", "-").replace("Z", "")
     dependency_graphs = {
@@ -595,6 +675,7 @@ def main() -> None:
             "output_language": output_language,
             "title": title,
             "abstract": abstract,
+            "pdf_text_extraction": {key: value for key, value in pdf_text_extraction.items() if key != "text"},
         },
         "scope_guard": {
             "allowed_files": allowed,
