@@ -36,6 +36,18 @@ Use paper_reference_bundle, research_intensity, factor_fit_ranking,
 researchstudio_strategy_context, and the active-axis stage adapter as the
 shared first-mile context.
 
+## Supervisor-Skills distillation
+
+Before the specialist panel, read `common/supervisor-research-layer.md` and
+settle paradigm and current official venue scope. Add the Supervisor review
+dimensions to the robotics panel: macro logic, writing details, grammar,
+LaTeX, and figure quality, alongside axis-specific evidence, mechanism
+attribution, baseline fairness, and artifact checks. Every finding needs a
+real quote, file line, artifact ID, contract path, or source URL. Use
+`CRITICAL`, `MAJOR`, and `MINOR` honestly; unresolved `CRITICAL` findings
+block readiness. The review recommends a next action and never emits a true
+acceptance probability from scores, awards, or venue labels.
+
 ## Stage contract
 
 Compare the manuscript with active-axis mechanism patterns, evidence loops, and do-not-infer boundaries. Then add current venue scope, author-guide, ethics, video, rebuttal, and artifact rules. Awards, factor fit, and reviewer scores must not be collapsed into acceptance probability. A standalone installation may disclose a local runtime fallback, but the complete workspace must use the compact runtime artifact.

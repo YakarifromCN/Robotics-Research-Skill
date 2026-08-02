@@ -36,6 +36,19 @@ Use paper_reference_bundle, research_intensity, factor_fit_ranking,
 researchstudio_strategy_context, and the active-axis stage adapter as the
 shared first-mile context.
 
+## Supervisor-Skills distillation
+
+Before freezing the Experiment Contract, read
+`common/supervisor-research-layer.md`. Build one auditable row per load-bearing
+challenge: mechanism intervention, comparator or negative control, metric and
+independent unit, expected falsification signature, failure log, and artifact.
+Keep the `limitations -> goal -> challenges -> modules -> contributions`
+chain visible; normally do not exceed three challenges. For benchmark or
+evaluation projects, additionally audit the five pillars: research gap,
+construction pipeline, evaluation framework, empirical capability boundaries,
+and optional companion method. Organise experiments by research question and
+do not let target-venue preference change denominators or add post-hoc tests.
+
 ## Stage contract
 
 Translate active-axis exemplar boundaries and strategy rows into candidate conditions, contrasts, metrics, failure logs, and artifact obligations. Freeze the Design Lock afterward. Runtime patterns do not replace project results, and venue preference cannot change units, denominators, exclusions, or abort policy after outcomes are observed.

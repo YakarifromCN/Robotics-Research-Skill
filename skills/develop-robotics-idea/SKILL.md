@@ -36,6 +36,26 @@ Use paper_reference_bundle, research_intensity, factor_fit_ranking,
 researchstudio_strategy_context, and the active-axis stage adapter as the
 shared first-mile context.
 
+## Supervisor-Skills distillation
+
+Before candidate generation or an Idea audit, also read
+`common/supervisor-research-layer.md` and apply its idea-stage gates:
+
+- classify the project as `TECHNIQUE`, `NEW_PROBLEM_SETTING`,
+  `BENCHMARK_EVALUATION`, or `MIXED`, then state a one-sentence story;
+- run fatal-flaw and closest-work collision checks before any innovation
+  scoring; a `CRITICAL` flaw short-circuits the run;
+- use `Higher/Faster/Stronger/Cheaper/Broader` as evidence-labelled
+  directional probes, never as a total score or acceptance model;
+- check lifecycle, compute, data, engineering, and timeline fit against the
+  user's actual resources;
+- keep the paper-positioning chain inside the Research Card audit: no more
+  than three load-bearing limitations and challenges, a one-sentence goal or
+  key idea, and an explicit challenge-to-mechanism relationship;
+- hand a viable idea to `design-robotics-experiment` when evidence conditions
+  are not frozen, or to `write-robotics-paper` when the evidence artifacts are
+  ready. Do not jump from a high idea score directly to prose.
+
 ## Stage contract
 
 Use the active-axis compact paper exemplars for prior-art collision checks, mechanism distinction, claim altitude, evidence pressure, and falsification planning. Do not silently rewrite the Claim Lock. The venue catalog supplies routing context only; it does not turn awards, directness, or factor fit into quality or acceptance probability.

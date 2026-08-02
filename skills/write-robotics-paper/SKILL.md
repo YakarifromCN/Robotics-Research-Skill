@@ -36,6 +36,20 @@ Use paper_reference_bundle, research_intensity, factor_fit_ranking,
 researchstudio_strategy_context, and the active-axis stage adapter as the
 shared first-mile context.
 
+## Supervisor-Skills distillation
+
+Before drafting, read `common/supervisor-research-layer.md` and reconstruct
+the argument chain directly from the Research Card, Experiment Contract, and
+Result Bundle. If the logic chain is not locked, route back to
+`develop-robotics-idea` or `design-robotics-experiment` before prose. For a technical paper, preserve the
+six-part chain `background/running example -> limitations -> goal/key idea ->
+challenges -> solution overview -> contributions`; for a benchmark paper,
+use its distinct evaluation-gap/RQ/design chain. Build an Evidence Map before
+the Claim Ledger, keep every factual sentence within user material, verified
+retrieval, or field common knowledge, and never use placeholders to hide a
+missing source. Treat the motivated example, solution overview, and results
+figures as load-bearing narrative objects linked to claims and sections.
+
 ## Stage contract
 
 Use active-axis paper patterns, evidence boundaries, and do-not-infer limits for related-work positioning, Claim Ledger sentence audits, claim altitude, and evidence gaps. Then layer the target venue's current official scope. Runtime summaries must never become acceptance probability, academic rank, or manuscript evidence.
