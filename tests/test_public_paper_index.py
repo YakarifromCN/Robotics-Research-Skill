@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX_PATH = ROOT / "corpus" / "public-paper-index.json"
 
 
+@unittest.skipUnless(INDEX_PATH.exists(), "local-only raw corpus is not present; run the explicit offline audit")
 class PublicPaperIndexTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

@@ -1,32 +1,1150 @@
 {
-  "schema_version": "robotics-axis-strategy-analysis.v1",
-  "analysis_id": "ROBOTICS-AXIS-STRATEGY-BASELINE-100",
-  "method": {
-    "source": "ResearchStudio.pdf",
-    "chain": "paper metadata/full text + outcome -> Stage-1 fields -> domain-agnostic Stage-2 strategy signature -> embedding/UMAP/HDBSCAN infrastructure -> pattern-card fit -> axis-level posting strategy",
-    "current_run": "metadata adapter + transparent expert structural fit; not full-text LLM extraction and not an upstream PCA/factor-analysis result",
-    "selection_unit": "research-axis bottleneck",
-    "pattern_composition": {
-      "min": 1,
-      "max": 3,
-      "default": 2
-    }
+  "schema_version": "robotics-research-runtime.v1",
+  "artifact_status": "DERIVED_RUNTIME_ONLY",
+  "source": {
+    "corpus_schema": "robotics-public-corpus.v2",
+    "record_count": 100,
+    "journal_count": 50,
+    "conference_count": 50,
+    "award_recognition_count": 51,
+    "primary_axis_counts": {
+      "E": 13,
+      "P": 13,
+      "C": 13,
+      "L": 13,
+      "D": 12,
+      "H": 12,
+      "A": 12,
+      "S": 12
+    },
+    "corpus_sha256": "5486b28ce6f54b1443165ac27d3dede25f17276ef45c697ec79f56d844e720c7",
+    "source_path_policy": "local_only_not_committed",
+    "raw_corpus_loaded_at_runtime": false
   },
-  "input": {
-    "signature_schema": "researchstudio-paper-signatures.v1",
-    "signature_record_count": 100,
-    "signature_fidelity": "METADATA_ONLY",
-    "pattern_library_schema": "researchstudio-robotics-pattern-cards.v1",
-    "axis_model_schema": "robotics-submanifold.v1",
-    "venue_catalog_schema": "robotics-venue-catalog.v2"
+  "runtime_contract": {
+    "purpose": "compact paper-derived context for normal Idea/Experiment/Writing/Review routing",
+    "paper_record_policy": "compact exemplars only; never the complete 100-record corpus",
+    "exemplar_count_per_axis": 4,
+    "offline_build": "python scripts/build_robotics_research_runtime.py --input <local-corpus>",
+    "offline_audit": "python scripts/validate_public_paper_index.py <local-corpus>",
+    "raw_corpus_required_for_runtime": false
   },
-  "axes": [
-    {
+  "paper_exemplars_by_axis": {
+    "E": [
+      {
+        "paper_id": "C-E01",
+        "title": "Extrinsic Contact Sensing for Soft Robots",
+        "year": 2021,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "E",
+        "submanifold_axes": {
+          "E": 3,
+          "P": 2,
+          "C": 0,
+          "L": 0,
+          "D": 0,
+          "H": 2,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "soft_contact",
+          "extrinsic_sensing",
+          "embodied_perception"
+        ],
+        "extract": [
+          "mechanism-to-body mapping",
+          "contact or morphology condition",
+          "hardware boundary"
+        ],
+        "do_not_infer": [
+          "one morphology/contact design does not prove all embodiments"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2103.08108",
+        "final_publication_url": "https://doi.org/10.1109/ICRA48506.2021.9561781",
+        "award_status": "finalist"
+      },
+      {
+        "paper_id": "C-E02",
+        "title": "Compact Design of a Hydraulic Driving Robot for Intraoperative MRI-Guided Bilateral Stereotactic Neurosurgery",
+        "year": 2018,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "E",
+        "submanifold_axes": {
+          "E": 3,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "medical_robotics",
+          "hydraulic_drive",
+          "mri_compatibility"
+        ],
+        "extract": [
+          "mechanism-to-body mapping",
+          "contact or morphology condition",
+          "hardware boundary"
+        ],
+        "do_not_infer": [
+          "one morphology/contact design does not prove all embodiments"
+        ],
+        "preprint_url": "https://group-iris.com/wp-content/uploads/2024/09/2018-Compact-Design-of-a-Hydraulic-Driving-Robot-for-Intraoperative-MRI-Guided-Bilateral-Stereotactic-Neurosurgery-1.pdf",
+        "final_publication_url": "https://www.ieee-ras.org/images/conferences/ICRA/ICRA_Awards_Brochures/ICRA_Brochure_2018_v3.pdf",
+        "award_status": "finalist"
+      },
+      {
+        "paper_id": "C-E04",
+        "title": "REPLAB: A Robotic Experimentation Platform for Learning from Demonstration",
+        "year": 2019,
+        "venue": "IROS",
+        "venue_kind": "conference",
+        "primary_axis": "E",
+        "submanifold_axes": {
+          "E": 3,
+          "P": 0,
+          "C": 0,
+          "L": 2,
+          "D": 0,
+          "H": 0,
+          "A": 0,
+          "S": 2
+        },
+        "pattern_tags": [
+          "robotic_platform",
+          "learning_from_demonstration",
+          "hardware_in_the_loop"
+        ],
+        "extract": [
+          "mechanism-to-body mapping",
+          "contact or morphology condition",
+          "hardware boundary"
+        ],
+        "do_not_infer": [
+          "one morphology/contact design does not prove all embodiments"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1905.07447",
+        "final_publication_url": "https://www.seas.upenn.edu/~dineshj/publication/yang-2019-replab-2/yang-2019-replab-2.pdf",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-E05",
+        "title": "A Convex Polynomial Force-Motion Model for Contact-Rich Manipulation",
+        "year": 2016,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "E",
+        "submanifold_axes": {
+          "E": 3,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 2,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "contact_rich_manipulation",
+          "force_motion_model",
+          "convex_model"
+        ],
+        "extract": [
+          "mechanism-to-body mapping",
+          "contact or morphology condition",
+          "hardware boundary"
+        ],
+        "do_not_infer": [
+          "one morphology/contact design does not prove all embodiments"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1602.06056",
+        "final_publication_url": "https://www.ri.cmu.edu/pub_files/2016/5/ICRA16_0686_FI.pdf",
+        "award_status": "finalist"
+      }
+    ],
+    "P": [
+      {
+        "paper_id": "C-P01",
+        "title": "Probabilistic Data Association for Semantic SLAM",
+        "year": 2017,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "P",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 3,
+          "C": 0,
+          "L": 0,
+          "D": 2,
+          "H": 0,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "semantic_slam",
+          "data_association",
+          "probabilistic_perception"
+        ],
+        "extract": [
+          "sensor-to-state pipeline",
+          "calibration or representation choice",
+          "perception failure case"
+        ],
+        "do_not_infer": [
+          "one sensor or dataset does not prove broad perceptual validity"
+        ],
+        "preprint_url": "https://seanbow.com/papers/ICRA17.pdf",
+        "final_publication_url": "https://doi.org/10.1109/ICRA.2017.7989203",
+        "award_status": "finalist"
+      },
+      {
+        "paper_id": "C-P02",
+        "title": "Observability, Identifiability and Sensitivity of Vision-Aided Inertial Navigation",
+        "year": 2016,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "P",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 3,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "visual_inertial_navigation",
+          "observability",
+          "identifiability"
+        ],
+        "extract": [
+          "sensor-to-state pipeline",
+          "calibration or representation choice",
+          "perception failure case"
+        ],
+        "do_not_infer": [
+          "one sensor or dataset does not prove broad perceptual validity"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1311.7434",
+        "final_publication_url": "https://www.ijcai.org/Proceedings/16/Papers/624.pdf",
+        "award_status": "finalist"
+      },
+      {
+        "paper_id": "C-P03",
+        "title": "Translating Images into Maps",
+        "year": 2022,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "P",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 3,
+          "C": 0,
+          "L": 0,
+          "D": 2,
+          "H": 0,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "image_to_map",
+          "semantic_mapping",
+          "visual_navigation"
+        ],
+        "extract": [
+          "sensor-to-state pipeline",
+          "calibration or representation choice",
+          "perception failure case"
+        ],
+        "do_not_infer": [
+          "one sensor or dataset does not prove broad perceptual validity"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2110.00966",
+        "final_publication_url": "https://doi.org/10.1109/ICRA46639.2022.9811901",
+        "award_status": "finalist"
+      },
+      {
+        "paper_id": "C-P04",
+        "title": "Making Sense of Vision and Touch: Learning Multimodal Representations for Contact-Rich Manipulation",
+        "year": 2019,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "P",
+        "submanifold_axes": {
+          "E": 2,
+          "P": 3,
+          "C": 0,
+          "L": 2,
+          "D": 0,
+          "H": 2,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "vision_touch",
+          "multimodal_representation",
+          "contact_rich_manipulation"
+        ],
+        "extract": [
+          "sensor-to-state pipeline",
+          "calibration or representation choice",
+          "perception failure case"
+        ],
+        "do_not_infer": [
+          "one sensor or dataset does not prove broad perceptual validity"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1810.10191",
+        "final_publication_url": "https://arxiv.org/abs/1907.13098",
+        "award_status": "winner"
+      }
+    ],
+    "C": [
+      {
+        "paper_id": "C-C01",
+        "title": "Control Design along Trajectories with Closed-Loop Inverse Dynamics",
+        "year": 2013,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "C",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 3,
+          "L": 0,
+          "D": 2,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "inverse_dynamics",
+          "trajectory_control",
+          "closed_loop_control"
+        ],
+        "extract": [
+          "dynamics or controller mechanism",
+          "stability/safety condition",
+          "stress or disturbance test"
+        ],
+        "do_not_infer": [
+          "stability or performance is conditional on stated dynamics and disturbances"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1210.0888",
+        "final_publication_url": "https://groups.csail.mit.edu/robotics-center/public_papers/Majumdar13.pdf",
+        "award_status": "finalist"
+      },
+      {
+        "paper_id": "C-C02",
+        "title": "Distributed Data-Driven Predictive Control for Networked Systems",
+        "year": 2023,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "C",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 3,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 2
+        },
+        "pattern_tags": [
+          "data_driven_control",
+          "distributed_control",
+          "predictive_control"
+        ],
+        "extract": [
+          "dynamics or controller mechanism",
+          "stability/safety condition",
+          "stress or disturbance test"
+        ],
+        "do_not_infer": [
+          "stability or performance is conditional on stated dynamics and disturbances"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2211.06917",
+        "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160914",
+        "award_status": "finalist"
+      },
+      {
+        "paper_id": "C-C03",
+        "title": "Reinforcement Learning for Safe Robot Control using Control Lyapunov Barrier Functions",
+        "year": 2023,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "C",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 3,
+          "L": 2,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "safe_rl",
+          "control_lyapunov_barrier",
+          "robot_control"
+        ],
+        "extract": [
+          "dynamics or controller mechanism",
+          "stability/safety condition",
+          "stress or disturbance test"
+        ],
+        "do_not_infer": [
+          "stability or performance is conditional on stated dynamics and disturbances"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2305.09793",
+        "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160991",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-C04",
+        "title": "Safe Control using Vision-based Control Barrier Function",
+        "year": 2023,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "C",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 2,
+          "C": 3,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "vision_cbf",
+          "safe_control",
+          "visual_navigation"
+        ],
+        "extract": [
+          "dynamics or controller mechanism",
+          "stability/safety condition",
+          "stress or disturbance test"
+        ],
+        "do_not_infer": [
+          "stability or performance is conditional on stated dynamics and disturbances"
+        ],
+        "preprint_url": "https://researchportal.tuni.fi/en/publications/safe-control-using-vision-based-control-barrier-function-v-cbf/",
+        "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160805",
+        "award_status": null
+      }
+    ],
+    "L": [
+      {
+        "paper_id": "C-L06",
+        "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+        "year": 2024,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "L",
+        "submanifold_axes": {
+          "E": 2,
+          "P": 2,
+          "C": 0,
+          "L": 3,
+          "D": 0,
+          "H": 0,
+          "A": 0,
+          "S": 2
+        },
+        "pattern_tags": [
+          "embodied_dataset",
+          "cross_robot_learning",
+          "foundation_policy"
+        ],
+        "extract": [
+          "training or adaptation loop",
+          "data/representation dependency",
+          "held-out or transfer test"
+        ],
+        "do_not_infer": [
+          "training success does not prove out-of-distribution generalization"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2310.08864",
+        "final_publication_url": "https://doi.org/10.1109/ICRA57147.2024.10611477",
+        "award_status": "winner"
+      },
+      {
+        "paper_id": "J-L01",
+        "title": "Self-Supervised Correspondence in Visuomotor Policy Learning",
+        "year": 2020,
+        "venue": "IEEE Robotics and Automation Letters",
+        "venue_kind": "journal",
+        "primary_axis": "L",
+        "submanifold_axes": {
+          "E": 2,
+          "P": 2,
+          "C": 0,
+          "L": 3,
+          "D": 0,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "visuomotor_learning",
+          "self_supervision",
+          "correspondence"
+        ],
+        "extract": [
+          "training or adaptation loop",
+          "data/representation dependency",
+          "held-out or transfer test"
+        ],
+        "do_not_infer": [
+          "training success does not prove out-of-distribution generalization"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1909.06933",
+        "final_publication_url": "https://doi.org/10.1109/LRA.2019.2956365",
+        "award_status": "winner"
+      },
+      {
+        "paper_id": "J-L02",
+        "title": "CALVIN: A Benchmark for Language-Conditioned Policy Learning for Long-Horizon Robot Manipulation Tasks",
+        "year": 2022,
+        "venue": "IEEE Robotics and Automation Letters",
+        "venue_kind": "journal",
+        "primary_axis": "L",
+        "submanifold_axes": {
+          "E": 2,
+          "P": 0,
+          "C": 0,
+          "L": 3,
+          "D": 2,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "language_conditioned_policy",
+          "benchmark",
+          "long_horizon_manipulation"
+        ],
+        "extract": [
+          "training or adaptation loop",
+          "data/representation dependency",
+          "held-out or transfer test"
+        ],
+        "do_not_infer": [
+          "training success does not prove out-of-distribution generalization"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2112.03227",
+        "final_publication_url": "https://doi.org/10.1109/LRA.2022.3180108",
+        "award_status": "winner"
+      },
+      {
+        "paper_id": "J-L03",
+        "title": "Geometric Fabrics: Generalizing Classical Mechanics to Capture the Physics of Behavior",
+        "year": 2022,
+        "venue": "IEEE Robotics and Automation Letters",
+        "venue_kind": "journal",
+        "primary_axis": "L",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 3,
+          "D": 2,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "geometric_fabrics",
+          "behavior_generation",
+          "mechanics_inspired_learning"
+        ],
+        "extract": [
+          "training or adaptation loop",
+          "data/representation dependency",
+          "held-out or transfer test"
+        ],
+        "do_not_infer": [
+          "training success does not prove out-of-distribution generalization"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2109.10443",
+        "final_publication_url": "https://doi.org/10.1109/LRA.2022.3143311",
+        "award_status": "winner"
+      }
+    ],
+    "D": [
+      {
+        "paper_id": "C-D03",
+        "title": "Semantic Linking Maps for Active Visual Object Search",
+        "year": 2020,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "D",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 2,
+          "C": 0,
+          "L": 0,
+          "D": 3,
+          "H": 0,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "active_visual_search",
+          "semantic_map",
+          "task_planning"
+        ],
+        "extract": [
+          "planning/decision decomposition",
+          "task or coordination constraint",
+          "long-horizon failure case"
+        ],
+        "do_not_infer": [
+          "one task plan does not prove arbitrary long-horizon competence"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2006.10807",
+        "final_publication_url": "https://doi.org/10.1109/ICRA40945.2020.9196830",
+        "award_status": "winner"
+      },
+      {
+        "paper_id": "J-D01",
+        "title": "Sampling-based Algorithms for Optimal Motion Planning",
+        "year": 2011,
+        "venue": "The International Journal of Robotics Research",
+        "venue_kind": "journal",
+        "primary_axis": "D",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 3,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "motion_planning",
+          "sampling",
+          "optimality"
+        ],
+        "extract": [
+          "planning/decision decomposition",
+          "task or coordination constraint",
+          "long-horizon failure case"
+        ],
+        "do_not_infer": [
+          "one task plan does not prove arbitrary long-horizon competence"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1105.1186",
+        "final_publication_url": "https://doi.org/10.1177/0278364911406761",
+        "award_status": null
+      },
+      {
+        "paper_id": "J-D02",
+        "title": "Motion planning with sequential convex optimization and convex collision checking",
+        "year": 2014,
+        "venue": "The International Journal of Robotics Research",
+        "venue_kind": "journal",
+        "primary_axis": "D",
+        "submanifold_axes": {
+          "E": 2,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 3,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "sequential_convex_optimization",
+          "collision_checking",
+          "manipulation_planning"
+        ],
+        "extract": [
+          "planning/decision decomposition",
+          "task or coordination constraint",
+          "long-horizon failure case"
+        ],
+        "do_not_infer": [
+          "one task plan does not prove arbitrary long-horizon competence"
+        ],
+        "preprint_url": "https://escholarship.org/uc/item/6km506db",
+        "final_publication_url": "https://doi.org/10.1177/0278364914528132",
+        "award_status": null
+      },
+      {
+        "paper_id": "J-D03",
+        "title": "Manipulation Planning for Deformable Linear Objects",
+        "year": 2007,
+        "venue": "IEEE Transactions on Robotics",
+        "venue_kind": "journal",
+        "primary_axis": "D",
+        "submanifold_axes": {
+          "E": 2,
+          "P": 0,
+          "C": 0,
+          "L": 0,
+          "D": 3,
+          "H": 0,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "deformable_linear_object",
+          "manipulation_planning",
+          "configuration_space"
+        ],
+        "extract": [
+          "planning/decision decomposition",
+          "task or coordination constraint",
+          "long-horizon failure case"
+        ],
+        "do_not_infer": [
+          "one task plan does not prove arbitrary long-horizon competence"
+        ],
+        "preprint_url": "https://www.researchgate.net/publication/3450528_Manipulation_Planning_for_Deformable_Linear_Objects",
+        "final_publication_url": "https://doi.org/10.1109/TRO.2007.907486",
+        "award_status": "winner"
+      }
+    ],
+    "H": [
+      {
+        "paper_id": "C-H03",
+        "title": "Haptic Feedback Improves Human-Robot Agreement and User Satisfaction in Shared-Autonomy Teleoperation",
+        "year": 2021,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "H",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 3,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "haptic_feedback",
+          "shared_autonomy",
+          "user_satisfaction"
+        ],
+        "extract": [
+          "human or haptic interaction mechanism",
+          "participant/operator measure",
+          "interface or workload boundary"
+        ],
+        "do_not_infer": [
+          "a user study or teleoperation demo does not prove general human benefit"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2103.03453",
+        "final_publication_url": "https://ieeexplore.ieee.org/document/9561378",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-H04",
+        "title": "Collaborative Teleoperation with Haptic Feedback for Collision-Free Navigation of Ground Robots",
+        "year": 2022,
+        "venue": "IROS",
+        "venue_kind": "conference",
+        "primary_axis": "H",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 3,
+          "A": 2,
+          "S": 0
+        },
+        "pattern_tags": [
+          "haptic_teleoperation",
+          "collision_avoidance",
+          "ground_robot"
+        ],
+        "extract": [
+          "human or haptic interaction mechanism",
+          "participant/operator measure",
+          "interface or workload boundary"
+        ],
+        "do_not_infer": [
+          "a user study or teleoperation demo does not prove general human benefit"
+        ],
+        "preprint_url": "https://sites.bu.edu/pierson/files/2023/03/coffey2022iros.pdf",
+        "final_publication_url": "https://doi.org/10.1109/IROS47612.2022.9981426",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-H05",
+        "title": "Tele-Impedance with Force Feedback under Communication Time Delay",
+        "year": 2017,
+        "venue": "IROS",
+        "venue_kind": "conference",
+        "primary_axis": "H",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 3,
+          "A": 0,
+          "S": 2
+        },
+        "pattern_tags": [
+          "tele_impedance",
+          "force_feedback",
+          "communication_delay"
+        ],
+        "extract": [
+          "human or haptic interaction mechanism",
+          "participant/operator measure",
+          "interface or workload boundary"
+        ],
+        "do_not_infer": [
+          "a user study or teleoperation demo does not prove general human benefit"
+        ],
+        "preprint_url": "https://www.centropiaggio.unipi.it/sites/default/files/laghi_iros_2017.pdf",
+        "final_publication_url": "https://arpi.unipi.it/handle/11568/999539",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-H06",
+        "title": "A Reduced-Complexity Description of Arm Endpoint Stiffness with Applications to Teleimpedance Control",
+        "year": 2015,
+        "venue": "IROS",
+        "venue_kind": "conference",
+        "primary_axis": "H",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 3,
+          "A": 0,
+          "S": 0
+        },
+        "pattern_tags": [
+          "teleimpedance",
+          "endpoint_stiffness",
+          "human_robot_physical_interaction"
+        ],
+        "extract": [
+          "human or haptic interaction mechanism",
+          "participant/operator measure",
+          "interface or workload boundary"
+        ],
+        "do_not_infer": [
+          "a user study or teleoperation demo does not prove general human benefit"
+        ],
+        "preprint_url": "https://www.centropiaggio.unipi.it/sites/default/files/2015_aftb_iros.pdf",
+        "final_publication_url": "https://doi.org/10.1109/IROS.2015.7353495",
+        "award_status": null
+      }
+    ],
+    "A": [
+      {
+        "paper_id": "C-A02",
+        "title": "Goal Masked Diffusion Policies for Unified Navigation and Exploration",
+        "year": 2024,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "A",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 0,
+          "L": 2,
+          "D": 2,
+          "H": 0,
+          "A": 3,
+          "S": 0
+        },
+        "pattern_tags": [
+          "diffusion_policy",
+          "navigation",
+          "exploration"
+        ],
+        "extract": [
+          "autonomy loop",
+          "operating-envelope condition",
+          "deployment or field failure"
+        ],
+        "do_not_infer": [
+          "a deployment demo does not prove reliability across the full operating envelope"
+        ],
+        "preprint_url": "https://openreview.net/pdf?id=FhQRJW71h5",
+        "final_publication_url": "https://openreview.net/forum?id=FhQRJW71h5",
+        "award_status": "winner"
+      },
+      {
+        "paper_id": "C-A04",
+        "title": "Online LiDAR-SLAM for Legged Robots with Reinforcement Learning",
+        "year": 2020,
+        "venue": "IROS",
+        "venue_kind": "conference",
+        "primary_axis": "A",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 2,
+          "C": 0,
+          "L": 2,
+          "D": 0,
+          "H": 0,
+          "A": 3,
+          "S": 0
+        },
+        "pattern_tags": [
+          "legged_navigation",
+          "lidar_slam",
+          "online_learning"
+        ],
+        "extract": [
+          "autonomy loop",
+          "operating-envelope condition",
+          "deployment or field failure"
+        ],
+        "do_not_infer": [
+          "a deployment demo does not prove reliability across the full operating envelope"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2001.10249",
+        "final_publication_url": "https://doi.org/10.1109/ICRA40945.2020.9196769",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-A06",
+        "title": "The Robotarium: A Remotely Accessible Swarm Robotics Research Testbed",
+        "year": 2017,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "A",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 2,
+          "H": 0,
+          "A": 3,
+          "S": 2
+        },
+        "pattern_tags": [
+          "swarm_robotics",
+          "remote_testbed",
+          "reproducibility"
+        ],
+        "extract": [
+          "autonomy loop",
+          "operating-envelope condition",
+          "deployment or field failure"
+        ],
+        "do_not_infer": [
+          "a deployment demo does not prove reliability across the full operating envelope"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1609.04730",
+        "final_publication_url": "https://doi.org/10.1109/ICRA.2017.7989200",
+        "award_status": "winner"
+      },
+      {
+        "paper_id": "J-A01",
+        "title": "Robot Operating System 2: Design, architecture, and uses in the wild",
+        "year": 2022,
+        "venue": "Science Robotics",
+        "venue_kind": "journal",
+        "primary_axis": "A",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 0,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 3,
+          "S": 2
+        },
+        "pattern_tags": [
+          "ros2",
+          "robotics_middleware",
+          "deployment"
+        ],
+        "extract": [
+          "autonomy loop",
+          "operating-envelope condition",
+          "deployment or field failure"
+        ],
+        "do_not_infer": [
+          "a deployment demo does not prove reliability across the full operating envelope"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2211.07752",
+        "final_publication_url": "https://doi.org/10.1126/scirobotics.abm6074",
+        "award_status": null
+      }
+    ],
+    "S": [
+      {
+        "paper_id": "C-S01",
+        "title": "ROS: an open-source Robot Operating System",
+        "year": 2009,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "S",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 0,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 3
+        },
+        "pattern_tags": [
+          "robot_operating_system",
+          "open_source",
+          "middleware"
+        ],
+        "extract": [
+          "software/hardware contract",
+          "latency or resource measure",
+          "reproduction/deployment artifact"
+        ],
+        "do_not_infer": [
+          "an artifact or benchmark does not prove reproducibility on every platform"
+        ],
+        "preprint_url": "https://ai.stanford.edu/~ang/papers/icraoss09-ROS.pdf",
+        "final_publication_url": "https://ai.stanford.edu/~ang/papers/icraoss09-ROS.pdf",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-S02",
+        "title": "FogROS 2: An Adaptive and Extensible Platform for Cloud and Fog Robotics Using ROS 2",
+        "year": 2023,
+        "venue": "ICRA",
+        "venue_kind": "conference",
+        "primary_axis": "S",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 2,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 3
+        },
+        "pattern_tags": [
+          "ros2",
+          "cloud_robotics",
+          "fog_computing"
+        ],
+        "extract": [
+          "software/hardware contract",
+          "latency or resource measure",
+          "reproduction/deployment artifact"
+        ],
+        "do_not_infer": [
+          "an artifact or benchmark does not prove reproducibility on every platform"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2205.09778",
+        "final_publication_url": "https://doi.org/10.1109/ICRA48891.2023.10160874",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-S05",
+        "title": "RobotCore: A Middleware for Reliable and Reproducible Robot Learning",
+        "year": 2022,
+        "venue": "IROS",
+        "venue_kind": "conference",
+        "primary_axis": "S",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 0,
+          "L": 2,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 3
+        },
+        "pattern_tags": [
+          "robot_learning_system",
+          "middleware",
+          "reproducibility"
+        ],
+        "extract": [
+          "software/hardware contract",
+          "latency or resource measure",
+          "reproduction/deployment artifact"
+        ],
+        "do_not_infer": [
+          "an artifact or benchmark does not prove reproducibility on every platform"
+        ],
+        "preprint_url": "https://arxiv.org/abs/2205.03929",
+        "final_publication_url": "https://doi.org/10.1109/IROS47612.2022.9982082",
+        "award_status": null
+      },
+      {
+        "paper_id": "C-S03",
+        "title": "SOTER: A Runtime Verification Framework for ROS",
+        "year": 2019,
+        "venue": "IEEE DSN",
+        "venue_kind": "conference",
+        "primary_axis": "S",
+        "submanifold_axes": {
+          "E": 0,
+          "P": 0,
+          "C": 0,
+          "L": 0,
+          "D": 0,
+          "H": 0,
+          "A": 2,
+          "S": 3
+        },
+        "pattern_tags": [
+          "runtime_verification",
+          "robot_safety",
+          "ros_security"
+        ],
+        "extract": [
+          "software/hardware contract",
+          "latency or resource measure",
+          "reproduction/deployment artifact"
+        ],
+        "do_not_infer": [
+          "an artifact or benchmark does not prove reproducibility on every platform"
+        ],
+        "preprint_url": "https://arxiv.org/abs/1808.07921",
+        "final_publication_url": "https://doi.org/10.1109/DSN.2019.00027",
+        "award_status": null
+      }
+    ]
+  },
+  "axis_strategy_by_axis": {
+    "E": {
       "axis_id": "E",
       "axis_name": "embodiment_contact",
       "axis_name_zh": "具身形态与接触",
-      "corpus_sample_count": 13,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 35,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 27,
+        "FULLTEXT_WEB_VERIFIED": 8
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P08",
@@ -173,40 +1291,62 @@
           "cross-platform or boundary test"
         ],
         "failure_guard": "Do not generalize from one morphology or hardware instance without a mechanism boundary and an explicit transfer test.",
-        "claim_altitude": "embodied mechanism or morphology-to-task principle"
+        "claim_altitude": "embodied mechanism or morphology-to-task principle",
+        "model_simulated_capability_route": {
+          "cluster_id": "C04",
+          "runtime_question_id": "Q4",
+          "runtime_question": "Which body, material, contact, morphology, or interface is the load-bearing object?",
+          "contribution_center": "embodiment, morphology, and contact mechanism",
+          "preferred_parent_pattern_ids": [
+            "P08",
+            "P02",
+            "P04"
+          ],
+          "preferred_subpattern_ids": [
+            "R24",
+            "R10",
+            "R14"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-E01",
-          "J-E02",
-          "J-E03",
-          "J-E04",
-          "J-E05",
-          "J-E06",
-          "J-E07",
-          "C-E01",
-          "C-E02",
-          "C-E03",
-          "C-E04",
-          "C-E05",
-          "C-E06"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "ICRA": 3,
-            "IEEE Robotics and Automation Letters": 3,
-            "Science Robotics": 2,
-            "Autonomous Robots": 1,
-            "CoRL": 1,
-            "IEEE Transactions on Robotics": 1,
-            "IROS": 1,
-            "Robotics: Science and Systems": 1
-          },
-          "observed_directness_weight_mean": 0.9125,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-E01",
+        "J-E02",
+        "J-E03",
+        "J-E04",
+        "J-E05",
+        "J-E06",
+        "J-E07",
+        "J-P05",
+        "J-C03",
+        "J-C04",
+        "J-C05",
+        "J-C06",
+        "J-L01",
+        "J-L02",
+        "J-L04",
+        "J-L05",
+        "J-D02",
+        "J-D03",
+        "J-H06",
+        "J-S05",
+        "C-E01",
+        "C-E02",
+        "C-E03",
+        "C-E04",
+        "C-E05",
+        "C-E06",
+        "C-P04",
+        "C-L01",
+        "C-L02",
+        "C-L04",
+        "C-L05",
+        "C-L06",
+        "C-D02",
+        "C-D04",
+        "C-D06"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "conf-robio",
@@ -314,14 +1454,17 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     },
-    {
+    "P": {
       "axis_id": "P",
       "axis_name": "perception_state",
       "axis_name_zh": "感知与状态估计",
-      "corpus_sample_count": 13,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 31,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 25,
+        "FULLTEXT_WEB_VERIFIED": 6
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P04",
@@ -451,37 +1594,58 @@
           "held-out scene/robot/domain test"
         ],
         "failure_guard": "Do not report a perception metric gain as a robotics contribution unless the changed state alters task, control or safety outcomes.",
-        "claim_altitude": "state representation, observability or perception-to-action mechanism"
+        "claim_altitude": "state representation, observability or perception-to-action mechanism",
+        "model_simulated_capability_route": {
+          "cluster_id": "C07",
+          "runtime_question_id": "Q7",
+          "runtime_question": "Which sensing-to-state choice changes the downstream decision after confounds are isolated?",
+          "contribution_center": "perception and state-estimation diagnostic",
+          "preferred_parent_pattern_ids": [
+            "P04",
+            "P05",
+            "P08"
+          ],
+          "preferred_subpattern_ids": [
+            "R14",
+            "R15",
+            "R23"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-P01",
-          "J-P02",
-          "J-P03",
-          "J-P04",
-          "J-P05",
-          "J-P06",
-          "J-P07",
-          "C-P01",
-          "C-P02",
-          "C-P03",
-          "C-P04",
-          "C-P05",
-          "C-P06"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "IEEE Robotics and Automation Letters": 5,
-            "ICRA": 4,
-            "CVPR": 2,
-            "IEEE Transactions on Pattern Analysis and Machine Intelligence": 1,
-            "IEEE Transactions on Robotics": 1
-          },
-          "observed_directness_weight_mean": 0.86,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-P01",
+        "J-P02",
+        "J-P03",
+        "J-P04",
+        "J-P05",
+        "J-P06",
+        "J-P07",
+        "J-C01",
+        "J-C04",
+        "J-C05",
+        "J-L01",
+        "J-D05",
+        "J-D06",
+        "J-H02",
+        "J-H06",
+        "J-A03",
+        "C-E01",
+        "C-P01",
+        "C-P02",
+        "C-P03",
+        "C-P04",
+        "C-P05",
+        "C-P06",
+        "C-C04",
+        "C-C07",
+        "C-L01",
+        "C-L06",
+        "C-L07",
+        "C-D03",
+        "C-A01",
+        "C-A04"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "conf-ieee-sensors",
@@ -589,14 +1753,17 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     },
-    {
+    "C": {
       "axis_id": "C",
       "axis_name": "control_dynamics",
       "axis_name_zh": "控制、动力学与安全",
-      "corpus_sample_count": 13,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 47,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 38,
+        "FULLTEXT_WEB_VERIFIED": 9
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P01",
@@ -734,37 +1901,74 @@
           "semantic negative control on the load-bearing variable"
         ],
         "failure_guard": "Do not call a controller safe or robust from nominal trajectories; identify the boundary and test the intervention on downstream failure.",
-        "claim_altitude": "dynamical mechanism, stability/safety certificate or control law"
+        "claim_altitude": "dynamical mechanism, stability/safety certificate or control law",
+        "model_simulated_capability_route": {
+          "cluster_id": "C02",
+          "runtime_question_id": "Q2",
+          "runtime_question": "Which dynamics, feedback, or safety boundary makes the closed-loop intervention testable?",
+          "contribution_center": "control, dynamics, and safety mechanism",
+          "preferred_parent_pattern_ids": [
+            "P01",
+            "P14",
+            "P04"
+          ],
+          "preferred_subpattern_ids": [
+            "R02",
+            "R30",
+            "R14"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-C01",
-          "J-C02",
-          "J-C03",
-          "J-C04",
-          "J-C05",
-          "J-C06",
-          "C-C01",
-          "C-C02",
-          "C-C03",
-          "C-C04",
-          "C-C05",
-          "C-C06",
-          "C-C07"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "ICRA": 5,
-            "IEEE Robotics and Automation Letters": 4,
-            "IEEE Transactions on Robotics": 2,
-            "IEEE CASE": 1,
-            "IEEE Control and Decision Conference": 1
-          },
-          "observed_directness_weight_mean": 0.93,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-E01",
+        "J-E02",
+        "J-E03",
+        "J-E04",
+        "J-E05",
+        "J-E06",
+        "J-P06",
+        "J-C01",
+        "J-C02",
+        "J-C03",
+        "J-C04",
+        "J-C05",
+        "J-C06",
+        "J-L03",
+        "J-L06",
+        "J-D01",
+        "J-D02",
+        "J-D04",
+        "J-H01",
+        "J-H03",
+        "J-H04",
+        "J-H05",
+        "J-A02",
+        "J-A03",
+        "J-A06",
+        "C-E02",
+        "C-E03",
+        "C-E05",
+        "C-P02",
+        "C-C01",
+        "C-C02",
+        "C-C03",
+        "C-C04",
+        "C-C05",
+        "C-C06",
+        "C-C07",
+        "C-D01",
+        "C-D04",
+        "C-H01",
+        "C-H03",
+        "C-H04",
+        "C-H05",
+        "C-H06",
+        "C-A06",
+        "C-S02",
+        "C-S04",
+        "C-S06"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "conf-acc",
@@ -876,14 +2080,17 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     },
-    {
+    "L": {
       "axis_id": "L",
       "axis_name": "learning_adaptation",
       "axis_name_zh": "学习、表示与适应",
-      "corpus_sample_count": 13,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 35,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 32,
+        "FULLTEXT_WEB_VERIFIED": 3
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P07",
@@ -1021,37 +2228,62 @@
           "held-out task, embodiment or environment transfer"
         ],
         "failure_guard": "Do not present scale, data or a benchmark gain as a learning mechanism without isolating the supervisory signal or policy substrate that caused it.",
-        "claim_altitude": "learning signal, policy-generation mechanism or transfer principle"
+        "claim_altitude": "learning signal, policy-generation mechanism or transfer principle",
+        "model_simulated_capability_route": {
+          "cluster_id": "C06",
+          "runtime_question_id": "Q6",
+          "runtime_question": "Which data, representation, supervision, or policy substrate changes downstream robot behavior?",
+          "contribution_center": "learning, representation, and adaptation substrate",
+          "preferred_parent_pattern_ids": [
+            "P07",
+            "P03",
+            "P05"
+          ],
+          "preferred_subpattern_ids": [
+            "R19",
+            "R12",
+            "R15"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-L01",
-          "J-L02",
-          "J-L03",
-          "J-L04",
-          "J-L05",
-          "J-L06",
-          "C-L01",
-          "C-L02",
-          "C-L03",
-          "C-L04",
-          "C-L05",
-          "C-L06",
-          "C-L07"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "CoRL": 5,
-            "IEEE Robotics and Automation Letters": 5,
-            "ICRA": 1,
-            "IEEE Transactions on Robotics": 1,
-            "Robotics: Science and Systems": 1
-          },
-          "observed_directness_weight_mean": 0.86,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-E04",
+        "J-E05",
+        "J-E06",
+        "J-P02",
+        "J-C02",
+        "J-L01",
+        "J-L02",
+        "J-L03",
+        "J-L04",
+        "J-L05",
+        "J-L06",
+        "J-H05",
+        "J-A04",
+        "J-A05",
+        "J-S06",
+        "C-E04",
+        "C-E06",
+        "C-P04",
+        "C-C03",
+        "C-L01",
+        "C-L02",
+        "C-L03",
+        "C-L04",
+        "C-L05",
+        "C-L06",
+        "C-L07",
+        "C-D02",
+        "C-D05",
+        "C-D06",
+        "C-H02",
+        "C-A02",
+        "C-A03",
+        "C-A04",
+        "C-A05",
+        "C-S05"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "conf-iclr",
@@ -1158,14 +2390,17 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     },
-    {
+    "D": {
       "axis_id": "D",
       "axis_name": "planning_decision_coordination",
       "axis_name_zh": "规划、决策与协同",
-      "corpus_sample_count": 12,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 34,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 30,
+        "FULLTEXT_WEB_VERIFIED": 4
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P10",
@@ -1304,39 +2539,61 @@
           "long-horizon or multi-agent stress cases"
         ],
         "failure_guard": "Do not call a pipeline a planning contribution when the subproblem interfaces, coordination cost or failure recovery are unspecified.",
-        "claim_altitude": "planning decomposition, coordination protocol or long-horizon decision mechanism"
+        "claim_altitude": "planning decomposition, coordination protocol or long-horizon decision mechanism",
+        "model_simulated_capability_route": {
+          "cluster_id": "C03",
+          "runtime_question_id": "Q3",
+          "runtime_question": "Which task, coordination, or planning constraint must be typed and isolated first?",
+          "contribution_center": "planning, decision, and coordination decomposition",
+          "preferred_parent_pattern_ids": [
+            "P10",
+            "P11",
+            "P06"
+          ],
+          "preferred_subpattern_ids": [
+            "R26",
+            "R27",
+            "R18"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-D01",
-          "J-D02",
-          "J-D03",
-          "J-D04",
-          "J-D05",
-          "J-D06",
-          "C-D01",
-          "C-D02",
-          "C-D03",
-          "C-D04",
-          "C-D05",
-          "C-D06"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "IEEE Transactions on Robotics": 3,
-            "Robotics: Science and Systems": 2,
-            "The International Journal of Robotics Research": 2,
-            "AAMAS": 1,
-            "CoRL": 1,
-            "ICAPS": 1,
-            "ICRA": 1,
-            "IEEE Robotics and Automation Letters": 1
-          },
-          "observed_directness_weight_mean": 0.825,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-E07",
+        "J-L02",
+        "J-L03",
+        "J-L04",
+        "J-L05",
+        "J-D01",
+        "J-D02",
+        "J-D03",
+        "J-D04",
+        "J-D05",
+        "J-D06",
+        "J-A02",
+        "J-A04",
+        "J-A05",
+        "C-E03",
+        "C-E06",
+        "C-P01",
+        "C-P03",
+        "C-C01",
+        "C-C05",
+        "C-L02",
+        "C-L03",
+        "C-L04",
+        "C-D01",
+        "C-D02",
+        "C-D03",
+        "C-D04",
+        "C-D05",
+        "C-D06",
+        "C-H02",
+        "C-A01",
+        "C-A02",
+        "C-A05",
+        "C-A06"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "conf-aaai",
@@ -1449,14 +2706,17 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     },
-    {
+    "H": {
       "axis_id": "H",
       "axis_name": "human_interaction",
       "axis_name_zh": "人机交互、触觉与 XR",
-      "corpus_sample_count": 12,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 23,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 19,
+        "FULLTEXT_WEB_VERIFIED": 4
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P04",
@@ -1600,38 +2860,50 @@
           "delay, novice, expert and failure-boundary tests"
         ],
         "failure_guard": "Do not submit a robot method plus a small user demo to an HRI/HCI venue; the interaction mechanism and human measure must be the contribution.",
-        "claim_altitude": "interaction mechanism, haptic channel or human-factor effect"
+        "claim_altitude": "interaction mechanism, haptic channel or human-factor effect",
+        "model_simulated_capability_route": {
+          "cluster_id": "C05",
+          "runtime_question_id": "Q5",
+          "runtime_question": "Which human, haptic, participant, or operator measure is load-bearing?",
+          "contribution_center": "human interaction and haptic mechanism",
+          "preferred_parent_pattern_ids": [
+            "P04",
+            "P05",
+            "P01"
+          ],
+          "preferred_subpattern_ids": [
+            "R14",
+            "R15",
+            "R05"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-H01",
-          "J-H02",
-          "J-H03",
-          "J-H04",
-          "J-H05",
-          "J-H06",
-          "C-H01",
-          "C-H02",
-          "C-H03",
-          "C-H04",
-          "C-H05",
-          "C-H06"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "IROS": 3,
-            "HRI": 2,
-            "IEEE Transactions on Haptics": 2,
-            "The International Journal of Robotics Research": 2,
-            "ICRA": 1,
-            "IEEE Robotics and Automation Letters": 1,
-            "IEEE Transactions on Robotics": 1
-          },
-          "observed_directness_weight_mean": 0.95,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-P05",
+        "J-P07",
+        "J-C06",
+        "J-H01",
+        "J-H02",
+        "J-H03",
+        "J-H04",
+        "J-H05",
+        "J-H06",
+        "C-E01",
+        "C-E05",
+        "C-P04",
+        "C-P05",
+        "C-P06",
+        "C-L03",
+        "C-L07",
+        "C-H01",
+        "C-H02",
+        "C-H03",
+        "C-H04",
+        "C-H05",
+        "C-H06",
+        "C-A03"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "conf-ieee-haptics-symposium",
@@ -1749,14 +3021,17 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     },
-    {
+    "A": {
       "axis_id": "A",
       "axis_name": "autonomy_deployment",
       "axis_name_zh": "自主系统与部署运行",
-      "corpus_sample_count": 12,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 53,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 44,
+        "FULLTEXT_WEB_VERIFIED": 9
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P06",
@@ -1891,39 +3166,80 @@
           "frozen-core or no-adaptation control"
         ],
         "failure_guard": "Do not equate a single successful run with autonomy; bound the envelope, report recoveries and expose the deployment failure mode.",
-        "claim_altitude": "autonomy loop, operating envelope or deployment mechanism"
+        "claim_altitude": "autonomy loop, operating envelope or deployment mechanism",
+        "model_simulated_capability_route": {
+          "cluster_id": "C01",
+          "runtime_question_id": "Q1",
+          "runtime_question": "Which operating-envelope, transfer, or deployment condition determines whether the method survives outside the nominal setup?",
+          "contribution_center": "autonomy and deployment boundary",
+          "preferred_parent_pattern_ids": [
+            "P06",
+            "P13",
+            "P04"
+          ],
+          "preferred_subpattern_ids": [
+            "R18",
+            "R29",
+            "R14"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-A01",
-          "J-A02",
-          "J-A03",
-          "J-A04",
-          "J-A05",
-          "J-A06",
-          "C-A01",
-          "C-A02",
-          "C-A03",
-          "C-A04",
-          "C-A05",
-          "C-A06"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "IEEE Robotics and Automation Letters": 3,
-            "ICRA": 2,
-            "Robotics: Science and Systems": 2,
-            "Autonomous Robots": 1,
-            "IEEE Robotics and Automation Practice": 1,
-            "IROS": 1,
-            "NeurIPS": 1,
-            "Science Robotics": 1
-          },
-          "observed_directness_weight_mean": 0.9125,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-E02",
+        "J-E07",
+        "J-P01",
+        "J-P02",
+        "J-P03",
+        "J-P04",
+        "J-P06",
+        "J-P07",
+        "J-C01",
+        "J-D04",
+        "J-D05",
+        "J-D06",
+        "J-H01",
+        "J-A01",
+        "J-A02",
+        "J-A03",
+        "J-A04",
+        "J-A05",
+        "J-A06",
+        "J-S01",
+        "J-S02",
+        "J-S03",
+        "J-S04",
+        "J-S05",
+        "J-S06",
+        "C-E02",
+        "C-P01",
+        "C-P03",
+        "C-P05",
+        "C-P06",
+        "C-C02",
+        "C-C03",
+        "C-C04",
+        "C-C05",
+        "C-C06",
+        "C-C07",
+        "C-L05",
+        "C-D03",
+        "C-H01",
+        "C-H03",
+        "C-H04",
+        "C-A01",
+        "C-A02",
+        "C-A03",
+        "C-A04",
+        "C-A05",
+        "C-A06",
+        "C-S01",
+        "C-S02",
+        "C-S03",
+        "C-S04",
+        "C-S05",
+        "C-S06"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "journal-robotics-automation-practice",
@@ -2027,14 +3343,17 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     },
-    {
+    "S": {
       "axis_id": "S",
       "axis_name": "systems_realtime",
       "axis_name_zh": "系统集成、实时与基础设施",
-      "corpus_sample_count": 12,
-      "data_fidelity": "METADATA_ONLY",
+      "corpus_sample_count": 25,
+      "signature_fidelity_counts": {
+        "FULLTEXT_EXTRACTED": 20,
+        "FULLTEXT_WEB_VERIFIED": 5
+      },
       "best_posting_strategy": {
         "anchor_pattern": {
           "pattern_id": "P08",
@@ -2177,40 +3496,52 @@
           "failure injection and recovery test"
         ],
         "failure_guard": "Do not present an architecture diagram as a systems contribution without reproducible artifacts and load-bearing end-to-end measurements.",
-        "claim_altitude": "integrated system, real-time contract or reproducible infrastructure"
+        "claim_altitude": "integrated system, real-time contract or reproducible infrastructure",
+        "model_simulated_capability_route": {
+          "cluster_id": "C08",
+          "runtime_question_id": "Q8",
+          "runtime_question": "Which software/hardware timing or interface contract determines whether the system deploys?",
+          "contribution_center": "systems integration, timing, and infrastructure",
+          "preferred_parent_pattern_ids": [
+            "P08",
+            "P04",
+            "P11"
+          ],
+          "preferred_subpattern_ids": [
+            "R24",
+            "R14",
+            "R27"
+          ],
+          "workflow_translation": "Use the runtime question to choose a contribution center; translate it into claim, trigger, matched contrast, metric, failure boundary, and artifact; then apply the stage-specific Skill contract."
+        }
       },
-      "corpus_support": {
-        "paper_ids": [
-          "J-S01",
-          "J-S02",
-          "J-S03",
-          "J-S04",
-          "J-S05",
-          "J-S06",
-          "C-S01",
-          "C-S02",
-          "C-S03",
-          "C-S04",
-          "C-S05",
-          "C-S06"
-        ],
-        "observed_venue_context": {
-          "observed_venue_counts": {
-            "Journal of Systems and Software": 3,
-            "ICRA": 2,
-            "IEEE DSN": 1,
-            "IEEE ITSC": 1,
-            "IROS": 1,
-            "International Journal of Advanced Robotic Systems": 1,
-            "Journal of Field Robotics": 1,
-            "Journal of Intelligent & Robotic Systems": 1,
-            "Runtime Verification": 1
-          },
-          "observed_directness_weight_mean": 0.7278,
-          "semantics": "coverage context only; not a venue quality or acceptance measure"
-        },
-        "recognition_and_outcome_status": "DESCRIPTIVE_RECOGNITION_ONLY; NO_DECISION_ALIGNED_ORAL_HC_REJECT_TABLE"
-      },
+      "source_paper_ids": [
+        "J-P01",
+        "J-P02",
+        "J-P03",
+        "J-D05",
+        "J-A01",
+        "J-A06",
+        "J-S01",
+        "J-S02",
+        "J-S03",
+        "J-S04",
+        "J-S05",
+        "J-S06",
+        "C-E04",
+        "C-C02",
+        "C-C06",
+        "C-L06",
+        "C-D05",
+        "C-H05",
+        "C-A06",
+        "C-S01",
+        "C-S02",
+        "C-S03",
+        "C-S04",
+        "C-S05",
+        "C-S06"
+      ],
       "venue_scope_candidates": [
         {
           "venue_id": "conf-aim",
@@ -2313,23 +3644,24 @@
           "official_scope_status": "REFRESH_REQUIRED"
         }
       ],
-      "routing_boundary": "Use these venues only as scope candidates; refresh each target's official scope, format, ethics, artifact and submission policy before drafting."
+      "official_scope_status": "REFRESH_REQUIRED"
     }
-  ],
+  },
+  "pattern_system": {
+    "parent_cards": 15,
+    "subpattern_cards": 31,
+    "cluster_count": 8,
+    "status": "MODEL_SIMULATED_CAPABILITY_INDUCTION_COMPLETE",
+    "real_clustering_claim": false
+  },
+  "outcome_contract": {
+    "status": "CLOSED_NO_DECISION_ALIGNED_DATA",
+    "contrast_enabled": false,
+    "acceptance_probability": "NOT_ESTIMABLE"
+  },
   "non_claims": [
-    "No acceptance probability is estimated.",
-    "No rating or prestige field is used.",
-    "Directness weight is a scope-routing prior only.",
-    "Recognition and presentation fields are not treated as reviewer decisions.",
-    "Metadata-only signatures do not establish true semantic clusters or outcome-conditioned pattern effects."
-  ],
-  "upgrade_gate": {
-    "next_required_input": "full-text or abstract-backed Stage-1/Stage-2 signatures for every selected paper",
-    "then_run": [
-      "scripts/induce_researchstudio_patterns.py",
-      "scripts/analyze_robotics_axis_strategies.py",
-      "scripts/validate_robotics_axis_strategy_analysis.py"
-    ],
-    "outcome_comparison_requires": "decision-aligned Oral/Reject labels plus independently sourced High-Cited labels with denominator provenance"
-  }
+    "The source corpus was not loaded by the runtime route.",
+    "This artifact is not a prevalence estimate, PCA/factor-analysis fit, or acceptance model.",
+    "Exemplar selection is an audit reference, not a ranking of paper quality."
+  ]
 }

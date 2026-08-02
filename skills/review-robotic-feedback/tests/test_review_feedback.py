@@ -109,12 +109,19 @@ class ReviewFeedbackV2(unittest.TestCase):
             root = Path(raw)
             fake_bin = root / "bin"
             fake_bin.mkdir()
-            pdftotext = fake_bin / "pdftotext"
-            pdftotext.write_text(
-                "#!/bin/sh\nprintf 'Title: Contact-Aware Robot Control\\n\\nAbstract\\nA robot controller uses feedback and hardware timing.\\n\\n1 Introduction\\n'\n",
-                encoding="utf-8",
-            )
-            pdftotext.chmod(pdftotext.stat().st_mode | 0o111)
+            if os.name == "nt":
+                pdftotext = fake_bin / "pdftotext.cmd"
+                pdftotext.write_text(
+                    "@echo off\r\necho Title: Contact-Aware Robot Control\r\necho.\r\necho Abstract\r\necho A robot controller uses feedback and hardware timing.\r\necho.\r\necho 1 Introduction\r\n",
+                    encoding="utf-8",
+                )
+            else:
+                pdftotext = fake_bin / "pdftotext"
+                pdftotext.write_text(
+                    "#!/bin/sh\nprintf 'Title: Contact-Aware Robot Control\\n\\nAbstract\\nA robot controller uses feedback and hardware timing.\\n\\n1 Introduction\\n'\n",
+                    encoding="utf-8",
+                )
+                pdftotext.chmod(pdftotext.stat().st_mode | 0o111)
             pdf = root / "paper.pdf"
             pdf.write_bytes(b"%PDF-1.4\n")
             output = root / "reviews" / "review-202601010605" / "jsons" / "context.json"

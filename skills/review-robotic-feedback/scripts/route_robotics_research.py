@@ -31,7 +31,10 @@ AXIS_TERMS = {
 def find_full_repo() -> Path | None:
     """寻找含完整 corpus/router 的仓库根目录。 / Find a full repository root."""
     for candidate in (SKILL_ROOT, *SKILL_ROOT.parents):
-        if (candidate / "corpus" / "robotics-submanifold.v1.json").is_file() and (candidate / "scripts" / "route_robotics_research.py").is_file():
+        if (
+            (candidate / "corpus" / "robotics-research-runtime.v1.json").is_file()
+            and (candidate / "scripts" / "route_robotics_research.py").is_file()
+        ):
             return candidate
     return None
 
@@ -47,6 +50,7 @@ def fallback_context(profile: dict[str, Any], venue: str | None, stage: str, per
     return {
         "schema_version": "robotics-review-routing-fallback.v1",
         "routing_status": "LOCAL_FALLBACK_NO_CORPUS",
+        "runtime_artifact_loaded": False,
         "stage": stage,
         "target_venue": venue,
         "active_axes": active,
@@ -58,8 +62,8 @@ def fallback_context(profile: dict[str, Any], venue: str | None, stage: str, per
             "references/robotics-submanifold-routing.md",
         ],
         "limitations": [
-            "The complete 100-paper corpus and official venue catalog were not available in this standalone installation.",
-            "This context may select review questions but cannot support corpus-derived collision or venue conclusions.",
+            "The compact robotics runtime and official venue catalog were not available in this standalone installation.",
+            "This context may select review questions but cannot support runtime-derived collision or venue conclusions.",
             "Acceptance probability remains NOT_ESTIMABLE.",
         ],
     }

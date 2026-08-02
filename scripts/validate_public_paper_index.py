@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -135,7 +136,12 @@ def validate(index: dict[str, Any]) -> list[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("index", nargs="?", default="corpus/public-paper-index.json")
+    parser.add_argument(
+        "index",
+        nargs="?",
+        default=os.environ.get("ROBOTICS_CORPUS_PATH", "corpus/public-paper-index.json"),
+        help="local-only corpus path; used by the explicit offline audit",
+    )
     args = parser.parse_args()
     errors = validate(load(args.index))
     if errors:

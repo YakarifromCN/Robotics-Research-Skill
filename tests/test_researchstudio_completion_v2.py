@@ -4,6 +4,8 @@ import json
 import unittest
 from pathlib import Path
 
+from common.robotics_research_runtime import load_runtime
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,18 +17,16 @@ def load(relative: str) -> dict:
 class ResearchStudioCompletionV2(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.signatures = load("corpus/researchstudio-paper-signatures.v2.json")
+        cls.runtime = load_runtime()
         cls.induction = load("corpus/researchstudio-pattern-induction.v2.json")
         cls.axis = load("corpus/robotics-axis-strategy-analysis.v2.json")
         cls.outcome = load("corpus/researchstudio-outcome-contrast.v1.json")
 
-    def test_mixed_fidelity_signature_coverage_is_explicit(self) -> None:
-        self.assertEqual(self.signatures["record_count"], 100)
-        self.assertEqual(
-            self.signatures["fidelity_counts"],
-            {"FULLTEXT_EXTRACTED": 81, "FULLTEXT_WEB_VERIFIED": 19},
-        )
-        self.assertEqual(len({row["paper_id"] for row in self.signatures["records"]}), 100)
+    def test_runtime_projection_is_explicit(self) -> None:
+        self.assertEqual(self.runtime["source"]["record_count"], 100)
+        self.assertEqual(self.runtime["runtime_contract"]["exemplar_count_per_axis"], 4)
+        self.assertFalse(self.runtime["source"]["raw_corpus_loaded_at_runtime"])
+        self.assertEqual(len(self.runtime["paper_exemplars_by_axis"]), 8)
 
     def test_simulated_induction_covers_complete_card_vocabulary(self) -> None:
         self.assertEqual(self.induction["coverage"], {

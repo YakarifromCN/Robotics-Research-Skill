@@ -1,4 +1,4 @@
-"""Canonical corpus-first router with ResearchStudio strategy context."""
+"""Canonical runtime-first router with ResearchStudio strategy context."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from common.robotics_research_context import build_research_context  # noqa: E40
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Prepare the corpus-first robotics + ResearchStudio research context.")
+    parser = argparse.ArgumentParser(description="Prepare the runtime-first robotics + ResearchStudio research context.")
     parser.add_argument("profile")
     parser.add_argument("--stage", choices=("idea", "experiment", "writing", "review"), default="idea")
     parser.add_argument("--venue")
@@ -29,7 +29,8 @@ def main() -> int:
     context = build_research_context(profile, stage=args.stage, target_venue=args.venue, per_axis=args.per_axis)
     context["researchstudio_strategy_context"] = build_strategy_context(context, profile, target_venue=args.venue)
     context["routing_contract"] = {
-        "order": ["100-paper corpus", "eight-axis context", "ResearchStudio axis-pattern cards", "stage adapter", "official venue scope"],
+        "order": ["compact robotics runtime artifact", "eight-axis context", "ResearchStudio axis-pattern cards", "stage adapter", "official venue scope"],
+        "raw_corpus_loaded": context["first_core_reference"]["raw_corpus_loaded"],
         "outcome_semantics": "pattern and corpus outcomes are audit context only; acceptance probability is NOT_ESTIMABLE",
     }
     payload = json.dumps(context, ensure_ascii=False, indent=2) + "\n"

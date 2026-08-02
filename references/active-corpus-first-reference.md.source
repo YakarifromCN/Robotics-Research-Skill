@@ -1,28 +1,23 @@
-# Corpus-first 工作流
+# Runtime-first robotics research routing contract
 
-每个机器人科研阶段的第一步固定为：
+The normal route reads corpus/robotics-research-runtime.v1.json only.
+The complete 100-paper corpus and paper-level signatures are local-only
+offline inputs for validation and runtime-artifact rebuilding.
 
-```text
+The shared runtime supplies eight research axes, compact exemplars, axis
+strategy rows, 15 parent patterns, 31 subpatterns, evidence boundaries, and
+venue-scope candidates. It does not claim PCA, latent-factor estimation,
+real UMAP/HDBSCAN, or acceptance probabilities.
+
+Offline:
+
+~~~text
+python scripts/validate_public_paper_index.py <local-corpus>
+python scripts/build_robotics_research_runtime.py --input <local-corpus>
+~~~
+
+Online:
+
+~~~text
 python scripts/route_robotics_research.py <profile.json> --stage idea|experiment|writing|review
-```
-
-该入口硬加载并验证：
-
-1. 100 篇、期刊/会议 1:1、8 轴均匀采样的 `public-paper-index.json`；
-2. 八轴语义模型；
-3. 无评级字段、带 directness 权重的 v2 venue catalog；
-4. 语料校准报告。
-
-随后按项目活动轴返回论文范式、可抽取证据模式、禁止外推边界、研究强度和 venue fit。Idea、Experiment、Writing、Review 都读取同一份 context；venue 官方范围只在语料之后叠加并必须刷新。
-
----
-
-# English
-
-Every robotics research stage starts with:
-
-```text
-python scripts/route_robotics_research.py <profile.json> --stage idea|experiment|writing|review
-```
-
-The entry point hard-loads and validates the 100-paper balanced corpus, the eight-axis semantic model, the rating-free v2 venue catalog with directness weights, and the calibration report. It then returns axis-specific paper patterns, evidence obligations, do-not-infer boundaries, research intensity, and venue fit. All four stages consume the same context; current official venue scope is layered on only after the corpus reference is loaded.
+~~~

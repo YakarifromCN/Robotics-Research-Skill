@@ -10,6 +10,8 @@ means should be read as coverage diagnostics rather than prevalence claims.
 from __future__ import annotations
 
 import json
+import argparse
+import os
 import sys
 from collections import Counter
 from pathlib import Path
@@ -30,8 +32,8 @@ CATALOG_V1 = ROOT / "corpus" / "venue-catalog.v1.json"
 OUTPUT_PATH = ROOT / "corpus" / "robotics-submanifold-calibration.v1.json"
 
 
-def load_index() -> dict[str, Any]:
-    value = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
+def load_index(index_path: str | Path = INDEX_PATH) -> dict[str, Any]:
+    value = json.loads(Path(index_path).read_text(encoding="utf-8"))
     if not isinstance(value, dict):
         raise ValueError("public paper index must be an object")
     records = value.get("records")
@@ -66,8 +68,8 @@ def active_coverage(records: list[dict[str, Any]], kind: str | None = None) -> d
     }
 
 
-def calibrate() -> dict[str, Any]:
-    index = load_index()
+def calibrate(index_path: str | Path = INDEX_PATH) -> dict[str, Any]:
+    index = load_index(index_path)
     records = [record for record in index["records"] if isinstance(record, dict)]
     model = load_json(MODEL_PATH)
     model_errors = validate_model(model)
@@ -145,7 +147,14 @@ def calibrate() -> dict[str, Any]:
 
 
 def main() -> int:
-    report = calibrate()
+    parser = argparse.ArgumentParser(description="Calibrate the robotics axes from a local-only corpus.")
+    parser.add_argument(
+        "--input",
+        default=os.environ.get("ROBOTICS_CORPUS_PATH", str(INDEX_PATH)),
+        help="local corpus path; never read by the normal runtime route",
+    )
+    args = parser.parse_args()
+    report = calibrate(args.input)
     OUTPUT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(
         "CALIBRATION: PASS "

@@ -1,68 +1,90 @@
-# Corpus-first + ResearchStudio routing contract
+# Runtime-first robotics research routing contract
 
-Every robotics research stage starts with:
+Normal Idea, Experiment, Writing, and Review calls begin with:
 
-```text
+~~~text
 python scripts/route_robotics_research.py <profile.json> --stage idea|experiment|writing|review
-```
+~~~
 
-The entrypoint hard-loads and validates:
+The router reads the tracked compact artifact
+corpus/robotics-research-runtime.v1.json. It does not read
+corpus/public-paper-index.json, paper-level signatures, PDFs, extracted text,
+or embedding caches. The complete balanced 100-paper corpus is a local-only
+input for the explicit offline build and audit workflow.
 
-1. `corpus/public-paper-index.json`: the balanced 100-paper corpus, 50 journal and 50 conference records;
-2. `corpus/robotics-submanifold.v1.json`: the eight transparent robotics research axes;
-3. `corpus/venue-catalog.v2.json`: the rating-free venue scope catalog, with directness as an optional routing prior;
-4. `corpus/researchstudio-paper-signatures.v2.json`: the mixed-fidelity, field-provenance paper-analysis contract (`v1` remains the metadata-only compatibility baseline);
-5. `corpus/researchstudio-pattern-cards.v1.json`: 15 parent operators and 31 robotics-adapted tactical cards;
-6. `corpus/researchstudio-pattern-induction.v2.json`: the complete model-simulated 15/31 capability mapping;
-7. `corpus/robotics-axis-strategy-analysis.v2.json`: the regenerated per-axis strategy and venue-scope candidate report;
-8. `corpus/researchstudio-outcome-contrast.v1.json`: the closed-by-design outcome contract.
+The runtime artifact contains:
 
-The resulting JSON contains both `paper_reference_bundle` and
-`researchstudio_strategy_context`. Use the latter to read, for each active
-axis, the anchor pattern, supporting composition, tactical subpatterns,
-evidence recipe, failure guard, claim altitude and venue-scope candidates.
-The pattern is a structural operator, not the contribution claim. Select it
-from the diagnosed gap before consulting frequency, recognition or venue
-context.
+1. the eight transparent robotics research axes;
+2. compact paper exemplars and extract/do-not-infer boundaries for each axis;
+3. the eight axis strategy rows distilled from the ResearchStudio analysis;
+4. the 15 parent pattern cards and 31 subpattern cards;
+5. the closed outcome contract, whose acceptance field is always
+   NOT_ESTIMABLE;
+6. venue-scope candidates that must be refreshed against official sources.
+
+The output contains paper_reference_bundle and
+researchstudio_strategy_context. Use them as first-mile structural
+references for mechanism distinction, evidence obligations, claim altitude,
+failure audits, and venue-scope routing. They are not prevalence estimates,
+quality scores, or acceptance probabilities.
+
+## Offline corpus lifecycle
+
+~~~text
+local raw corpus (not Git)
+        -> validate / analyze / rebuild offline
+        -> robotics-research-runtime.v1.json (tracked)
+        -> normal Skill invocation reads runtime only
+~~~
+
+Set ROBOTICS_CORPUS_PATH or pass an explicit path when rebuilding:
+
+~~~text
+python scripts/validate_public_paper_index.py <local-corpus>
+python scripts/build_robotics_research_runtime.py --input <local-corpus>
+python scripts/validate_robotics_research_runtime.py
+~~~
+
+The runtime records the source corpus SHA-256 and the source count for
+provenance, but never requires the source path to exist at runtime.
 
 ## ResearchStudio chain
 
-```text
+~~~text
 paper x_i + descriptive outcome y_i
-  -> Stage-1 structured signature
-  -> Stage-2 domain-agnostic strategy signature
-  -> embedding -> UMAP -> HDBSCAN
-  -> fine-grained tactical clusters
-  -> pattern-card induction and outcome-contrast audit
-```
+  -> structured innovation signature
+  -> domain-agnostic strategy signature
+  -> embedding / UMAP / HDBSCAN when explicitly available
+  -> fine-grained strategy clusters
+  -> pattern-card induction and outcome audit
+~~~
 
-The compatibility implementation in `scripts/induce_researchstudio_patterns.py`
-still emits explicit `FALLBACK_NOT_UMAP` / `FALLBACK_NOT_HDBSCAN` when real
-dependencies and vectors are absent. For the current Skill-learning path, model
-subagents simulate Stage-2 embedding and grouping without an external API. The
-runtime consumes only the derived capability questions and 15/31 mapping; it
-does not expose internal cluster IDs or claim real UMAP/HDBSCAN. Signatures v2
-separately report `FULLTEXT_EXTRACTED` and `FULLTEXT_WEB_VERIFIED` records with
-field-level provenance.
+The checked-in pattern and axis artifacts preserve the model-simulation
+boundary. They do not claim that statistical PCA, latent-factor estimation,
+real UMAP/HDBSCAN, or an acceptance model was run.
 
 ## Online idea chain
 
-```text
+~~~text
 retrieve evidence -> diagnose bottleneck and method lineage
 -> fit one to three patterns -> instantiate a subpattern
 -> mechanism-level collision audit -> failure-mode audit
 -> ADVANCE / REVISE / ABANDON -> deterministic Idea Card validation
-```
+~~~
 
-Use `scripts/ideate_robotics_research.py` for the chain. Missing literature,
-full-text grounding, collision evidence, or a concrete structural gap is an
-honest stop state; the runtime must not fill it from memory. The deterministic
-validator preserves `falsification_prediction` and `compute_budget` exactly.
+Missing literature, full-text grounding, collision evidence, or a concrete
+structural gap is an honest stop state. The runtime must not fill it from
+memory. The deterministic validator preserves falsification_prediction and
+compute_budget exactly.
 
 ## Shared boundaries
 
-- Corpus and pattern outcomes are descriptive audit context. Acceptance probability is always `NOT_ESTIMABLE`.
-- The outcome contrast is complete by explicit closure when no decision-aligned denominator exists; award or presentation traces are never substituted.
-- Directness weights help route a robotics-native scope before a strong-related scope; there are no rating or prestige fields in this layer.
-- Venue candidates require a fresh official-scope/author-guide/ethics/artifact check before submission.
-- The four local skills keep their original contracts in `SKILL.md.source`; this reference adds the shared first-mile context and does not rewrite Claim Lock or Design Lock.
+- Raw corpus and paper-level intermediate files are offline-only and ignored by Git.
+- Runtime artifacts are descriptive research infrastructure, not statistical
+  prevalence models or acceptance predictors.
+- Directness can be used as a routing weight, but ratings are not a core axis.
+- Venue candidates require current official-scope, author-guide, ethics, and
+  artifact checks before submission.
+- The four local skills keep their original contracts in SKILL.md.source;
+  this reference supplies the shared runtime context without rewriting Claim
+  Lock or Design Lock.

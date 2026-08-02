@@ -1,50 +1,75 @@
-# 100 篇公开机器人论文语料契约
+# Public robotics paper corpus contract
 
-`corpus/public-paper-index.json` 由 `scripts/build_public_paper_index_v2.py` 生成，当前 schema 为 `robotics-public-corpus.v2`。
+The balanced 100-paper index is a local-only build input. It is intentionally
+not committed to Git:
 
-硬约束：
+~~~text
+corpus/public-paper-index.json
+~~~
 
-- 总计 100 篇；期刊 50 篇、会议 50 篇；
-- 会议记录必须有 `oral`、`spotlight` 或更高的 presentation level；
-- `award.qualifies_for_quota=true` 至少 51 篇；状态保留为 `winner`、`finalist`、`nominee` 或 `award`，finalist 不改写成 winner；
-- 八条主轴按总量均匀采样：E/P/C/L 为 13，D/H/A/S 为 12，最大差 1；
-- 期刊内部为 E/P/C/L/D/H/A/S = 7/7/6/6/6/6/6/6，会议内部为 6/6/7/7/6/6/6/6，最大差均为 1；
-- 每篇记录同时保存公开预印本/accepted manuscript/open full-text record、final venue record、八轴向量、可抽取模式和禁止外推边界。
+The tracked derivative is:
 
-奖项约束是“award recognition” quota，不是统计学标签，也不是论文质量或录用概率。严格 winner 数量由 `scripts/calibrate_robotics_submanifold.py` 另外报告。语料用于校准证据模式和子流形覆盖，不复制论文正文，不估计学科 prevalence，不拟合 PCA/因子模型。
+~~~text
+corpus/robotics-research-runtime.v1.json
+~~~
 
-## 全文来源与混合保真签名
+Normal routing reads only that compact runtime artifact. Paper PDFs, extracted
+text, embeddings, paper-level signatures, and other paper-level intermediates
+remain local caches or offline build products.
 
-`scripts/fetch_public_paper_sources.py`、`extract_public_paper_text.py` 和
-`audit_public_paper_text_coverage.py` 将公开来源解析为可审计收据。当前 100 篇
-记录中，81 篇为 `DOWNLOADED`，另 19 篇具有 `WEB_FULLTEXT_VERIFIED` 公开全文
-收据，合计 100/100 可用全文。网页收据用于明确区分“公开可完整读取”和“已在
-本地缓存并哈希验证”；不能把前者伪装成本地 PDF。
+## Offline corpus constraints
 
-`corpus/researchstudio-paper-signatures.v2.json` 采用混合保真合同：
+The local index must satisfy:
 
-- 81 篇 `FULLTEXT_EXTRACTED`，签名字段绑定本地抽取文本与哈希；
-- 19 篇 `FULLTEXT_WEB_VERIFIED`，绑定公开全文 URL 与独立网页收据；
-- 当前不存在 `METADATA_FALLBACK`；
-- 每个模型归纳字段保存 provenance，不把模型模拟输出写成论文原文事实。
+- 100 records total;
+- 50 journal and 50 conference records;
+- conference presentation level oral or above;
+- at least 51 award-recognized records, preserving winner/finalist status;
+- balanced primary-axis coverage across E/P/C/L/D/H/A/S;
+- public preprint and final-publication URLs.
 
-模型子代理可以模拟 embedding、聚类审计和模式归纳，但必须标记
-`MODEL_SIMULATED`，不得声称运行了真实 UMAP/HDBSCAN。可注入 Skill 的只有
-可解释的能力簇、模式族、子模式和路由问题。
+These constraints govern the offline corpus and runtime rebuild. They are not
+runtime acceptance signals, prevalence estimates, or statistical PCA/factor
+analysis.
 
-## 开源与本地缓存边界
+## Build and audit
 
-PDF、抽取正文、embedding、模型子代理分块 JSON 和临时下载只作为本地缓存，
-由 `.gitignore` 排除。公开仓库跟踪来源 manifest、覆盖收据、内容哈希、
-生成器、验证器和可复用归纳结果，从而允许审计而不提交内部或临时材料。
+~~~text
+python scripts/validate_public_paper_index.py <local-corpus>
+python scripts/build_robotics_research_runtime.py --input <local-corpus>
+python scripts/validate_robotics_research_runtime.py
+~~~
 
-验证：
+The input can also be provided through ROBOTICS_CORPUS_PATH. The builder stores
+the source SHA-256, source count, axis counts, and compact exemplars in the
+runtime artifact. It does not store the full paper records in the runtime
+artifact and does not require the source path to exist later.
 
-```text
-python scripts/build_public_paper_index_v2.py
-python scripts/validate_public_paper_index.py
-python scripts/calibrate_robotics_submanifold.py
-python scripts/validate_researchstudio_signatures_v2.py
-python scripts/validate_simulated_researchstudio.py
-python scripts/run_all_checks_corpus_first.py
-```
+The calibrator is also offline-only:
+
+~~~text
+python scripts/calibrate_robotics_submanifold.py --input <local-corpus>
+~~~
+
+The runtime artifact retains the ResearchStudio pattern summary, the
+eight-axis strategy rows, compact evidence boundaries, and the closed outcome
+contract. It retains no raw full text.
+
+## Provenance and receipts
+
+Public source manifests, text-coverage receipts, and web-fulltext receipts can
+remain tracked because they are provenance summaries rather than the corpus
+itself. Downloaded PDFs and extracted text stay under ignored local cache
+directories.
+
+The ResearchStudio signature and clustering builders remain available for an
+explicit offline rebuild. Their outputs are not normal runtime dependencies.
+When a new corpus version is built, rebuild and validate the runtime artifact
+before using it.
+
+## Non-claims
+
+The corpus is a balanced research-reference sample. It does not estimate field
+prevalence, venue acceptance probability, or causal effects of awards and
+presentation categories. Model-simulated pattern induction does not claim real
+UMAP/HDBSCAN or statistical factor fitting.

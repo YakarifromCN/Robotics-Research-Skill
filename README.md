@@ -249,16 +249,16 @@ Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指�
 
 ## 公开语料与 Golden Regression Suite
 
-`corpus/public-paper-index.json` 保存公开机器人论文的元数据、来源、模式标签、可抽取内容和禁止外推边界。v2 全文路径额外跟踪：
+完整 100 篇公开机器人论文索引是本地离线构建输入，不提交 Git；正常 Skill 只读取轻量化的 `corpus/robotics-research-runtime.v1.json`。v2 全文路径只跟踪可审计收据：
 
 - `public-paper-fulltext-manifest.v1.json`：100 篇来源、缓存哈希和版本关系；当前 81 篇本地缓存、19 篇公开网页全文收据，合计 100/100 可用全文；
 - `public-paper-text-coverage.v1.json`：78 篇具有可识别章节、3 篇文本不完整、19 篇无本地全文；
-- `researchstudio-paper-signatures.v2.json`：81 篇本地抽取全文签名与 19 篇公开网页全文签名，已无元数据回退，逐字段保存 provenance；
+- `robotics-research-runtime.v1.json`：按八个研究子流形轴提取的紧凑论文先例、轴策略、15/31 模式系统摘要和非主张边界；
 - `researchstudio-pattern-induction.v2.json`：模型模拟聚类审计后的 15/31 可复用模式；
 - `robotics-axis-strategy-analysis.v2.json`：八轴问题、能力簇路由和需要实时刷新的 venue 候选；
 - `researchstudio-outcome-contrast.v1.json`：因没有 decision-aligned 数据而正式关闭 outcome 对照，不伪造录用结论。
 
-PDF、抽取文本、embedding、模型子代理中间 JSON 和临时下载均为本地缓存并被 `.gitignore` 排除；GitHub 只保存可公开复现的清单、收据、生成器、验证器和 Skill 知识。`corpus/golden/synthetic-cases.json` 使用完全合成的研究案例测试：
+原始索引、论文级 signatures、PDF、抽取文本、embedding、模型子代理中间 JSON 和临时下载均为本地离线输入/缓存并被 `.gitignore` 排除；GitHub 只保存 runtime、公开收据、生成器、验证器和 Skill 知识。`corpus/golden/synthetic-cases.json` 使用完全合成的研究案例测试：
 
 - 完整正向路径；
 - writing-only 导入；
@@ -319,7 +319,15 @@ Robotics Research Skill is a unified package with an **Idea → Experiment → W
 
 The package supports embodied systems, control, learning, bio-inspired robotics, soft robotics, human interaction, industrial automation, field systems, and multi-robot research. Target information affects packaging and submission constraints only; it never rewrites the scientific contract.
 
-The current corpus-first v2 path records source and text coverage for a balanced 100-paper corpus, builds mixed-fidelity signatures, and uses model subagents to simulate embedding, cluster audit, and strategy induction. This is explicitly not real UMAP/HDBSCAN. Runtime Skills consume only the resulting 8 capability clusters, 15 pattern families, 31 subpatterns, and 8 routing questions. Ten external venue workflows are distilled into one reusable method plus venue mappings, not copied into ten internal workflows.
+The current runtime-first v2 path is built offline from a balanced 100-paper
+corpus. The raw index, paper-level signatures, PDFs, extracted text, and
+embedding caches are local-only. The tracked
+corpus/robotics-research-runtime.v1.json is the only paper-derived artifact
+read by normal Skill routing; it contains compact exemplars, eight axis
+strategy rows, 15 parent patterns, 31 subpatterns, and eight routing
+questions. This is explicitly not statistical PCA, real UMAP/HDBSCAN, or an
+acceptance model. Ten external venue workflows are distilled into one
+reusable method plus venue mappings, not copied into ten internal workflows.
 
 ## Atomic-skill backbone
 
@@ -381,9 +389,17 @@ The experiment contract freezes conditions, metrics, contrasts, exclusions, deno
 
 ## Public corpus and regression cases
 
-The v2 corpus now has usable full-text receipts for all 100 papers: 81 locally cached and extracted sources plus 19 public web full texts whose hosts block unattended caching. All 100 signatures are full-text-grounded; none use metadata fallback. Model-simulated clustering induces 15 pattern families and 31 subpatterns, while outcome contrast is closed by design because no decision-aligned data is available. Public awards and community adoption are discovery signals only.
+The offline corpus pipeline retains full-text receipts and model-simulated
+ResearchStudio analysis as auditable build inputs. Runtime consumes only the
+derived summary and preserves the boundaries that the pattern analysis is
+descriptive, not a statistical factor fit or acceptance estimate. Public
+awards and community adoption are discovery signals only.
 
-PDFs, extracted text, embeddings, model-subagent intermediates, and temporary downloads remain ignored local caches. GitHub contains only public manifests, provenance receipts, generators, validators, and reusable Skill knowledge. Synthetic golden cases exercise the end-to-end contracts without exposing user data.
+The raw index, paper-level signatures, PDFs, extracted text, embeddings,
+model-subagent intermediates, and temporary downloads remain ignored local
+caches. GitHub contains the compact runtime, public manifests, provenance
+receipts, generators, validators, and reusable Skill knowledge. Synthetic
+golden cases exercise the end-to-end contracts without exposing user data.
 
 Versioned corpus artifacts may use repository-relative POSIX paths only. For input outside the repository, the generator stores a content SHA-256 reference instead of `E:`, `/mnt`, `/home`, or another host path. `scripts/check_portable_corpus_paths.py` runs as part of the release checks.
 

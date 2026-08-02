@@ -11,11 +11,10 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
+from .robotics_research_runtime import DEFAULT_RUNTIME, load_runtime
 from .researchstudio_patterns import (
-    DEFAULT_AXIS_REPORT,
     DEFAULT_LIBRARY,
     fit_gap_to_patterns,
-    load_json,
     load_pattern_library,
 )
 
@@ -61,11 +60,15 @@ def build_strategy_context(base_context: dict[str, Any], profile: dict[str, Any]
     """Attach axis strategy cards and pattern-fit guidance to a stage context."""
 
     library = load_pattern_library(DEFAULT_LIBRARY)
-    report = load_json(DEFAULT_AXIS_REPORT)
+    runtime = load_runtime(DEFAULT_RUNTIME)
     active_axes = _active_axes(base_context)
     gap = str(profile.get("structural_gap") or profile.get("bottleneck") or profile.get("research_gap") or "")
     gap_fit = fit_gap_to_patterns(gap, active_axes, library) if gap and active_axes else []
-    per_axis = {row["axis_id"]: row for row in report.get("axes", []) if row.get("axis_id") in active_axes}
+    per_axis = {
+        axis: row
+        for axis, row in runtime.get("axis_strategy_by_axis", {}).items()
+        if axis in active_axes
+    }
     return {
         "schema_version": "researchstudio-robotics-strategy-context.v1",
         "active_axes": active_axes,

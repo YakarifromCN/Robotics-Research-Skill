@@ -19,6 +19,15 @@ corpus/embeddings/
 corpus/simulated/
 downloads/
 
+# Local-only paper corpus and paper-level intermediate signatures.
+# The tracked runtime artifact is the sole paper-derived runtime input.
+corpus/public-paper-index.json
+corpus/public-paper-source-overrides.v1.json
+corpus/researchstudio-paper-signatures.v1.json
+corpus/researchstudio-paper-signatures.v2.json
+corpus/researchstudio-cluster-analysis.v1.json
+corpus/robotics-axis-strategy-analysis.v1.json
+
 # Credentials, local databases, and runtime logs.
 .env
 .env.*

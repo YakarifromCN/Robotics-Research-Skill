@@ -1,71 +1,53 @@
-"""First-core-reference context built from the public robotics paper corpus.
+"""Runtime research context for the robotics research Skills.
 
-The corpus is an active research-design dependency.  This module turns its
-paper-level axis vectors, extractable patterns, and do-not-infer boundaries
-into a stage-neutral context that the Idea, Experiment, Writing, and Review
-skills can consume before venue routing.  It does not copy paper text and does
-not treat awards as quality weights.
+The complete 100-paper corpus is an offline build/audit input. Normal Skill
+invocations consume only the compact runtime artifact generated from that
+corpus. This keeps the research reference active without making every idea,
+experiment, writing, or review call read the local paper index.
 """
 
 from __future__ import annotations
 
-from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from .robotics_research_runtime import DEFAULT_RUNTIME, load_runtime
 from .robotics_submanifold import AXIS_ORDER, analyze, load_json, project_vector, research_intensity
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL = ROOT / "corpus" / "robotics-submanifold.v1.json"
 DEFAULT_CATALOG = ROOT / "corpus" / "venue-catalog.v2.json"
-DEFAULT_CORPUS = ROOT / "corpus" / "public-paper-index.json"
 DEFAULT_CALIBRATION = ROOT / "corpus" / "robotics-submanifold-calibration.v1.json"
-
-
-def _corpus_errors(corpus: dict[str, Any]) -> list[str]:
-    # Importing the existing hard-gate validator keeps the single source of
-    # truth for the 100-record, 50/50, award, oral, and balance constraints.
-    from scripts.validate_public_paper_index import validate
-
-    return validate(corpus)
 
 
 def load_first_core_reference(
     *,
     model_path: str | Path = DEFAULT_MODEL,
     catalog_path: str | Path = DEFAULT_CATALOG,
-    corpus_path: str | Path = DEFAULT_CORPUS,
+    runtime_path: str | Path = DEFAULT_RUNTIME,
     calibration_path: str | Path = DEFAULT_CALIBRATION,
 ) -> dict[str, Any]:
-    """Load and hard-validate the corpus/model/catalog first reference."""
+    """Load and validate the compact runtime/model/catalog reference.
+
+    The function deliberately has no raw-corpus parameter. Offline corpus
+    validation and runtime-artifact construction belong to the explicit
+    scripts/build_robotics_research_runtime.py workflow.
+    """
 
     model = load_json(model_path)
     catalog = load_json(catalog_path)
-    corpus = load_json(corpus_path)
+    runtime = load_runtime(runtime_path)
     calibration = load_json(calibration_path) if Path(calibration_path).exists() else {}
-    errors = _corpus_errors(corpus)
-    if errors:
-        raise ValueError("first core reference corpus is invalid: " + "; ".join(errors))
-    records = corpus.get("records", [])
-    if not isinstance(records, list) or len(records) != 100:
-        raise ValueError("first core reference requires exactly 100 records")
     return {
         "model": model,
         "catalog": catalog,
-        "corpus": corpus,
+        "runtime": runtime,
         "calibration": calibration,
-        "reference_status": "LOADED_AND_HARD_VALIDATED",
-        "reference_contract": "The paper corpus must be read before stage-specific design or venue routing.",
+        "reference_status": "RUNTIME_LOADED_NO_RAW_CORPUS",
+        "raw_corpus_loaded": False,
+        "reference_contract": "Normal routing reads the compact derived runtime artifact; the full paper corpus is local-only and offline.",
     }
-
-
-def _venue_weight_map(catalog: dict[str, Any]) -> dict[str, float]:
-    result: dict[str, float] = {}
-    for record in catalog.get("records", []):
-        if isinstance(record, dict) and isinstance(record.get("name"), str):
-            result[record["name"]] = float(record.get("directness_weight", 0.65))
-    return result
 
 
 def paper_reference_bundle(
@@ -78,23 +60,13 @@ def paper_reference_bundle(
 
     if per_axis < 1:
         raise ValueError("per_axis must be positive")
-    records = [record for record in reference["corpus"].get("records", []) if isinstance(record, dict)]
-    venue_weights = _venue_weight_map(reference["catalog"])
+    records_by_axis = reference["runtime"].get("paper_exemplars_by_axis", {})
     vector = project_vector_result["vector"]
     active_axes = [axis for axis in AXIS_ORDER if vector.get(axis, 0) >= 2]
     by_axis: dict[str, list[dict[str, Any]]] = {}
     pattern_summary: dict[str, dict[str, list[str]]] = {}
     for axis in active_axes:
-        ranked = sorted(
-            records,
-            key=lambda record: (
-                0 if record.get("primary_axis") == axis else 1,
-                -int(record.get("submanifold_axes", {}).get(axis, 0)),
-                -venue_weights.get(str(record.get("venue")), 0.65),
-                str(record.get("paper_id")),
-            ),
-        )
-        selected = ranked[:per_axis]
+        selected = [record for record in records_by_axis.get(axis, []) if isinstance(record, dict)][:per_axis]
         by_axis[axis] = [
             {
                 "paper_id": record.get("paper_id"),
@@ -105,9 +77,9 @@ def paper_reference_bundle(
                 "primary_axis": record.get("primary_axis"),
                 "submanifold_axes": record.get("submanifold_axes"),
                 "pattern_tags": record.get("pattern_tags", []),
-                "preprint_url": record.get("preprint", {}).get("url"),
-                "final_publication_url": record.get("final_publication", {}).get("url"),
-                "award_status": record.get("award", {}).get("status") if isinstance(record.get("award"), dict) else None,
+                "preprint_url": record.get("preprint_url"),
+                "final_publication_url": record.get("final_publication_url"),
+                "award_status": record.get("award_status"),
             }
             for record in selected
         ]
@@ -157,17 +129,17 @@ def build_research_context(
     per_axis: int = 4,
     model_path: str | Path = DEFAULT_MODEL,
     catalog_path: str | Path = DEFAULT_CATALOG,
-    corpus_path: str | Path = DEFAULT_CORPUS,
+    runtime_path: str | Path = DEFAULT_RUNTIME,
     calibration_path: str | Path = DEFAULT_CALIBRATION,
 ) -> dict[str, Any]:
-    """Build the stage context with the paper corpus loaded first."""
+    """Build stage context from the compact runtime artifact."""
 
     if stage not in {"idea", "experiment", "writing", "review"}:
         raise ValueError("stage must be idea, experiment, writing, or review")
     reference = load_first_core_reference(
         model_path=model_path,
         catalog_path=catalog_path,
-        corpus_path=corpus_path,
+        runtime_path=runtime_path,
         calibration_path=calibration_path,
     )
     project = project_vector(profile, reference["model"])
@@ -191,8 +163,9 @@ def build_research_context(
         "stage": stage,
         "first_core_reference": {
             "status": reference["reference_status"],
-            "corpus_schema": reference["corpus"].get("schema_version"),
-            "corpus_record_count": len(reference["corpus"]["records"]),
+            "runtime_schema": reference["runtime"].get("schema_version"),
+            "runtime_source_record_count": reference["runtime"].get("source", {}).get("record_count"),
+            "raw_corpus_loaded": reference["raw_corpus_loaded"],
             "calibration_schema": reference["calibration"].get("schema_version"),
             "contract": reference["reference_contract"],
         },
