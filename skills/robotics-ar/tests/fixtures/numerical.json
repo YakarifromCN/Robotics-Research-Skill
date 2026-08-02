@@ -1,0 +1,5 @@
+{
+  "label": "numerical",
+  "research_question": "Does a safeguarded update reduce a numerical residual?",
+  "domain_payload": {"object": "numerical algorithm", "units": ["seed", "instance"]}
+}

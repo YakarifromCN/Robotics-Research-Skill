@@ -1,0 +1,5 @@
+{
+  "label": "robotics",
+  "research_question": "Does a contact-aware intervention change an observed outcome?",
+  "domain_payload": {"object": "contact task", "units": ["trial", "session"]}
+}
