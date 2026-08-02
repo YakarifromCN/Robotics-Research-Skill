@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-sibling-skills-manifest.v1",
+  "type": "object",
+  "required": ["schema_version", "name", "root", "confirmed_by_user", "manifest_sha256", "siblings"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-sibling-skills-manifest.v1"},
+    "name": {"type": "string"},
+    "root": {"type": "string"},
+    "confirmed_by_user": {"type": "boolean"},
+    "manifest_sha256": {"type": "string"},
+    "siblings": {"type": "object", "additionalProperties": {"type": "object", "required": ["skill", "validator", "native_artifact"], "properties": {"skill": {"type": "string"}, "validator": {"type": "string"}, "result_validator": {"type": "string"}, "native_artifact": {"type": "string"}, "skill_sha256": {"type": "string"}, "validator_sha256": {"type": "string"}}, "additionalProperties": true}}
+  },
+  "additionalProperties": true
+}

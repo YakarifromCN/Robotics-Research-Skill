@@ -1,0 +1,4 @@
+interface:
+  display_name: "Robotics-AR"
+  short_description: "Supervise resumable research sessions"
+  default_prompt: "Use $robotics-ar only when explicitly asked to coordinate a gated, resumable research session."

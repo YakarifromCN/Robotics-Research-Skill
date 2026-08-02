@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-environment.v1",
+  "type": "object",
+  "required": ["schema_version", "id", "kind", "root", "adapter", "commands", "io", "limits"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-environment.v1"},
+    "id": {"type": "string"},
+    "kind": {"enum": ["simulation", "real_robot", "hybrid"]},
+    "root": {"type": "string"},
+    "adapter": {"type": "object", "required": ["path", "sha256"], "properties": {"path": {"type": "string"}, "sha256": {"type": "string"}}},
+    "commands": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+    "io": {"type": "object", "required": ["request_dir", "result_dir", "artifact_dir"]},
+    "limits": {"type": "object", "required": ["timeout_s", "max_parallel_runs", "network"]}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,6 @@
+schema_version: robotics-ar-sibling-skills-manifest.v1
+name: robotics-research-sibling-skills
+root: /path/to/Robotics-Research-Skill
+confirmed_by_user: false
+manifest_sha256: null
+siblings: {}

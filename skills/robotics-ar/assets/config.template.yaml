@@ -1,0 +1,14 @@
+schema_version: robotics-ar-config.v1
+interaction_language: zh
+mode: PLANNING_ONLY
+exploration_budget:
+  max_candidates: 4
+  max_expert_rounds: 2
+  max_debug_rounds: 2
+  max_batches: 1
+validation_policy:
+  required_gates: []
+  independent_review_required: false
+  deterministic_validation_required: true
+sibling_manifest: sibling-skills/manifest.json
+environment_manifest: null

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-event.v1",
+  "type": "object",
+  "required": ["schema_version", "event_id", "session_id", "timestamp", "event_type", "actor", "previous_state", "new_state", "artifact_refs", "payload_sha256"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-event.v1"},
+    "event_id": {"type": "string", "pattern": "^EVT-[0-9]{6}$"},
+    "session_id": {"type": "string"},
+    "timestamp": {"type": "string"},
+    "event_type": {"type": "string", "minLength": 1},
+    "actor": {"type": "string", "minLength": 1},
+    "previous_state": {"type": "string"},
+    "new_state": {"type": "string"},
+    "artifact_refs": {"type": "array"},
+    "payload_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "payload": {"type": "object"}
+  },
+  "additionalProperties": true
+}

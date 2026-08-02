@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-execution-task.v1",
+  "type": "object",
+  "required": ["schema_version", "task_id", "task_sha256", "allowed_paths", "forbidden_paths", "commands", "stop_conditions", "created_at"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-execution-task.v1"},
+    "task_id": {"type": "string"},
+    "task_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "allowed_paths": {"type": "array", "items": {"type": "string"}},
+    "forbidden_paths": {"type": "array", "items": {"type": "string"}},
+    "commands": {"type": "array", "items": {"type": "array", "items": {"type": "string"}}},
+    "stop_conditions": {"type": "array", "items": {"type": "string"}},
+    "created_at": {"type": "string"},
+    "domain_payload": {"type": "object"}
+  },
+  "additionalProperties": true
+}

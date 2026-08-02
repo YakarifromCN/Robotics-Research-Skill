@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-agent-receipt.v1",
+  "type": "object",
+  "required": ["schema_version", "receipt_id", "role", "task_id", "allowed_paths", "status", "created_at"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-agent-receipt.v1"},
+    "receipt_id": {"type": "string"},
+    "role": {"enum": ["Code Agent", "Test Agent", "Environment Runner", "Data Analyst", "Dynamic Expert"]},
+    "task_id": {"type": "string"},
+    "allowed_paths": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["PASS", "FAIL", "BLOCKED_DEPENDENCY", "SINGLE_AGENT_MODE"]},
+    "created_at": {"type": "string"},
+    "output_refs": {"type": "array"}
+  },
+  "additionalProperties": true
+}

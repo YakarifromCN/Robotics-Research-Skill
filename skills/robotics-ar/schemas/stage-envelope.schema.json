@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-stage-envelope.v1",
+  "type": "object",
+  "required": ["schema_version", "session_id", "stage", "input_sha256", "allowed_files", "request_sha256"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-stage-envelope.v1"},
+    "session_id": {"type": "string"},
+    "stage": {"enum": ["idea", "experiment", "writing", "review"]},
+    "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "allowed_files": {"type": "array", "items": {"type": "string"}},
+    "request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "domain_payload": {"type": "object"}
+  },
+  "additionalProperties": true
+}

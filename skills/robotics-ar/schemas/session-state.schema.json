@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-session-state.v1",
+  "type": "object",
+  "required": ["schema_version", "session_id", "mode", "state", "interaction_language", "exploration_budget", "updated_at"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-session-state.v1"},
+    "session_id": {"type": "string", "pattern": "^RAS-[A-Z0-9-]+$"},
+    "mode": {"enum": ["PLANNING_ONLY", "EXECUTION_ENABLED"]},
+    "state": {"type": "string"},
+    "interaction_language": {"type": "string", "minLength": 1},
+    "exploration_budget": {"$ref": "#/definitions/budget"},
+    "validation_policy": {"type": "object"},
+    "task_sha256": {"type": ["string", "null"]},
+    "environment_fingerprint": {"type": ["string", "null"]},
+    "updated_at": {"type": "string", "minLength": 1}
+  },
+  "definitions": {"budget": {"type": "object", "required": ["max_candidates", "max_expert_rounds", "max_debug_rounds", "max_batches"], "properties": {"max_candidates": {"type": "integer", "minimum": 0}, "max_expert_rounds": {"type": "integer", "minimum": 0}, "max_debug_rounds": {"type": "integer", "minimum": 0}, "max_batches": {"type": "integer", "minimum": 0}}, "additionalProperties": true}},
+  "additionalProperties": true
+}

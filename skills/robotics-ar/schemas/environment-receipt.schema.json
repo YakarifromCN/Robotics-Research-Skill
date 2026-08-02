@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-environment-receipt.v1",
+  "type": "object",
+  "required": ["schema_version", "environment_id", "fingerprint", "status", "checks", "created_at"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-environment-receipt.v1"},
+    "environment_id": {"type": "string"},
+    "fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {"enum": ["ONLINE_VERIFIED", "BLOCKED_ENVIRONMENT", "INVALID"]},
+    "checks": {"type": "object"},
+    "created_at": {"type": "string"}
+  },
+  "additionalProperties": true
+}

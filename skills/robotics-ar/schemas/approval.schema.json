@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-approval.v1",
+  "type": "object",
+  "required": ["schema_version", "approval_id", "gate", "subject_path", "subject_sha256", "approved_at", "scope", "status"],
+  "properties": {
+    "schema_version": {"const": "robotics-ar-approval.v1"},
+    "approval_id": {"type": "string"},
+    "gate": {"enum": ["IDEA", "EXPERIMENT", "TASK", "EVIDENCE", "WRITING", "REVIEW_ROUTE", "REAL_ROBOT"]},
+    "subject_path": {"type": "string"},
+    "subject_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "approved_at": {"type": "string"},
+    "scope": {"enum": ["single-use", "persistent-until-drift"]},
+    "status": {"enum": ["unused", "consumed", "invalidated"]}
+  },
+  "additionalProperties": true
+}
