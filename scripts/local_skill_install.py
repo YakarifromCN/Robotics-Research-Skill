@@ -1,0 +1,594 @@
+#!/usr/bin/env python3
+"""本地 Skill 安装、更新和诊断的共享实现。 / Shared local Skill install, update, and doctor implementation."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import urllib.request
+import zipfile
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Iterable
+
+
+SCHEMA_VERSION = "robotics-local-install.v1"
+MODES = ("SYMLINK_TRACKED_CLONE", "SAFE_STAGED_WORKTREE", "COPY_PINNED", "DIRECT_DOWNLOAD")
+PURPOSES = ("development", "use")
+SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,62}$")
+MAX_ARCHIVE_BYTES = 200 * 1024 * 1024
+
+
+class InstallError(RuntimeError):
+    """可预期的安装失败。 / Expected installation failure."""
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def default_dest() -> Path:
+    codex_home = os.environ.get("CODEX_HOME")
+    return (Path(codex_home).expanduser() if codex_home else Path.home() / ".codex") / "skills"
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def write_json(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp-{os.getpid()}")
+    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise InstallError(f"JSON object required: {path}")
+    return value
+
+
+def run_git(source_root: Path, *args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=source_root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if check and result.returncode != 0:
+        detail = (result.stderr or result.stdout or "git command failed").strip()
+        raise InstallError(f"git {' '.join(args)} failed: {detail}")
+    return result
+
+
+def is_git_root(path: Path) -> bool:
+    return path.is_dir() and (path / ".git").exists()
+
+
+def validate_skill_dir(path: Path) -> None:
+    if not SLUG_RE.fullmatch(path.name):
+        raise InstallError(f"invalid Skill slug: {path.name}")
+    if not (path / "SKILL.md").is_file():
+        raise InstallError(f"missing SKILL.md: {path}")
+
+
+def discover_skills(source_root: Path) -> dict[str, Path]:
+    skills_root = source_root / "skills"
+    if not skills_root.is_dir():
+        raise InstallError(f"missing skills directory: {skills_root}")
+    found: dict[str, Path] = {}
+    for child in sorted(skills_root.iterdir()):
+        if child.is_dir() and not child.name.startswith(".") and (child / "SKILL.md").is_file():
+            validate_skill_dir(child)
+            found[child.name] = child.resolve()
+    if not found:
+        raise InstallError(f"no installable Skill found under {skills_root}")
+    return found
+
+
+def select_skills(found: dict[str, Path], selector: str) -> list[str]:
+    names = [item.strip() for item in selector.split(",") if item.strip()]
+    if not names or names == ["all"]:
+        return sorted(found)
+    missing = sorted(set(names) - set(found))
+    if missing:
+        raise InstallError("requested Skill is missing: " + ", ".join(missing))
+    return sorted(dict.fromkeys(names))
+
+
+def resolve_destination(path: Path) -> Path:
+    return path.expanduser().resolve()
+
+
+def managed_receipt_path(dest: Path, explicit: Path | None) -> Path:
+    return resolve_destination(explicit) if explicit else dest / ".robotics-research-install.json"
+
+
+def target_is_owned_symlink(target: Path, manifest: dict[str, Any] | None, name: str) -> bool:
+    if not target.is_symlink() or not manifest:
+        return False
+    record = (manifest.get("skills") or {}).get(name)
+    if not isinstance(record, dict):
+        return False
+    expected = record.get("installed")
+    return expected is not None and Path(expected).expanduser().resolve() == target.resolve(strict=False)
+
+
+def prepare_target(target: Path, *, replace_owned: bool, old_manifest: dict[str, Any] | None, name: str) -> None:
+    if not target.exists() and not target.is_symlink():
+        return
+    if target.is_symlink() and target_is_owned_symlink(target, old_manifest, name) and replace_owned:
+        target.unlink()
+        return
+    raise InstallError(f"destination already exists and is not replaceable: {target}")
+
+
+def copy_skill(source: Path, target: Path) -> None:
+    if target.exists() or target.is_symlink():
+        raise InstallError(f"destination already exists: {target}")
+    shutil.copytree(source, target, symlinks=True)
+
+
+def symlink_skill(source: Path, target: Path, *, replace_owned: bool, old_manifest: dict[str, Any] | None, name: str) -> None:
+    prepare_target(target, replace_owned=replace_owned, old_manifest=old_manifest, name=name)
+    target.symlink_to(source, target_is_directory=True)
+
+
+def git_head(source_root: Path) -> str | None:
+    if not is_git_root(source_root):
+        return None
+    result = run_git(source_root, "rev-parse", "HEAD", check=False)
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def git_branch(source_root: Path) -> str | None:
+    if not is_git_root(source_root):
+        return None
+    result = run_git(source_root, "symbolic-ref", "--short", "HEAD", check=False)
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def git_is_dirty(source_root: Path) -> bool:
+    result = run_git(source_root, "status", "--porcelain", check=False)
+    return result.returncode != 0 or bool(result.stdout.strip())
+
+
+def source_record(name: str, source: Path | str, installed: Path, link_type: str) -> dict[str, Any]:
+    """Create a stable receipt record. / 创建稳定的安装回执记录。"""
+    if isinstance(source, Path):
+        source_label = str(source)
+        digest_path = source / "SKILL.md"
+    else:
+        source_label = source
+        digest_path = installed / "SKILL.md"
+    return {
+        "source": source_label,
+        "installed": str(installed),
+        "link_type": link_type,
+        "skill_md_sha256": sha256_file(digest_path),
+    }
+
+
+def choose_mode(purpose: str, mode: str, *, source_root: Path | None, archive_url: str | None) -> str:
+    if purpose not in PURPOSES:
+        raise InstallError(f"invalid purpose: {purpose}")
+    if mode != "auto":
+        if mode == "DIRECT_DOWNLOAD" and not archive_url:
+            raise InstallError("DIRECT_DOWNLOAD requires --archive-url")
+        if mode != "DIRECT_DOWNLOAD" and source_root is None:
+            raise InstallError(f"{mode} requires --source-root")
+        return mode
+    if purpose == "development":
+        if source_root is None:
+            raise InstallError("development auto mode requires --source-root")
+        return "SYMLINK_TRACKED_CLONE"
+    if archive_url:
+        return "DIRECT_DOWNLOAD"
+    if source_root:
+        return "SAFE_STAGED_WORKTREE"
+    raise InstallError("use auto mode requires --source-root or --archive-url")
+
+
+def safe_archive_extract(archive_url: str, destination: Path) -> tuple[Path, str]:
+    request = urllib.request.Request(archive_url, headers={"User-Agent": "Robotics-Research-Skill/1"})
+    with urllib.request.urlopen(request, timeout=60) as response:
+        data = response.read(MAX_ARCHIVE_BYTES + 1)
+    if len(data) > MAX_ARCHIVE_BYTES:
+        raise InstallError("archive exceeds 200 MiB limit")
+    archive_sha256 = hashlib.sha256(data).hexdigest()
+    archive_path = destination / "source.zip"
+    archive_path.write_bytes(data)
+    extraction_root = destination / "extracted"
+    extraction_root.mkdir()
+    with zipfile.ZipFile(archive_path) as archive:
+        root = extraction_root.resolve()
+        for member in archive.infolist():
+            candidate = (extraction_root / member.filename).resolve()
+            try:
+                candidate.relative_to(root)
+            except ValueError as exc:
+                raise InstallError(f"archive path escapes extraction root: {member.filename}") from exc
+        archive.extractall(extraction_root)
+    candidates = [path for path in extraction_root.iterdir() if path.is_dir() and (path / "skills").is_dir()]
+    if len(candidates) != 1:
+        raise InstallError("archive must contain exactly one repository root with skills/")
+    return candidates[0], archive_sha256
+
+
+def make_release(source_root: Path, dest: Path, head: str, skill_names: Iterable[str]) -> Path:
+    releases = dest / ".robotics-research-releases"
+    releases.mkdir(parents=True, exist_ok=True)
+    release = releases / head
+    if release.exists():
+        missing = [name for name in skill_names if not (release / "skills" / name / "SKILL.md").is_file()]
+        if missing:
+            raise InstallError(f"staged release is incomplete: {release} ({', '.join(missing)})")
+        return release
+    if not release.exists():
+        temporary = releases / f".{head}.tmp-{os.getpid()}"
+        if temporary.exists():
+            shutil.rmtree(temporary)
+        temporary.mkdir()
+        shared_common = source_root / "common"
+        if shared_common.is_dir():
+            shutil.copytree(shared_common, temporary / "common", symlinks=True)
+        for relative in (
+            "corpus/robotics-research-runtime.v1.json",
+            "corpus/robotics-submanifold-calibration.v1.json",
+            "corpus/venue-catalog.v2.json",
+            "scripts/route_robotics_research.py",
+            "scripts/route_robotics_submanifold.py",
+        ):
+            source = source_root / relative
+            if source.is_file():
+                target = temporary / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+        (temporary / "skills").mkdir()
+        for name in skill_names:
+            copy_skill(source_root / "skills" / name, temporary / "skills" / name)
+        os.replace(temporary, release)
+    return release
+
+
+def build_manifest(
+    *,
+    mode: str,
+    purpose: str,
+    source_root: Path | None,
+    archive_url: str | None,
+    ref: str,
+    branch: str,
+    dest: Path,
+    records: dict[str, dict[str, Any]],
+    head: str | None,
+    archive_sha256: str | None,
+    active_session_roots: Iterable[str],
+) -> dict[str, Any]:
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "install_id": f"RINST-{hashlib.sha256((str(dest) + utc_now()).encode()).hexdigest()[:16]}",
+        "mode": mode,
+        "purpose": purpose,
+        "source_root": str(source_root) if source_root else None,
+        "repo_remote": None,
+        "remote_name": "origin",
+        "tracked_branch": branch,
+        "source_ref": ref,
+        "head_commit": head,
+        "archive_url": archive_url,
+        "archive_sha256": archive_sha256,
+        "skills": records,
+        "update_policy": "MANUAL_FF_ONLY" if mode in {"SYMLINK_TRACKED_CLONE", "SAFE_STAGED_WORKTREE"} else "PINNED",
+        "require_clean_worktree": True,
+        "active_session_roots": list(active_session_roots),
+        "created_at": utc_now(),
+        "updated_at": utc_now(),
+    }
+
+
+def install(args: argparse.Namespace) -> dict[str, Any]:
+    requested_source_root = resolve_destination(args.source_root) if args.source_root else None
+    source_root = requested_source_root
+    mode = choose_mode(args.purpose, args.mode, source_root=source_root, archive_url=args.archive_url)
+    dest = resolve_destination(args.dest)
+    dest.mkdir(parents=True, exist_ok=True)
+    receipt_path = managed_receipt_path(dest, args.manifest)
+    old_manifest = read_json(receipt_path) if receipt_path.is_file() else None
+
+    temporary_download: tempfile.TemporaryDirectory[str] | None = None
+    archive_sha256: str | None = None
+    if mode == "DIRECT_DOWNLOAD":
+        temporary_download = tempfile.TemporaryDirectory(prefix="robotics-skill-download-")
+        source_root, archive_sha256 = safe_archive_extract(args.archive_url, Path(temporary_download.name))
+    if source_root is None:
+        raise InstallError("source root could not be resolved")
+    source_root = source_root.resolve()
+    if mode != "DIRECT_DOWNLOAD" and not is_git_root(source_root):
+        raise InstallError(f"source root is not a Git clone: {source_root}")
+    if mode == "SAFE_STAGED_WORKTREE" and git_is_dirty(source_root):
+        raise InstallError("SAFE_STAGED_WORKTREE requires a clean source worktree")
+    found = discover_skills(source_root)
+    selected = select_skills(found, args.skills)
+    head = git_head(source_root)
+    branch = git_branch(source_root) or args.branch
+    records: dict[str, dict[str, Any]] = {}
+
+    try:
+        if mode == "SYMLINK_TRACKED_CLONE":
+            for name in selected:
+                target = dest / name
+                symlink_skill(found[name], target, replace_owned=args.replace_owned_symlink, old_manifest=old_manifest, name=name)
+                records[name] = source_record(name, found[name], target, "symlink")
+        elif mode == "SAFE_STAGED_WORKTREE":
+            if head is None:
+                raise InstallError("SAFE_STAGED_WORKTREE requires a Git HEAD")
+            release = make_release(source_root, dest, head, selected)
+            staged_targets = [(name, dest / name, release / "skills" / name) for name in selected]
+            for name, target, _ in staged_targets:
+                prepare_target(target, replace_owned=args.replace_owned_symlink, old_manifest=old_manifest, name=name)
+            for name, target, source in staged_targets:
+                target.symlink_to(source, target_is_directory=True)
+                records[name] = source_record(name, source, target, "staged-symlink")
+        elif mode in {"COPY_PINNED", "DIRECT_DOWNLOAD"}:
+            for name in selected:
+                target = dest / name
+                copy_skill(found[name], target)
+                if mode == "DIRECT_DOWNLOAD":
+                    records[name] = source_record(name, f"archive://{args.archive_url}", target, "copy")
+                else:
+                    records[name] = source_record(name, found[name], target, "copy")
+        else:
+            raise InstallError(f"unsupported mode: {mode}")
+        manifest = build_manifest(
+            mode=mode,
+            purpose=args.purpose,
+            source_root=requested_source_root if mode != "DIRECT_DOWNLOAD" else None,
+            archive_url=args.archive_url,
+            ref=args.ref,
+            branch=branch,
+            dest=dest,
+            records=records,
+            head=head,
+            archive_sha256=archive_sha256,
+            active_session_roots=args.active_session_root,
+        )
+        if requested_source_root and mode != "DIRECT_DOWNLOAD":
+            remote = run_git(source_root, "remote", "get-url", "origin", check=False)
+            manifest["repo_remote"] = remote.stdout.strip() if remote.returncode == 0 else None
+        write_json(receipt_path, manifest)
+        return {"status": "INSTALLED", "receipt": str(receipt_path), "mode": mode, "skills": selected, "head_commit": head}
+    finally:
+        if temporary_download:
+            temporary_download.cleanup()
+
+
+def load_receipt(path: Path) -> tuple[dict[str, Any], Path]:
+    receipt_path = resolve_destination(path)
+    if not receipt_path.is_file():
+        raise InstallError(f"install receipt not found: {receipt_path}")
+    return read_json(receipt_path), receipt_path
+
+
+def active_session(receipt: dict[str, Any]) -> str | None:
+    for root in receipt.get("active_session_roots") or []:
+        lock = Path(root).expanduser() / ".robotics-ar" / "session.lock"
+        if lock.exists():
+            return str(lock)
+    return None
+
+
+def doctor(receipt_path: Path) -> dict[str, Any]:
+    receipt, path = load_receipt(receipt_path)
+    errors: list[str] = []
+    warnings: list[str] = []
+    source_root = Path(receipt["source_root"]).expanduser() if receipt.get("source_root") else None
+    mode = receipt.get("mode")
+    if receipt.get("schema_version") != SCHEMA_VERSION:
+        errors.append(f"unsupported receipt schema: {receipt.get('schema_version')}")
+    if mode not in MODES:
+        errors.append(f"unsupported installation mode: {mode}")
+    if source_root and not source_root.exists() and mode != "DIRECT_DOWNLOAD":
+        errors.append(f"source root missing: {source_root}")
+    for name, record in (receipt.get("skills") or {}).items():
+        installed = Path(record.get("installed", "")).expanduser()
+        source = Path(record.get("source", "")).expanduser()
+        if not installed.exists() and not installed.is_symlink():
+            errors.append(f"installed Skill missing: {name}")
+            continue
+        if mode == "SYMLINK_TRACKED_CLONE":
+            if not installed.is_symlink() or installed.resolve(strict=False) != source.resolve(strict=False):
+                errors.append(f"symlink drift: {name}")
+        if not (installed / "SKILL.md").is_file():
+            errors.append(f"installed SKILL.md missing: {name}")
+        elif sha256_file(installed / "SKILL.md") != record.get("skill_md_sha256"):
+            warnings.append(f"SKILL.md digest changed: {name}")
+    current_head = git_head(source_root) if source_root and source_root.exists() else None
+    if current_head and receipt.get("head_commit") and current_head != receipt["head_commit"]:
+        warnings.append(f"source HEAD drift: {receipt['head_commit']} -> {current_head}")
+    payload = {
+        "schema_version": "robotics-local-doctor.v1",
+        "status": "PASS" if not errors else "FAIL",
+        "receipt": str(path),
+        "mode": mode,
+        "source_root": str(source_root) if source_root else None,
+        "branch": git_branch(source_root) if source_root and source_root.exists() else None,
+        "head_commit": current_head,
+        "errors": errors,
+        "warnings": warnings,
+    }
+    return payload
+
+
+def fast_check(source_root: Path, selected: Iterable[str]) -> None:
+    found = discover_skills(source_root)
+    for name in selected:
+        skill = found.get(name)
+        if skill is None:
+            raise InstallError(f"Skill missing during update: {name}")
+        for script in skill.rglob("*.py"):
+            compile(script.read_text(encoding="utf-8"), str(script), "exec")
+
+
+def update(args: argparse.Namespace) -> dict[str, Any]:
+    receipt, receipt_path = load_receipt(args.manifest)
+    mode = receipt.get("mode")
+    if mode not in {"SYMLINK_TRACKED_CLONE", "SAFE_STAGED_WORKTREE"}:
+        return {"status": "NOT_UPDATABLE", "mode": mode, "receipt": str(receipt_path)}
+    source_root = Path(receipt.get("source_root", "")).expanduser().resolve()
+    if not is_git_root(source_root):
+        raise InstallError(f"tracked source root missing: {source_root}")
+    lock = active_session(receipt)
+    if lock:
+        raise InstallError(f"UPDATE_BLOCKED: active session lock: {lock}")
+    if receipt.get("require_clean_worktree", True) and git_is_dirty(source_root):
+        raise InstallError("UPDATE_BLOCKED: source worktree is dirty")
+    branch = receipt.get("tracked_branch") or git_branch(source_root)
+    if git_branch(source_root) != branch:
+        raise InstallError(f"UPDATE_BLOCKED: branch mismatch, expected {branch}")
+    if args.fetch:
+        run_git(source_root, "fetch", "--prune", receipt.get("remote_name", "origin"))
+        remote_ref = f"{receipt.get('remote_name', 'origin')}/{branch}"
+        local_head = git_head(source_root)
+        remote_head_result = run_git(source_root, "rev-parse", remote_ref, check=False)
+        if remote_head_result.returncode != 0:
+            raise InstallError(f"cannot resolve remote ref: {remote_ref}")
+        remote_head = remote_head_result.stdout.strip()
+        if local_head != remote_head:
+            local_before_remote = run_git(source_root, "merge-base", "--is-ancestor", "HEAD", remote_ref, check=False)
+            remote_before_local = run_git(source_root, "merge-base", "--is-ancestor", remote_ref, "HEAD", check=False)
+            if local_before_remote.returncode == 0:
+                if not args.dry_run:
+                    run_git(source_root, "merge", "--ff-only", remote_ref)
+            elif remote_before_local.returncode == 0:
+                pass
+            else:
+                raise InstallError("UPDATE_BLOCKED: local and remote branches diverged")
+    current_head = git_head(source_root)
+    selected = sorted((receipt.get("skills") or {}).keys())
+    if args.run_fast_checks and not args.dry_run:
+        fast_check(source_root, selected)
+    if mode == "SAFE_STAGED_WORKTREE" and not args.dry_run:
+        dest = Path(next(iter(receipt["skills"].values()))["installed"]).expanduser().parent
+        release = make_release(source_root, dest, current_head or "unknown", selected)
+        pending: list[tuple[str, Path, Path, Path]] = []
+        for name in selected:
+            target = dest / name
+            old = receipt["skills"][name]
+            old_source = Path(old["source"]).expanduser().resolve(strict=False)
+            if not target.is_symlink() or target.resolve(strict=False) != old_source:
+                raise InstallError(f"UPDATE_BLOCKED: managed destination drift: {target}")
+            pending.append((name, target, old_source, release / "skills" / name))
+        switched: list[tuple[Path, Path]] = []
+        try:
+            for name, target, old_source, new_source in pending:
+                target.unlink()
+                target.symlink_to(new_source, target_is_directory=True)
+                switched.append((target, old_source))
+                receipt["skills"][name] = source_record(name, new_source, target, "staged-symlink")
+        except OSError as exc:
+            for target, old_source in reversed(switched):
+                if target.is_symlink() or target.exists():
+                    target.unlink()
+                target.symlink_to(old_source, target_is_directory=True)
+            raise InstallError(f"UPDATE_BLOCKED: staged link switch rolled back: {exc}") from exc
+    receipt["head_commit"] = current_head
+    receipt["updated_at"] = utc_now()
+    if not args.dry_run:
+        write_json(receipt_path, receipt)
+    return {"status": "UPDATED" if not args.dry_run else "WOULD_UPDATE", "mode": mode, "head_commit": current_head, "receipt": str(receipt_path)}
+
+
+def parser_for_install() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="安装五个并列机器人 Skill。 / Install the five sibling robotics Skills locally.")
+    parser.add_argument("--source-root", type=Path)
+    parser.add_argument("--archive-url")
+    parser.add_argument("--dest", type=Path, default=default_dest())
+    parser.add_argument("--manifest", type=Path)
+    parser.add_argument("--skills", default="all", help="Skill slug 列表（逗号分隔）或 all / comma-separated Skill slugs or all")
+    parser.add_argument("--purpose", choices=PURPOSES, default="use")
+    parser.add_argument("--mode", choices=("auto", *MODES), default="auto")
+    parser.add_argument("--branch", default="main")
+    parser.add_argument("--ref", default="main")
+    parser.add_argument(
+        "--active-session-root",
+        action="append",
+        default=[],
+        help="可选 Robotics-AR 会话根目录，其锁会阻止更新 / optional session root whose lock blocks tracked updates",
+    )
+    parser.add_argument("--replace-owned-symlink", action="store_true")
+    return parser
+
+
+def parser_for_update() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="安全更新跟踪型本地 Skill。 / Safely update a tracked local Skill installation.")
+    parser.add_argument("--install-receipt", dest="manifest", type=Path, required=True)
+    parser.add_argument("--ff-only", action="store_true", required=True)
+    fetch_group = parser.add_mutually_exclusive_group()
+    fetch_group.add_argument("--fetch", dest="fetch", action="store_true", help="更新前 fetch origin / fetch origin before fast-forwarding")
+    fetch_group.add_argument("--no-fetch", dest="fetch", action="store_false", help="使用已有远程引用 / use already fetched remote refs")
+    parser.set_defaults(fetch=True)
+    parser.add_argument("--run-fast-checks", action="store_true")
+    parser.add_argument("--watch-seconds", type=int, default=0)
+    parser.add_argument("--dry-run", action="store_true")
+    return parser
+
+
+def parser_for_doctor() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="诊断本地机器人 Skill 安装。 / Diagnose a local robotics Skill installation.")
+    parser.add_argument("--install-receipt", dest="manifest", type=Path, required=True)
+    return parser
+
+
+def main_install(argv: list[str] | None = None) -> int:
+    try:
+        result = install(parser_for_install().parse_args(argv))
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    except (InstallError, OSError, ValueError) as exc:
+        print(json.dumps({"status": "ERROR", "error": str(exc)}, ensure_ascii=False, indent=2))
+        return 2
+
+
+def main_update(argv: list[str] | None = None) -> int:
+    try:
+        args = parser_for_update().parse_args(argv)
+        if args.watch_seconds < 0:
+            raise InstallError("--watch-seconds must be non-negative")
+        if args.watch_seconds:
+            import time
+
+            while True:
+                result = update(args)
+                print(json.dumps(result, ensure_ascii=False), flush=True)
+                time.sleep(args.watch_seconds)
+        result = update(args)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    except (InstallError, OSError, ValueError) as exc:
+        print(json.dumps({"status": "ERROR", "error": str(exc)}, ensure_ascii=False, indent=2))
+        return 2
+
+
+def main_doctor(argv: list[str] | None = None) -> int:
+    try:
+        result = doctor(parser_for_doctor().parse_args(argv).manifest)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0 if result["status"] == "PASS" else 1
+    except (InstallError, OSError, ValueError) as exc:
+        print(json.dumps({"status": "ERROR", "error": str(exc)}, ensure_ascii=False, indent=2))
+        return 2

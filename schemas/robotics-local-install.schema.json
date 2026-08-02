@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/YakarifromCN/Robotics-Research-Skill/schemas/robotics-local-install.schema.json",
+  "title": "Robotics Research Skill local installation receipt",
+  "description": "本地安装、更新和诊断回执。 / Receipt for local installation, update, and diagnosis.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "install_id",
+    "mode",
+    "purpose",
+    "skills",
+    "update_policy",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {"const": "robotics-local-install.v1"},
+    "install_id": {"type": "string", "pattern": "^RINST-[a-f0-9]{16}$"},
+    "mode": {
+      "type": "string",
+      "enum": ["SYMLINK_TRACKED_CLONE", "SAFE_STAGED_WORKTREE", "COPY_PINNED", "DIRECT_DOWNLOAD"]
+    },
+    "purpose": {"type": "string", "enum": ["development", "use"]},
+    "source_root": {"type": ["string", "null"]},
+    "repo_remote": {"type": ["string", "null"]},
+    "remote_name": {"type": "string"},
+    "tracked_branch": {"type": ["string", "null"]},
+    "source_ref": {"type": ["string", "null"]},
+    "head_commit": {"type": ["string", "null"]},
+    "archive_url": {"type": ["string", "null"]},
+    "archive_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "skills": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["source", "installed", "link_type", "skill_md_sha256"],
+        "properties": {
+          "source": {"type": "string"},
+          "installed": {"type": "string"},
+          "link_type": {"type": "string", "enum": ["symlink", "staged-symlink", "copy"]},
+          "skill_md_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "update_policy": {"type": "string", "enum": ["MANUAL_FF_ONLY", "PINNED"]},
+    "require_clean_worktree": {"type": "boolean"},
+    "active_session_roots": {"type": "array", "items": {"type": "string"}},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}

@@ -134,6 +134,73 @@ python3 scripts/run_all_checks_corpus_first.py
 
 每个 Skill 的 `assets/` 目录提供语言中立的起始模板；不要直接把模板中的 `null` 当成有效科研判断。
 
+## 安装模式与本地更新
+
+安装器位于 `scripts/`，面向五个并列 Skill：`develop-robotics-idea`、`design-robotics-experiment`、`write-robotics-paper`、`review-robotic-feedback`，以及可选的并列 `robotics-ar`。`robotics-ar` 只是在需要时启动自动研究循环，不是其他 Skill 的父 Skill 或依赖；当它加入仓库后，`--skills all` 会自动发现它。
+
+安装目的会决定 `--mode auto` 的默认行为：
+
+| 使用目的 | `auto` 的默认模式 | 行为 |
+| --- | --- | --- |
+| `development` | `SYMLINK_TRACKED_CLONE` | 从本地 Git clone 将每个 Skill 建立到 `$CODEX_HOME/skills` 的符号链接；本地分支、工作区修改和提交立即可见，无需重新安装。 |
+| `use` + `--source-root` | `SAFE_STAGED_WORKTREE` | 从本地 clone 生成带 commit 标识的发布快照，再原子切换 Skill 链接；更新前检查分支、干净工作区、快速校验和 fast-forward。 |
+| `use` + `--archive-url` | `DIRECT_DOWNLOAD` | 下载公开 ZIP 并按 SHA-256 记录；这是固定快照，适合只使用 Skill 的环境。 |
+
+参与开发时：
+
+```bash
+git clone git@github.com:YakarifromCN/Robotics-Research-Skill.git
+cd Robotics-Research-Skill
+python3 scripts/install_local_skills.py \
+  --source-root "$PWD" \
+  --purpose development
+```
+
+普通使用者可从本地 clone 建立安全发布快照：
+
+```bash
+python3 scripts/install_local_skills.py \
+  --source-root /path/to/Robotics-Research-Skill \
+  --purpose use \
+  --mode SAFE_STAGED_WORKTREE
+```
+
+也可以直接从远程公开归档安装固定版本：
+
+```bash
+python3 scripts/install_local_skills.py \
+  --archive-url https://github.com/YakarifromCN/Robotics-Research-Skill/archive/refs/heads/main.zip \
+  --purpose use \
+  --mode DIRECT_DOWNLOAD
+```
+
+默认目标目录是 `${CODEX_HOME:-$HOME/.codex}/skills`；可用 `--dest` 改变。`--skills all` 安装所有被发现的并列 Skill，也可用逗号分隔的 slug 选择子集。安装器不会覆盖已有目录；只有显式提供 `--replace-owned-symlink` 时才会替换本安装器自己生成的符号链接。
+
+若安装时已经有 Robotics-AR 会话根目录，可重复提供 `--active-session-root /path/to/session`；只要该目录下存在 `.robotics-ar/session.lock`，跟踪型更新就会被阻止。
+
+安装回执保存在目标目录的 `.robotics-research-install.json`，包含模式、目的、源 clone、分支、commit、Skill 文件哈希、归档哈希和更新策略，不包含用户稿件、实验数据或全局工作区快照。
+
+跟踪本地 clone 的安装可手动刷新回执并执行快速校验：
+
+```bash
+python3 scripts/update_local_skills.py \
+  --install-receipt "$HOME/.codex/skills/.robotics-research-install.json" \
+  --ff-only \
+  --fetch \
+  --run-fast-checks
+```
+
+如果只希望使用已经 fetch 的远程引用，可改用 `--no-fetch`。`SAFE_STAGED_WORKTREE` 每次更新先在新发布目录完成复制和校验，再切换链接；分支偏离、未提交修改、活动中的 `.robotics-ar/session.lock` 或检查失败都会停止更新。`SYMLINK_TRACKED_CLONE` 的核心特性仍是本地分支内容实时可见。`DIRECT_DOWNLOAD` 和 `COPY_PINNED` 是固定快照，不提供自动更新。
+
+检查安装是否漂移：
+
+```bash
+python3 scripts/doctor_local_skills.py \
+  --install-receipt "$HOME/.codex/skills/.robotics-research-install.json"
+```
+
+doctor 会报告 `PASS`/`FAIL`、符号链接漂移、Skill 文件哈希变化、源 clone 是否存在以及当前 HEAD；它不会读取待审稿 PDF、LaTeX 工作区或用户项目文件。
+
 ## 典型工作流
 
 ```text
@@ -275,12 +342,13 @@ Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指�
 
 ```text
 Robotics-Research-Skill/
-├── skills/                  # 四个可安装原子 Skill
+├── skills/                  # 五个并列、可独立安装的 Skill（robotics-ar 可选）
 ├── common/                  # 严格 JSON、ID、摘要、证据画像和判定规则
 ├── references/packs/        # 按需加载的机器人领域包
 ├── assets/                  # project manifest 与 target snapshot 模板
 ├── corpus/                  # 公开论文索引与合成 Golden Suite
-├── scripts/                 # 统一检查、迁移和项目级验证工具
+├── scripts/                 # 安装、更新、doctor、统一检查和项目级验证工具
+├── schemas/                 # 安装回执等语言中立 schema
 ├── tests/                   # 跨阶段与双语检查
 ├── SOURCE_SNAPSHOTS.json    # 上游来源快照
 ├── THIRD_PARTY_NOTICES.md   # 第三方声明
@@ -293,7 +361,7 @@ Robotics-Research-Skill/
 python3 scripts/run_all_checks.py
 ```
 
-统一入口执行四个 Skill 的单元测试、跨阶段合同检查和双语布局检查。发布前还建议执行密钥、隐私标识、缓存文件和未替换占位符扫描。
+统一入口执行并列 Skill 的单元测试、安装模式回归测试、跨阶段合同检查和双语布局检查。发布前还建议执行密钥、隐私标识、缓存文件和未替换占位符扫描。
 
 ## 隐私与数据原则
 
@@ -369,6 +437,73 @@ Use $review-robotic-feedback to review a robotics paper and produce a traceable 
 
 Templates live in each skill's `assets/` directory. A `null` template value is an unresolved scientific decision, not a valid answer.
 
+## Installation modes and local updates
+
+The repository ships one installer for five sibling Skills: `develop-robotics-idea`, `design-robotics-experiment`, `write-robotics-paper`, `review-robotic-feedback`, and the optional sibling `robotics-ar`. `robotics-ar` can start an automated research loop when explicitly requested; it is not a parent Skill and the other four Skills do not depend on it. Once it is present in the repository, `--skills all` discovers it automatically.
+
+The `--mode auto` choice follows the declared purpose:
+
+| Purpose | Default mode | Behavior |
+| --- | --- | --- |
+| `development` | `SYMLINK_TRACKED_CLONE` | Links each Skill from a local Git clone into `$CODEX_HOME/skills`; local branch changes, working-tree edits, and commits are immediately visible without reinstalling. |
+| `use` with `--source-root` | `SAFE_STAGED_WORKTREE` | Builds a commit-addressed release snapshot from the clone and switches Skill links atomically; updates check the branch, clean worktree, fast checks, and fast-forward relation. |
+| `use` with `--archive-url` | `DIRECT_DOWNLOAD` | Downloads a public ZIP and records its SHA-256; this is a pinned snapshot for users who only need to run the Skills. |
+
+For active development:
+
+```bash
+git clone git@github.com:YakarifromCN/Robotics-Research-Skill.git
+cd Robotics-Research-Skill
+python3 scripts/install_local_skills.py \
+  --source-root "$PWD" \
+  --purpose development
+```
+
+For normal use from a local clone, choose the staged mode explicitly:
+
+```bash
+python3 scripts/install_local_skills.py \
+  --source-root /path/to/Robotics-Research-Skill \
+  --purpose use \
+  --mode SAFE_STAGED_WORKTREE
+```
+
+For a pinned remote archive:
+
+```bash
+python3 scripts/install_local_skills.py \
+  --archive-url https://github.com/YakarifromCN/Robotics-Research-Skill/archive/refs/heads/main.zip \
+  --purpose use \
+  --mode DIRECT_DOWNLOAD
+```
+
+The default destination is `${CODEX_HOME:-$HOME/.codex}/skills`; override it with `--dest`. `--skills all` installs every discovered sibling Skill, while a comma-separated list selects a subset. The installer never overwrites an existing directory; `--replace-owned-symlink` is required to replace a symlink created by this installer.
+
+If a Robotics-AR session root is already known, repeat `--active-session-root /path/to/session` during installation. A tracked update is blocked while that root contains `.robotics-ar/session.lock`.
+
+Each installation writes `.robotics-research-install.json` in the destination. The receipt records the mode, purpose, source clone, branch, commit, Skill-file hashes, archive hash, and update policy. It does not record manuscript contents, experiment data, or a whole-workspace snapshot.
+
+Refresh a tracked clone and run fast checks with:
+
+```bash
+python3 scripts/update_local_skills.py \
+  --install-receipt "$HOME/.codex/skills/.robotics-research-install.json" \
+  --ff-only \
+  --fetch \
+  --run-fast-checks
+```
+
+Use `--no-fetch` when the desired remote refs are already available locally. `SAFE_STAGED_WORKTREE` copies and checks a new release directory before switching links; branch divergence, uncommitted changes, an active `.robotics-ar/session.lock`, or failed checks stop the update. `SYMLINK_TRACKED_CLONE` remains live by design: the installed links reflect the local branch immediately. `DIRECT_DOWNLOAD` and `COPY_PINNED` are pinned snapshots and are not auto-updatable.
+
+Diagnose drift with:
+
+```bash
+python3 scripts/doctor_local_skills.py \
+  --install-receipt "$HOME/.codex/skills/.robotics-research-install.json"
+```
+
+The doctor reports `PASS`/`FAIL`, link drift, Skill-file digest changes, source-clone availability, and the current HEAD. It never scans a manuscript PDF, a LaTeX workspace, or the user's general project workspace.
+
 ## Artifact flow
 
 ```text
@@ -412,7 +547,7 @@ python3 scripts/run_all_checks.py
 python3 scripts/run_all_checks_corpus_first.py
 ```
 
-The command runs all four skill test suites, cross-stage contract checks, and bilingual-layout validation. Each skill can also be validated independently with the scripts documented in its `SKILL.md`.
+The command runs the sibling skill test suites, the installation-mode regression tests, cross-stage contract checks, and bilingual-layout validation. Each skill can also be validated independently with the scripts documented in its `SKILL.md`.
 
 ## Privacy
 
