@@ -1,5 +1,42 @@
 {
   "snapshot_date": "2026-07-29",
+  "robotics_ar_references": {
+    "snapshot_date": "2026-08-03",
+    "aris": {
+      "repository": "https://github.com/wanshuiyin/auto-claude-code-research-in-sleep",
+      "commit": "3e49e63aae6a653067f9e2101d50457f1f7d6a2f",
+      "license": "MIT",
+      "runtime_dependency": false
+    },
+    "supervisor_skills": {
+      "repository": "https://github.com/HKUSTDial/Supervisor-Skills",
+      "resolved_commit": null,
+      "runtime_dependency": false
+    },
+    "researchstudio_paper": {
+      "paper": "https://arxiv.org/abs/2607.04439",
+      "runtime_dependency": false
+    },
+    "academic_research_skills_codex": {
+      "repository": "https://github.com/Imbad0202/academic-research-skills-codex",
+      "resolved_commit": null,
+      "runtime_dependency": false
+    },
+    "awesome_journal_skills": {
+      "repository": "https://github.com/brycewang-stanford/Awesome-Journal-Skills",
+      "commit": "9f86f094d6a7a680fb14e169336dd98bf75436ec",
+      "runtime_dependency": false
+    },
+    "nature_skills": {
+      "repository": "https://github.com/Yuan1z0825/nature-skills",
+      "resolved_commit": null,
+      "runtime_dependency": false
+    },
+    "public_paper_corpus": {
+      "description": "Publicly searchable conference and journal papers used for descriptive analysis and evidence/venue routing",
+      "inference_boundary": "No acceptance probability, quality ranking, or statistical causal conclusion"
+    }
+  },
   "researchstudio": {
     "repository": "https://github.com/microsoft/ResearchStudio",
     "commit": "3c120d8e801428d56f3ed66fc3e20b4e286df053",
