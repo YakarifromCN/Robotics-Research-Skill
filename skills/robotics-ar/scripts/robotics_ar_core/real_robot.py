@@ -156,9 +156,18 @@ class OneShotRealRobotToken:
 
         return str(self.token["token_id"])
 
+    def _assert_integrity(self) -> None:
+        """验证 token 自身安全 hash。 / Verify the token's own safety hash."""
+
+        expected = self.token.get("token_sha256")
+        actual = sha256_obj({key: value for key, value in self.token.items() if key != "token_sha256"})
+        if not expected or expected != actual:
+            raise RealRobotGateError("real-robot token integrity mismatch")
+
     def save(self, path: Path | str) -> Path:
         """原子保存 token。 / Atomically save the token."""
 
+        self._assert_integrity()
         target = Path(path)
         atomic_write_json(target, self.token)
         self._path = target
@@ -169,12 +178,14 @@ class OneShotRealRobotToken:
         """读取 token。 / Load a token."""
 
         token = cls(read_json(path))
+        token._assert_integrity()
         token._path = Path(path)
         return token
 
     def consume(self, *, binding: Mapping[str, Any], stop_status: str = "READY", retry_requested: bool = False) -> Dict[str, Any]:
         """验证绑定后消费一次；不执行设备命令。 / Validate binding and consume once without device I/O."""
 
+        self._assert_integrity()
         if self.token.get("status") != "unused":
             raise RealRobotGateError("real-robot token replay rejected")
         expected = dict(self.token.get("binding", {}))

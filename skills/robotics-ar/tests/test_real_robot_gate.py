@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+import json
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
@@ -79,6 +80,17 @@ class RealRobotGateTests(unittest.TestCase):
             self.assertEqual(outcome["status"], "STOP_SAVE_PAUSE_REPORT_USER_DECISION")
             self.assertTrue((root / "receipt.json").exists())
             self.assertIn("STOP", (root / "report.md").read_text(encoding="utf-8"))
+
+    def test_token_integrity_tamper_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "token.json"
+            token = OneShotRealRobotToken.issue(task_sha256="a" * 64, environment_sha256="b" * 64, adapter_sha256="c" * 64, safety_limits_sha256="d" * 64, batch_id="batch-1", operator_presence="present")
+            token.save(path)
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data["binding"]["batch_id"] = "tampered"
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaises(RealRobotGateError):
+                OneShotRealRobotToken.load(path)
 
 
 if __name__ == "__main__":

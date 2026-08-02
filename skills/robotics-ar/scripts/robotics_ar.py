@@ -153,7 +153,7 @@ def command_enable_execution(args: argparse.Namespace) -> Dict[str, Any]:
         raise CLIError("ONLINE_VERIFIED receipt required")
     if args.dry_run:
         return _dry(args, "enable-execution", fingerprint=receipt.get("fingerprint"))
-    state = manager.enable_execution(receipt)
+    state = manager.enable_execution(receipt, receipt_path=args.receipt)
     return {"status": "PASS", "state": state, "environment_fingerprint": receipt["fingerprint"]}
 
 

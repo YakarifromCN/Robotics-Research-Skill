@@ -32,6 +32,14 @@ class StateMachineTests(unittest.TestCase):
     def test_active_state_can_pause(self) -> None:
         self.assertTrue(is_active_state("IMPLEMENTING"))
         self.assertFalse(is_active_state("PAUSED"))
+        for state in STATES:
+            if is_active_state(state) and state != "PAUSING":
+                validate_transition(state, "PAUSING")
+
+    def test_every_active_state_can_restore_from_bootstrap(self) -> None:
+        for state in STATES:
+            if is_active_state(state) and state not in {"PAUSING", "BOOTSTRAP_VALIDATING"}:
+                validate_transition("BOOTSTRAP_VALIDATING", state)
 
 
 if __name__ == "__main__":

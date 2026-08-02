@@ -6,6 +6,7 @@ Test the Supervisor, approval hashes, task compilation, and pause/resume.
 from __future__ import annotations
 
 from pathlib import Path
+import json
 import sys
 import tempfile
 import unittest
@@ -65,6 +66,20 @@ class SupervisorTests(unittest.TestCase):
             with self.assertRaises(GateError):
                 manager.consume_approval(manager.paths.approvals / f"{approval['approval_id']}.json")
 
+    def test_approval_receipt_tamper_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            manager = SessionManager(directory)
+            manager.initialize(mode="PLANNING_ONLY", interaction_language="zh", session_id="RAS-TEST")
+            subject = Path(directory) / "subject.json"
+            subject.write_text("one", encoding="utf-8")
+            approval = manager.approve_subject("IDEA", subject)
+            path = manager.paths.approvals / f"{approval['approval_id']}.json"
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data["gate"] = "REAL_ROBOT"
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaises(GateError):
+                manager.consume_approval(path)
+
     def test_pause_and_resume_from_active_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             manager = SessionManager(directory)
@@ -96,6 +111,30 @@ class SupervisorTests(unittest.TestCase):
             state = manager.enable_execution(receipt)
             self.assertEqual(state["state"], "EXECUTION_READY")
             self.assertEqual(state["environment_fingerprint"], "a" * 64)
+
+    def test_environment_receipt_fingerprint_is_required(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            manager = SessionManager(directory)
+            manager.initialize(mode="EXECUTION_ENABLED", interaction_language="zh", session_id="RAS-TEST")
+            manager.transition("TASK_COMPILATION", "START_TASK")
+            manager.transition("AWAITING_TASK_APPROVAL", "TASK_COMPILED")
+            manager.transition("IMPLEMENTING", "TASK_APPROVED")
+            manager.transition("TESTING", "IMPLEMENTED")
+            with self.assertRaises(SessionError):
+                manager.enable_execution({"status": "ONLINE_VERIFIED"})
+
+    def test_resume_rejects_task_hash_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            manager = SessionManager(directory)
+            manager.initialize(mode="PLANNING_ONLY", interaction_language="zh", session_id="RAS-TEST")
+            task = manager.compile_task("task", allowed_paths=["src"], forbidden_paths=["raw"], stop_conditions=["budget"])
+            manager.pause("user request")
+            task_path = Path(task["task_path"])
+            data = json.loads(task_path.read_text(encoding="utf-8"))
+            data["allowed_paths"] = ["changed"]
+            task_path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaises(SessionError):
+                SessionManager(directory).resume()
 
     def test_dirty_git_detection_is_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

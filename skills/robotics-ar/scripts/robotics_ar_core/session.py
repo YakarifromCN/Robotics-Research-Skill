@@ -135,6 +135,21 @@ class SessionManager:
         "user-instructions",
     )
 
+    ENVIRONMENT_BOUND_STATES = frozenset(
+        {
+            "EXECUTION_READY",
+            "RUNNING_ENVIRONMENT",
+            "ANALYZING",
+            "AWAITING_BATCH_REVIEW",
+            "EVIDENCE_FREEZE",
+            "AWAITING_EVIDENCE_APPROVAL",
+            "INVOKING_WRITING_SKILL",
+            "AWAITING_WRITING_APPROVAL",
+            "INVOKING_REVIEW_SKILL",
+            "AWAITING_REVIEW_ROUTE",
+        }
+    )
+
     def __init__(self, project_root: Path | str) -> None:
         self.paths = SessionPaths.from_project(project_root)
         self._state: Optional[Dict[str, Any]] = None
@@ -330,7 +345,7 @@ class SessionManager:
 
         return ApprovalManager(self.paths.approvals).consume(approval_path)
 
-    def enable_execution(self, environment_receipt: Mapping[str, Any]) -> Dict[str, Any]:
+    def enable_execution(self, environment_receipt: Mapping[str, Any], *, receipt_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """绑定 ONLINE_VERIFIED environment fingerprint 并进入执行就绪。
 
         Bind an ONLINE_VERIFIED environment fingerprint and enter execution-ready.
@@ -338,15 +353,20 @@ class SessionManager:
 
         if environment_receipt.get("status") != "ONLINE_VERIFIED":
             raise SessionError("ONLINE_VERIFIED receipt required")
+        fingerprint = str(environment_receipt.get("fingerprint") or "")
+        if not re.fullmatch(r"[0-9a-f]{64}", fingerprint):
+            raise SessionError("ONLINE_VERIFIED receipt fingerprint must be a 64-hex digest")
         current = self.state["state"]
         if current == "TESTING":
-            self._transition("EXECUTION_READY", "TESTS_PASSED", {"fingerprint": environment_receipt.get("fingerprint")})
+            self._transition("EXECUTION_READY", "TESTS_PASSED", {"fingerprint": fingerprint})
         elif current == "BLOCKED_ENVIRONMENT":
-            self._transition("EXECUTION_READY", "ENVIRONMENT_VERIFIED", {"fingerprint": environment_receipt.get("fingerprint")})
+            self._transition("EXECUTION_READY", "ENVIRONMENT_VERIFIED", {"fingerprint": fingerprint})
         elif current != "EXECUTION_READY":
             raise SessionError(f"cannot enable execution from {current}")
         updated = dict(self.state)
-        updated["environment_fingerprint"] = environment_receipt.get("fingerprint")
+        updated["environment_fingerprint"] = fingerprint
+        if receipt_path is not None:
+            updated["environment_receipt_path"] = Path(receipt_path).resolve().as_posix()
         atomic_write_json(self.paths.state, updated)
         self._state = updated
         return dict(updated)
@@ -359,8 +379,14 @@ class SessionManager:
             raise SessionError(f"state is not pausable: {current}")
         self._transition("PAUSING", "PAUSE_REQUESTED", {"reason": reason, "safe_state": current})
         registry = ProcessRegistry(self.paths.root / "process-registry.json")
-        for entry in registry.stale_entries():
-            registry.mark_stopped(int(entry["pid"]), "STALE_PID")
+        for entry in list(registry._read()):
+            if entry.get("status") != "RUNNING":
+                continue
+            pid = int(entry["pid"])
+            if ProcessRegistry.is_alive(pid):
+                registry.stop(pid)
+            else:
+                registry.mark_stopped(pid, "STALE_PID")
         write_report(self.paths.root / "report.md", title="Robotics-AR report", state="PAUSING", summary=reason, actions=["resume after validating task and environment hashes"])
         write_handoff(self.paths.root / "handoff.md", state="PAUSING", session_id=self.session_id, reason=reason)
         return self._transition("PAUSED", "PAUSE_COMMITTED", {"reason": reason, "safe_state": current})
@@ -373,8 +399,80 @@ class SessionManager:
         events = EventLog(self.paths.events, self.session_id).read_events()
         pause_events = [event for event in events if event.get("event_type") == "PAUSE_REQUESTED"]
         safe_state = pause_events[-1].get("payload", {}).get("safe_state") if pause_events else "PLANNING_READY"
+        self._validate_resume_artifacts(str(safe_state))
         self._transition("BOOTSTRAP_VALIDATING", "RESUME_VALIDATING", {"safe_state": safe_state})
         return self._transition(str(safe_state), "RESUME_VALIDATED", {"safe_state": safe_state})
+
+    def _validate_resume_artifacts(self, safe_state: str) -> None:
+        """恢复前校验 task、环境、预算和 token 工件。
+
+        Validate task, environment, budget, and token artifacts before resume.
+        """
+
+        state = self.state
+        if self.dirty_git():
+            raise SessionError("resume blocked: project Git worktree is dirty")
+        budget = Budget.from_mapping(state.get("exploration_budget", {}))
+        for used, maximum in (
+            (budget.candidates_used, budget.max_candidates),
+            (budget.expert_rounds_used, budget.max_expert_rounds),
+            (budget.debug_rounds_used, budget.max_debug_rounds),
+            (budget.batches_used, budget.max_batches),
+        ):
+            if used > maximum:
+                raise SessionError("resume blocked: exploration budget exceeded")
+
+        task_path_value = state.get("task_path")
+        task_hash = state.get("task_sha256")
+        task_bound_states = {
+            "AWAITING_TASK_APPROVAL",
+            "IMPLEMENTING",
+            "TESTING",
+            "DEBUGGING",
+            "EXECUTION_READY",
+            "RUNNING_ENVIRONMENT",
+            "ANALYZING",
+            "AWAITING_BATCH_REVIEW",
+            "EVIDENCE_FREEZE",
+            "AWAITING_EVIDENCE_APPROVAL",
+        }
+        if safe_state in task_bound_states and not task_hash:
+            raise SessionError("resume blocked: task hash missing")
+        if task_path_value:
+            task_path = Path(str(task_path_value)).resolve()
+            try:
+                task_path.relative_to(self.paths.tasks.resolve())
+            except ValueError as exc:
+                raise SessionError("resume blocked: task path escapes session") from exc
+            if not task_path.is_file():
+                raise SessionError("resume blocked: task artifact missing")
+            task = read_json(task_path)
+            actual_task_hash = sha256_obj({key: value for key, value in task.items() if key != "task_sha256"})
+            if task.get("task_sha256") != actual_task_hash or task_hash != actual_task_hash:
+                raise SessionError("resume blocked: task hash drift")
+        elif task_hash:
+            raise SessionError("resume blocked: task path missing")
+
+        environment_fingerprint = state.get("environment_fingerprint")
+        if safe_state in self.ENVIRONMENT_BOUND_STATES and self.state.get("mode") == "EXECUTION_ENABLED":
+            if not isinstance(environment_fingerprint, str) or not re.fullmatch(r"[0-9a-f]{64}", environment_fingerprint):
+                raise SessionError("resume blocked: environment fingerprint missing or invalid")
+        receipt_path_value = state.get("environment_receipt_path")
+        if receipt_path_value:
+            receipt_path = Path(str(receipt_path_value)).resolve()
+            if not receipt_path.is_file():
+                raise SessionError("resume blocked: environment receipt missing")
+            receipt = read_json(receipt_path)
+            if receipt.get("status") != "ONLINE_VERIFIED" or receipt.get("fingerprint") != environment_fingerprint:
+                raise SessionError("resume blocked: environment receipt drift")
+
+        token_path_value = state.get("real_robot_token_path")
+        if token_path_value:
+            from .real_robot import OneShotRealRobotToken
+
+            token = OneShotRealRobotToken.load(token_path_value)
+            if token.token.get("status") != "unused":
+                raise SessionError("resume blocked: real-robot token is not unused")
 
     def dirty_git(self) -> bool:
         """检查项目 Git 是否有未提交变更。 / Check whether the project Git is dirty."""

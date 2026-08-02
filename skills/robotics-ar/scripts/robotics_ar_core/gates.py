@@ -68,13 +68,19 @@ class ApprovalManager:
         approval = read_json(path)
         if approval.get("status") != "unused":
             raise GateError("approval is not unused")
+        expected_receipt_hash = approval.get("approval_sha256")
+        actual_receipt_hash = sha256_obj({key: value for key, value in approval.items() if key != "approval_sha256"})
+        if not expected_receipt_hash or expected_receipt_hash != actual_receipt_hash:
+            raise GateError("approval receipt hash invalid")
         current = subject_hash(approval["subject_path"])
         if current != approval.get("subject_sha256"):
             approval["status"] = "invalidated"
+            approval["approval_sha256"] = sha256_obj({key: value for key, value in approval.items() if key != "approval_sha256"})
             atomic_write_json(path, approval)
             raise GateError("approval subject hash drift")
         approval["status"] = "consumed"
         approval["consumed_at"] = utc_now()
+        approval["approval_sha256"] = sha256_obj({key: value for key, value in approval.items() if key != "approval_sha256"})
         atomic_write_json(path, approval)
         return approval
 
@@ -92,6 +98,7 @@ class ApprovalManager:
                 current = None
             if current != approval.get("subject_sha256"):
                 approval["status"] = "invalidated"
+                approval["approval_sha256"] = sha256_obj({key: value for key, value in approval.items() if key != "approval_sha256"})
                 atomic_write_json(path, approval)
                 count += 1
         return count
