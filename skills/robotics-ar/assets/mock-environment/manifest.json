@@ -1,0 +1,17 @@
+{
+  "schema_version": "robotics-ar-environment.v1",
+  "id": "robotics-ar-mock",
+  "kind": "simulation",
+  "root": ".",
+  "adapter": {"path": "adapter.py", "sha256": ""},
+  "commands": {
+    "capabilities": ["python3", "adapter.py", "capabilities"],
+    "health_check": ["python3", "adapter.py", "health-check"],
+    "minimal_rollout": ["python3", "adapter.py", "minimal-rollout"],
+    "run_batch": ["python3", "adapter.py", "run-batch"],
+    "collect_results": ["python3", "adapter.py", "collect-results"],
+    "stop": ["python3", "adapter.py", "stop"]
+  },
+  "io": {"request_dir": "requests", "result_dir": "results", "artifact_dir": "artifacts"},
+  "limits": {"timeout_s": 10, "max_parallel_runs": 1, "network": "denied", "executables": ["python3"]}
+}
