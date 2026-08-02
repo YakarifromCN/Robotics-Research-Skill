@@ -6,6 +6,8 @@
 
 当前版本采用 corpus-first v2 路径：100 篇均衡公开论文先形成来源、文本覆盖和混合保真签名收据，再由模型子代理模拟 embedding、聚类审计和策略归纳。该模拟不冒充真实 UMAP/HDBSCAN；运行时只注入由 8 个能力簇归纳出的 15 个模式族、31 个子模式和 8 个研究路由问题。十个外部 venue workflow 也只被蒸馏为一套统一方法及 venue 映射，不在仓库中复制十套内部 workflow。
 
+本项目另有一个显式启用、与四个科研 Skill 并列的 `robotics-ar` 自动研究模式。它从 ARIS（[auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/auto-claude-code-research-in-sleep)）的领域中立生命周期、证据门、artifact receipt、追踪、隔离和暂停恢复契约中进行蒸馏；固定参考 commit 为 `3e49e63aae6a653067f9e2101d50457f1f7d6a2f`。ARIS 不作为运行时依赖，具体 provider、MCP、UI、ML、论文和 venue workflow 均被排除。来源 receipt、inventory、蒸馏矩阵、许可证决策和中立性审计位于 `agent/robotics-ar-distillation/`，许可归属见 `THIRD_PARTY_NOTICES.md`。
+
 ## 为什么需要这套 Skill
 
 机器人论文经常跨越算法、动力学、硬件、材料、控制、感知和真实环境。仅靠写作模板无法解决以下问题：
@@ -130,6 +132,7 @@ python3 scripts/run_all_checks_corpus_first.py
 使用 $design-robotics-experiment 将锁定主张转化为结构化实验合同。
 使用 $write-robotics-paper 从结果工件构建可追溯的 LaTeX 稿件。
 使用 $review-robotic-feedback 审阅机器人论文并生成 Meta Review 和修改路线。
+使用 $robotics-ar（仅在明确要求时）开启带审批、可暂停恢复的跨阶段自动研究 session。
 ```
 
 每个 Skill 的 `assets/` 目录提供语言中立的起始模板；不要直接把模板中的 `null` 当成有效科研判断。
@@ -375,6 +378,20 @@ python3 scripts/run_all_checks.py
 
 方法设计吸收了 ResearchStudio、Academic Research Skills、机器人会议/期刊工作流和部分高影响科学写作工具中的通用逻辑，并针对工程系统剔除了不适用的自然科学假设。具体来源快照见 `SOURCE_SNAPSHOTS.json`，许可证与第三方声明见 `LICENSE` 和 `THIRD_PARTY_NOTICES.md`。
 
+## 来源与引用
+
+以下项目是本仓库进行方法阅读、能力蒸馏或接口对照时参考的公开来源；它们不是本仓库的运行时依赖，也不表示任何投稿结果、质量排名或录用概率。
+
+- [ARIS / auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/auto-claude-code-research-in-sleep)：仅蒸馏领域中立的生命周期、门禁、receipt、追踪、隔离和暂停恢复能力；固定参考 commit 为 `3e49e63aae6a653067f9e2101d50457f1f7d6a2f`。
+- [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills)：参考监督、阶段编排和人工检查点的组织方式。
+- [ResearchStudio](https://arxiv.org/abs/2607.04439)：参考从公开研究结果中提取可解释研究策略的分析思路；本仓库保留其“描述性分析而非录用模型”的边界。
+- [Academic Research Skills](https://github.com/Imbad0202/academic-research-skills-codex)：参考学术检索、阅读、写作和审阅的可复用工作流。
+- [Awesome-Journal-Skills](https://github.com/brycewang-stanford/Awesome-Journal-Skills)：参考跨会议/期刊的投稿准备和 venue-specific workflow 组织方式；本仓库将共同不变量压缩为一套方法，不复制十套内部 Skill。
+- [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills)：参考文献检索、引用核验、数据记录、图表和论文准备等可审计步骤。
+- 公开可搜索到的会议和期刊论文、官方范围页面及作者公开版本：作为机器人研究子流形、先例碰撞、证据需求、写作和 venue 路由的分析语料库。语料库和奖项/演示记录只用于发现与描述性比较，不代表录用概率、质量排名，也不能推出统计因果结论。
+
+引用这些来源时，请同时阅读上游项目当前的许可证、版本和官方政策；本仓库只保留必要的归属、内容哈希和能力边界。
+
 本项目采用 MIT License。
 
 ---
@@ -396,6 +413,16 @@ strategy rows, 15 parent patterns, 31 subpatterns, and eight routing
 questions. This is explicitly not statistical PCA, real UMAP/HDBSCAN, or an
 acceptance model. Ten external venue workflows are distilled into one
 reusable method plus venue mappings, not copied into ten internal workflows.
+
+The repository also contains an explicitly enabled, fifth sibling Skill,
+`robotics-ar`. It distills domain-neutral lifecycle, evidence-gate, artifact,
+trace, isolation, and pause/resume contracts from ARIS
+([auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/auto-claude-code-research-in-sleep)),
+pinned to commit `3e49e63aae6a653067f9e2101d50457f1f7d6a2f`. ARIS is not a
+runtime dependency; provider, MCP, UI, ML, paper, and venue workflows are
+excluded. The receipt and audit records live under
+`agent/robotics-ar-distillation/`, with license attribution in
+`THIRD_PARTY_NOTICES.md`.
 
 ## Atomic-skill backbone
 
@@ -433,6 +460,7 @@ Use $develop-robotics-idea to audit this robotics direction and create a V2 Rese
 Use $design-robotics-experiment to turn the locked claim into a structured experiment contract.
 Use $write-robotics-paper to build a traceable LaTeX paper from the frozen results.
 Use $review-robotic-feedback to review a robotics paper and produce a traceable Meta Review and revision roadmap.
+Use $robotics-ar only when explicitly requested to start a gated, resumable cross-stage research session.
 ```
 
 Templates live in each skill's `assets/` directory. A `null` template value is an unresolved scientific decision, not a valid answer.
@@ -552,6 +580,20 @@ The command runs the sibling skill test suites, the installation-mode regression
 ## Privacy
 
 This repository contains no private user projects or experimental data. Regression cases are synthetic, public sources are referenced by metadata and URLs, and real project artifacts remain in the user's own project workspace.
+
+## Sources and references
+
+The following public projects were read as method, distillation, or interface references. They are not runtime dependencies of this repository and do not imply an outcome, quality ranking, or acceptance-probability estimate:
+
+- [ARIS / auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/auto-claude-code-research-in-sleep): only domain-neutral lifecycle, gate, receipt, trace, isolation, and pause/resume ideas were distilled; the pinned commit is `3e49e63aae6a653067f9e2101d50457f1f7d6a2f`.
+- [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills): supervision, stage orchestration, and human-checkpoint organization.
+- [ResearchStudio](https://arxiv.org/abs/2607.04439): interpretable research-strategy analysis from public outcomes, with the boundary that this is descriptive rather than an acceptance model.
+- [Academic Research Skills](https://github.com/Imbad0202/academic-research-skills-codex): reusable academic search, reading, writing, and review workflows.
+- [Awesome-Journal-Skills](https://github.com/brycewang-stanford/Awesome-Journal-Skills): cross-venue submission preparation and workflow organization; shared invariants are consolidated here instead of copied into ten internal Skills.
+- [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills): auditable literature search, citation verification, data logging, figures, and paper-preparation steps.
+- Publicly searchable conference and journal papers, official scope pages, and author-posted versions: an analysis corpus for robotics research-submanifold axes, prior-work collision checks, evidence obligations, writing, and venue routing. Corpus and award/presentation records are discovery and descriptive-comparison inputs only; they do not encode acceptance probability or quality ranking and cannot support statistical causal conclusions.
+
+Please check each upstream project's current license, version, and official policy when reusing a source. This repository keeps only necessary attribution, content hashes, and explicit capability boundaries.
 
 ## License and attribution
 
