@@ -38,9 +38,28 @@ class LocalSkillInstallTests(unittest.TestCase):
         skill.mkdir(parents=True)
         (skill / "SKILL.md").write_text("# Demo Skill\n\nInitial\n", encoding="utf-8")
         (skill / "check.py").write_text("print('ok')\n", encoding="utf-8")
+        (skill / "tests").mkdir()
+        (skill / "tests" / "test_check.py").write_text("assert True\n", encoding="utf-8")
+        (skill / "legacy.source").write_text("preserved source\n", encoding="utf-8")
+        (skill / "__pycache__").mkdir()
+        (skill / "__pycache__" / "check.cpython-38.pyc").write_bytes(b"bytecode")
         common = self.source / "common"
         common.mkdir()
         (common / "canonical_json.py").write_text("VALUE = True\n", encoding="utf-8")
+        (common / "__pycache__").mkdir()
+        (common / "__pycache__" / "canonical_json.cpython-38.pyc").write_bytes(b"bytecode")
+        (self.source / "tools" / "corpus").mkdir(parents=True)
+        (self.source / "tools" / "corpus" / "offline_builder.py").write_text("raise SystemExit('offline only')\n", encoding="utf-8")
+        (self.source / "archive" / "legacy-v1").mkdir(parents=True)
+        (self.source / "archive" / "legacy-v1" / "old.json").write_text("{}\n", encoding="utf-8")
+        # Minimal copies of the compact staged-release closure.  The test
+        # checks that these files are carried together with the Skill instead
+        # of silently producing a release that cannot route research context.
+        for relative in installer.STAGED_SHARED_FILES:
+            if relative.startswith("corpus/") or relative.startswith("references/"):
+                path = self.source / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("{}\n" if relative.endswith(".json") else "# reference\n", encoding="utf-8")
         subprocess.run(["git", "init", "-q"], cwd=self.source, check=True)
         self._git("config", "user.email", "tests@example.invalid")
         self._git("config", "user.name", "Install Tests")
@@ -115,6 +134,15 @@ class LocalSkillInstallTests(unittest.TestCase):
         self.assertNotEqual(installed.resolve(), (self.source / "skills" / "demo-skill").resolve())
         first_target = installed.resolve()
         self.assertTrue((first_target.parent.parent / "common" / "canonical_json.py").is_file())
+        self.assertFalse((installed / "tests").exists())
+        self.assertFalse((installed / "legacy.source").exists())
+        self.assertFalse((installed / "__pycache__").exists())
+        self.assertFalse((first_target.parent.parent / "common" / "__pycache__").exists())
+        self.assertFalse((first_target.parent.parent / "tools").exists())
+        self.assertFalse((first_target.parent.parent / "archive").exists())
+        for relative in installer.STAGED_SHARED_FILES:
+            if relative.startswith("corpus/") or relative.startswith("references/"):
+                self.assertTrue((first_target.parent.parent / relative).is_file(), relative)
 
         self._commit_change("# Demo Skill\n\nSecond release\n")
         code, payload = self._update("--run-fast-checks")
@@ -225,6 +253,23 @@ class LocalSkillInstallTests(unittest.TestCase):
         report = installer.doctor(self.receipt)
         self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["mode"], "SYMLINK_TRACKED_CLONE")
+
+    def test_shared_runtime_references_resolve_from_each_skill(self):
+        shared = (
+            "../../references/active-corpus-first-reference.md",
+            "../../references/unified-venue-workflow-adapter.v1.md",
+        )
+        for slug in (
+            "develop-robotics-idea",
+            "design-robotics-experiment",
+            "review-robotic-feedback",
+            "write-robotics-paper",
+        ):
+            skill = ROOT / "skills" / slug
+            text = (skill / "SKILL.md").read_text(encoding="utf-8")
+            for relative in shared:
+                self.assertIn(relative, text, f"{slug} must name the repository-shared reference")
+                self.assertTrue((skill / relative).resolve().is_file(), f"{slug}: {relative}")
 
 
 if __name__ == "__main__":
