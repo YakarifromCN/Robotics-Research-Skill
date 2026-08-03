@@ -26,8 +26,19 @@ finding 的最小结构：
 
 `CRITICAL` 必须提供 `critical_basis`；`state=resolved` 必须使用 `action_kind=preserve|monitor|none` 并写 `resolution_note`。`report_id` 必须非空，推荐 `<review_id>::<reviewer_id>`。不得把已解决强项放入普通 `findings`。
 
+编排器每次启动、校验、重试或完成一个独立 reviewer 时，必须通过
+`scripts/update_review_run.py <run-state.json> <reviewer> <status>` 更新同一时间戳目录中的
+`jsons/run-state.json`。只有一次 schema repair 可写为 `RETRYING`；该脚本只记录状态、
+report hash 和错误，不参与科学判断。
+
 ---
 
 # English
 
 Each fresh reviewer emits the JSON defined by `assets/review-report.template.json` in the requested output language. Read only `allowed_files`; do not use project memory, prior reviews, or other agents' reports. Summaries describe the assigned dimension; strengths use `review-strength.v1`; findings require typed anchors; `evidence_gaps` and `not_assessable` are object arrays; recommendations remain dimension-local. `CRITICAL` needs a documented basis, and resolved strengths must not remain ordinary findings. Meta Review may cite only report and finding IDs.
+
+Whenever an independent reviewer starts, validates, retries, or completes, the
+orchestrator must call `scripts/update_review_run.py <run-state.json>
+<reviewer> <status>` to update `jsons/run-state.json` under the same timestamped
+run. Only one schema-repair transition may use `RETRYING`. The script records
+state, report hashes, and errors but makes no scientific judgment.

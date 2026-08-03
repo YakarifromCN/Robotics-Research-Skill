@@ -1,4 +1,4 @@
-# Robotics Research Skill
+# 机器人科研 Skill
 
 面向长期机器人科研的统一 Skill 包。Idea → Experiment → Writing → Review 是它的主干闭环，但不是能力边界；系统同时覆盖文献检索、先例碰撞、既有项目迁移、实验审计、结果封装、可复现性、LaTeX 审计和投稿前主张检查。
 
@@ -116,7 +116,14 @@
 
 ## 快速开始
 
-要求 Python 3.8+，核心工具只使用标准库。
+要求 Python 3.8+，核心工具只使用标准库。所有结构化工件都可以使用 JSON；只有
+主动提供 `.yaml`/`.yml` 输入时才需要可选依赖 PyYAML：
+
+```bash
+python3 -m pip install PyYAML
+```
+
+不使用 YAML 时无需安装 PyYAML；运行时不会联网安装依赖。
 
 ```bash
 git clone <your-repository-url>
@@ -137,6 +144,53 @@ python3 scripts/run_all_checks_corpus_first.py
 
 每个 Skill 的 `assets/` 目录提供语言中立的起始模板；不要直接把模板中的 `null` 当成有效科研判断。
 
+脚本按正常运行、安装维护、离线语料构建和兼容迁移分层；完整清单与 staged runtime 复制边界见 [`scripts/README.md`](scripts/README.md)。
+
+### Robot-AR v3 中途接入
+
+Robot-AR v3 保留 `NEW_RESEARCH` 的 v2 流程，并新增 `MIDSTREAM_TAKEOVER`：接入一个
+已经有代码、实验历史、环境和局部瓶颈的机器人科研项目。自主试错前必须同时存在
+Project Core、历史实验 ledger、可在线验证且带 fingerprint 的环境、可复现 baseline
+和用户批准的 Trial Contract。合同限定搜索空间、预算、路径、指标和停止/升级条件；
+Tier 3 方法或 claim pivot、主要指标、数据协议以及真实机器人限制变化会自动暂停。
+
+最小启动方式：
+
+```bash
+python3 skills/robotics-ar/scripts/robotics_ar.py init \
+  --project-root /path/to/project \
+  --entry-mode MIDSTREAM_TAKEOVER \
+  --mode EXECUTION_ENABLED
+python3 skills/robotics-ar/scripts/robotics_ar.py takeover-init --project-root /path/to/project
+python3 skills/robotics-ar/scripts/robotics_ar.py takeover-status --project-root /path/to/project
+```
+
+每次 checkpoint、暂停、阻断和用户纠正都会更新 `.robotics-ar/report.md`、
+`.robotics-ar/handoff.md` 和任务工件；用户纠正同时写入
+`.robotics-ar/tasks/task.md`（并保留根目录兼容副本）。真实机器人仍遵守一次一批次
+caution/token gate，失败后停止并等待用户。
+
+接管的核心命令顺序是：
+
+```bash
+python3 skills/robotics-ar/scripts/robotics_ar.py takeover-record-intake --project-root <project-root> --input <intake.yaml>
+python3 skills/robotics-ar/scripts/robotics_ar.py takeover-audit --project-root <project-root>
+python3 skills/robotics-ar/scripts/robotics_ar.py takeover-import-history --project-root <project-root>
+python3 skills/robotics-ar/scripts/robotics_ar.py validate-environment --project-root <project-root> --environment-manifest <manifest.json>
+python3 skills/robotics-ar/scripts/robotics_ar.py baseline-compile --project-root <project-root> --input <baseline.yaml>
+python3 skills/robotics-ar/scripts/robotics_ar.py baseline-run --project-root <project-root> --environment-manifest <manifest.json>
+python3 skills/robotics-ar/scripts/robotics_ar.py contract-compile --project-root <project-root> --input <contract.yaml>
+python3 skills/robotics-ar/scripts/robotics_ar.py trial-propose --project-root <project-root> --input <proposal.yaml>
+python3 skills/robotics-ar/scripts/robotics_ar.py batch-start --project-root <project-root> --contract <approved-contract> --receipt <environment-receipt>
+```
+
+baseline 无法复现时使用 `baseline-recover --diagnostics "..."` 记录诊断，不得借此
+伪造 baseline；暂停的 simulation batch 只能在重新验证 contract、environment fingerprint
+和剩余预算后使用 `batch-resume`。`trial-analyze` 必须接收 raw evidence 及带
+`metric_versions`（或等价嵌入版本）的指标输入。Proposal、queue 状态、raw evidence、
+decision receipt 和 checkpoint 都保留 SHA-256 绑定；完成且有结论的 trial 会进入
+Do-Not-Repeat Registry，单 seed 结果不会自动成为 stable Best-Known State。
+
 ## 安装模式与本地更新
 
 安装器位于 `scripts/`，面向五个并列 Skill：`develop-robotics-idea`、`design-robotics-experiment`、`write-robotics-paper`、`review-robotic-feedback`，以及可选的并列 `robotics-ar`。`robotics-ar` 只是在需要时启动自动研究循环，不是其他 Skill 的父 Skill 或依赖；当它加入仓库后，`--skills all` 会自动发现它。
@@ -146,8 +200,8 @@ python3 scripts/run_all_checks_corpus_first.py
 | 使用目的 | `auto` 的默认模式 | 行为 |
 | --- | --- | --- |
 | `development` | `SYMLINK_TRACKED_CLONE` | 从本地 Git clone 将每个 Skill 建立到 `$CODEX_HOME/skills` 的符号链接；本地分支、工作区修改和提交立即可见，无需重新安装。 |
-| `use` + `--source-root` | `SAFE_STAGED_WORKTREE` | 从本地 clone 生成带 commit 标识的发布快照，再原子切换 Skill 链接；更新前检查分支、干净工作区、快速校验和 fast-forward。 |
-| `use` + `--archive-url` | `DIRECT_DOWNLOAD` | 下载公开 ZIP 并按 SHA-256 记录；这是固定快照，适合只使用 Skill 的环境。 |
+| `use` + `--source-root` | `SAFE_STAGED_WORKTREE` | 从本地 clone 生成带 commit 标识的发布快照，并复制当前运行时依赖闭包，再原子切换 Skill 链接；更新前检查分支、干净工作区、快速校验和 fast-forward。 |
+| `use` + `--archive-url` | `DIRECT_DOWNLOAD` | 只复制选中的 Skill 目录并固定 SHA-256；它不携带完整仓库的 shared runtime。Idea/Experiment/Writing 的完整路由请使用 full clone 或 `SAFE_STAGED_WORKTREE`，Review 可使用其明确的 standalone fallback。 |
 
 参与开发时：
 
@@ -347,10 +401,12 @@ Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指�
 Robotics-Research-Skill/
 ├── skills/                  # 五个并列、可独立安装的 Skill（robotics-ar 可选）
 ├── common/                  # 严格 JSON、ID、摘要、证据画像和判定规则
-├── references/packs/        # 按需加载的机器人领域包
+├── references/              # 三个共享运行说明与可审计来源 receipt
 ├── assets/                  # project manifest 与 target snapshot 模板
 ├── corpus/                  # 公开论文索引与合成 Golden Suite
-├── scripts/                 # 安装、更新、doctor、统一检查和项目级验证工具
+├── scripts/                 # 日常路由、安装、统一检查与项目级验证入口
+├── tools/corpus/            # 不进入运行时的离线语料构建与审计工具
+├── archive/legacy-v1/       # 不进入安装的历史迁移与追溯文件
 ├── schemas/                 # 安装回执等语言中立 schema
 ├── tests/                   # 跨阶段与双语检查
 ├── SOURCE_SNAPSHOTS.json    # 上游来源快照
@@ -397,6 +453,8 @@ python3 scripts/run_all_checks.py
 ---
 
 # English
+
+## Robotics Research Skill
 
 ## Overview
 
@@ -445,6 +503,15 @@ excluded. The receipt and audit records live under
 ## Quick start
 
 Python 3.8 or newer is required. The core tools use only the standard library.
+All structured artifacts may use JSON. PyYAML is an optional dependency only
+when you provide `.yaml` or `.yml` input files:
+
+```bash
+python3 -m pip install PyYAML
+```
+
+If you use JSON inputs, PyYAML is not required and the runtime never installs
+dependencies from the network.
 
 ```bash
 git clone <your-repository-url>
@@ -465,6 +532,39 @@ Use $robotics-ar only when explicitly requested to start a gated, resumable cros
 
 Templates live in each skill's `assets/` directory. A `null` template value is an unresolved scientific decision, not a valid answer.
 
+Scripts are separated into normal runtime, installation/maintenance, offline corpus
+build, and compatibility/migration layers. See [`scripts/README.md`](scripts/README.md)
+for the complete inventory and staged-runtime copy boundary.
+
+### Robot-AR v3 Midstream Takeover
+
+Robot-AR v3 preserves the v2 `NEW_RESEARCH` lifecycle and adds
+`MIDSTREAM_TAKEOVER` for a robotics project that already has code, experiment
+history, an executable environment, and a local bottleneck. Before autonomous
+trials, the project must have a Project Core, reconstructed history, an online
+environment receipt, a reproduced baseline, and a user-approved Trial Contract.
+The contract binds search tiers, paths, metrics, budgets, and stop/escalation
+conditions. A Tier 3 method or claim pivot, primary-metric or data-protocol
+change, or real-robot safety-limit change pauses for the user.
+
+Each checkpoint, pause, block, and correction updates `report.md`, `handoff.md`,
+and task artifacts; a correction also writes `.robotics-ar/tasks/task.md` while
+keeping a root compatibility copy. Real-robot execution requires a single
+operator-bound token per batch; failures stop and are never retried. Example
+intake, contract, report, handoff, and task artifacts are in
+`skills/robotics-ar/assets/`.
+
+The takeover CLI sequence is `takeover-record-intake`, `takeover-audit`,
+`takeover-import-history`, environment validation, baseline compile/run,
+contract compile/approve, trial proposal, and batch start. If a baseline cannot
+be reproduced, `baseline-recover --diagnostics` records bounded diagnostics only;
+it does not manufacture evidence. `batch-resume` rechecks the contract,
+environment receipt/fingerprint, elapsed wall-time, and terminal stop reason.
+`trial-analyze` requires raw evidence plus versioned metrics. Proposal and queue
+state hashes, raw-evidence receipts, decision receipts, and checkpoints remain
+auditable; concluded trials enter Do-Not-Repeat, and a single seed cannot become
+stable Best-Known State automatically.
+
 ## Installation modes and local updates
 
 The repository ships one installer for five sibling Skills: `develop-robotics-idea`, `design-robotics-experiment`, `write-robotics-paper`, `review-robotic-feedback`, and the optional sibling `robotics-ar`. `robotics-ar` can start an automated research loop when explicitly requested; it is not a parent Skill and the other four Skills do not depend on it. Once it is present in the repository, `--skills all` discovers it automatically.
@@ -474,8 +574,8 @@ The `--mode auto` choice follows the declared purpose:
 | Purpose | Default mode | Behavior |
 | --- | --- | --- |
 | `development` | `SYMLINK_TRACKED_CLONE` | Links each Skill from a local Git clone into `$CODEX_HOME/skills`; local branch changes, working-tree edits, and commits are immediately visible without reinstalling. |
-| `use` with `--source-root` | `SAFE_STAGED_WORKTREE` | Builds a commit-addressed release snapshot from the clone and switches Skill links atomically; updates check the branch, clean worktree, fast checks, and fast-forward relation. |
-| `use` with `--archive-url` | `DIRECT_DOWNLOAD` | Downloads a public ZIP and records its SHA-256; this is a pinned snapshot for users who only need to run the Skills. |
+| `use` with `--source-root` | `SAFE_STAGED_WORKTREE` | Builds a commit-addressed release snapshot, copies the active runtime dependency closure, and switches Skill links atomically; updates check the branch, clean worktree, fast checks, and fast-forward relation. |
+| `use` with `--archive-url` | `DIRECT_DOWNLOAD` | Copies only the selected Skill directories and records their SHA-256; it does not include the complete shared runtime. Use a full clone or `SAFE_STAGED_WORKTREE` for complete Idea/Experiment/Writing routing. Review has an explicit standalone fallback. |
 
 For active development:
 
@@ -583,7 +683,7 @@ This repository contains no private user projects or experimental data. Regressi
 
 ## Sources and references
 
-The following public projects were read as method, distillation, or interface references. They are not runtime dependencies of this repository and do not imply an outcome, quality ranking, or acceptance-probability estimate:
+The following public projects were read as method, distillation, or interface references. They are not runtime dependencies of this repository and do not imply an outcome, quality judgment, or acceptance-probability estimate:
 
 - [ARIS / auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/auto-claude-code-research-in-sleep): only domain-neutral lifecycle, gate, receipt, trace, isolation, and pause/resume ideas were distilled; the pinned commit is `3e49e63aae6a653067f9e2101d50457f1f7d6a2f`.
 - [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills): supervision, stage orchestration, and human-checkpoint organization.
@@ -591,7 +691,7 @@ The following public projects were read as method, distillation, or interface re
 - [Academic Research Skills](https://github.com/Imbad0202/academic-research-skills-codex): reusable academic search, reading, writing, and review workflows.
 - [Awesome-Journal-Skills](https://github.com/brycewang-stanford/Awesome-Journal-Skills): cross-venue submission preparation and workflow organization; shared invariants are consolidated here instead of copied into ten internal Skills.
 - [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills): auditable literature search, citation verification, data logging, figures, and paper-preparation steps.
-- Publicly searchable conference and journal papers, official scope pages, and author-posted versions: an analysis corpus for robotics research-submanifold axes, prior-work collision checks, evidence obligations, writing, and venue routing. Corpus and award/presentation records are discovery and descriptive-comparison inputs only; they do not encode acceptance probability or quality ranking and cannot support statistical causal conclusions.
+- Publicly searchable conference and journal papers, official scope pages, and author-posted versions: an analysis corpus for robotics research-submanifold axes, prior-work collision checks, evidence obligations, writing, and venue routing. Corpus and award/presentation records are discovery and descriptive-comparison inputs only; they do not encode acceptance probability or quality judgments and cannot support statistical causal conclusions.
 
 Please check each upstream project's current license, version, and official policy when reusing a source. This repository keeps only necessary attribution, content hashes, and explicit capability boundaries.
 
