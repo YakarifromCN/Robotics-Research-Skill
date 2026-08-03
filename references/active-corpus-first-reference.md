@@ -40,9 +40,9 @@ local raw corpus (not Git)
 Set ROBOTICS_CORPUS_PATH or pass an explicit path when rebuilding:
 
 ~~~text
-python scripts/validate_public_paper_index.py <local-corpus>
-python scripts/build_robotics_research_runtime.py --input <local-corpus>
-python scripts/validate_robotics_research_runtime.py
+python tools/corpus/validate_public_paper_index.py <local-corpus>
+python tools/corpus/build_robotics_research_runtime.py --input <local-corpus>
+python tools/corpus/validate_robotics_research_runtime.py
 ~~~
 
 The runtime records the source corpus SHA-256 and the source count for
@@ -85,6 +85,6 @@ compute_budget exactly.
 - Directness can be used as a routing weight, but ratings are not a core axis.
 - Venue candidates require current official-scope, author-guide, ethics, and
   artifact checks before submission.
-- The four local skills keep their original contracts in SKILL.md.source;
-  this reference supplies the shared runtime context without rewriting Claim
-  Lock or Design Lock.
+- The four local skills contain their current stage contracts directly in
+  `SKILL.md`; this reference supplies shared runtime context without rewriting
+  Claim Lock or Design Lock.

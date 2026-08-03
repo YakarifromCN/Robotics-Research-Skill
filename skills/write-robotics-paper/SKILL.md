@@ -17,8 +17,8 @@ description: Evidence-constrained robotics paper writing, revision, rebuttal, an
 Before any writing action, read:
 
 - references/robotics-submanifold-routing.md
-- references/active-corpus-first-reference.md
-- references/unified-venue-workflow-adapter.v1.md
+- ../../references/active-corpus-first-reference.md (repository-shared)
+- ../../references/unified-venue-workflow-adapter.v1.md (repository-shared)
 
 Run:
 
@@ -58,5 +58,3 @@ Select runtime questions only when supported by the active axes. Treat the
 15 parent patterns and 31 subpatterns as structural operators, not as claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.
-
-Then read and obey the preserved original contract in SKILL.md.source.

@@ -1,16 +1,25 @@
-"""Importable entry point for the ResearchStudio robotics pattern runtime."""
+"""Stable public API for the ResearchStudio robotics pattern runtime."""
 
 from __future__ import annotations
 
-from pathlib import Path
+from ._researchstudio_patterns import (
+    DEFAULT_AXIS_REPORT,
+    DEFAULT_LIBRARY,
+    DEFAULT_SIGNATURES,
+    fit_gap_to_patterns,
+    fit_patterns_for_axis,
+    load_json,
+    load_pattern_library,
+    validate_pattern_library,
+)
 
-
-_SOURCE = Path(__file__).with_name("researchstudio_patterns.py.source")
-_lines = _SOURCE.read_text(encoding="utf-8").splitlines()
-_patched: list[str] = []
-for _line in _lines:
-    if _line.lstrip().startswith("if sorted(child_counts.values())"):
-        _patched.append("    if sorted(child_counts.values()) != ([1] * 9 + [3, 3, 3, 3, 4, 6] if child_counts else []):")
-    else:
-        _patched.append(_line)
-exec(compile("\n".join(_patched) + "\n", str(_SOURCE), "exec"), globals(), globals())
+__all__ = [
+    "DEFAULT_AXIS_REPORT",
+    "DEFAULT_LIBRARY",
+    "DEFAULT_SIGNATURES",
+    "fit_gap_to_patterns",
+    "fit_patterns_for_axis",
+    "load_json",
+    "load_pattern_library",
+    "validate_pattern_library",
+]

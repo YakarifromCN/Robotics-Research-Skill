@@ -16,9 +16,12 @@ description: Multi-perspective robotics peer review and revision routing grounde
 
 Before any review action, read:
 
-- references/robotics-submanifold-routing.md
-- references/active-corpus-first-reference.md
-- references/unified-venue-workflow-adapter.v1.md
+- ../../references/robotics-submanifold-routing.md (complete repository)
+- ../../references/active-corpus-first-reference.md (complete repository)
+- ../../references/unified-venue-workflow-adapter.v1.md (complete repository)
+- references/robotics-submanifold-routing.md, references/active-corpus-first-reference.md,
+  and references/unified-venue-workflow-adapter.v1.md only for the standalone
+  review fallback.
 
 Run:
 
@@ -56,5 +59,3 @@ Select runtime questions only when supported by the active axes. Treat the
 15 parent patterns and 31 subpatterns as structural operators, not as claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.
-
-Then read and obey the preserved original contract in SKILL.md.source.

@@ -32,7 +32,7 @@ def load_first_core_reference(
 
     The function deliberately has no raw-corpus parameter. Offline corpus
     validation and runtime-artifact construction belong to the explicit
-    scripts/build_robotics_research_runtime.py workflow.
+    tools/corpus/build_robotics_research_runtime.py workflow.
     """
 
     model = load_json(model_path)

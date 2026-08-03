@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 
-from scripts.validate_public_paper_index import AXES, load, validate
+from tools.corpus.validate_public_paper_index import AXES, load, validate
 
 
 ROOT = Path(__file__).resolve().parents[1]

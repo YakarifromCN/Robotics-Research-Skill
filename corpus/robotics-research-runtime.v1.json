@@ -25,8 +25,8 @@
     "purpose": "compact paper-derived context for normal Idea/Experiment/Writing/Review routing",
     "paper_record_policy": "compact exemplars only; never the complete 100-record corpus",
     "exemplar_count_per_axis": 4,
-    "offline_build": "python scripts/build_robotics_research_runtime.py --input <local-corpus>",
-    "offline_audit": "python scripts/validate_public_paper_index.py <local-corpus>",
+    "offline_build": "python tools/corpus/build_robotics_research_runtime.py --input <local-corpus>",
+    "offline_audit": "python tools/corpus/validate_public_paper_index.py <local-corpus>",
     "raw_corpus_required_for_runtime": false
   },
   "paper_exemplars_by_axis": {

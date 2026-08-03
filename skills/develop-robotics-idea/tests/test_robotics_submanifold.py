@@ -8,7 +8,7 @@ sys.path.insert(0, str(ROOT))
 from common.robotics_submanifold import analyze, load_json, validate_model, venue_vector
 
 
-CATALOG = load_json(ROOT / "corpus" / "venue-catalog.v1.json")
+CATALOG = load_json(ROOT / "corpus" / "venue-catalog.v2.json")
 MODEL = load_json(ROOT / "corpus" / "robotics-submanifold.v1.json")
 
 

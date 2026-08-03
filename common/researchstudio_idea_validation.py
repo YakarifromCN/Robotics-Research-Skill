@@ -1,0 +1,73 @@
+"""Deterministic checks for a ResearchStudio-inspired robotics Idea Card."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Any
+
+from common.researchstudio_patterns import DEFAULT_LIBRARY, load_pattern_library, validate_pattern_library
+
+
+def validate(payload: dict[str, Any], library: dict[str, Any] | None = None) -> list[str]:
+    errors: list[str] = []
+    if payload.get("schema_version") != "researchstudio-robotics-ideation-run.v1":
+        errors.append("wrong ideation run schema")
+    card = payload.get("idea_card")
+    if not isinstance(card, dict):
+        return ["idea_card must be an object"]
+    if card.get("status") != payload.get("decision"):
+        errors.append("idea_card status must equal run decision")
+    phases = payload.get("phases", {})
+    if not isinstance(phases, dict):
+        errors.append("phases must be an object")
+    else:
+        for stage in ("retrieve", "diagnose", "fit_pattern", "instantiate", "collision_audit", "failure_audit", "decide", "validate"):
+            if stage not in phases:
+                errors.append(f"missing phase: {stage}")
+    library = library or load_pattern_library(DEFAULT_LIBRARY)
+    errors.extend(validate_pattern_library(library))
+    parents = {item.get("pattern_id") for item in library.get("main_patterns", []) if isinstance(item, dict)}
+    subs = {item.get("subpattern_id"): item for item in library.get("subpatterns", []) if isinstance(item, dict)}
+    for item in card.get("selected_patterns", []):
+        if not isinstance(item, dict) or item.get("pattern_id") not in parents:
+            errors.append(f"unknown selected parent pattern: {item}")
+    for sub_id in card.get("selected_subpatterns", []):
+        if sub_id not in subs:
+            errors.append(f"unknown selected subpattern: {sub_id}")
+        elif subs[sub_id].get("parent_pattern_id") not in {
+            item.get("pattern_id")
+            for item in card.get("selected_patterns", [])
+            if isinstance(item, dict)
+        }:
+            errors.append(f"subpattern parent mismatch: {sub_id}")
+    if len(card.get("selected_patterns", [])) > 3:
+        errors.append("at most 3 patterns may be composed")
+    locked = phases.get("validate", {}).get("locked_fields", {}) if isinstance(phases, dict) else {}
+    for field in ("falsification_prediction", "compute_budget"):
+        if card.get(field) != locked.get(field):
+            errors.append(f"kill-switch field drift: {field}")
+    if payload.get("decision") == "ADVANCE":
+        for field in ("core_claim", "falsification_prediction", "compute_budget", "load_bearing_variable"):
+            if not isinstance(card.get(field), str) or not card[field].strip():
+                errors.append(f"advance card missing {field}")
+    return errors
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Validate a ResearchStudio robotics Idea Card run.")
+    parser.add_argument("path")
+    args = parser.parse_args()
+    payload = json.loads(Path(args.path).read_text(encoding="utf-8"))
+    errors = validate(payload)
+    if errors:
+        for error in errors:
+            print("ERROR:", error)
+        return 1
+    print("RESEARCHSTUDIO_IDEA_CARD: PASS")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

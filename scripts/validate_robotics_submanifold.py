@@ -16,7 +16,7 @@ from common.robotics_submanifold import load_json, validate_model, venue_vector
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--catalog", default=str(ROOT / "corpus" / "venue-catalog.v1.json"))
+    parser.add_argument("--catalog", default=str(ROOT / "corpus" / "venue-catalog.v2.json"))
     parser.add_argument("--model", default=str(ROOT / "corpus" / "robotics-submanifold.v1.json"))
     args = parser.parse_args()
     catalog = load_json(args.catalog)
