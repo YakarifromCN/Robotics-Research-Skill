@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-trial-proposal.v1",
+  "type": "object",
+  "required": ["schema_version", "trial_id", "parent_contract", "hypothesis", "uncertainty_target", "change", "experiment", "metrics", "resource_estimate", "rollback", "status", "proposal_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-trial-proposal.v1"}, "trial_id": {"type": "string", "minLength": 1, "pattern": "^[^/\\\\\\u0000\\r\\n]+$"}, "parent_contract": {"type": "string", "minLength": 1}, "hypothesis": {"type": "object"}, "change": {"type": "object"}, "experiment": {"type": "object"}, "metrics": {"type": "object"}, "resource_estimate": {"type": "object"}, "rollback": {"type": "object"}, "status": {"enum": ["PROPOSED", "QUEUED", "ACTIVE", "COMPLETED", "REJECTED", "BLOCKED"]}, "proposal_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

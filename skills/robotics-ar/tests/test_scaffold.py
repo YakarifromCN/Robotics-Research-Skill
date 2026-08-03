@@ -26,7 +26,7 @@ class ScaffoldTests(unittest.TestCase):
 
     def test_schema_ids_are_unique_and_versioned(self) -> None:
         paths = sorted((ROOT / "schemas").glob("*.schema.json"))
-        self.assertEqual(len(paths), 10)
+        self.assertGreaterEqual(len(paths), 10)
         ids = []
         for path in paths:
             data = json.loads(path.read_text(encoding="utf-8"))

@@ -15,6 +15,7 @@ from .environment import EnvironmentAdapter, EnvironmentError
 from .models import utc_now
 from .receipts import artifact_receipt, file_sha256
 from .session import SessionError, SessionManager
+from .gates import GateError
 
 
 class WorkflowError(RuntimeError):
@@ -64,10 +65,14 @@ class SupervisedWorkflow:
         path = self.manager.paths.sibling_skills_path(stage) if hasattr(self.manager.paths, "sibling_skills_path") else self.manager.paths.root / "sibling-skills" / stage / "stage-receipt.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         atomic_write_json(path, payload)
+        updated = dict(self.manager.state)
+        updated[f"{stage}_receipt_sha256"] = sha256_obj(payload)
+        atomic_write_json(self.manager.paths.state, updated)
+        self.manager._state = updated
         state = self.manager.transition(approval_state, f"{stage.upper()}_INVOCATION_COMPLETED", {"receipt_sha256": sha256_obj(payload), "runtime_status": runtime_status})
         return {"status": "READY", "stage": stage, "state": state["state"], "receipt_path": path.as_posix()}
 
-    def approve_stage(self, stage: str) -> Dict[str, Any]:
+    def approve_stage(self, stage: str, *, approval_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """把已验证 stage 交给下一个阶段；不修改 native artifact。
 
         Advance an approved stage without mutating its native artifact.
@@ -78,6 +83,14 @@ class SupervisedWorkflow:
         expected = STAGE_STATES[stage][1]
         if self.manager.state["state"] != expected:
             raise WorkflowError(f"stage {stage} is not awaiting approval")
+        if self.manager.state.get("entry_mode") == "MIDSTREAM_TAKEOVER" and approval_path is None:
+            raise WorkflowError("hash-bound stage approval is required in MIDSTREAM_TAKEOVER")
+        if approval_path is not None:
+            expected_gate = {"idea": "IDEA", "experiment": "EXPERIMENT", "writing": "WRITING", "review": "REVIEW_ROUTE"}[stage]
+            subject = self.manager.paths.root / "sibling-skills" / stage / "stage-receipt.json"
+            approval = self.manager.consume_approval(approval_path, expected_gate=expected_gate, expected_subject_path=subject)
+            if approval.get("gate") != expected_gate:
+                raise WorkflowError(f"approval gate mismatch for {stage}")
         next_state = {"idea": "INVOKING_EXPERIMENT_SKILL", "experiment": "TASK_COMPILATION", "writing": "INVOKING_REVIEW_SKILL", "review": "COMPLETE"}[stage]
         return self.manager.transition(next_state, f"{stage.upper()}_APPROVED")
 
@@ -165,7 +178,23 @@ class SupervisedWorkflow:
         self.manager.transition("EVIDENCE_FREEZE", "EVIDENCE_FROZEN", {"freeze_sha256": freeze["freeze_sha256"]})
         return freeze
 
-    def ensure_writing_allowed(self, freeze_path: Path | str) -> Dict[str, Any]:
+    def approve_evidence(self, freeze_path: Path | str, approval_path: Path | str) -> Dict[str, Any]:
+        """Consume an explicit evidence approval before Writing in takeover mode."""
+
+        freeze = self.ensure_writing_allowed(freeze_path, allow_unapproved=True)
+        approval = self.manager.consume_approval(approval_path)
+        if approval.get("gate") != "EVIDENCE":
+            raise WorkflowError("approval gate mismatch for evidence")
+        updated = dict(self.manager.state)
+        updated["evidence_approval_id"] = approval["approval_id"]
+        updated["evidence_approved"] = True
+        atomic_write_json(self.manager.paths.state, updated)
+        self.manager._state = updated
+        if self.manager.state["state"] == "EVIDENCE_FREEZE":
+            self.manager.transition("AWAITING_EVIDENCE_APPROVAL", "EVIDENCE_APPROVED", {"approval_id": approval["approval_id"], "freeze_sha256": freeze["freeze_sha256"]})
+        return {"status": "PASS", "approval": approval, "freeze": freeze}
+
+    def ensure_writing_allowed(self, freeze_path: Path | str, *, allow_unapproved: bool = False) -> Dict[str, Any]:
         """只接受有效的冻结 evidence。 / Accept only a valid evidence freeze."""
 
         if self.manager.state["state"] not in {"EVIDENCE_FREEZE", "AWAITING_EVIDENCE_APPROVAL"}:
@@ -173,6 +202,8 @@ class SupervisedWorkflow:
         freeze = read_json(freeze_path)
         if freeze.get("status") != "FROZEN" or freeze.get("freeze_sha256") != sha256_obj({key: value for key, value in freeze.items() if key != "freeze_sha256"}):
             raise WorkflowError("evidence freeze receipt is invalid")
+        if self.manager.state.get("entry_mode") == "MIDSTREAM_TAKEOVER" and not self.manager.state.get("evidence_approved") and not allow_unapproved:
+            raise WorkflowError("evidence approval is required in MIDSTREAM_TAKEOVER")
         return freeze
 
     def propose_review_route(self, route: str, *, reason: str) -> Dict[str, Any]:
@@ -188,3 +219,25 @@ class SupervisedWorkflow:
         path.parent.mkdir(parents=True, exist_ok=True)
         atomic_write_json(path, proposal)
         return proposal
+
+    def apply_review_route(self, route: str, *, approval_path: Optional[Path | str] = None) -> Dict[str, Any]:
+        """Apply one user-approved route; proposals never auto-run experiments."""
+
+        if route not in {"IDEA", "EXPERIMENT", "WRITING", "COMPLETE"}:
+            raise WorkflowError("review route must be IDEA, EXPERIMENT, WRITING, or COMPLETE")
+        if self.manager.state["state"] != "AWAITING_REVIEW_ROUTE":
+            raise WorkflowError("review route is not pending")
+        if approval_path is not None:
+            approval = self.manager.consume_approval(approval_path)
+            if approval.get("gate") != "REVIEW_ROUTE":
+                raise WorkflowError("approval gate mismatch for review route")
+        elif self.manager.state.get("entry_mode") == "MIDSTREAM_TAKEOVER":
+            raise WorkflowError("hash-bound review route approval is required in MIDSTREAM_TAKEOVER")
+        next_state = {"IDEA": "INVOKING_IDEA_SKILL", "EXPERIMENT": "INVOKING_EXPERIMENT_SKILL", "WRITING": "INVOKING_WRITING_SKILL", "COMPLETE": "COMPLETE"}[route]
+        return self.manager.transition(next_state, "REVIEW_ROUTE_APPLIED", {"route": route})
+
+    def takeover_stage_context(self) -> Dict[str, Any]:
+        """Build the neutral context passed to an existing sibling Skill."""
+
+        state = self.manager.state
+        return {"entry_mode": "MIDSTREAM_TAKEOVER", "project_core_ref": state.get("project_core_path"), "project_core_sha256": state.get("project_core_sha256"), "history_ledger_ref": (self.manager.paths.takeover_history / "experiment-ledger.jsonl").as_posix(), "baseline_ref": state.get("baseline_receipt_path"), "current_bottleneck": state.get("current_bottleneck", ""), "allowed_search_space": state.get("allowed_search_space", {}), "trial_budget": state.get("trial_budget", {})}

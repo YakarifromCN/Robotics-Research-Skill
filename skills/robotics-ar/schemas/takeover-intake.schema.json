@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-takeover-intake.v1",
+  "type": "object",
+  "required": ["schema_version", "project_id", "project_path", "project_core", "current_goal", "current_bottleneck", "environment", "allowed_directions", "forbidden_changes", "budget", "pause_conditions", "user_asserted", "repository_observed", "agent_inferred", "unresolved", "intake_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-takeover-intake.v1"}, "project_id": {"type": "string"}, "project_path": {"type": "string"}, "project_core": {"type": "object"}, "current_goal": {"type": "string"}, "current_bottleneck": {"type": "string"}, "environment": {"type": "object"}, "allowed_directions": {"type": "array"}, "forbidden_changes": {"type": "array"}, "budget": {"type": "object"}, "pause_conditions": {"type": "array"}, "intake_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

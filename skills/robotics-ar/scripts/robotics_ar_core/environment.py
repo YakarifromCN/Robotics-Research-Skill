@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import signal
 import subprocess
@@ -20,6 +21,7 @@ from .canonical import ensure_finite, sha256_obj
 from .models import utc_now
 from .process_registry import ProcessRegistry
 from .receipts import file_sha256
+from .schema_validation import SchemaValidationError, validate_artifact
 
 
 class EnvironmentError(RuntimeError):
@@ -27,6 +29,28 @@ class EnvironmentError(RuntimeError):
 
 
 ALLOWED_EXECUTABLES = frozenset({"python", "python3", "python3.8", "python3.9", "python3.10", "python3.11", "python3.12"})
+
+
+def validate_environment_receipt(receipt: Mapping[str, Any], *, require_online: bool = False) -> None:
+    """Validate an environment receipt and its self-hash before binding it."""
+
+    if not isinstance(receipt, Mapping):
+        raise EnvironmentError("environment receipt must be an object")
+    try:
+        validate_artifact("robotics-ar-environment-receipt.v1", receipt)
+    except SchemaValidationError as exc:
+        raise EnvironmentError(str(exc)) from exc
+    if require_online and receipt.get("status") != "ONLINE_VERIFIED":
+        raise EnvironmentError("ONLINE_VERIFIED environment receipt required")
+    fingerprint = str(receipt.get("fingerprint", ""))
+    if not re.fullmatch(r"[0-9a-f]{64}", fingerprint):
+        raise EnvironmentError("environment receipt fingerprint must be a 64-hex digest")
+    receipt_hash = receipt.get("receipt_sha256")
+    if not isinstance(receipt_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", receipt_hash):
+        raise EnvironmentError("environment receipt self-hash is missing or invalid")
+    expected = sha256_obj({key: value for key, value in receipt.items() if key != "receipt_sha256"})
+    if receipt_hash != expected:
+        raise EnvironmentError("environment receipt hash mismatch")
 
 
 def _load_text_manifest(path: Path) -> Dict[str, Any]:
@@ -79,6 +103,10 @@ class EnvironmentAdapter:
         Validate schema, argv arrays, allowlists, and path containment.
         """
 
+        try:
+            validate_artifact("robotics-ar-environment.v1", self.manifest)
+        except SchemaValidationError as exc:
+            raise EnvironmentError(str(exc)) from exc
         required = ("schema_version", "id", "kind", "root", "adapter", "commands", "io", "limits")
         missing = [key for key in required if key not in self.manifest]
         if missing:
@@ -93,7 +121,9 @@ class EnvironmentAdapter:
         if not adapter_path.is_file():
             raise EnvironmentError("adapter path does not exist")
         expected_adapter_hash = self.manifest["adapter"].get("sha256")
-        if expected_adapter_hash and file_sha256(adapter_path) != expected_adapter_hash:
+        if not isinstance(expected_adapter_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_adapter_hash):
+            raise EnvironmentError("adapter sha256 must be a complete 64-hex digest")
+        if file_sha256(adapter_path) != expected_adapter_hash:
             raise EnvironmentError("adapter hash drift")
         commands = self.manifest["commands"]
         for name in ("capabilities", "health_check", "minimal_rollout", "collect_results", "stop"):
@@ -106,6 +136,12 @@ class EnvironmentAdapter:
             if not isinstance(argv, list) or not argv or any(not isinstance(arg, str) for arg in argv):
                 raise EnvironmentError("command must be argv array: run_batch")
             self._validate_argv(argv, name="run_batch")
+        for optional_name in ("reset", "baseline", "trial", "collect_metrics", "collect_artifacts"):
+            if commands.get(optional_name) is not None:
+                argv = commands[optional_name]
+                if not isinstance(argv, list) or not argv or any(not isinstance(arg, str) for arg in argv):
+                    raise EnvironmentError(f"command must be argv array: {optional_name}")
+                self._validate_argv(argv, name=optional_name)
         io = self.manifest["io"]
         for name in ("request_dir", "result_dir", "artifact_dir"):
             _resolve_under(self.root, str(io[name])).mkdir(parents=True, exist_ok=True)
@@ -234,7 +270,7 @@ class EnvironmentAdapter:
         io = self.manifest["io"]
         result_dir = _resolve_under(self.root, io["result_dir"])
         artifact_dir = _resolve_under(self.root, io["artifact_dir"])
-        checks["artifacts"] = {"result_files": sorted(path.relative_to(result_dir).as_posix() for path in result_dir.rglob("*") if path.is_file()), "artifact_files": sorted(path.relative_to(artifact_dir).as_posix() for path in artifact_dir.rglob("*") if path.is_file())}
+        checks["artifacts"] = {"result_files": self._file_receipts(result_dir), "artifact_files": self._file_receipts(artifact_dir)}
         if not checks["artifacts"]["result_files"] or not checks["artifacts"]["artifact_files"]:
             return self._receipt("BLOCKED_ENVIRONMENT", checks)
         stop_first = self.run_argv(self.manifest["commands"]["stop"], label="stop-1")
@@ -250,11 +286,135 @@ class EnvironmentAdapter:
             return self._receipt("BLOCKED_ENVIRONMENT", checks)
         return self._receipt("ONLINE_VERIFIED", checks)
 
+    def capability_manifest(self) -> Dict[str, Any]:
+        """Read the environment capability declaration through the approved adapter."""
+
+        self.validate_manifest()
+        result = self.run_argv(self.manifest["commands"]["capabilities"], label="capabilities")
+        if result["status"] != "PASS":
+            raise EnvironmentError("capability command failed")
+        return self._json_output(result, "capabilities")
+
+    def health_check(self) -> Dict[str, Any]:
+        """Run a single health check and require a finite JSON object."""
+
+        self.validate_manifest()
+        result = self.run_argv(self.manifest["commands"]["health_check"], label="health-check")
+        if result["status"] != "PASS":
+            raise EnvironmentError("health check failed")
+        return self._json_output(result, "health-check")
+
+    def reset(self, reset_spec: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
+        """Reset once using an explicit reset command or the minimal rollout adapter."""
+
+        command = self.manifest["commands"].get("reset") or self.manifest["commands"]["minimal_rollout"]
+        request_path = _resolve_under(self.root, self.manifest["io"]["request_dir"]) / "reset-request.json"
+        atomic_write_json(request_path, dict(reset_spec or {}))
+        result = self.run_argv(command, label="reset")
+        if result["status"] != "PASS":
+            raise EnvironmentError("reset failed")
+        return self._json_output(result, "reset")
+
+    def reproduce_baseline(self, baseline_spec: Mapping[str, Any]) -> Dict[str, Any]:
+        """Execute the approved baseline command once and return finite output."""
+
+        command = self.manifest["commands"].get("baseline") or self.manifest["commands"].get("run_batch") or self.manifest["commands"]["minimal_rollout"]
+        request_path = _resolve_under(self.root, self.manifest["io"]["request_dir"]) / "baseline-request.json"
+        atomic_write_json(request_path, dict(baseline_spec))
+        result = self.run_argv(command, label="baseline")
+        if result["status"] != "PASS":
+            raise EnvironmentError(f"baseline failed: {result['status']}")
+        output = self._json_output(result, "baseline")
+        return {"status": "PASS", "output": output, "request_path": request_path.as_posix(), "command": list(command)}
+
+    def run_trial(self, trial_spec: Mapping[str, Any]) -> Dict[str, Any]:
+        """Run exactly one trial; retries are the caller's explicit responsibility."""
+
+        if self.manifest.get("kind") == "real_robot":
+            raise EnvironmentError("real-robot trials require BatchController caution/token authorization")
+        command = self.manifest["commands"].get("trial") or self.manifest["commands"].get("run_batch") or self.manifest["commands"]["minimal_rollout"]
+        trial_id = str(trial_spec.get("trial_id", "trial"))
+        request_path = _resolve_under(self.root, self.manifest["io"]["request_dir"]) / f"{trial_id}-request.json"
+        atomic_write_json(request_path, dict(trial_spec))
+        result = self.run_argv(command, label=f"trial-{trial_id}")
+        if result["status"] != "PASS":
+            raise EnvironmentError(f"trial failed: {result['status']}")
+        output = self._json_output(result, f"trial-{trial_id}")
+        artifacts = self.collect_artifacts(trial_id)
+        raw_evidence = {"request": {"path": request_path.as_posix(), "sha256": file_sha256(request_path)}, "output_sha256": sha256_obj(output), "artifacts": artifacts, "environment_fingerprint": self.fingerprint()}
+        if not artifacts.get("files"):
+            raise EnvironmentError("trial produced no raw artifacts")
+        return {"status": "PASS", "trial_id": trial_id, "output": output, "request_path": request_path.as_posix(), "command": list(command), "raw_evidence": raw_evidence}
+
+    def collect_metrics(self, run_id: str) -> Dict[str, Any]:
+        command = self.manifest["commands"].get("collect_metrics") or self.manifest["commands"]["collect_results"]
+        result = self.run_argv(command, label=f"metrics-{run_id}")
+        if result["status"] != "PASS":
+            raise EnvironmentError("metric collection failed")
+        return self._json_output(result, f"metrics-{run_id}")
+
+    def collect_artifacts(self, run_id: str) -> Dict[str, Any]:
+        command = self.manifest["commands"].get("collect_artifacts")
+        artifact_dir = _resolve_under(self.root, self.manifest["io"]["artifact_dir"])
+        if command is not None:
+            result = self.run_argv(command, label=f"artifacts-{run_id}")
+            if result["status"] != "PASS":
+                raise EnvironmentError("artifact collection failed")
+            value = self._json_output(result, f"artifacts-{run_id}")
+            value.setdefault("run_id", run_id)
+            # Collect after the adapter command so newly materialized raw
+            # evidence is included in the receipt.
+            value["files"] = self._file_receipts(artifact_dir)
+            return value
+        return {"run_id": run_id, "files": self._file_receipts(artifact_dir)}
+
+    def stop(self, run_id: Optional[str] = None) -> Dict[str, Any]:
+        """Perform one idempotent stop call; never retry automatically."""
+
+        result = self.run_argv(self.manifest["commands"]["stop"], label=f"stop-{run_id or 'current'}")
+        if result["status"] != "PASS":
+            raise EnvironmentError("stop failed")
+        return self._json_output(result, f"stop-{run_id or 'current'}")
+
+    def verify_takeover(self) -> Dict[str, Any]:
+        """Verify the stronger takeover contract, including reset and trial hooks."""
+
+        base = self.verify_online()
+        if base.get("status") != "ONLINE_VERIFIED":
+            return base
+        checks = dict(base.get("checks", {}))
+        try:
+            reset_one = self.reset({"probe": True, "reset_index": 1})
+            reset_two = self.reset({"probe": True, "reset_index": 2})
+            checks["reset"] = {"status": "PASS", "outputs": [reset_one, reset_two]}
+            checks["metrics"] = {"status": "PASS", "output": self.collect_metrics("online-verification")}
+            checks["artifacts"] = {"status": "PASS", "output": self.collect_artifacts("online-verification")}
+        except EnvironmentError as exc:
+            checks["reset"] = {"status": "BLOCKED", "error": str(exc)}
+            return self._receipt("BLOCKED_ENVIRONMENT", checks)
+        if not (self.manifest["commands"].get("trial") or self.manifest["commands"].get("run_batch")):
+            checks["trial_binding"] = {"status": "BLOCKED", "error": "trial or run_batch command is missing"}
+            return self._receipt("BLOCKED_ENVIRONMENT", checks)
+        checks["trial_binding"] = {"status": "PASS", "command": self.manifest["commands"].get("trial") or self.manifest["commands"].get("run_batch"), "config_binding": "request_dir/trial_id"}
+        receipt = self._receipt("ONLINE_VERIFIED", checks)
+        receipt["takeover_capabilities"] = {"baseline": "baseline" in self.manifest["commands"] or "run_batch" in self.manifest["commands"], "trial": "trial" in self.manifest["commands"] or "run_batch" in self.manifest["commands"], "reset": True, "metrics": True, "artifacts": True, "stop": True}
+        receipt.pop("receipt_sha256", None)
+        receipt["receipt_sha256"] = sha256_obj(receipt)
+        try:
+            validate_artifact("robotics-ar-environment-receipt.v1", receipt)
+        except SchemaValidationError as exc:
+            raise EnvironmentError(str(exc)) from exc
+        return receipt
+
     def _receipt(self, status: str, checks: Mapping[str, Any]) -> Dict[str, Any]:
         """生成 environment receipt。 / Build an environment receipt."""
 
-        receipt = {"schema_version": "robotics-ar-environment-receipt.v1", "environment_id": self.manifest["id"], "fingerprint": self.fingerprint(), "status": status, "checks": dict(checks), "created_at": utc_now()}
+        receipt = {"schema_version": "robotics-ar-environment-receipt.v1", "environment_id": self.manifest["id"], "environment_kind": self.manifest.get("kind"), "fingerprint": self.fingerprint(), "status": status, "checks": dict(checks), "created_at": utc_now()}
         receipt["receipt_sha256"] = sha256_obj(receipt)
+        try:
+            validate_artifact("robotics-ar-environment-receipt.v1", receipt)
+        except SchemaValidationError as exc:
+            raise EnvironmentError(str(exc)) from exc
         return receipt
 
     @staticmethod
@@ -270,6 +430,8 @@ class EnvironmentAdapter:
         """只运行已验证的 batch 命令。 / Run a batch only after verification."""
 
         self.ensure_execution_allowed(mode, receipt)
+        if self.manifest.get("kind") == "real_robot":
+            raise EnvironmentError("real-robot batches require BatchController caution/token authorization")
         if receipt.get("fingerprint") != self.fingerprint():
             raise EnvironmentError("environment fingerprint drift")
         request_path = _resolve_under(self.root, self.manifest["io"]["request_dir"]) / "batch-request.json"
@@ -280,3 +442,15 @@ class EnvironmentAdapter:
             raise EnvironmentError(f"batch failed: {result['status']}")
         output = self._json_output(result, "run-batch")
         return {"status": "PASS", "result": output, "request_path": request_path.as_posix()}
+
+    @staticmethod
+    def _file_receipts(root: Path) -> List[Dict[str, Any]]:
+        """Return real file/hash receipts while refusing symlinked evidence."""
+
+        receipts: List[Dict[str, Any]] = []
+        for path in sorted(root.rglob("*")):
+            if path.is_symlink():
+                continue
+            if path.is_file():
+                receipts.append({"path": path.relative_to(root).as_posix(), "sha256": file_sha256(path), "bytes": path.stat().st_size})
+        return receipts

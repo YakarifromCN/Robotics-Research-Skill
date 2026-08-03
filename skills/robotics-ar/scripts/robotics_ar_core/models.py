@@ -143,10 +143,20 @@ class Budget:
     max_expert_rounds: int = 2
     max_debug_rounds: int = 2
     max_batches: int = 1
+    max_trials: int = 30
+    max_wall_time_minutes: int = 480
+    max_gpu_hours: float = 0.0
+    max_disk_gb: float = 20.0
+    max_parallel_jobs: int = 1
     candidates_used: int = 0
     expert_rounds_used: int = 0
     debug_rounds_used: int = 0
     batches_used: int = 0
+    trials_used: int = 0
+    wall_time_used_minutes: float = 0.0
+    gpu_hours_used: float = 0.0
+    disk_gb_used: float = 0.0
+    parallel_jobs_used: int = 0
 
     def consume(self, name: str, amount: int = 1) -> None:
         """消费预算，超限时拒绝。 / Consume budget and reject exhaustion."""
@@ -171,10 +181,20 @@ class Budget:
             "max_expert_rounds": self.max_expert_rounds,
             "max_debug_rounds": self.max_debug_rounds,
             "max_batches": self.max_batches,
+            "max_trials": self.max_trials,
+            "max_wall_time_minutes": self.max_wall_time_minutes,
+            "max_gpu_hours": self.max_gpu_hours,
+            "max_disk_gb": self.max_disk_gb,
+            "max_parallel_jobs": self.max_parallel_jobs,
             "candidates_used": self.candidates_used,
             "expert_rounds_used": self.expert_rounds_used,
             "debug_rounds_used": self.debug_rounds_used,
             "batches_used": self.batches_used,
+            "trials_used": self.trials_used,
+            "wall_time_used_minutes": self.wall_time_used_minutes,
+            "gpu_hours_used": self.gpu_hours_used,
+            "disk_gb_used": self.disk_gb_used,
+            "parallel_jobs_used": self.parallel_jobs_used,
         }
 
     @classmethod

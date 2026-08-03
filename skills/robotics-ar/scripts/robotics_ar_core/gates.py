@@ -12,6 +12,7 @@ from .atomic_io import atomic_write_json, read_json
 from .canonical import sha256_obj
 from .receipts import file_sha256
 from .models import utc_now
+from .schema_validation import SchemaValidationError, validate_artifact
 
 
 class GateError(ValueError):
@@ -55,10 +56,14 @@ class ApprovalManager:
             "status": "unused",
         }
         approval["approval_sha256"] = sha256_obj(approval)
+        try:
+            validate_artifact("robotics-ar-approval.v1", approval)
+        except SchemaValidationError as exc:
+            raise GateError(str(exc)) from exc
         atomic_write_json(self.approvals_dir / f"{identifier}.json", approval)
         return approval
 
-    def consume(self, approval_path: Path | str) -> Dict[str, Any]:
+    def consume(self, approval_path: Path | str, *, expected_gate: Optional[str | tuple[str, ...] | list[str]] = None, expected_subject_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """验证当前 subject hash 并消费批准一次。
 
         Validate the current subject hash and consume an approval once.
@@ -66,6 +71,18 @@ class ApprovalManager:
 
         path = Path(approval_path)
         approval = read_json(path)
+        if expected_gate is not None:
+            allowed_gates = {expected_gate} if isinstance(expected_gate, str) else set(expected_gate)
+            if approval.get("gate") not in allowed_gates:
+                raise GateError("approval gate mismatch")
+        if expected_subject_path is not None:
+            try:
+                approved_subject = Path(str(approval.get("subject_path", ""))).resolve()
+                expected_subject = Path(expected_subject_path).resolve()
+            except OSError as exc:
+                raise GateError("approval subject path is invalid") from exc
+            if approved_subject != expected_subject:
+                raise GateError("approval subject path mismatch")
         if approval.get("status") != "unused":
             raise GateError("approval is not unused")
         expected_receipt_hash = approval.get("approval_sha256")
@@ -78,6 +95,10 @@ class ApprovalManager:
             approval["approval_sha256"] = sha256_obj({key: value for key, value in approval.items() if key != "approval_sha256"})
             atomic_write_json(path, approval)
             raise GateError("approval subject hash drift")
+        try:
+            validate_artifact("robotics-ar-approval.v1", approval)
+        except SchemaValidationError as exc:
+            raise GateError(str(exc)) from exc
         approval["status"] = "consumed"
         approval["consumed_at"] = utc_now()
         approval["approval_sha256"] = sha256_obj({key: value for key, value in approval.items() if key != "approval_sha256"})

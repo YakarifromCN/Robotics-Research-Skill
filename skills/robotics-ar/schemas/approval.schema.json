@@ -6,7 +6,7 @@
   "properties": {
     "schema_version": {"const": "robotics-ar-approval.v1"},
     "approval_id": {"type": "string"},
-    "gate": {"enum": ["IDEA", "EXPERIMENT", "TASK", "EVIDENCE", "WRITING", "REVIEW_ROUTE", "REAL_ROBOT"]},
+    "gate": {"enum": ["IDEA", "EXPERIMENT", "TASK", "EVIDENCE", "WRITING", "REVIEW_ROUTE", "REAL_ROBOT", "TAKEOVER_CORE", "BASELINE", "TRIAL_CONTRACT", "TRIAL_BATCH"]},
     "subject_path": {"type": "string"},
     "subject_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "approved_at": {"type": "string"},

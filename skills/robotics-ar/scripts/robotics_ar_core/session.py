@@ -21,7 +21,9 @@ from .gates import ApprovalManager, GateError
 from .models import Budget, utc_now
 from .process_registry import ProcessRegistry
 from .reporting import write_handoff, write_report
+from .schema_validation import SchemaValidationError, validate_artifact
 from .state_machine import ACTIVE_STATES, TransitionError, validate_transition
+from .structured import read_mapping, write_structured
 
 
 class SessionError(RuntimeError):
@@ -51,6 +53,22 @@ class SessionPaths:
     traces: Path
     environment: Path
     research: Path
+    takeover: Path
+    takeover_intake: Path
+    takeover_audit: Path
+    takeover_history: Path
+    takeover_baseline: Path
+    takeover_contracts: Path
+    trial_queue: Path
+    trial_queue_queued: Path
+    trial_queue_active: Path
+    trial_queue_completed: Path
+    trial_queue_rejected: Path
+    blackboard: Path
+    best_known: Path
+    root_report: Path
+    root_handoff: Path
+    root_task: Path
 
     @classmethod
     def from_project(cls, project_root: Path | str) -> "SessionPaths":
@@ -78,6 +96,22 @@ class SessionPaths:
             root / "traces",
             root / "environment",
             root / "research",
+            root / "takeover",
+            root / "takeover" / "intake",
+            root / "takeover" / "audit",
+            root / "takeover" / "history",
+            root / "takeover" / "baseline",
+            root / "takeover" / "contracts",
+            root / "trial-queue",
+            root / "trial-queue" / "queued",
+            root / "trial-queue" / "active",
+            root / "trial-queue" / "completed",
+            root / "trial-queue" / "rejected",
+            root / "blackboard",
+            root / "best-known-state.yaml",
+            root / "report.md",
+            root / "handoff.md",
+            root / "task.md",
         )
 
 
@@ -133,6 +167,18 @@ class SessionManager:
         "checkpoints",
         "reports",
         "user-instructions",
+        "takeover",
+        "takeover/intake",
+        "takeover/audit",
+        "takeover/history",
+        "takeover/baseline",
+        "takeover/contracts",
+        "trial-queue",
+        "trial-queue/queued",
+        "trial-queue/active",
+        "trial-queue/completed",
+        "trial-queue/rejected",
+        "blackboard",
     )
 
     ENVIRONMENT_BOUND_STATES = frozenset(
@@ -149,6 +195,94 @@ class SessionManager:
             "AWAITING_REVIEW_ROUTE",
         }
     )
+
+    TAKEOVER_ENVIRONMENT_STATES = frozenset({
+        "TAKEOVER_BASELINE_SELECTION",
+        "TAKEOVER_BASELINE_REPRODUCTION",
+        "TAKEOVER_BASELINE_RECOVERY",
+        "AWAITING_TAKEOVER_APPROVAL",
+        "TRIAL_CONTRACT_COMPILATION",
+        "AWAITING_TRIAL_CONTRACT_APPROVAL",
+        "TRIAL_BATCH_READY",
+        "TRIAL_PLANNING",
+        "TRIAL_IMPLEMENTING",
+        "TRIAL_TESTING",
+        "TRIAL_DEBUGGING",
+        "TRIAL_RUNNING",
+        "TRIAL_ANALYZING",
+        "TRIAL_EXPERT_REVIEW",
+        "TRIAL_DECIDING",
+        "BATCH_CHECKPOINT",
+        "AWAITING_USER_DIRECTION",
+    })
+    TAKEOVER_BASELINE_STATES = frozenset({
+        "TAKEOVER_BASELINE_REPRODUCTION",
+        "TAKEOVER_BASELINE_RECOVERY",
+        "AWAITING_TAKEOVER_APPROVAL",
+        "TRIAL_CONTRACT_COMPILATION",
+        "AWAITING_TRIAL_CONTRACT_APPROVAL",
+        "TRIAL_BATCH_READY",
+        "TRIAL_PLANNING",
+        "TRIAL_IMPLEMENTING",
+        "TRIAL_TESTING",
+        "TRIAL_DEBUGGING",
+        "TRIAL_RUNNING",
+        "TRIAL_ANALYZING",
+        "TRIAL_EXPERT_REVIEW",
+        "TRIAL_DECIDING",
+        "BATCH_CHECKPOINT",
+        "AWAITING_USER_DIRECTION",
+    })
+    # A pause during reproduction or recovery is a valid checkpoint before a
+    # baseline receipt exists.  Once the workflow reaches the approval gate,
+    # however, the receipt must be present and hash-bound.
+    TAKEOVER_BASELINE_REQUIRED_STATES = frozenset({
+        "AWAITING_TAKEOVER_APPROVAL",
+        "TRIAL_CONTRACT_COMPILATION",
+        "AWAITING_TRIAL_CONTRACT_APPROVAL",
+        "TRIAL_BATCH_READY",
+        "TRIAL_PLANNING",
+        "TRIAL_IMPLEMENTING",
+        "TRIAL_TESTING",
+        "TRIAL_DEBUGGING",
+        "TRIAL_RUNNING",
+        "TRIAL_ANALYZING",
+        "TRIAL_EXPERT_REVIEW",
+        "TRIAL_DECIDING",
+        "BATCH_CHECKPOINT",
+        "AWAITING_USER_DIRECTION",
+    })
+    TAKEOVER_CONTRACT_STATES = frozenset({
+        "TRIAL_CONTRACT_COMPILATION",
+        "AWAITING_TRIAL_CONTRACT_APPROVAL",
+        "TRIAL_BATCH_READY",
+        "TRIAL_PLANNING",
+        "TRIAL_IMPLEMENTING",
+        "TRIAL_TESTING",
+        "TRIAL_DEBUGGING",
+        "TRIAL_RUNNING",
+        "TRIAL_ANALYZING",
+        "TRIAL_EXPERT_REVIEW",
+        "TRIAL_DECIDING",
+        "BATCH_CHECKPOINT",
+        "AWAITING_USER_DIRECTION",
+    })
+    # Contract compilation itself may be paused before the draft is written.
+    # The approval-wait and all execution states cannot be resumed without it.
+    TAKEOVER_CONTRACT_REQUIRED_STATES = frozenset({
+        "AWAITING_TRIAL_CONTRACT_APPROVAL",
+        "TRIAL_BATCH_READY",
+        "TRIAL_PLANNING",
+        "TRIAL_IMPLEMENTING",
+        "TRIAL_TESTING",
+        "TRIAL_DEBUGGING",
+        "TRIAL_RUNNING",
+        "TRIAL_ANALYZING",
+        "TRIAL_EXPERT_REVIEW",
+        "TRIAL_DECIDING",
+        "BATCH_CHECKPOINT",
+        "AWAITING_USER_DIRECTION",
+    })
 
     def __init__(self, project_root: Path | str) -> None:
         self.paths = SessionPaths.from_project(project_root)
@@ -169,6 +303,11 @@ class SessionManager:
             return dict(self._state)
         if self.paths.state.exists():
             self._state = read_json(self.paths.state)
+            self._state.setdefault("entry_mode", "NEW_RESEARCH")
+            try:
+                validate_artifact("robotics-ar-session-state.v1", self._state)
+            except SchemaValidationError as exc:
+                raise SessionError(str(exc)) from exc
         elif self.paths.events.exists():
             self._state = self.reconstruct_state(persist=True)
         else:
@@ -210,6 +349,7 @@ class SessionManager:
         budget: Optional[Mapping[str, Any]] = None,
         session_id: Optional[str] = None,
         validation_policy: Optional[Mapping[str, Any]] = None,
+        entry_mode: str = "NEW_RESEARCH",
     ) -> Dict[str, Any]:
         """创建项目 session，并通过 bootstrap 进入 planning ready。
 
@@ -220,6 +360,8 @@ class SessionManager:
             raise SessionError("mode must be PLANNING_ONLY or EXECUTION_ENABLED")
         if not interaction_language:
             raise SessionError("interaction_language is required")
+        if entry_mode not in {"NEW_RESEARCH", "MIDSTREAM_TAKEOVER"}:
+            raise SessionError("entry_mode must be NEW_RESEARCH or MIDSTREAM_TAKEOVER")
         self.paths.root.mkdir(parents=True, exist_ok=True)
         self._handle_stale_lock()
         if self.paths.lock.exists() and self._lock_is_live():
@@ -231,12 +373,12 @@ class SessionManager:
         identifier = session_id or f"RAS-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}-{os.getpid()}"
         limits = Budget.from_mapping(budget or {}).to_dict()
         self._write_lock(identifier)
-        config = {"schema_version": "robotics-ar-config.v1", "session_id": identifier, "mode": mode, "interaction_language": interaction_language, "validation_policy": dict(validation_policy or {"required_gates": [], "independent_review_required": False, "deterministic_validation_required": True})}
+        config = {"schema_version": "robotics-ar-config.v1", "session_id": identifier, "mode": mode, "entry_mode": entry_mode, "interaction_language": interaction_language, "validation_policy": dict(validation_policy or {"required_gates": [], "independent_review_required": False, "deterministic_validation_required": True})}
         atomic_write_bytes(self.paths.config, _simple_yaml(config).encode("utf-8"))
         atomic_write_bytes(self.paths.permissions, _simple_yaml({"supervisor_owned": ["state.json", "events.jsonl", "pointers.json", "task.md", "report.md", "handoff.md"], "agent_roots": ["agents/<role>/<task-id>"]}).encode("utf-8"))
         atomic_write_bytes(self.paths.budget, _simple_yaml(limits).encode("utf-8"))
         atomic_write_json(self.paths.pointers, {"schema_version": "robotics-ar-pointers.v1", "session_id": identifier})
-        self._state = {"schema_version": "robotics-ar-session-state.v1", "session_id": identifier, "mode": mode, "interaction_language": interaction_language, "state": "UNINITIALIZED", "exploration_budget": limits, "validation_policy": config["validation_policy"], "updated_at": utc_now()}
+        self._state = {"schema_version": "robotics-ar-session-state.v1", "session_id": identifier, "mode": mode, "entry_mode": entry_mode, "interaction_language": interaction_language, "state": "UNINITIALIZED", "exploration_budget": limits, "validation_policy": config["validation_policy"], "updated_at": utc_now()}
         atomic_write_json(self.paths.state, self._state)
         log = EventLog(self.paths.events, identifier)
         self._transition("BOOTSTRAP_VALIDATING", "SESSION_CREATED", {"mode": mode})
@@ -263,6 +405,18 @@ class SessionManager:
 
         return self._transition(new_state, event_type, payload)
 
+    def record_event(self, event_type: str, payload: Optional[Mapping[str, Any]] = None, *, actor: str = "supervisor", artifact_refs: Optional[Iterable[str]] = None) -> Dict[str, Any]:
+        """Append an observational event without changing the state."""
+
+        current = self.state["state"]
+        event = EventLog(self.paths.events, self.session_id).append(event_type, actor, current, current, payload or {}, artifact_refs=artifact_refs)
+        updated = dict(self.state)
+        updated["last_event_id"] = event["event_id"]
+        updated["updated_at"] = utc_now()
+        atomic_write_json(self.paths.state, updated)
+        self._state = updated
+        return updated
+
     def reconstruct_state(self, *, persist: bool = False) -> Dict[str, Any]:
         """从 events.jsonl 重建 state cache。 / Reconstruct the state cache from events.jsonl."""
 
@@ -282,11 +436,13 @@ class SessionManager:
                 "schema_version": "robotics-ar-session-state.v1",
                 "session_id": self.session_id_from_lock_or_events(),
                 "mode": mode_match.group(1).strip() if mode_match else "PLANNING_ONLY",
+                "entry_mode": "MIDSTREAM_TAKEOVER" if re.search(r"^entry_mode:\s*['\"]?MIDSTREAM_TAKEOVER", config_text, re.MULTILINE) else "NEW_RESEARCH",
                 "interaction_language": language_match.group(1).strip() if language_match else "zh",
                 "exploration_budget": Budget.from_mapping({}).to_dict(),
                 "validation_policy": {"required_gates": [], "independent_review_required": False, "deterministic_validation_required": True},
             }
         current.update({"state": reconstructed["state"], "last_event_id": f"EVT-{reconstructed['event_count']:06d}", "updated_at": utc_now()})
+        current.setdefault("entry_mode", "NEW_RESEARCH")
         if persist:
             atomic_write_json(self.paths.state, current)
         self._state = current
@@ -340,10 +496,10 @@ class SessionManager:
 
         return ApprovalManager(self.paths.approvals).create(gate, subject_path, scope=scope)
 
-    def consume_approval(self, approval_path: Path | str) -> Dict[str, Any]:
+    def consume_approval(self, approval_path: Path | str, *, expected_gate: Optional[str | tuple[str, ...] | list[str]] = None, expected_subject_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """消费 gate approval。 / Consume a gate approval."""
 
-        return ApprovalManager(self.paths.approvals).consume(approval_path)
+        return ApprovalManager(self.paths.approvals).consume(approval_path, expected_gate=expected_gate, expected_subject_path=expected_subject_path)
 
     def enable_execution(self, environment_receipt: Mapping[str, Any], *, receipt_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """绑定 ONLINE_VERIFIED environment fingerprint 并进入执行就绪。
@@ -365,6 +521,57 @@ class SessionManager:
             raise SessionError(f"cannot enable execution from {current}")
         updated = dict(self.state)
         updated["environment_fingerprint"] = fingerprint
+        if environment_receipt.get("receipt_sha256"):
+            updated["environment_receipt_sha256"] = str(environment_receipt["receipt_sha256"])
+        if receipt_path is not None:
+            updated["environment_receipt_path"] = Path(receipt_path).resolve().as_posix()
+        atomic_write_json(self.paths.state, updated)
+        self._state = updated
+        return dict(updated)
+
+    def bind_environment_receipt(self, environment_receipt: Mapping[str, Any], *, receipt_path: Optional[Path | str] = None) -> Dict[str, Any]:
+        """Bind a verified environment without changing the current v3 takeover state."""
+
+        from .environment import EnvironmentError, validate_environment_receipt
+
+        try:
+            validate_environment_receipt(environment_receipt, require_online=True)
+        except EnvironmentError as exc:
+            raise SessionError(str(exc)) from exc
+        fingerprint = str(environment_receipt.get("fingerprint") or "")
+        if not re.fullmatch(r"[0-9a-f]{64}", fingerprint):
+            raise SessionError("environment fingerprint must be a 64-hex digest")
+        updated = dict(self.state)
+        old_receipt = str(updated.get("environment_receipt_sha256", ""))
+        old_fingerprint = str(updated.get("environment_fingerprint", ""))
+        environment_changed = bool(old_receipt and old_receipt != str(environment_receipt.get("receipt_sha256", ""))) or bool(old_fingerprint and old_fingerprint != fingerprint)
+        if environment_changed and updated.get("entry_mode", "NEW_RESEARCH") == "MIDSTREAM_TAKEOVER":
+            # Baseline and contracts are evidence-bound to the old runtime;
+            # carrying their approval flags across an environment replacement
+            # would make a new runtime look approved without revalidation.
+            updated["baseline_approved"] = False
+            updated["contract_approved"] = False
+            updated.pop("baseline_approval_id", None)
+            contract_path_value = updated.get("contract_path")
+            if contract_path_value:
+                contract_path = Path(str(contract_path_value)).resolve()
+                try:
+                    contract_path.relative_to(self.paths.takeover_contracts.resolve())
+                    if contract_path.is_file():
+                        from .trial_contract import contract_hash
+
+                        contract = read_mapping(contract_path)
+                        if contract.get("status") == "APPROVED":
+                            invalidated = dict(contract)
+                            invalidated["status"] = "INVALIDATED"
+                            invalidated["approval"] = {"required": True, "approved_by_user": False, "invalidated_by": "environment-drift"}
+                            invalidated["contract_sha256"] = contract_hash(invalidated)
+                            write_structured(contract_path, invalidated)
+                except (OSError, ValueError):
+                    raise SessionError("environment drift found an invalid contract path")
+        updated["environment_fingerprint"] = fingerprint
+        if environment_receipt.get("receipt_sha256"):
+            updated["environment_receipt_sha256"] = str(environment_receipt["receipt_sha256"])
         if receipt_path is not None:
             updated["environment_receipt_path"] = Path(receipt_path).resolve().as_posix()
         atomic_write_json(self.paths.state, updated)
@@ -389,6 +596,10 @@ class SessionManager:
                 registry.mark_stopped(pid, "STALE_PID")
         write_report(self.paths.root / "report.md", title="Robotics-AR report", state="PAUSING", summary=reason, actions=["resume after validating task and environment hashes"])
         write_handoff(self.paths.root / "handoff.md", state="PAUSING", session_id=self.session_id, reason=reason)
+        if self.state.get("entry_mode", "NEW_RESEARCH") == "MIDSTREAM_TAKEOVER":
+            from .reporting_v3 import write_checkpoint_artifacts
+
+            write_checkpoint_artifacts(self, context={"pause_reason": reason}, reason=reason)
         return self._transition("PAUSED", "PAUSE_COMMITTED", {"reason": reason, "safe_state": current})
 
     def resume(self) -> Dict[str, Any]:
@@ -446,8 +657,13 @@ class SessionManager:
                 raise SessionError("resume blocked: task path escapes session") from exc
             if not task_path.is_file():
                 raise SessionError("resume blocked: task artifact missing")
-            task = read_json(task_path)
-            actual_task_hash = sha256_obj({key: value for key, value in task.items() if key != "task_sha256"})
+            task = read_mapping(task_path)
+            if task.get("schema_version") == "robotics-ar-user-correction.v1":
+                from .user_correction import _task_hash
+
+                actual_task_hash = _task_hash(task)
+            else:
+                actual_task_hash = sha256_obj({key: value for key, value in task.items() if key != "task_sha256"})
             if task.get("task_sha256") != actual_task_hash or task_hash != actual_task_hash:
                 raise SessionError("resume blocked: task hash drift")
         elif task_hash:
@@ -463,8 +679,111 @@ class SessionManager:
             if not receipt_path.is_file():
                 raise SessionError("resume blocked: environment receipt missing")
             receipt = read_json(receipt_path)
-            if receipt.get("status") != "ONLINE_VERIFIED" or receipt.get("fingerprint") != environment_fingerprint:
+            from .environment import EnvironmentError, validate_environment_receipt
+
+            try:
+                validate_environment_receipt(receipt, require_online=True)
+            except EnvironmentError as exc:
+                raise SessionError(f"resume blocked: invalid environment receipt: {exc}") from exc
+            if receipt.get("fingerprint") != environment_fingerprint:
                 raise SessionError("resume blocked: environment receipt drift")
+            receipt_hash = receipt.get("receipt_sha256")
+            if receipt_hash and state.get("environment_receipt_sha256") and receipt_hash != state.get("environment_receipt_sha256"):
+                raise SessionError("resume blocked: environment receipt hash drift")
+
+        if state.get("entry_mode", "NEW_RESEARCH") == "MIDSTREAM_TAKEOVER":
+            # Validate a compiled core in every takeover state, including the
+            # interview/audit boundary before a contract exists.
+            if state.get("project_core_path") or state.get("project_core_sha256"):
+                core_path_value = state.get("project_core_path")
+                core_hash_value = state.get("project_core_sha256")
+                if not core_path_value or not core_hash_value:
+                    raise SessionError("resume blocked: Project Core binding is incomplete")
+                core_path = Path(str(core_path_value)).resolve()
+                try:
+                    core_path.relative_to(self.paths.takeover.resolve())
+                except ValueError as exc:
+                    raise SessionError("resume blocked: Project Core path escapes takeover root") from exc
+                if not core_path.is_file():
+                    raise SessionError("resume blocked: Project Core artifact missing")
+                from .project_core import assert_project_core_approved, load_project_core, core_hash
+
+                core = load_project_core(core_path)
+                if core_hash(core) != core_hash_value:
+                    raise SessionError("resume blocked: Project Core drift")
+                if state.get("project_core_approved") is True:
+                    assert_project_core_approved(core)
+            if safe_state in self.TAKEOVER_ENVIRONMENT_STATES:
+                if not isinstance(state.get("environment_fingerprint"), str) or not re.fullmatch(r"[0-9a-f]{64}", str(state.get("environment_fingerprint"))):
+                    raise SessionError("resume blocked: takeover environment fingerprint missing or invalid")
+                if not state.get("environment_receipt_path"):
+                    raise SessionError("resume blocked: takeover environment receipt binding missing")
+            if safe_state in self.TAKEOVER_BASELINE_STATES:
+                baseline_path_value = state.get("baseline_receipt_path")
+                baseline_hash_value = state.get("baseline_receipt_sha256")
+                baseline_bound = bool(baseline_path_value or baseline_hash_value)
+                if safe_state in self.TAKEOVER_BASELINE_REQUIRED_STATES and not (baseline_path_value and baseline_hash_value):
+                    raise SessionError("resume blocked: baseline receipt binding missing")
+                if baseline_bound:
+                    if not baseline_path_value or not baseline_hash_value:
+                        raise SessionError("resume blocked: baseline receipt binding is incomplete")
+                    baseline_path = Path(str(baseline_path_value)).resolve()
+                    try:
+                        baseline_path.relative_to(self.paths.takeover_baseline.resolve())
+                    except ValueError as exc:
+                        raise SessionError("resume blocked: baseline receipt path escapes takeover baseline root") from exc
+                    if not baseline_path.is_file():
+                        raise SessionError("resume blocked: baseline receipt missing")
+                    baseline = read_json(baseline_path)
+                    if baseline.get("receipt_sha256") != sha256_obj({key: value for key, value in baseline.items() if key != "receipt_sha256"}) or baseline.get("receipt_sha256") != baseline_hash_value:
+                        raise SessionError("resume blocked: baseline receipt drift")
+            if safe_state in self.TAKEOVER_CONTRACT_STATES:
+                if state.get("project_core_approved") is False or state.get("baseline_approved") is False:
+                    raise SessionError("resume blocked: Project Core and baseline approvals are invalid")
+                core_path_value = state.get("project_core_path")
+                core_hash_value = state.get("project_core_sha256")
+                if not core_path_value or not core_hash_value:
+                    raise SessionError("resume blocked: Project Core binding missing")
+                core_path = Path(str(core_path_value)).resolve()
+                try:
+                    core_path.relative_to(self.paths.takeover.resolve())
+                except ValueError as exc:
+                    raise SessionError("resume blocked: Project Core path escapes takeover root") from exc
+                if not core_path.is_file():
+                    raise SessionError("resume blocked: Project Core artifact missing")
+                from .project_core import load_project_core, core_hash
+
+                core = load_project_core(core_path)
+                if core_hash(core) != core_hash_value:
+                    raise SessionError("resume blocked: Project Core drift")
+                if state.get("project_core_approved") is True:
+                    from .project_core import assert_project_core_approved
+
+                    assert_project_core_approved(core)
+            if safe_state in self.TAKEOVER_CONTRACT_STATES:
+                contract_path_value = state.get("contract_path")
+                contract_hash_value = state.get("contract_sha256")
+                contract_bound = bool(contract_path_value or contract_hash_value)
+                if safe_state in self.TAKEOVER_CONTRACT_REQUIRED_STATES and not (contract_path_value and contract_hash_value):
+                    raise SessionError("resume blocked: Trial Contract binding missing")
+                if contract_bound:
+                    if not contract_path_value or not contract_hash_value:
+                        raise SessionError("resume blocked: Trial Contract binding is incomplete")
+                    contract_path = Path(str(contract_path_value)).resolve()
+                    try:
+                        contract_path.relative_to(self.paths.takeover_contracts.resolve())
+                    except ValueError as exc:
+                        raise SessionError("resume blocked: Trial Contract path escapes contracts root") from exc
+                    from .trial_contract import TrialContractManager, contract_hash
+
+                    contract = TrialContractManager(self.paths.takeover_contracts, self.paths.approvals).load(contract_path)
+                    if contract_hash(contract) != contract_hash_value:
+                        raise SessionError("resume blocked: Trial Contract drift")
+                    if safe_state in {"TRIAL_BATCH_READY", "TRIAL_PLANNING", "TRIAL_IMPLEMENTING", "TRIAL_TESTING", "TRIAL_DEBUGGING", "TRIAL_RUNNING", "TRIAL_ANALYZING", "TRIAL_EXPERT_REVIEW", "TRIAL_DECIDING", "BATCH_CHECKPOINT"} and contract.get("status") != "APPROVED":
+                        raise SessionError("resume blocked: active Trial Contract is not approved")
+            registry = ProcessRegistry(self.paths.root / "process-registry.json")
+            if registry.stale_entries():
+                raise SessionError("resume blocked: stale registered process")
 
         token_path_value = state.get("real_robot_token_path")
         if token_path_value:
@@ -478,10 +797,17 @@ class SessionManager:
         """检查项目 Git 是否有未提交变更。 / Check whether the project Git is dirty."""
 
         try:
-            result = subprocess.run(["git", "status", "--porcelain"], cwd=self.paths.project_root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=10, check=False)
+            # Runtime receipts live under .robotics-ar and are expected to
+            # change during pause/approval/resume.  Git cleanliness here is a
+            # guard on the user's project source, so exclude that supervisor
+            # ledger while still reporting every source/untracked file.
+            result = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all", "--", ":(exclude).robotics-ar"], cwd=self.paths.project_root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=10, check=False)
         except (OSError, subprocess.SubprocessError):
             return True
-        return bool(result.stdout.strip())
+        # A missing repository, a timeout, or any non-zero Git result is not
+        # evidence of cleanliness.  Resume must fail closed when Git cannot
+        # establish the worktree state.
+        return result.returncode != 0 or bool(result.stdout.strip())
 
     def close(self) -> None:
         """关闭 session lock；只作用于本 session。 / Close this session's lock."""

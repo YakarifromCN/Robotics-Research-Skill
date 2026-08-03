@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-baseline-receipt.v1",
+  "type": "object",
+  "required": ["schema_version", "baseline_id", "baseline_spec_sha256", "reproduction_status", "runs", "created_at", "receipt_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-baseline-receipt.v1"}, "baseline_id": {"type": "string"}, "baseline_spec_sha256": {"type": "string"}, "reproduction_status": {"enum": ["REPRODUCED", "REPRODUCED_WITH_VARIANCE", "PARTIALLY_REPRODUCED", "FAILED_REPRODUCTION", "NOT_REPRODUCED", "BLOCKED", "UNTRUSTED", "UNKNOWN"]}, "runs": {"type": "array"}, "created_at": {"type": "string"}, "receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

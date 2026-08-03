@@ -7,6 +7,7 @@
     "schema_version": {"const": "robotics-ar-session-state.v1"},
     "session_id": {"type": "string", "pattern": "^RAS-[A-Z0-9-]+$"},
     "mode": {"enum": ["PLANNING_ONLY", "EXECUTION_ENABLED"]},
+    "entry_mode": {"enum": ["NEW_RESEARCH", "MIDSTREAM_TAKEOVER"]},
     "state": {"type": "string"},
     "interaction_language": {"type": "string", "minLength": 1},
     "exploration_budget": {"$ref": "#/definitions/budget"},

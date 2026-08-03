@@ -1,0 +1,28 @@
+schema_version: robotics-ar-takeover-intake.v1
+project_id: example-project
+project_path: /path/to/project
+project_core:
+  research_problem: "state the research problem"
+  core_method: "state the inherited method"
+current_goal: "resolve one local bottleneck"
+current_bottleneck: "describe the observable failure mode"
+environment:
+  manifest: /path/to/project/environment-manifest.json
+allowed_directions:
+  - initialization
+forbidden_changes:
+  - objective
+  - primary_metric
+budget:
+  max_trials: 10
+  max_wall_time_hours: 4
+  max_gpu_hours: 4
+  max_disk_gb: 10
+pause_conditions:
+  - core-change-required
+  - repeated-environment-failure
+user_asserted: []
+repository_observed: []
+agent_inferred: []
+unresolved:
+  - "which baseline is formally reported"

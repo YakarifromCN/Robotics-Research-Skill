@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-user-correction.v1",
+  "type": "object",
+  "required": ["schema_version", "correction_id", "user_instruction_verbatim", "interpreted_objective", "allowed_changes", "forbidden_changes", "budget", "task_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-user-correction.v1"}, "correction_id": {"type": "string"}, "user_instruction_verbatim": {"type": "string"}, "interpreted_objective": {"type": "string"}, "allowed_changes": {"type": "array"}, "forbidden_changes": {"type": "array"}, "budget": {"type": "object"}, "task_path": {"type": "string"}, "contract_path": {"type": "string"}, "contract_sha256": {"type": "string"}, "task_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

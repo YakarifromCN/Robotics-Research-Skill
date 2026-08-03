@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-baseline-spec.v1",
+  "type": "object",
+  "required": ["schema_version", "baseline_id", "project_core_sha256", "environment_receipt_sha256", "seeds", "expected_metrics", "repetitions", "artifacts_required", "baseline_spec_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-baseline-spec.v1"}, "baseline_id": {"type": "string"}, "project_core_sha256": {"type": "string"}, "environment_receipt_sha256": {"type": "string"}, "seeds": {"type": "array"}, "expected_metrics": {"type": "object"}, "repetitions": {"type": "integer", "minimum": 1}, "artifacts_required": {"type": "array"}, "baseline_spec_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

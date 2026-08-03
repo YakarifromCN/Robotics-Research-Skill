@@ -2,14 +2,17 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "robotics-ar-environment-receipt.v1",
   "type": "object",
-  "required": ["schema_version", "environment_id", "fingerprint", "status", "checks", "created_at"],
+  "required": ["schema_version", "environment_id", "fingerprint", "status", "checks", "created_at", "receipt_sha256"],
   "properties": {
     "schema_version": {"const": "robotics-ar-environment-receipt.v1"},
     "environment_id": {"type": "string"},
+    "environment_kind": {"enum": ["simulation", "real_robot", "hybrid"]},
     "fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "status": {"enum": ["ONLINE_VERIFIED", "BLOCKED_ENVIRONMENT", "INVALID"]},
     "checks": {"type": "object"},
-    "created_at": {"type": "string"}
+    "takeover_capabilities": {"type": "object"},
+    "created_at": {"type": "string"},
+    "receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
   },
   "additionalProperties": true
 }

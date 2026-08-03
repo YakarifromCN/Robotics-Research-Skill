@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-trial-ledger.v1",
+  "type": "object",
+  "required": ["schema_version", "trial_id", "origin", "status", "eligible_for_retry", "confidence", "trial_fingerprint"],
+  "properties": {"schema_version": {"const": "robotics-ar-trial-ledger.v1"}, "trial_id": {"type": "string"}, "origin": {"enum": ["imported", "robot_ar_v3"]}, "status": {"enum": ["VERIFIED", "FAILED", "INVALID", "INCONCLUSIVE", "UNKNOWN", "UNREPRODUCIBLE"]}, "eligible_for_retry": {"type": "boolean"}, "confidence": {"enum": ["high", "medium", "low"]}, "trial_fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

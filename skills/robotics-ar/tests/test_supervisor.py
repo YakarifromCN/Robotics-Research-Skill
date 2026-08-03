@@ -82,10 +82,15 @@ class SupervisorTests(unittest.TestCase):
 
     def test_pause_and_resume_from_active_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
+            subprocess.run(["git", "init", "-q"], cwd=directory, check=True)
             manager = SessionManager(directory)
             manager.initialize(mode="PLANNING_ONLY", interaction_language="zh", session_id="RAS-TEST")
+            subprocess.run(["git", "add", "-A"], cwd=directory, check=True)
+            subprocess.run(["git", "-c", "user.email=robotics-ar@test", "-c", "user.name=Robot-AR", "commit", "-qm", "session-init"], cwd=directory, check=True)
             manager.transition("TASK_COMPILATION", "START_TASK")
             manager.pause("user request")
+            subprocess.run(["git", "add", "-A"], cwd=directory, check=True)
+            subprocess.run(["git", "-c", "user.email=robotics-ar@test", "-c", "user.name=Robot-AR", "commit", "-qm", "pause-checkpoint"], cwd=directory, check=True)
             self.assertEqual(manager.state["state"], "PAUSED")
             manager.resume()
             self.assertEqual(manager.state["state"], "TASK_COMPILATION")

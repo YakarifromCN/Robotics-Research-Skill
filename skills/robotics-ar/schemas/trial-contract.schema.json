@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-trial-contract.v1",
+  "type": "object",
+  "required": ["schema_version", "contract_id", "entry_mode", "project_core_sha256", "baseline_receipt_sha256", "environment_receipt_sha256", "current_bottleneck", "primary_hypothesis", "primary_objective", "allowed_search_space", "conditionally_allowed", "forbidden_changes", "trial_policy", "budget", "stop_conditions", "escalation_conditions", "approval", "contract_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-trial-contract.v1"}, "contract_id": {"type": "string"}, "entry_mode": {"const": "MIDSTREAM_TAKEOVER"}, "project_core_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "baseline_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "environment_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "baseline_reproduction_status": {"enum": ["REPRODUCED", "REPRODUCED_WITH_VARIANCE"]}, "allowed_search_space": {"type": "object"}, "allowed_paths": {"type": "array"}, "forbidden_paths": {"type": "array"}, "read_only_paths": {"type": "array"}, "trial_policy": {"type": "object"}, "budget": {"type": "object"}, "approval": {"type": "object"}, "contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

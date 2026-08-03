@@ -85,7 +85,10 @@ class PathPolicy:
 
         root_path = Path(root).resolve()
         allowed = tuple(sorted({_relative(root_path, value) for value in allowed_paths}))
-        forbidden = tuple(sorted({Path(value).as_posix().strip("/") for value in forbidden_paths}))
+        try:
+            forbidden = tuple(sorted({_relative(root_path, value) for value in forbidden_paths}))
+        except Exception as exc:
+            raise AgentProtocolError("forbidden path escapes workspace root") from exc
         if not allowed:
             raise AgentProtocolError("at least one allowed path is required")
         return cls(root_path, allowed, forbidden)
@@ -193,7 +196,10 @@ class RawEvidenceGuard:
 
         result: Dict[str, str] = {}
         for candidate in paths:
-            path = Path(candidate).resolve()
+            raw_path = Path(candidate)
+            if raw_path.is_symlink():
+                raise AgentProtocolError(f"symlinked raw artifact is not allowed: {raw_path}")
+            path = raw_path.resolve()
             try:
                 path.relative_to(self.raw_root)
             except ValueError as exc:
@@ -201,6 +207,8 @@ class RawEvidenceGuard:
             if path.is_file():
                 digest = file_sha256(path)
             elif path.is_dir():
+                if any(item.is_symlink() for item in path.rglob("*")):
+                    raise AgentProtocolError(f"raw directory contains a symlink: {path}")
                 digest = tree_fingerprint(path)
             else:
                 raise AgentProtocolError(f"raw artifact does not exist: {path}")
@@ -216,6 +224,10 @@ class RawEvidenceGuard:
             path = self.raw_root / relative
             if not path.exists():
                 raise AgentProtocolError(f"frozen raw artifact disappeared: {relative}")
+            if path.is_symlink():
+                raise AgentProtocolError(f"frozen raw artifact became a symlink: {relative}")
+            if path.is_dir() and any(item.is_symlink() for item in path.rglob("*")):
+                raise AgentProtocolError(f"frozen raw directory gained a symlink: {relative}")
             actual = file_sha256(path) if path.is_file() else tree_fingerprint(path)
             if actual != expected:
                 raise AgentProtocolError(f"frozen raw artifact changed: {relative}")
@@ -270,15 +282,62 @@ def make_agent_receipt(
     return receipt
 
 
+def validate_agent_receipt(receipt: Mapping[str, Any], *, expected_role: Optional[str] = None, expected_task_id: Optional[str] = None) -> None:
+    """Validate the immutable receipt envelope before Supervisor registration."""
+
+    if not isinstance(receipt, Mapping):
+        raise AgentProtocolError("agent receipt must be an object")
+    if receipt.get("schema_version") != "robotics-ar-agent-receipt.v1":
+        raise AgentProtocolError("agent receipt schema mismatch")
+    role = str(receipt.get("role", ""))
+    if role not in VALID_ROLES:
+        raise AgentProtocolError("unknown agent role")
+    if expected_role and role != expected_role:
+        raise AgentProtocolError("agent role mismatch")
+    if expected_task_id and receipt.get("task_id") != expected_task_id:
+        raise AgentProtocolError("agent task mismatch")
+    if receipt.get("status") not in {"PASS", "FAIL", "BLOCKED_DEPENDENCY", "SINGLE_AGENT_MODE"}:
+        raise AgentProtocolError("invalid agent receipt status")
+    expected = receipt.get("receipt_sha256")
+    actual = sha256_obj({key: value for key, value in receipt.items() if key != "receipt_sha256"})
+    if not expected or expected != actual:
+        raise AgentProtocolError("agent receipt hash mismatch")
+    if role == "Dynamic Expert" and receipt.get("status") == "PASS" and not receipt.get("fresh_runtime"):
+        raise AgentProtocolError("independent Dynamic Expert PASS requires fresh runtime")
+
+
 def validate_role_access(role: str, *, read_path: Optional[str] = None, write_path: Optional[str] = None) -> None:
-    """执行粗粒度角色能力检查。 / Apply coarse role capability checks."""
+    """执行角色的显式读写 allow-list 和 forbidden 检查。
+
+    Apply the role's explicit read/write allow-lists as well as its forbidden
+    paths.  The values in ``ROLE_CONTRACTS`` are logical workspace roots (for
+    example ``implementation`` or ``raw``), so callers may pass a descendant
+    path such as ``implementation/src/model.py``.
+    """
 
     if role not in VALID_ROLES:
         raise AgentProtocolError(f"unknown role: {role}")
     rules = ROLE_CONTRACTS[role]
-    target = write_path or read_path or ""
-    if write_path and any(_matches(target, item) for item in rules.get("forbidden", ())):
-        raise AgentProtocolError(f"role {role} cannot write {target}")
+
+    def check_target(target: str, *, operation: str) -> None:
+        if not target:
+            raise AgentProtocolError(f"{operation} path is required for {role}")
+        candidate = Path(str(target))
+        if candidate.is_absolute() or ".." in candidate.parts or "\x00" in str(target):
+            raise AgentProtocolError(f"unsafe {operation} path: {target}")
+        normalized = candidate.as_posix().strip("/")
+        forbidden = tuple(str(item) for item in rules.get("forbidden", ()))
+        if any(_matches(normalized, item) for item in forbidden):
+            raise AgentProtocolError(f"role {role} cannot {operation} {target}")
+        allowed_key = "writes" if operation == "write" else "reads"
+        allowed = tuple(str(item) for item in rules.get(allowed_key, ()))
+        if not any(_matches(normalized, item) for item in allowed):
+            raise AgentProtocolError(f"role {role} is not allowed to {operation} {target}")
+
+    if read_path is not None:
+        check_target(read_path, operation="read")
+    if write_path is not None:
+        check_target(write_path, operation="write")
 
 
 def build_expert_profiles(count: int = 2) -> List[Dict[str, Any]]:
@@ -287,6 +346,20 @@ def build_expert_profiles(count: int = 2) -> List[Dict[str, Any]]:
     if count < 2 or count > 4:
         raise AgentProtocolError("dynamic expert count must be between 2 and 4")
     return [{"expert_id": f"expert-{index:02d}", "role": "Dynamic Expert", "focus": f"unknown-{index:02d}"} for index in range(1, count + 1)]
+
+
+def build_dynamic_expert_profiles(domain_payload: Optional[Mapping[str, Any]] = None, *, count: int = 2) -> List[Dict[str, Any]]:
+    """Derive bounded expert focuses from the active problem, not a fixed committee."""
+
+    if count < 2 or count > 4:
+        raise AgentProtocolError("dynamic expert count must be between 2 and 4")
+    payload = dict(domain_payload or {})
+    requested = payload.get("expert_roles", payload.get("expert_focuses", []))
+    focuses = [str(item) for item in requested] if isinstance(requested, list) else []
+    if not focuses:
+        unknowns = payload.get("unknowns", payload.get("open_questions", []))
+        focuses = [f"unknown-{index:02d}" for index in range(1, max(count, len(unknowns) if isinstance(unknowns, list) else count) + 1)]
+    return [{"expert_id": f"dynamic-expert-{index:02d}", "role": "Dynamic Expert", "focus": focuses[index - 1]} for index in range(1, count + 1)]
 
 
 def synthesize_expert_rounds(
@@ -321,5 +394,5 @@ def synthesize_expert_rounds(
     elif any(item.get("decision") == "ACCEPT_WITH_CONSTRAINTS" for group in rounds for item in group):
         status = "ACCEPT_WITH_CONSTRAINTS"
     else:
-        status = "ACCEPT_NEXT_ACTION"
+        status = "ACCEPT"
     return {"status": status, "rounds": len(rounds), "next_action_id": action, "disagreements": []}

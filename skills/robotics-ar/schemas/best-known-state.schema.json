@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-best-known-state.v1",
+  "type": "object",
+  "required": ["schema_version", "baseline_trial", "current_primary_best", "current_stable_best", "pareto_candidates", "invalidated_trials", "latest_trial", "metric_versions"],
+  "properties": {"schema_version": {"const": "robotics-ar-best-known-state.v1"}, "baseline_trial": {}, "current_primary_best": {}, "current_stable_best": {}, "pareto_candidates": {"type": "array"}, "invalidated_trials": {"type": "array"}, "latest_trial": {}, "metric_versions": {"type": "object"}},
+  "additionalProperties": true
+}

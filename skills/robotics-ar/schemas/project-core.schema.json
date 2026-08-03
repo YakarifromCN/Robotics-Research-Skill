@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-project-core.v1",
+  "type": "object",
+  "required": ["schema_version", "project_id", "research_problem", "core_method", "frozen_invariants", "modifiable_components", "forbidden_pivots", "current_bottleneck", "current_batch_goal", "success_criteria", "source_evidence", "approval", "project_core_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-project-core.v1"}, "project_id": {"type": "string"}, "research_problem": {"type": "string"}, "core_method": {"type": "string"}, "frozen_invariants": {"type": "array"}, "modifiable_components": {"type": "array"}, "conditionally_modifiable": {"type": "array"}, "forbidden_pivots": {"type": "array"}, "current_bottleneck": {"type": "string"}, "current_batch_goal": {"type": "string"}, "success_criteria": {"type": "object"}, "source_evidence": {"type": "object"}, "approval": {"type": "object"}, "project_core_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

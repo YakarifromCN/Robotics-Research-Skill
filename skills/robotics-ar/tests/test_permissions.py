@@ -20,6 +20,7 @@ from robotics_ar_core.agent_protocol import (  # noqa: E402
     build_expert_profiles,
     make_agent_receipt,
     synthesize_expert_rounds,
+    validate_role_access,
 )
 
 
@@ -76,6 +77,20 @@ class PermissionTests(unittest.TestCase):
         self.assertEqual(result["next_action_id"], "A1")
         conflict = synthesize_expert_rounds(profiles, [{"next_action_id": "A1"}, {"next_action_id": "A2"}])
         self.assertEqual(conflict["status"], "CRITICAL_BLOCK")
+
+    def test_role_contracts_enforce_allowed_reads_and_writes(self) -> None:
+        validate_role_access("Code Agent", read_path="task/current.yaml", write_path="implementation/src/model.py")
+        validate_role_access("Data Analyst", read_path="raw/trial-1/output.json", write_path="analysis-receipts/trial-1.json")
+        with self.assertRaises(AgentProtocolError):
+            validate_role_access("Code Agent", write_path="raw/trial-1/output.json")
+        with self.assertRaises(AgentProtocolError):
+            validate_role_access("Test Agent", read_path="claims/conclusion.md")
+        with self.assertRaises(AgentProtocolError):
+            validate_role_access("Environment Runner", write_path="research/claims/result.md")
+        with self.assertRaises(AgentProtocolError):
+            validate_role_access("Dynamic Expert", read_path="raw/trial-1/output.json")
+        with self.assertRaises(AgentProtocolError):
+            validate_role_access("Code Agent", write_path="implementation/../raw/output.json")
 
 
 if __name__ == "__main__":

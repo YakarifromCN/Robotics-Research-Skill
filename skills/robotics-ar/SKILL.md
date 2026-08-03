@@ -24,6 +24,29 @@ description: Supervise explicitly requested, resumable research sessions across 
 - `EXECUTION_ENABLED`：每个 batch 前必须有冻结的 `ONLINE_VERIFIED` environment
   receipt；没有 receipt 时停在 `BLOCKED_ENVIRONMENT`。
 
+### v3 中途接入模式
+
+显式指定 `entry_mode: MIDSTREAM_TAKEOVER` 或用户要求中途接入已有项目时，先执行
+接管访谈、只读项目审计、历史实验重建、在线环境验证和 baseline reproduction。
+只有 `Project Core`、`Reconstructed History`、`Reproduced Baseline` 与用户批准的
+`Trial Contract` 同时存在，才允许自主 trial batch；否则保持在计划、等待审批或
+阻断状态。
+
+`NEW_RESEARCH` 保持 v2 生命周期。Takeover 可以从 Experiment 上下文衔接，但不是
+第五个领域科研阶段；Idea 只在需要时以 `IDEA_RECONCILIATION` 调用，Writing 必须
+等待 evidence freeze，Review 只生成 route proposal。
+
+每次 checkpoint、暂停、阻断和用户纠正都会更新 `.robotics-ar/report.md`、
+`.robotics-ar/handoff.md` 和任务工件；用户纠正额外写入
+`.robotics-ar/tasks/task.md`，并保留根目录兼容副本。baseline 失败时只能使用
+`baseline-recover --diagnostics` 记录恢复诊断，不能升级为可用 baseline；
+`batch-resume` 会重验 contract、environment receipt/fingerprint、累计 wall-time
+和 terminal stop reason。`trial-analyze` 要求 raw evidence 与 versioned metrics；
+完成且有结论的 trial 进入 Do-Not-Repeat，单 seed 不能自动晋升为 stable Best-Known
+State。成功 trial 的 code/test/run/analysis receipt 必须自哈希并互相绑定 proposal、
+contract、code/configuration、environment receipt/fingerprint 与 metric versions；仅有
+`status: PASS` 不能产生 `KEEP`，且 batch tier 必须是合同搜索空间的子集。
+
 ## 不可静默违反的规则
 
 1. 只在显式 `$robotics-ar` 或等价明确请求后初始化 `.robotics-ar/`。
@@ -60,6 +83,13 @@ python3 skills/robotics-ar/scripts/robotics_ar.py init --project-root <project-r
 python3 skills/robotics-ar/scripts/robotics_ar.py status --project-root <project-root>
 python3 skills/robotics-ar/scripts/robotics_ar.py validate-siblings --project-root <project-root>
 python3 skills/robotics-ar/scripts/robotics_ar.py pause --project-root <project-root> --reason user-request
+python3 skills/robotics-ar/scripts/robotics_ar.py init --project-root <project-root> --entry-mode MIDSTREAM_TAKEOVER --mode EXECUTION_ENABLED
+python3 skills/robotics-ar/scripts/robotics_ar.py takeover-init --project-root <project-root>
+python3 skills/robotics-ar/scripts/robotics_ar.py takeover-status --project-root <project-root>
+# After the user has approved the core, baseline, and contract:
+python3 skills/robotics-ar/scripts/robotics_ar.py batch-start --project-root <project-root> --contract <approved-contract> --receipt <environment-receipt>
+# A real-robot batch additionally requires a one-shot token and its exact binding.
+python3 skills/robotics-ar/scripts/robotics_ar.py batch-start --project-root <project-root> --real-robot --real-robot-token <token.json> --real-robot-binding <binding.json> --contract <approved-contract> --receipt <environment-receipt>
 ```
 
 命令 stdout 只输出一个 machine-readable JSON；人类说明写 stderr。验证/阻断返回稳定
@@ -82,6 +112,11 @@ python3 skills/robotics-ar/scripts/robotics_ar.py pause --project-root <project-
 篡改、预算耗尽、两次 debug 失败、Critical Block 或用户要求暂停，都必须生成 report
 和 handoff 并停止在可恢复状态。失败、负结果、abort、inconclusive 和
 `NOT_APPLICABLE` 是一等结果，不能升级成成功。
+
+v3 参考协议：`midstream-takeover.md`、`project-audit.md`、
+`history-reconstruction.md`、`baseline-reproduction.md`、`trial-contract.md`、
+`autonomous-trial-loop.md`、`human-reentry.md`、`dynamic-expert-deliberation.md`。
+可复制的 intake、contract、report、handoff 和 task 起始工件位于 `assets/*.example.*`。
 
 # English
 
@@ -120,3 +155,12 @@ code, and side-effecting commands support `--dry-run`. Load the directly linked
 reference files for architecture, kernel, supervisor, sibling adapter,
 environment, execution agents, or pause/resume details. Never duplicate a
 sibling's scientific contract inside this Skill.
+
+The v3 CLI requires approved Project Core, reproduced baseline, online environment,
+and Trial Contract bindings before a batch. Every batch checkpoint also carries the
+environment receipt hash and fingerprint plus accumulated wall-time, and simulation
+resume rejects terminal stop reasons. Every successful trial receipt is self-hashed and
+cross-bound to its proposal, contract, code/configuration, environment, and metric
+versions; a status-only PASS cannot yield KEEP, and batch tiers cannot exceed the
+contract search space. Real-robot execution additionally needs an
+operator-bound one-shot token; failure stops the batch and never retries it.

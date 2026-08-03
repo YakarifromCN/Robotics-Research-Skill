@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-autonomous-batch.v1",
+  "type": "object",
+  "required": ["schema_version", "batch_id", "contract_sha256", "max_trials", "max_wall_time_minutes", "max_parallel_jobs", "report_every_trials", "stop_on", "batch_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-autonomous-batch.v1"}, "batch_id": {"type": "string"}, "contract_sha256": {"type": "string"}, "max_trials": {"type": "integer", "minimum": 1}, "max_wall_time_minutes": {"type": "integer", "minimum": 1}, "max_parallel_jobs": {"type": "integer", "minimum": 1}, "max_gpu_hours": {"type": "number", "minimum": 0}, "max_disk_gb": {"type": "number", "minimum": 0}, "no_information_gain_limit": {"type": "integer", "minimum": 1}, "report_every_trials": {"type": "integer", "minimum": 1}, "stop_on": {"type": "array"}, "batch_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

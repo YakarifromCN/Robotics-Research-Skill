@@ -1,0 +1,47 @@
+schema_version: robotics-ar-trial-contract.v1
+contract_id: batch-001
+entry_mode: MIDSTREAM_TAKEOVER
+project_core_sha256: "fill-after-core-approval"
+baseline_receipt_sha256: "fill-after-baseline-approval"
+environment_receipt_sha256: "fill-after-online-verification"
+current_bottleneck: "one observable local bottleneck"
+primary_hypothesis:
+  statement: "one change addresses one uncertainty"
+  falsification_condition: "the predicted observation is absent"
+primary_objective:
+  metric: feasibility_rate
+  direction: maximize
+allowed_search_space:
+  tier_0_parameters:
+    - initialization
+allowed_paths:
+  - src/controller
+read_only_paths:
+  - raw
+forbidden_paths:
+  - claims
+forbidden_changes:
+  - objective
+trial_policy:
+  one_primary_hypothesis_per_trial: true
+  minimal_change_required: true
+  max_debug_cycles: 2
+  max_expert_rounds: 2
+budget:
+  max_trials: 10
+  max_wall_time_hours: 4
+  max_gpu_hours: 4
+  max_disk_gb: 10
+  max_parallel_jobs: 1
+stop_conditions:
+  - target_reached
+  - budget_exhausted
+  - no_information_gain
+  - repeated_environment_failure
+escalation_conditions:
+  - project_core_change
+  - tier_3_method_pivot
+  - real_robot_limit_change
+approval:
+  required: true
+  approved_by_user: false

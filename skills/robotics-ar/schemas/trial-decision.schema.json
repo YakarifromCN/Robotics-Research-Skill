@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-trial-decision.v1",
+  "type": "object",
+  "required": ["schema_version", "trial_id", "decision", "reasons", "created_at", "decision_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-trial-decision.v1"}, "trial_id": {"type": "string"}, "decision": {"enum": ["KEEP", "REVERT", "INVESTIGATE", "ESCALATE", "CONTINUE", "COMPLETE"]}, "reasons": {"type": "array"}, "decision_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-blackboard-state.v1",
+  "type": "object",
+  "required": ["schema_version", "updated_at", "values"],
+  "properties": {"schema_version": {"const": "robotics-ar-blackboard-state.v1"}, "updated_at": {"type": "string"}, "values": {"type": "object"}},
+  "additionalProperties": true
+}

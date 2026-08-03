@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "robotics-ar-trial-contract-amendment.v1",
+  "type": "object",
+  "required": ["schema_version", "amendment_id", "parent_contract_sha256", "user_instruction_verbatim", "changes", "approval", "amendment_sha256"],
+  "properties": {"schema_version": {"const": "robotics-ar-trial-contract-amendment.v1"}, "amendment_id": {"type": "string"}, "parent_contract_sha256": {"type": "string"}, "user_instruction_verbatim": {"type": "string"}, "changes": {"type": "object"}, "approval": {"type": "object"}, "amendment_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": true
+}
