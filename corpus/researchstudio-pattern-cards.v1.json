@@ -342,9 +342,21 @@
       "failure_modes": [
         "An equally strong hidden model is reintroduced."
       ],
+      "trigger": "A controller or estimator fails when a nominal model, calibration, friction or distribution assumption drifts.",
+      "changed_object": "The required model assumption is replaced by an observable condition or bounded uncertainty set.",
+      "retained_invariant": "Task, sensing interface, actuation limits and evaluation denominator remain fixed.",
+      "five_step_recipe": ["Name the inherited assumption and the failure it causes.", "Define the weaker observable condition and its operating range.", "Implement the mechanism without reintroducing the original assumption.", "Compare against the nominal model and an oracle-model upper bound.", "Sweep the violated assumption until both methods reach their failure boundary."],
+      "differentiation_within_parent": "Unlike locus relocation, this changes assumption strength rather than where a signal is enforced.",
+      "robotics_failure_modes": ["Online identification recreates an equally strong hidden model.", "The observable condition cannot be measured at control rate.", "Safety depends on an untested uncertainty bound."],
+      "decisive_experiment": "Sweep model mismatch over a predeclared range and test whether the new mechanism retains the claimed outcome after the nominal method crosses its boundary.",
+      "semantic_negative_control": "Give the baseline the same compute and observations but a shuffled or stale condition estimate.",
+      "prior_art_search_signature": "robotics unknown dynamics OR friction robust control weaker assumption observable condition model-free boundary",
+      "required_evidence_profile": ["matched model-mismatch sweep", "observable-condition latency and noise", "failure boundary", "oracle-model comparator"],
+      "source_records": ["MODEL_SUPPLIED:R02-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -399,9 +411,27 @@
       "failure_modes": [
         "The interface is changed without a causal account."
       ],
+      "trigger": "Latency, bandwidth, authority or observability at one interface is the measured system bottleneck.",
+      "changed_object": "The location and contract of the load-bearing sensing, communication, human or actuation interface.",
+      "retained_invariant": "Task, downstream controller, compute budget, hardware limits and evaluation denominator remain matched.",
+      "five_step_recipe": [
+        "Measure the inherited interface bottleneck and failure boundary.",
+        "Name the signal, authority and timing contract that must move.",
+        "Move only that contract across the interface.",
+        "Match downstream tuning and resource budgets.",
+        "Sweep latency, bandwidth or authority through the old and new boundaries."
+      ],
+      "differentiation_within_parent": "Unlike removing an assumption, this retains the information and changes where it crosses the system boundary.",
+      "robotics_failure_modes": ["Clock or frame changes confound the interface move.", "Extra bandwidth or privileged sensing explains the gain.", "Downstream retuning carries the result."],
+      "decisive_experiment": "Replay identical signals through both interfaces while sweeping the measured bottleneck; the advantage must appear only where the old interface binds.",
+      "semantic_negative_control": "Move an equal-bandwidth signal that is temporally or semantically misbound.",
+      "prior_art_search_signature": "robot interface relocation sensing communication authority latency bandwidth matched controller",
+      "required_evidence_profile": ["interface timing trace", "matched downstream stack", "bottleneck sweep", "semantic interface control"],
+      "source_records": ["MODEL_SUPPLIED:R05-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -494,9 +524,21 @@
       "failure_modes": [
         "The operator is a cosmetic reparameterization."
       ],
+      "trigger": "A standard collision, contact or Euclidean geometry operator erases the physical quantity needed by planning or control.",
+      "changed_object": "The contact/geometry operator and the physical object it exposes.",
+      "retained_invariant": "Robot, task, observations, compute budget and downstream controller remain matched.",
+      "five_step_recipe": ["Locate the physical signal lost by the current operator.", "Define an alternative operator with explicit units and geometry.", "Replace only the load-bearing operation.", "Run matched compute and representation controls.", "Test contact and geometric boundary cases on replay, simulation or hardware."],
+      "differentiation_within_parent": "Unlike general state substitution, this card targets a physical contact or geometry operation and requires boundary-case validation.",
+      "robotics_failure_modes": ["Frame or sign conventions differ between operators.", "The new operator leaks privileged contact information.", "A higher-resolution baseline explains the gain."],
+      "decisive_experiment": "Use identical trajectories and compute while sweeping contact geometry; remove the physical object from the new operator and require the gain to disappear.",
+      "semantic_negative_control": "Use a dimension-matched random basis or geometry with permuted contact correspondences.",
+      "prior_art_search_signature": "robot contact geometry operator substitution collision signed distance force representation manipulation",
+      "required_evidence_profile": ["matched operator comparison", "contact boundary sweep", "frame/unit audit", "physical-object removal control"],
+      "source_records": ["MODEL_SUPPLIED:R10-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -532,9 +574,21 @@
       "failure_modes": [
         "The residual model becomes a generic error-corrector with no mechanism."
       ],
+      "trigger": "A reproducible physical or modeling residual dominates error after the fixed generator is matched.",
+      "changed_object": "The explicit residual channel and mechanism that closes it.",
+      "retained_invariant": "Generator, observations, training budget, task and evaluation protocol remain fixed.",
+      "five_step_recipe": ["Measure and stratify the residual.", "Tie one residual component to a physical mechanism.", "Expose that component to the correction path.", "Match capacity and compute controls.", "Remove or permute the residual signal and test downstream return."],
+      "differentiation_within_parent": "Unlike redesigning the generator, this preserves it and liberates one measurable unexplained residual.",
+      "robotics_failure_modes": ["Residual leaks target labels.", "Correction capacity rather than mechanism explains the gain.", "Residual is defined after observing results."],
+      "decisive_experiment": "Remove the mechanism-aligned residual channel under matched capacity and require performance to return toward the fixed-generator baseline.",
+      "semantic_negative_control": "Use a magnitude-matched residual with shuffled time, contact or object correspondence.",
+      "prior_art_search_signature": "robotics residual mechanism sim-to-real friction contact dynamics error correction matched capacity",
+      "required_evidence_profile": ["residual decomposition", "matched-capacity control", "signal removal", "physical boundary sweep"],
+      "source_records": ["MODEL_SUPPLIED:R12-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -570,9 +624,21 @@
       "failure_modes": [
         "Only the intermediate metric changes, not the task outcome."
       ],
+      "trigger": "A claimed mechanism can still be explained by hardware, data, compute, tuning or operator adaptation.",
+      "changed_object": "One load-bearing variable is intervened on while the visible interface and resource budget stay fixed.",
+      "retained_invariant": "Hardware, data split, observations, tuning budget, task and denominator remain matched.",
+      "five_step_recipe": ["List the mechanism and strongest alternative explanation.", "Choose one intervention that separates their predictions.", "Construct a cost- and information-matched semantic control.", "Freeze the downstream metric and decision rule.", "Run the intervention and require a predicted task-level divergence."],
+      "differentiation_within_parent": "This constructs a new causal diagnostic; it is not a generic ablation that merely deletes a module.",
+      "robotics_failure_modes": ["Intervention changes controller stability or latency.", "Negative control is cheaper or less informed.", "Only an internal proxy changes.", "Operator behavior adapts across conditions."],
+      "decisive_experiment": "Intervene on the load-bearing variable and its semantic control under matched cost; the two must produce different predeclared downstream signatures.",
+      "semantic_negative_control": "Preserve dimensions, compute and surface statistics while permuting or misbinding the claimed semantics.",
+      "prior_art_search_signature": "robotics mechanism diagnostic causal intervention semantic negative control matched ablation confound",
+      "required_evidence_profile": ["intervention fidelity", "matched-cost control", "task-level metric", "confound ledger"],
+      "source_records": ["ResearchStudio:C02", "MODEL_SUPPLIED:R14-v2"],
+      "confidence": "HIGH",
       "upstream_reference": "ResearchStudio C02 Controlled Diagnostic Construction",
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -589,9 +655,21 @@
       "failure_modes": [
         "The common space is a concatenation with no causal use."
       ],
+      "trigger": "Complementary modalities exist but cannot jointly affect a downstream decision through a stable interface.",
+      "changed_object": "Modality-specific observations are mapped into a shared task-usable state.",
+      "retained_invariant": "Downstream policy, training budget, task split and sensor availability remain controlled.",
+      "five_step_recipe": ["Define the distinct information supplied by each modality.", "Specify the shared state and alignment constraint.", "Expose the shared state to one downstream decision point.", "Run leave-one-modality and misalignment controls.", "Test held-out sensor noise, delay and missing-modality conditions."],
+      "differentiation_within_parent": "Unlike generic fusion, this requires cross-modal alignment to be causally used by the robot decision loop.",
+      "robotics_failure_modes": ["Timestamp or frame mismatch creates false complementarity.", "One modality dominates and the shared space is unused.", "Training labels leak alignment."],
+      "decisive_experiment": "Hold downstream capacity fixed and compare correct alignment with modality permutation; only correct alignment should improve the task decision.",
+      "semantic_negative_control": "Time-shift or identity-permute one modality while preserving its marginal statistics and tensor shape.",
+      "prior_art_search_signature": "robot multimodal shared representation vision touch force proprioception alignment downstream control",
+      "required_evidence_profile": ["leave-one-modality tests", "alignment permutation", "timestamp/frame audit", "held-out sensor condition"],
+      "source_records": ["MODEL_SUPPLIED:R15-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -646,9 +724,21 @@
       "failure_modes": [
         "The envelope is selected after seeing the result."
       ],
+      "trigger": "A deployment goal is too open-ended to yield a reproducible success or failure statement.",
+      "changed_object": "The goal becomes a measurable operating envelope plus a feasibility decision.",
+      "retained_invariant": "Robot capability, task meaning and safety limits are not weakened after outcomes are observed.",
+      "five_step_recipe": ["Enumerate the deployment variables and hazards.", "Predeclare the measurable operating envelope.", "Define feasibility and abort decisions inside that envelope.", "Sample boundary and interior conditions.", "Report both feasible regions and observed failure regions."],
+      "differentiation_within_parent": "Unlike sequential recasting, this changes an unbounded deployment target into a bounded feasibility object rather than temporal phases.",
+      "robotics_failure_modes": ["Envelope excludes known hard cases after the fact.", "Safety stops are counted as successes.", "Coverage is dense only near nominal operation."],
+      "decisive_experiment": "Evaluate predeclared interior and boundary cells and require predicted feasibility transitions without post-hoc envelope edits.",
+      "semantic_negative_control": "Use an equal-size envelope chosen from irrelevant variables and show it does not predict success/failure boundaries.",
+      "prior_art_search_signature": "robot deployment operating envelope feasibility boundary field robustness safety stop",
+      "required_evidence_profile": ["predeclared envelope", "boundary sampling", "abort accounting", "failure-region map"],
+      "source_records": ["MODEL_SUPPLIED:R18-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -665,9 +755,21 @@
       "failure_modes": [
         "The pretext is generic and unrelated to the task."
       ],
+      "trigger": "Labels are scarce while a temporal, geometric, cross-view or task consistency relation is observable.",
+      "changed_object": "The source and semantics of the supervisory signal.",
+      "retained_invariant": "Model capacity, data frames, optimizer budget and downstream evaluation remain matched.",
+      "five_step_recipe": ["Name the downstream property that lacks labels.", "Identify an observable consistency relation.", "Construct the signal without target leakage.", "Train matched supervised and generic-pretext controls.", "Remove or misbind the signal and test the downstream property."],
+      "differentiation_within_parent": "This engineers supervision from robot structure; it does not merely add an auxiliary generic loss.",
+      "robotics_failure_modes": ["Future or privileged state leaks into the signal.", "Pretext success is disconnected from task behavior.", "More frames or compute explain the gain."],
+      "decisive_experiment": "Preserve data and compute while removing the structural correspondence; only the mechanism-aligned signal should retain the downstream gain.",
+      "semantic_negative_control": "Permute temporal, geometric or cross-view correspondence while preserving marginal statistics.",
+      "prior_art_search_signature": "robot self-supervised temporal geometric cross-view task consistency downstream property",
+      "required_evidence_profile": ["signal provenance", "leakage audit", "matched generic pretext", "downstream removal test"],
+      "source_records": ["MODEL_SUPPLIED:R19-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -741,9 +843,21 @@
       "failure_modes": [
         "A topology-as-prior architecture is presented without isolating its work."
       ],
+      "trigger": "Relations, contact graphs or topology determine behavior more directly than isolated observations.",
+      "changed_object": "A relational graph or topology is encoded as an explicit structural prior.",
+      "retained_invariant": "Node observations, model capacity, task data and downstream objective remain matched.",
+      "five_step_recipe": ["Name the physical relation that should govern behavior.", "Encode it as a graph/topology with measurable semantics.", "Keep node features and capacity matched.", "Compare correct, removed and permuted topology.", "Test topology changes outside the construction set."],
+      "differentiation_within_parent": "Unlike symmetry construction, this card encodes pairwise or higher-order relations rather than a transformation invariance.",
+      "robotics_failure_modes": ["Graph edges leak labels or future contacts.", "Capacity, not topology, explains the gain.", "Topology is fixed despite changing physical relations."],
+      "decisive_experiment": "Permute relation identities while preserving graph size and degree; the claimed behavior must degrade in the predicted boundary cases.",
+      "semantic_negative_control": "Use a degree-matched random graph or topology with relation labels permuted.",
+      "prior_art_search_signature": "robot relational topology graph contact structure prior manipulation planning control",
+      "required_evidence_profile": ["degree/capacity-matched graph control", "relation permutation", "held-out topology", "leakage audit"],
+      "source_records": ["ResearchStudio:C13", "MODEL_SUPPLIED:R23-v2"],
+      "confidence": "HIGH",
       "upstream_reference": "ResearchStudio C13 Relational-Topology Encoded as Structure",
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -760,9 +874,21 @@
       "failure_modes": [
         "One hardware instance is generalized to all embodiments without evidence."
       ],
+      "trigger": "A body, compliant element, contact surface or actuator constraint is claimed to create the capability.",
+      "changed_object": "The embodiment/contact constraint is built into morphology or control by construction.",
+      "retained_invariant": "Task, sensing, controller budget, material batch accounting and evaluation protocol remain matched.",
+      "five_step_recipe": ["Map the claimed capability to a body/contact mechanism.", "Construct the constraint with measurable physical parameters.", "Build a matched embodiment or post-hoc controller comparator.", "Sweep contact, load, wear or morphology boundaries.", "Replicate across specimens or platforms at the claimed scope."],
+      "differentiation_within_parent": "Unlike relational topology, this card requires the physical embodiment itself to carry the load-bearing constraint.",
+      "robotics_failure_modes": ["Fabrication batch or calibration explains the effect.", "Controller tuning compensates for the comparator.", "A single specimen is treated as a platform law."],
+      "decisive_experiment": "Use matched specimens and controllers while removing or replacing the constructed physical constraint; the predicted capability must selectively disappear.",
+      "semantic_negative_control": "Use a stiffness/mass/cost-matched embodiment whose geometry or contact semantics are deliberately wrong.",
+      "prior_art_search_signature": "robot morphology compliance contact by construction embodied mechanism matched hardware comparator",
+      "required_evidence_profile": ["mechanism-to-body map", "matched embodiment", "batch/specimen replication", "contact/load boundary"],
+      "source_records": ["MODEL_SUPPLIED:R24-v2"],
+      "confidence": "HIGH",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -798,9 +924,21 @@
       "failure_modes": [
         "The partition is tuned after results or has no operational meaning."
       ],
+      "trigger": "One controller or policy averages regimes with incompatible dynamics, observations or objectives.",
+      "changed_object": "The predeclared regime partition and allocation rule.",
+      "retained_invariant": "Total data, compute, tuning budget, task and denominator remain matched.",
+      "five_step_recipe": ["Demonstrate incompatible regime signatures.", "Choose an observable predeclared partition variable.", "Allocate distinct treatment under a fixed total budget.", "Compare with one pooled model and random partitions.", "Test unseen transitions and partition errors."],
+      "differentiation_within_parent": "Unlike solver delegation, this first establishes heterogeneous regimes and then allocates treatment by a measurable partition.",
+      "robotics_failure_modes": ["Partition labels leak outcomes.", "Per-regime models receive more total capacity.", "Transition regions are omitted."],
+      "decisive_experiment": "Under the same total budget, replace the meaningful partition with pooled and random partitions and test both regimes plus their transitions.",
+      "semantic_negative_control": "Use a frequency-matched random partition unrelated to contact, terrain, object, user or agent regime.",
+      "prior_art_search_signature": "robot heterogeneous regime decomposition mixture controller terrain contact user matched budget",
+      "required_evidence_profile": ["regime separability", "online observability", "matched pooled control", "transition failure matrix"],
+      "source_records": ["MODEL_SUPPLIED:R26-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -817,9 +955,21 @@
       "failure_modes": [
         "A pipeline of modules is called a contribution without a unifying interface."
       ],
+      "trigger": "A task contains typed subproblems with different solver structure and a monolithic solver fails or scales poorly.",
+      "changed_object": "The task is partitioned into explicit solver responsibilities and interfaces.",
+      "retained_invariant": "End-to-end task, information access, total compute and recovery budget remain matched.",
+      "five_step_recipe": ["Identify separable subproblems and their ownership.", "Specify typed inputs, outputs and failure states.", "Assign the smallest competent solver to each subproblem.", "Add bounded coordination and recovery behavior.", "Compare end-to-end quality, cost and failure against a monolithic baseline."],
+      "differentiation_within_parent": "Unlike regime decomposition, this delegates algorithmically distinct subproblems rather than choosing treatments for data regimes.",
+      "robotics_failure_modes": ["Interfaces hide privileged state.", "Coordination latency erases solver gains.", "One solver failure cascades without recovery.", "Budget matching omits orchestration cost."],
+      "decisive_experiment": "Disable or replace one delegated solver at a time and verify the predicted typed failure while accounting for full orchestration cost.",
+      "semantic_negative_control": "Randomly swap solver assignments between type-compatible interfaces while preserving module count and compute.",
+      "prior_art_search_signature": "robot task decomposition specialized solver delegation interface recovery planner policy tool",
+      "required_evidence_profile": ["typed interface contract", "solver replacement tests", "coordination cost", "failure recovery"],
+      "source_records": ["MODEL_SUPPLIED:R27-v2"],
+      "confidence": "MEDIUM",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -855,9 +1005,21 @@
       "failure_modes": [
         "The method retrains while calling it conditioning."
       ],
+      "trigger": "A recurrent local shift is observable online and should not require changing the frozen core.",
+      "changed_object": "The bounded conditioning signal and injection locus.",
+      "retained_invariant": "Core weights, training data, update budget and task protocol remain frozen.",
+      "five_step_recipe": ["Measure the shift and candidate condition.", "Freeze the core and allowed injection locus.", "Condition on the observable state.", "Compare no-adaptation, retraining and shuffled-condition controls.", "Remove the shift and verify recovery without core drift."],
+      "differentiation_within_parent": "Unlike update-based adaptation, this preserves core parameters and changes behavior only through an observable condition.",
+      "robotics_failure_modes": ["Hidden gradient updates alter the core.", "Condition encodes target labels.", "Recovery after shift removal is not tested."],
+      "decisive_experiment": "Hash the frozen core before and after, then shuffle the condition and remove the shift; adaptation must disappear and nominal behavior recover.",
+      "semantic_negative_control": "Use a dimension- and frequency-matched condition from the wrong robot, environment, user or time.",
+      "prior_art_search_signature": "robot adaptation conditioning frozen core observable context recovery no retraining",
+      "required_evidence_profile": ["core hash", "condition observability", "shuffled condition", "shift-removal recovery"],
+      "source_records": ["MODEL_SUPPLIED:R29-v2"],
+      "confidence": "HIGH",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {
@@ -874,9 +1036,21 @@
       "failure_modes": [
         "Only an empirical improvement is shown with no boundary or tightness."
       ],
+      "trigger": "A matched baseline has a sharp reproducible stability, safety, bandwidth, sample or planning boundary.",
+      "changed_object": "The mechanism that moves one named limit.",
+      "retained_invariant": "Robot, task, information, compute, safety protocol and uncertainty accounting remain matched.",
+      "five_step_recipe": ["Define and reproduce the inherited limit.", "Measure uncertainty around the boundary.", "Name the mechanism predicted to move it.", "Run matched sweeps through both boundaries.", "Remove the mechanism and test return to the old limit."],
+      "differentiation_within_parent": "This requires an explicit inherited limit and strict surpass, not a generic average improvement.",
+      "robotics_failure_modes": ["The old boundary is under-tuned.", "Regimes differ across sweeps.", "Uncertainty overlaps the claimed surpass."],
+      "decisive_experiment": "Sweep the limiting variable under an identical regime and show a non-overlapping boundary shift that vanishes when the named mechanism is removed.",
+      "semantic_negative_control": "Add a cost-matched mechanism that cannot affect the named limit.",
+      "prior_art_search_signature": "robot stability safety bandwidth sample planning limit boundary strict surpass matched sweep",
+      "required_evidence_profile": ["baseline limit reproduction", "boundary uncertainty", "matched sweep", "mechanism removal"],
+      "source_records": ["MODEL_SUPPLIED:R30-v2"],
+      "confidence": "HIGH",
       "upstream_reference": null,
       "source_kind": "robotics_adapted_tactical_seed",
-      "status": "seed_card_requires_full_text_induction",
+      "status": "runtime_active",
       "citation_policy": "cite_parent_card_and_current_retrieved_papers; do_not_invent_paper_ids"
     },
     {

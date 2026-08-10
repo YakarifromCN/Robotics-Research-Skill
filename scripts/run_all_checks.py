@@ -31,6 +31,7 @@ RUNTIME_REQUIRED = (
     "corpus/venue-catalog.v2.json",
     "scripts/route_robotics_research.py",
     "scripts/route_robotics_submanifold.py",
+    "scripts/route_skill_request.py",
 )
 
 
@@ -83,10 +84,12 @@ def _base_commands(python: str) -> list[list[str]]:
     return [
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/develop-robotics-idea/tests"), "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/design-robotics-experiment/tests"), "-v"],
+        [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/develop-robotics-engineering/tests"), "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/write-robotics-paper/tests"), "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/review-robotic-feedback/tests"), "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/robotics-ar/tests"), "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "tests"), "-p", "test_local_skill_install.py", "-v"],
+        [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "tests"), "-p", "test_release_bundle.py", "-v"],
         [python, "-B", str(ROOT / "tests/check_contract_alignment.py")],
         [python, "-B", str(ROOT / "scripts/check_bilingual_layout.py"), str(ROOT)],
     ]
@@ -94,6 +97,9 @@ def _base_commands(python: str) -> list[list[str]]:
 
 def _extended_commands(python: str) -> list[list[str]]:
     return [
+        [python, "-B", "-m", "unittest", "tests.test_stable_routing", "-v"],
+        [python, "-B", "-m", "unittest", "tests.test_runtime_minimality", "-v"],
+        [python, "-B", "-m", "unittest", "tests.test_stable_golden_workflows", "-v"],
         [python, "-B", str(ROOT / "tools/corpus/validate_robotics_research_runtime.py")],
         [python, "-B", str(ROOT / "scripts/validate_venue_catalog_v2.py")],
         [python, "-B", str(ROOT / "scripts/validate_robotics_submanifold.py"), "--catalog", "corpus/venue-catalog.v2.json"],
@@ -134,7 +140,7 @@ def run_profile(profile: str) -> int:
         return 0
     for command in _corpus_commands(python):
         run(command)
-    print("ALL_CHECKS_RUNTIME_FIRST_RESEARCHSTUDIO: PASS")
+    print("STABLE_USE_CHECKS: PASS")
     return 0
 
 

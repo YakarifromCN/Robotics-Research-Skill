@@ -1,0 +1,23 @@
+{
+  "schema_version": "robotics-stable-use.v1",
+  "release_version": "2.0.0",
+  "release_states": ["STABLE", "RELEASE_CANDIDATE", "DEVELOPMENT"],
+  "hard_gates": ["scientific_correctness", "engineering_correctness", "recoverability_traceability", "release_reproducibility"],
+  "dimensions": [
+    "D1_ARCHITECTURE_ROUTING",
+    "D2_RUNTIME_MINIMALITY",
+    "D3_PATTERN_LIBRARY",
+    "D4_IDEA_STATE_MACHINE",
+    "D5_IDEA_SEMANTIC_AUDIT",
+    "D6_SCIENTIFIC_LOCKS_VALIDATORS",
+    "D7_EXPERIMENT_RESULT",
+    "D8_ENGINEERING_EXECUTION",
+    "D9_ENGINEERING_MINIMALITY",
+    "D10_WRITING_EVIDENCE_INTEGRITY",
+    "D11_REVIEW",
+    "D12_TESTS_REGRESSION",
+    "D13_RELEASE_REPRODUCIBILITY"
+  ],
+  "stable_rule": "zero_p0_and_every_dimension_at_least_8_0",
+  "p0_score_ceiling": 7.9
+}

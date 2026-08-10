@@ -49,6 +49,9 @@ def validate(payload: dict[str, Any], library: dict[str, Any] | None = None) -> 
         if card.get(field) != locked.get(field):
             errors.append(f"kill-switch field drift: {field}")
     if payload.get("decision") == "ADVANCE":
+        for stage in ("retrieve", "diagnose", "fit_pattern", "instantiate", "collision_audit", "failure_audit", "validate"):
+            if phases.get(stage, {}).get("status") != "PASS":
+                errors.append(f"advance requires PASS phase: {stage}")
         for field in ("core_claim", "falsification_prediction", "compute_budget", "load_bearing_variable"):
             if not isinstance(card.get(field), str) or not card[field].strip():
                 errors.append(f"advance card missing {field}")

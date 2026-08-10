@@ -1,12 +1,12 @@
 {
-  "schema_version":"robotics-experiment-contract.v2","experiment_id":"EXP-001","mode":"PROSPECTIVE_DESIGN","status":"REVISE","research_card":{"id":"CARD-001","claim_digest":null},
+  "schema_version":"robotics-experiment-contract.v2","experiment_id":"EXP-001","mode":"PROSPECTIVE_DESIGN","status":"REVISE","research_card":{"id":"CARD-001","claim_digest":null,"claim_ids":["C001"]},
   "change_envelope":{"allowed":["operational_detail"],"forbidden":["core_claim","decision_rule_after_results"],"reason":"冻结科学主张与分析规则"},
-  "design_timing":"prospective","unit_hierarchy":["robot","trial"],
-  "conditions":[{"condition_id":"COND-BASELINE","role":"baseline","description":null},{"condition_id":"COND-METHOD","role":"method","description":null}],
+  "design_timing":"prospective","order_policy":"randomized within predeclared blocks","single_condition_justification":null,"comparator_exemption":null,"unit_hierarchy":["robot","trial"],"nesting":{"keys":["unit_id"],"complete_conditions_per_demo":false},
+  "conditions":[{"condition_id":"COND-BASELINE","role":"baseline","description":null},{"condition_id":"COND-METHOD","role":"method","description":null},{"condition_id":"COND-NEG","role":"negative_control","description":null}],
   "variables":[{"variable_id":"V001","name":null,"load_bearing":true}],
-  "metrics":[{"metric_id":"M001","name":null,"unit":null,"primary":true}],
+  "metrics":[{"metric_id":"M001","name":null,"unit":null,"primary":true,"estimand":"paired_mean_difference","aggregation":"trial_to_robot_mean","experimental_unit":"robot"}],
   "contrasts":[{"contrast_id":"X001","condition_ids":["COND-METHOD","COND-BASELINE"],"metric_ids":["M001"]}],
   "negative_controls":[{"control_id":"NC001","type":"return_toward_baseline","intervention_variable_id":"V001","condition_id":"COND-NEG","comparator_condition_id":"COND-BASELINE","measured_metric_ids":["M001"]}],
-  "analyses":[{"analysis_id":"A001","contrast_id":"X001","decision_rule":{"rule_type":"all","gates":[{"type":"lower_bound_greater_than","metric_id":"M001","threshold":0.0}]}}],
-  "exclusions":[],"abort_policy":"count_as_failure","operational_details":{"calibration":null,"control_rate_hz":null,"operators":[],"logging":null},"safety":{"controls":[],"stop_conditions":[]},"design_digest":null
+  "analyses":[{"analysis_id":"A001","role":"PRIMARY","contrast_id":"X001","decision_rule":{"rule_type":"all","gates":[{"type":"lower_bound_greater_than","metric_id":"M001","threshold":0.0}]}}],
+  "exclusions":[],"abort_policy":"count_as_failure","operational_details":{"calibration":null,"control_rate_hz":null,"operators":[],"logging":null},"safety_floor":{"controls":[],"stop_conditions":["stop on non-finite output"]},"safety_floor_digest":null,"safety":{"controls":[],"stop_conditions":["stop on non-finite output"]},"design_digest":null
 }

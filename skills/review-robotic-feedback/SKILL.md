@@ -1,6 +1,6 @@
 ---
 name: review-robotic-feedback
-description: Multi-perspective robotics peer review and revision routing grounded in active research axes and official venue scope.
+description: Multi-perspective robotics peer review and academic revision routing grounded in active research axes and official venue scope. Use for review findings and scientific revision decisions; route requested code fixes or implementation work arising from reviews to develop-robotics-engineering.
 ---
 # Robotics Paper Feedback
 
@@ -12,16 +12,9 @@ description: Multi-perspective robotics peer review and revision routing grounde
 
 # English
 
-## Mandatory runtime preflight
+## Progressive runtime preflight
 
-Before any review action, read:
-
-- ../../references/robotics-submanifold-routing.md (complete repository)
-- ../../references/active-corpus-first-reference.md (complete repository)
-- ../../references/unified-venue-workflow-adapter.v1.md (complete repository)
-- references/robotics-submanifold-routing.md, references/active-corpus-first-reference.md,
-  and references/unified-venue-workflow-adapter.v1.md only for the standalone
-  review fallback.
+Read the frozen manuscript/evidence context first, then at most two references: the local routing reference for active axes, the review protocol for panel contracts, or official venue policy only for venue compliance. Do not preload sibling Skills, the corpus, PDFs beyond the explicit manuscript, or all reviewer prompts.
 
 Run:
 
@@ -41,7 +34,7 @@ shared first-mile context.
 
 ## Supervisor-Skills distillation
 
-Before the specialist panel, read `common/supervisor-research-layer.md` and
+For a full multi-axis panel, read `common/supervisor-research-layer.md` as one selected reference and
 settle paradigm and current official venue scope. Add the Supervisor review
 dimensions to the robotics panel: macro logic, writing details, grammar,
 LaTeX, and figure quality, alongside axis-specific evidence, mechanism
@@ -56,6 +49,6 @@ acceptance probability from scores, awards, or venue labels.
 Compare the manuscript with active-axis mechanism patterns, evidence loops, and do-not-infer boundaries. Then add current venue scope, author-guide, ethics, video, rebuttal, and artifact rules. Awards, factor fit, and reviewer scores must not be collapsed into acceptance probability. A standalone installation may disclose a local runtime fallback, but the complete workspace must use the compact runtime artifact.
 
 Select runtime questions only when supported by the active axes. Treat the
-15 parent patterns and 31 subpatterns as structural operators, not as claims
+runtime-active tactical cards as structural operators, not seed cards or claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.

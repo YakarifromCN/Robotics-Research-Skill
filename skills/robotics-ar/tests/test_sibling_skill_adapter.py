@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT / "skills/robotics-ar/scripts"))
 sys.path.insert(0, str(ROOT))
 
 from robotics_ar_core.sibling_skill_adapter import SiblingAdapterError, SiblingSkillInvocationAdapter
+from robotics_ar_core.workflow import STAGE_STATES
 from common.contract_core import compute_claim_digest
 
 
@@ -36,6 +37,8 @@ def ready_card() -> dict:
     for obligation in card["evidence_obligations"].values():
         obligation["reason"] = obligation["reason"] or "explicit claim-derived reason"
         obligation["claim_boundary"] = obligation["claim_boundary"] or "scope remains bounded"
+    card["deferred_evidence"] = ["evidence collection is frozen downstream"]
+    card["collision_audit"] = {"candidate_sha256": "a" * 64, "queries": ["closest mechanism"], "sources": ["P-001"], "comparison_axes": {axis: {"closest_overlap": "same task", "candidate_delta": "different mechanism", "source_ids": ["P-001"], "threat_level": "MEDIUM"} for axis in ("problem_framing", "core_mechanism", "key_insight", "application_or_evaluation")}, "closest_threat_id": "P-001", "uncovered_delta": "mechanism delta", "verdict": "CLEAR"}
     card["claim_digest"] = compute_claim_digest(card)
     return card
 
@@ -45,7 +48,8 @@ class SiblingAdapterTests(unittest.TestCase):
         adapter = SiblingSkillInvocationAdapter(ROOT)
         manifest = adapter.discover()
         self.assertEqual(manifest["missing"], [])
-        self.assertEqual(set(manifest["siblings"]), {"idea", "experiment", "writing", "review"})
+        self.assertEqual(set(manifest["siblings"]), {"idea", "experiment", "engineering", "writing", "review"})
+        self.assertEqual(manifest["optional_missing"], [])
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "manifest.json"
             adapter.write_manifest(path, manifest)
@@ -62,6 +66,19 @@ class SiblingAdapterTests(unittest.TestCase):
         with self.assertRaises(SiblingAdapterError):
             adapter.validate_manifest(manifest)
 
+    def test_optional_engineering_absence_does_not_block_confirmation(self) -> None:
+        adapter = SiblingSkillInvocationAdapter(ROOT)
+        manifest = adapter.discover()
+        manifest["siblings"].pop("engineering")
+        manifest["optional_missing"] = ["engineering"]
+        manifest["manifest_sha256"] = adapter.manifest_hash(manifest)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            adapter.write_manifest(path, manifest)
+            confirmed = adapter.confirm_manifest(path, manifest["manifest_sha256"])
+            self.assertTrue(confirmed["confirmed_by_user"])
+            self.assertEqual(confirmed["optional_missing"], ["engineering"])
+
     def test_prepare_request_and_runtime_disclosure(self) -> None:
         adapter = SiblingSkillInvocationAdapter(ROOT)
         manifest = adapter.discover()
@@ -73,6 +90,12 @@ class SiblingAdapterTests(unittest.TestCase):
         self.assertEqual(adapter.runtime_status("idea", fresh_runtime=False), "SINGLE_AGENT_MODE")
         self.assertEqual(adapter.runtime_status("review", fresh_runtime=False), "BLOCKED_DEPENDENCY")
         self.assertEqual(adapter.runtime_status("review", fresh_runtime=False, manual_review_import=True), "MANUAL_REVIEW_IMPORT")
+        engineering = adapter.prepare_invocation(manifest, "engineering", session_id="RAS-TEST", prompt="implement", allowed_files=["README.md"])
+        self.assertEqual(engineering["stage"], "engineering")
+        self.assertEqual(engineering["execution_mode"], "AUTONOMOUS_WITHIN_APPROVED_TASK")
+        self.assertFalse(engineering["requires_additional_user_approval"])
+        self.assertFalse(engineering["requires_stage_approval"])
+        self.assertNotIn("engineering", STAGE_STATES)
 
     def test_owner_validator_and_one_repair_only(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

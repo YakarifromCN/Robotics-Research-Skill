@@ -49,7 +49,9 @@ def main() -> int:
 
     for skill in SKILLS:
         text = (ROOT / "skills" / skill / "SKILL.md").read_text(encoding="utf-8")
-        assert "references/unified-venue-workflow-adapter.v1.md" in text
+        lowered = text.casefold()
+        assert "at most two references" in lowered
+        assert "do not preload sibling skills" in lowered
         assert "统一 workflow 能力" in text
 
     receipt = json.loads(

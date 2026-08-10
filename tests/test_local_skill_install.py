@@ -199,6 +199,17 @@ class LocalSkillInstallTests(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertEqual(payload["status"], "NOT_UPDATABLE")
 
+    def test_copy_pinned_rejects_dirty_source(self):
+        (self.source / "skills" / "demo-skill" / "SKILL.md").write_text("dirty\n", encoding="utf-8")
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            code = installer.main_install([
+                "--source-root", str(self.source), "--dest", str(self.dest),
+                "--manifest", str(self.receipt), "--purpose", "use", "--mode", "COPY_PINNED",
+            ])
+        self.assertEqual(code, 2)
+        self.assertIn("clean source worktree", json.loads(output.getvalue())["error"])
+
     def test_direct_download_is_a_pinned_archive_install(self):
         archive = self.root / "release.zip"
         with zipfile.ZipFile(archive, "w") as bundle:
@@ -223,7 +234,7 @@ class LocalSkillInstallTests(unittest.TestCase):
         self.assertEqual(manifest["mode"], "DIRECT_DOWNLOAD")
         self.assertIsNone(manifest["source_root"])
         self.assertIsNotNone(manifest["archive_sha256"])
-        self.assertFalse((self.dest / "demo-skill").is_symlink())
+        self.assertTrue((self.dest / "demo-skill").is_symlink())
         self.assertIn("Downloaded", (self.dest / "demo-skill" / "SKILL.md").read_text(encoding="utf-8"))
 
     def test_dirty_source_blocks_tracked_update(self):
@@ -254,11 +265,12 @@ class LocalSkillInstallTests(unittest.TestCase):
         self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["mode"], "SYMLINK_TRACKED_CLONE")
 
-    def test_shared_runtime_references_resolve_from_each_skill(self):
+    def test_shared_runtime_references_are_staged_but_not_eagerly_required(self):
         shared = (
-            "../../references/active-corpus-first-reference.md",
-            "../../references/unified-venue-workflow-adapter.v1.md",
+            "references/active-corpus-first-reference.md",
+            "references/unified-venue-workflow-adapter.v1.md",
         )
+        self.assertTrue(set(shared) <= set(installer.STAGED_SHARED_FILES))
         for slug in (
             "develop-robotics-idea",
             "design-robotics-experiment",
@@ -266,10 +278,11 @@ class LocalSkillInstallTests(unittest.TestCase):
             "write-robotics-paper",
         ):
             skill = ROOT / "skills" / slug
-            text = (skill / "SKILL.md").read_text(encoding="utf-8")
-            for relative in shared:
-                self.assertIn(relative, text, f"{slug} must name the repository-shared reference")
-                self.assertTrue((skill / relative).resolve().is_file(), f"{slug}: {relative}")
+            text = (skill / "SKILL.md").read_text(encoding="utf-8").casefold()
+            self.assertIn("at most two references", text)
+            self.assertIn("do not preload sibling skills", text)
+        for relative in shared:
+            self.assertTrue((ROOT / relative).is_file(), relative)
 
 
 if __name__ == "__main__":

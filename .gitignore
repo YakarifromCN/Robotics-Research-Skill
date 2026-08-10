@@ -42,3 +42,4 @@ corpus/robotics-axis-strategy-analysis.v1.json
 # Local Skill installation receipts and staged releases.
 .robotics-research-install.json
 .robotics-research-releases/
+dist/

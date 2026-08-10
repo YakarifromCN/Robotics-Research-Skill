@@ -1,0 +1,4 @@
+interface:
+  display_name: "机器人工程开发 / Robotics Engineering"
+  short_description: "以最小改动、聚焦测试和可恢复留档完成机器人代码开发"
+  default_prompt: "Use $develop-robotics-engineering to complete this scoped robotics engineering task with the smallest correct change, focused tests, and a recoverable handoff."

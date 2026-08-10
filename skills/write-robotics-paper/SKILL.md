@@ -12,13 +12,9 @@ description: Evidence-constrained robotics paper writing, revision, rebuttal, an
 
 # English
 
-## Mandatory runtime preflight
+## Progressive runtime preflight
 
-Before any writing action, read:
-
-- references/robotics-submanifold-routing.md
-- ../../references/active-corpus-first-reference.md (repository-shared)
-- ../../references/unified-venue-workflow-adapter.v1.md (repository-shared)
+Read the Claim Ledger and supplied manuscript first, then at most two references: `references/core-contract.md`, `references/claim-evidence-writing.md`, or official venue policy only when formatting for a venue. Do not preload sibling Skills, the corpus, PDFs, venue catalogs, or reviewer prompts.
 
 Run:
 
@@ -38,7 +34,7 @@ shared first-mile context.
 
 ## Supervisor-Skills distillation
 
-Before drafting, read `common/supervisor-research-layer.md` and reconstruct
+For a full research-to-paper reconstruction, read `common/supervisor-research-layer.md` as one selected reference and reconstruct
 the argument chain directly from the Research Card, Experiment Contract, and
 Result Bundle. If the logic chain is not locked, route back to
 `develop-robotics-idea` or `design-robotics-experiment` before prose. For a technical paper, preserve the
@@ -55,6 +51,6 @@ figures as load-bearing narrative objects linked to claims and sections.
 Use active-axis paper patterns, evidence boundaries, and do-not-infer limits for related-work positioning, Claim Ledger sentence audits, claim altitude, and evidence gaps. Then layer the target venue's current official scope. Runtime summaries must never become acceptance probability, academic rank, or manuscript evidence.
 
 Select runtime questions only when supported by the active axes. Treat the
-15 parent patterns and 31 subpatterns as structural operators, not as claims
+runtime-active tactical cards as structural operators, not seed cards or claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.

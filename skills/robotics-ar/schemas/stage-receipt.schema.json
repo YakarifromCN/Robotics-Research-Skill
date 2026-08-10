@@ -6,7 +6,7 @@
   "properties": {
     "schema_version": {"const": "robotics-ar-stage-receipt.v1"},
     "session_id": {"type": "string"},
-    "stage": {"enum": ["idea", "experiment", "writing", "review"]},
+    "stage": {"enum": ["idea", "experiment", "engineering", "writing", "review"]},
     "native_artifact": {"type": "object", "required": ["path", "sha256", "validator", "validation_status"], "properties": {"path": {"type": "string"}, "schema_version": {"type": "string"}, "sha256": {"type": "string"}, "validator": {"type": "string"}, "validation_status": {"enum": ["PASS", "FAIL", "BLOCKED"]}}, "additionalProperties": true},
     "handoff_status": {"enum": ["READY", "REVISE", "BLOCKED", "STOPPED"]},
     "created_at": {"type": "string"},

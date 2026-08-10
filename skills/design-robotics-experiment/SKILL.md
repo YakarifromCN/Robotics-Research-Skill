@@ -1,6 +1,6 @@
 ---
 name: design-robotics-experiment
-description: Evidence-driven robotics experiment design, audit, pilot revision, and result packaging.
+description: "Design and audit scientific robotics experiments: hypotheses, conditions, comparators, metrics, units, denominators, analyses, pilot revision, and result packaging. Do not use for code implementation, debugging, feature development, ROS or hardware integration, controller or optimizer implementation, model-training code, or engineering tuning; route those tasks to develop-robotics-engineering."
 ---
 # Robotics Experiment
 
@@ -12,13 +12,9 @@ description: Evidence-driven robotics experiment design, audit, pilot revision, 
 
 # English
 
-## Mandatory runtime preflight
+## Progressive runtime preflight
 
-Before any experiment action, read:
-
-- references/robotics-submanifold-routing.md
-- ../../references/active-corpus-first-reference.md (repository-shared)
-- ../../references/unified-venue-workflow-adapter.v1.md (repository-shared)
+Read the Research Card first, then at most two references: `references/core-contract.md` for Contract/Result schemas, `references/robotics-evidence.md` for a robotics evidence boundary, or the routing reference only when axes are unresolved. Do not preload sibling Skills, corpus sources, PDFs, venue catalogs, or offline induction artifacts.
 
 Run:
 
@@ -38,8 +34,7 @@ shared first-mile context.
 
 ## Supervisor-Skills distillation
 
-Before freezing the Experiment Contract, read
-`common/supervisor-research-layer.md`. Build one auditable row per load-bearing
+For a complex multi-stage design, read `common/supervisor-research-layer.md` as one selected reference. Build one auditable row per load-bearing
 challenge: mechanism intervention, comparator or negative control, metric and
 independent unit, expected falsification signature, failure log, and artifact.
 Keep the `limitations -> goal -> challenges -> modules -> contributions`
@@ -54,6 +49,6 @@ do not let target-venue preference change denominators or add post-hoc tests.
 Translate active-axis exemplar boundaries and strategy rows into candidate conditions, contrasts, metrics, failure logs, and artifact obligations. Freeze the Design Lock afterward. Runtime patterns do not replace project results, and venue preference cannot change units, denominators, exclusions, or abort policy after outcomes are observed.
 
 Select runtime questions only when supported by the active axes. Treat the
-15 parent patterns and 31 subpatterns as structural operators, not as claims
+runtime-active tactical cards as structural operators, not seed cards or claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.

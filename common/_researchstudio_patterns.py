@@ -82,6 +82,17 @@ def validate_pattern_library(library: dict[str, Any]) -> list[str]:
         for field in ("name", "tactical_move", "when_to_apply"):
             if not isinstance(card.get(field), str) or not card[field].strip():
                 errors.append(f"subpatterns[{index}].{field} must be nonempty")
+        if card.get("status") in {"tactical_card_v2", "runtime_active"}:
+            for field in ("trigger", "changed_object", "retained_invariant", "differentiation_within_parent", "decisive_experiment", "semantic_negative_control", "prior_art_search_signature"):
+                if not isinstance(card.get(field), str) or not card[field].strip():
+                    errors.append(f"subpatterns[{index}].{field} must be nonempty for an active tactical card")
+            if not isinstance(card.get("five_step_recipe"), list) or len(card["five_step_recipe"]) != 5 or any(not isinstance(item, str) or not item.strip() for item in card["five_step_recipe"]):
+                errors.append(f"subpatterns[{index}].five_step_recipe must contain exactly 5 steps")
+            for field in ("robotics_failure_modes", "required_evidence_profile", "source_records"):
+                if not isinstance(card.get(field), list) or not card[field]:
+                    errors.append(f"subpatterns[{index}].{field} must be a nonempty list for an active tactical card")
+            if card.get("confidence") not in {"LOW", "MEDIUM", "HIGH"}:
+                errors.append(f"subpatterns[{index}].confidence must be LOW, MEDIUM, or HIGH")
     expected_distribution = [1] * 9 + [3, 3, 3, 3, 4, 6]
     if sorted(child_counts.values()) != (expected_distribution if child_counts else []):
         # The exact parent distribution is a useful integrity check.  Keep it
@@ -268,6 +279,8 @@ def fit_gap_to_patterns(
         for pattern_id, spec in profile.get("pattern_scores", {}).items():
             terms = [str(item) for item in spec.get("terms", [])]
             hits = [term for term in terms if _term_match(text, term)]
+            if not hits:
+                continue
             score = float(spec.get("prior", 0.05)) * 0.55 + min(1.0, len(hits) / max(1, len(terms))) * 0.45
             candidates.append({
                 "axis_id": axis,

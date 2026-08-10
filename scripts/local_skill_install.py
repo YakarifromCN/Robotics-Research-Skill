@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-SCHEMA_VERSION = "robotics-local-install.v1"
+SCHEMA_VERSION = "robotics-local-install.v2"
 MODES = ("SYMLINK_TRACKED_CLONE", "SAFE_STAGED_WORKTREE", "COPY_PINNED", "DIRECT_DOWNLOAD")
 PURPOSES = ("development", "use")
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,62}$")
@@ -33,6 +33,7 @@ MAX_ARCHIVE_BYTES = 200 * 1024 * 1024
 # axis-analysis v2 artifacts remain offline provenance/build inputs and are not
 # needed by normal routing.
 STAGED_SHARED_FILES = (
+    "VERSION",
     "corpus/robotics-research-runtime.v1.json",
     "corpus/robotics-submanifold.v1.json",
     "corpus/robotics-submanifold-calibration.v1.json",
@@ -43,6 +44,7 @@ STAGED_SHARED_FILES = (
     "references/unified-venue-workflow-adapter.v1.md",
     "scripts/route_robotics_research.py",
     "scripts/route_robotics_submanifold.py",
+    "scripts/route_skill_request.py",
 )
 
 # A staged or pinned user installation contains the Skill runtime, not the
@@ -320,7 +322,15 @@ def build_manifest(
     head: str | None,
     archive_sha256: str | None,
     active_session_roots: Iterable[str],
+    release_metadata: dict[str, Any] | None,
 ) -> dict[str, Any]:
+    digest = hashlib.sha256()
+    for name, record in sorted(records.items()):
+        root = Path(record["installed"]).resolve()
+        for path in sorted(item for item in root.rglob("*") if item.is_file() and "__pycache__" not in item.parts and item.suffix != ".pyc"):
+            relative = f"{name}/{path.relative_to(root).as_posix()}".encode(); data = path.read_bytes()
+            digest.update(len(relative).to_bytes(4, "big")); digest.update(relative); digest.update(len(data).to_bytes(8, "big")); digest.update(data)
+    release_metadata = release_metadata or {}
     return {
         "schema_version": SCHEMA_VERSION,
         "install_id": f"RINST-{hashlib.sha256((str(dest) + utc_now()).encode()).hexdigest()[:16]}",
@@ -332,6 +342,10 @@ def build_manifest(
         "tracked_branch": branch,
         "source_ref": ref,
         "head_commit": head,
+        "version": release_metadata.get("version"),
+        "source_dirty": release_metadata.get("source_dirty"),
+        "content_tree_sha256": digest.hexdigest(),
+        "release_manifest": release_metadata or None,
         "archive_url": archive_url,
         "archive_sha256": archive_sha256,
         "skills": records,
@@ -360,10 +374,16 @@ def install(args: argparse.Namespace) -> dict[str, Any]:
     if source_root is None:
         raise InstallError("source root could not be resolved")
     source_root = source_root.resolve()
+    release_manifest_path = source_root / "release-manifest.json"
+    release_metadata = read_json(release_manifest_path) if release_manifest_path.is_file() else {
+        "version": (source_root / "VERSION").read_text(encoding="utf-8").strip() if (source_root / "VERSION").is_file() else None,
+        "source_dirty": git_is_dirty(source_root) if is_git_root(source_root) else None,
+        "head_commit": git_head(source_root),
+    }
     if mode != "DIRECT_DOWNLOAD" and not is_git_root(source_root):
         raise InstallError(f"source root is not a Git clone: {source_root}")
-    if mode == "SAFE_STAGED_WORKTREE" and git_is_dirty(source_root):
-        raise InstallError("SAFE_STAGED_WORKTREE requires a clean source worktree")
+    if mode in {"SAFE_STAGED_WORKTREE", "COPY_PINNED"} and git_is_dirty(source_root):
+        raise InstallError(f"{mode} requires a clean source worktree so HEAD uniquely identifies installed content")
     found = discover_skills(source_root)
     selected = select_skills(found, args.skills)
     head = git_head(source_root)
@@ -386,14 +406,21 @@ def install(args: argparse.Namespace) -> dict[str, Any]:
             for name, target, source in staged_targets:
                 target.symlink_to(source, target_is_directory=True)
                 records[name] = source_record(name, source, target, "staged-symlink")
-        elif mode in {"COPY_PINNED", "DIRECT_DOWNLOAD"}:
+        elif mode == "COPY_PINNED":
             for name in selected:
                 target = dest / name
                 copy_skill(found[name], target, runtime_only=True)
-                if mode == "DIRECT_DOWNLOAD":
-                    records[name] = source_record(name, f"archive://{args.archive_url}", target, "copy")
-                else:
-                    records[name] = source_record(name, found[name], target, "copy")
+                records[name] = source_record(name, found[name], target, "copy")
+        elif mode == "DIRECT_DOWNLOAD":
+            if archive_sha256 is None:
+                raise InstallError("DIRECT_DOWNLOAD requires an archive digest")
+            release = make_release(source_root, dest, archive_sha256, selected)
+            staged_targets = [(name, dest / name, release / "skills" / name) for name in selected]
+            for name, target, _ in staged_targets:
+                prepare_target(target, replace_owned=args.replace_owned_symlink, old_manifest=old_manifest, name=name)
+            for name, target, source in staged_targets:
+                target.symlink_to(source, target_is_directory=True)
+                records[name] = source_record(name, f"archive://{args.archive_url}", target, "staged-archive-symlink")
         else:
             raise InstallError(f"unsupported mode: {mode}")
         manifest = build_manifest(
@@ -408,6 +435,7 @@ def install(args: argparse.Namespace) -> dict[str, Any]:
             head=head,
             archive_sha256=archive_sha256,
             active_session_roots=args.active_session_root,
+            release_metadata=release_metadata,
         )
         if requested_source_root and mode != "DIRECT_DOWNLOAD":
             remote = run_git(source_root, "remote", "get-url", "origin", check=False)
@@ -556,7 +584,7 @@ def update(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def parser_for_install() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="安装五个并列机器人 Skill。 / Install the five sibling robotics Skills locally.")
+    parser = argparse.ArgumentParser(description="安装六个并列机器人 Skill。 / Install the six sibling robotics Skills locally.")
     parser.add_argument("--source-root", type=Path)
     parser.add_argument("--archive-url")
     parser.add_argument("--dest", type=Path, default=default_dest())

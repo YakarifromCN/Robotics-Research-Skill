@@ -28,13 +28,17 @@ def validate_estimate(item: Any) -> list[str]:
     """
 
     errors: list[str] = []
-    required = {"metric_id", "estimand", "estimate", "unit", "interval", "sample_size"}
+    required = {"metric_id", "estimand", "aggregation", "experimental_unit", "estimate", "unit", "interval", "sample_size"}
     if not isinstance(item, dict) or set(item) != required:
         return [f"estimate must contain exactly {sorted(required)}"]
     if not isinstance(item.get("metric_id"), str) or not item["metric_id"]:
         errors.append("metric_id is required")
     if not isinstance(item.get("estimand"), str) or not item["estimand"]:
         errors.append("estimand is required")
+    if not isinstance(item.get("aggregation"), str) or not item["aggregation"]:
+        errors.append("aggregation is required")
+    if not isinstance(item.get("experimental_unit"), str) or not item["experimental_unit"]:
+        errors.append("experimental_unit is required")
     if not finite_number(item.get("estimate")):
         errors.append("estimate must be finite")
     if not isinstance(item.get("unit"), str) or not item["unit"]:

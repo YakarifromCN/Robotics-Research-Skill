@@ -48,15 +48,17 @@ class ResearchStudioCompletionV2(unittest.TestCase):
         self.assertFalse(self.outcome["runtime_behavior"]["contrast_enabled"])
         self.assertEqual(self.outcome["runtime_behavior"]["acceptance_probability"], "NOT_ESTIMABLE")
 
-    def test_four_skills_reference_the_shared_adapter(self) -> None:
+    def test_four_skills_use_progressive_stage_context(self) -> None:
+        self.assertTrue((ROOT / "references/unified-venue-workflow-adapter.v1.md").is_file())
         for skill in (
             "develop-robotics-idea",
             "design-robotics-experiment",
             "write-robotics-paper",
             "review-robotic-feedback",
         ):
-            text = (ROOT / "skills" / skill / "SKILL.md").read_text(encoding="utf-8")
-            self.assertIn("references/unified-venue-workflow-adapter.v1.md", text)
+            text = (ROOT / "skills" / skill / "SKILL.md").read_text(encoding="utf-8").casefold()
+            self.assertIn("at most two references", text)
+            self.assertIn("do not preload sibling skills", text)
 
 
 if __name__ == "__main__":

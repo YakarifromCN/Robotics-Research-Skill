@@ -6,7 +6,7 @@
   "properties": {
     "schema_version": {"const": "robotics-ar-stage-envelope.v1"},
     "session_id": {"type": "string"},
-    "stage": {"enum": ["idea", "experiment", "writing", "review"]},
+    "stage": {"enum": ["idea", "experiment", "engineering", "writing", "review"]},
     "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "allowed_files": {"type": "array", "items": {"type": "string"}},
     "request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},

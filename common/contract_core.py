@@ -71,11 +71,20 @@ class Findings:
 
     items: list[dict[str, Any]] = field(default_factory=list)
 
-    def add(self, level: str, code: str, path: str, message: str) -> None:
-        self.items.append({"level": level, "code": code, "path": path, "message": message})
+    def add(self, level: str, code: str, path: str, message: str, category: str = "contract") -> None:
+        self.items.append({"level": level, "code": code, "path": path, "message": message, "category": category})
 
-    def fail(self, code: str, path: str, message: str) -> None:
-        self.add("fail", code, path, message)
+    def fail(self, code: str, path: str, message: str, category: str = "contract") -> None:
+        self.add("fail", code, path, message, category)
+
+    def schema_fail(self, code: str, path: str, message: str) -> None:
+        self.fail(code, path, message, "schema")
+
+    def reference_fail(self, code: str, path: str, message: str) -> None:
+        self.fail(code, path, message, "cross_reference")
+
+    def minimum_fail(self, code: str, path: str, message: str) -> None:
+        self.fail(code, path, message, "scientific_minimum")
 
     def warn(self, code: str, path: str, message: str) -> None:
         self.add("warn", code, path, message)
@@ -91,11 +100,30 @@ class Findings:
         return self.count("fail") == 0
 
     def report(self, schema: str, terminal_state: str | None, handoff_ready: bool) -> dict[str, Any]:
+        structural_codes = {
+            "SCHEMA", "JSON", "NONFINITE_NUMBER", "MODE", "STATUS", "TIMING",
+            "CHANGE_ENVELOPE", "CLAIM_DIMENSIONS", "EVIDENCE_OBLIGATIONS",
+            "EVIDENCE_OBLIGATION", "DOMAIN_PACKS", "SECTION", "LIST", "ID",
+            "DUPLICATE_ID", "CLAIM_ID", "CLAIM_STATE", "NUMBER_ID", "NUMBER_VALUE",
+            "ESTIMATE", "EVIDENCE_PROFILE", "CLAIM_RESULT_ID",
+        }
+        schema_valid = not any(
+            item["level"] == "fail" and (item.get("category") == "schema" or item.get("code") in structural_codes)
+            for item in self.items
+        )
+        cross_reference_valid = schema_valid and not any(
+            item["level"] == "fail" and item.get("category") == "cross_reference" for item in self.items
+        )
+        scientific_minimums_satisfied = cross_reference_valid and not any(
+            item["level"] == "fail" for item in self.items
+        )
         return {
             "schema": schema,
-            "schema_valid": self.consistent,
+            "schema_valid": schema_valid,
+            "cross_reference_valid": cross_reference_valid,
+            "scientific_minimums_satisfied": scientific_minimums_satisfied,
             "contract_consistent": self.consistent,
-            "handoff_ready": handoff_ready and self.consistent,
+            "handoff_ready": handoff_ready and scientific_minimums_satisfied,
             "terminal_state": terminal_state,
             "counts": {level: self.count(level) for level in ("fail", "warn", "info")},
             "findings": self.items,
@@ -183,12 +211,16 @@ def claim_digest_payload(card: dict[str, Any]) -> dict[str, Any]:
     """
 
     return {
+        "claim_shape": card.get("claim_shape"),
         "claim_contract": card.get("claim_contract"),
         "mechanism_contract": card.get("mechanism_contract"),
         "falsification_contract": card.get("falsification_contract"),
         "evidence_obligations": card.get("evidence_obligations"),
+        "evidence_requirements": card.get("evidence_requirements"),
         "deferred_evidence": card.get("deferred_evidence"),
         "domain_packs": card.get("domain_packs"),
+        "adoption_provenance": card.get("adoption_provenance"),
+        "migration_provenance": card.get("migration_provenance"),
     }
 
 
@@ -205,17 +237,30 @@ def design_digest_payload(contract: dict[str, Any]) -> dict[str, Any]:
     return {
         "design_timing": contract.get("design_timing"),
         "unit_hierarchy": contract.get("unit_hierarchy"),
+        "nesting": contract.get("nesting"),
+        "order_policy": contract.get("order_policy"),
+        "single_condition_justification": contract.get("single_condition_justification"),
+        "comparator_exemption": contract.get("comparator_exemption"),
         "conditions": contract.get("conditions"),
+        "variables": contract.get("variables"),
         "metrics": contract.get("metrics"),
         "contrasts": contract.get("contrasts"),
+        "negative_controls": contract.get("negative_controls"),
         "analyses": contract.get("analyses"),
         "exclusions": contract.get("exclusions"),
         "abort_policy": contract.get("abort_policy"),
+        "safety_floor": contract.get("safety_floor"),
     }
 
 
 def compute_design_digest(contract: dict[str, Any]) -> str:
     return sha256_value(design_digest_payload(contract))
+
+
+def compute_safety_floor_digest(contract: dict[str, Any]) -> str:
+    """Bind the minimum safety controls independently from mutable additions."""
+
+    return sha256_value({"safety_floor": contract.get("safety_floor")})
 
 
 def validate_finite_tree(value: Any, findings: Findings, path: str = "$") -> None:

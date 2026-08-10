@@ -1,6 +1,6 @@
 ---
 name: develop-robotics-idea
-description: Evidence-driven robotics research ideation, audit, adoption, and migration.
+description: Evidence-driven robotics research ideation, prior-art collision audit, adoption, and migration. Use for forming or auditing the scientific object and Claim Lock; route scoped code implementation, debugging, ROS integration, controller changes, and engineering tuning to develop-robotics-engineering.
 ---
 # Robotics Idea
 
@@ -12,13 +12,9 @@ description: Evidence-driven robotics research ideation, audit, adoption, and mi
 
 # English
 
-## Mandatory runtime preflight
+## Progressive runtime preflight
 
-Before any idea action, read:
-
-- references/robotics-submanifold-routing.md
-- ../../references/active-corpus-first-reference.md (repository-shared)
-- ../../references/unified-venue-workflow-adapter.v1.md (repository-shared)
+Read the user artifact first, then at most two references: `references/core-contract.md` for a Research Card, `references/robotics-submanifold-routing.md` for axis routing, or `references/official-venue-policy.md` only for a venue decision. Do not preload sibling Skills, the shared corpus reference, venue catalogs, PDFs, or offline induction artifacts.
 
 Run:
 
@@ -38,8 +34,7 @@ shared first-mile context.
 
 ## Supervisor-Skills distillation
 
-Before candidate generation or an Idea audit, also read
-`common/supervisor-research-layer.md` and apply its idea-stage gates:
+For a multi-stage candidate audit, read `common/supervisor-research-layer.md` as one of the two selected references and apply its idea-stage gates:
 
 - classify the project as `TECHNIQUE`, `NEW_PROBLEM_SETTING`,
   `BENCHMARK_EVALUATION`, or `MIXED`, then state a one-sentence story;
@@ -61,6 +56,6 @@ Before candidate generation or an Idea audit, also read
 Use the active-axis compact paper exemplars for prior-art collision checks, mechanism distinction, claim altitude, evidence pressure, and falsification planning. Do not silently rewrite the Claim Lock. The venue catalog supplies routing context only; it does not turn awards, directness, or factor fit into quality or acceptance probability.
 
 Select runtime questions only when supported by the active axes. Treat the
-15 parent patterns and 31 subpatterns as structural operators, not as claims
+runtime-active tactical cards as structural operators, never offline seed cards or claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.

@@ -1,6 +1,6 @@
-"""适配四个并列 Skill 的入口、validator、hash 和通用 receipt。
+"""适配科研 sibling 与可选工程 sibling 的入口、validator、hash 和通用 receipt。
 
-Adapt the four sibling Skill entry points, validators, hashes, and generic receipts.
+Adapt research siblings and the optional engineering sibling without a hard dependency.
 """
 
 from __future__ import annotations
@@ -31,6 +31,7 @@ class SiblingSpec:
     native_artifact: str
     result_validator: Optional[str] = None
     template: Optional[str] = None
+    required: bool = True
 
 
 SIBLING_SPECS = (
@@ -38,6 +39,7 @@ SIBLING_SPECS = (
     SiblingSpec("experiment", "skills/design-robotics-experiment/SKILL.md", "skills/design-robotics-experiment/scripts/validate_experiment_contract.py", "experiment-contract.json", result_validator="skills/design-robotics-experiment/scripts/validate_result_bundle.py", template="skills/design-robotics-experiment/assets/experiment-contract.template.json"),
     SiblingSpec("writing", "skills/write-robotics-paper/SKILL.md", "skills/write-robotics-paper/scripts/validate_claim_ledger.py", "claim-ledger.json", template="skills/write-robotics-paper/assets/claim-ledger.template.json"),
     SiblingSpec("review", "skills/review-robotic-feedback/SKILL.md", "skills/review-robotic-feedback/scripts/validate_review_report.py", "meta-review.json", template="skills/review-robotic-feedback/assets/meta-review.template.json"),
+    SiblingSpec("engineering", "skills/develop-robotics-engineering/SKILL.md", "skills/develop-robotics-engineering/scripts/validate_engineering_handoff.py", "engineering-handoff.md", template="skills/develop-robotics-engineering/assets/handoff.template.md", required=False),
 )
 
 
@@ -71,6 +73,7 @@ class SiblingSkillInvocationAdapter:
 
         siblings: Dict[str, Any] = {}
         missing: List[str] = []
+        optional_missing: List[str] = []
         for spec in SIBLING_SPECS:
             required = [spec.skill, spec.validator]
             if spec.result_validator:
@@ -78,10 +81,10 @@ class SiblingSkillInvocationAdapter:
             if spec.template:
                 required.append(spec.template)
             if any(not (self.root / relative).is_file() for relative in required):
-                missing.append(spec.key)
+                (missing if spec.required else optional_missing).append(spec.key)
                 continue
             siblings[spec.key] = _spec_dict(self.root, spec)
-        manifest = {"schema_version": "robotics-ar-sibling-skills-manifest.v1", "name": "robotics-research-sibling-skills", "root": self.root.as_posix(), "confirmed_by_user": False, "siblings": siblings, "missing": missing}
+        manifest = {"schema_version": "robotics-ar-sibling-skills-manifest.v1", "name": "robotics-research-sibling-skills", "root": self.root.as_posix(), "confirmed_by_user": False, "siblings": siblings, "missing": missing, "optional_missing": optional_missing}
         manifest["manifest_sha256"] = self.manifest_hash(manifest)
         return manifest
 
@@ -157,6 +160,8 @@ class SiblingSkillInvocationAdapter:
                 raise SiblingAdapterError(f"allowed file escapes root: {relative}") from exc
             allowed.append(Path(relative).as_posix())
         request = {"schema_version": "robotics-ar-invocation-request.v1", "session_id": session_id, "stage": stage, "prompt": prompt, "prompt_sha256": sha256_obj({"prompt": prompt}), "allowed_files": sorted(set(allowed)), "input_sha256": input_sha256, "manifest_sha256": manifest["manifest_sha256"], "runtime_status": "REQUEST_ONLY"}
+        if stage == "engineering":
+            request.update({"execution_mode": "AUTONOMOUS_WITHIN_APPROVED_TASK", "approval_mode": "INHERIT_ROBOTICS_AR_TASK_CONTRACT", "requires_additional_user_approval": False, "requires_stage_approval": False})
         request["request_sha256"] = sha256_obj(request)
         return request
 

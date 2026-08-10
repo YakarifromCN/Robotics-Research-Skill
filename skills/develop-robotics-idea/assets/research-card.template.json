@@ -7,7 +7,7 @@
   "change_envelope": {"allowed": ["claim_narrowing"], "forbidden": ["unsupported_claim_expansion"], "reason": "新项目仍需通过反证审计"},
   "claim_shape": {"embodied_system": true, "learning": false, "mechanism": true, "human": false, "soft_material": false, "practice": false, "cross_context": false},
   "claim_contract": {"claim_id": "C001", "task": null, "system_boundary": null, "core_claim": null, "claim_boundary": null},
-  "mechanism_contract": {"mechanism_id": "MECH-001", "mechanism": null, "load_bearing_variable_id": "V001", "load_bearing_variable": null},
+  "mechanism_contract": {"mechanism_id": "MECH-001", "mechanism": null, "load_bearing_variable_id": "V001", "load_bearing_variable": null, "retained_invariant": null},
   "falsification_contract": {"decisive_test_id": "X001", "falsification_target": null, "stop_state_if_failed": "ABANDON"},
   "evidence_obligations": {
     "multi_condition": {"required": true, "reason": null, "decisive_test_ids": ["X001"], "claim_boundary": null},
@@ -18,6 +18,9 @@
   },
   "evidence_requirements": [],
   "deferred_evidence": [],
+  "collision_audit": {"candidate_sha256": null, "queries": [], "sources": [], "comparison_axes": {"problem_framing": {"closest_overlap": null, "candidate_delta": null, "source_ids": [], "threat_level": "HIGH"}, "core_mechanism": {"closest_overlap": null, "candidate_delta": null, "source_ids": [], "threat_level": "HIGH"}, "key_insight": {"closest_overlap": null, "candidate_delta": null, "source_ids": [], "threat_level": "HIGH"}, "application_or_evaluation": {"closest_overlap": null, "candidate_delta": null, "source_ids": [], "threat_level": "HIGH"}}, "closest_threat_id": null, "uncovered_delta": null, "verdict": "INSUFFICIENT_EVIDENCE"},
+  "adoption_provenance": {"source_document_ids": [], "adopted_claim_digest": null, "adoption_authority": null, "allowed_change_envelope": [], "unresolved_evidence": []},
+  "migration_provenance": {"legacy_artifact_paths": [], "migration_snapshot": null, "retrospective_prospective_boundary": null, "existing_results_provenance": [], "unresolved_lock_ambiguities": []},
   "domain_packs": [],
   "resources": {"available": [], "hard_limits": []},
   "safety_ethics": {"hazards": [], "required_controls": [], "approval_state": "not_applicable"},

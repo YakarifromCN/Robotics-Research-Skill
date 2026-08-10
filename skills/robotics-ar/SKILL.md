@@ -7,9 +7,13 @@ description: Supervise explicitly requested, resumable research sessions across 
 
 ## 概览
 
-`robotics-ar` 是用户显式开启的第五个并列 Skill。它管理一个可暂停、可恢复的
+`robotics-ar` 是用户显式开启的编排 Skill。它管理一个可暂停、可恢复的
 自动研究 session，保存通用状态、事件、预算、批准 hash、证据 receipt 和 handoff；
 按用户目标调用现有的 Idea、Experiment、Writing 或 Review sibling Skill。
+若独立可用的 `develop-robotics-engineering` 已被 manifest 确认，代码实现任务可以选择性
+调用它；缺失时继续使用 Code/Test/Runner 协议，不阻断 Robotics-AR。
+调用后继承已批准 Task/Trial Contract 并自主完成实现、测试与回执，不增加用户审计环节；
+Engineering 不进入科研阶段审批状态机；只有合同越界、新设备权限、安全停止或预算停止才暂停。
 
 直接请求某个科研阶段时，调用对应 sibling Skill；只有明确要求“自动模式”“自治
 研究”“跨阶段循环”“暂停恢复”或“在线执行编排”时才触发本 Skill。
@@ -122,10 +126,17 @@ v3 参考协议：`midstream-takeover.md`、`project-audit.md`、
 
 ## Overview
 
-`robotics-ar` is the explicitly enabled fifth sibling Skill. It supervises a
+`robotics-ar` is the explicitly enabled orchestration sibling. It supervises a
 resumable research session, stores neutral state/events/budgets/approval hashes,
 and calls only the existing Idea, Experiment, Writing, or Review siblings that
 the user's objective requires.
+When an independently usable `develop-robotics-engineering` sibling is present and
+confirmed, code tasks may invoke it; otherwise Code/Test/Runner remains available,
+so Engineering is not a hard dependency.
+The invocation inherits the approved Task/Trial Contract and autonomously implements,
+tests, and receipts the change without another user-audit gate. Engineering does not enter
+the scientific stage-approval state machine. Contract expansion, new device authority,
+safety stops, and budget stops still pause execution.
 
 Direct stage requests use the corresponding sibling. Trigger this Skill only for
 an explicit Robotics-AR/automatic/autonomous/cross-stage/pause-resume/online-

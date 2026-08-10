@@ -6,7 +6,15 @@
 
 当前版本采用 corpus-first v2 路径：100 篇均衡公开论文先形成来源、文本覆盖和混合保真签名收据，再由模型子代理模拟 embedding、聚类审计和策略归纳。该模拟不冒充真实 UMAP/HDBSCAN；运行时只注入由 8 个能力簇归纳出的 15 个模式族、31 个子模式和 8 个研究路由问题。十个外部 venue workflow 也只被蒸馏为一套统一方法及 venue 映射，不在仓库中复制十套内部 workflow。
 
-本项目另有一个显式启用、与四个科研 Skill 并列的 `robotics-ar` 自动研究模式。它从 ARIS（[auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/auto-claude-code-research-in-sleep)）的领域中立生命周期、证据门、artifact receipt、追踪、隔离和暂停恢复契约中进行蒸馏；固定参考 commit 为 `3e49e63aae6a653067f9e2101d50457f1f7d6a2f`。ARIS 不作为运行时依赖，具体 provider、MCP、UI、ML、论文和 venue workflow 均被排除。来源 receipt、inventory、蒸馏矩阵、许可证决策和中立性审计位于 `agent/robotics-ar-distillation/`，许可归属见 `THIRD_PARTY_NOTICES.md`。
+本项目另有独立的 `develop-robotics-engineering` 工程执行 Skill，以及显式启用的 `robotics-ar` 自动研究模式。Engineering 可单独完成控制、优化、ROS、学习、嵌入式、仿真和部署代码任务；Robotics-AR 可在其存在时选择性调用，缺失时继续使用自身 Code/Test/Runner 协议。Robotics-AR 从 ARIS（[auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/auto-claude-code-research-in-sleep)）蒸馏领域中立生命周期与安全契约，但不把 ARIS 作为运行时依赖。
+
+当前稳定契约版本由根目录 `VERSION` 管理。发布前唯一 CI 入口为：
+
+```bash
+python3 -B scripts/run_stable_checks.py
+```
+
+只有该命令通过、正式 release builder 在 clean checkout 上通过且包内 manifest 标记 `source_dirty=false`，才能标记为 STABLE。
 
 ## 为什么需要这套 Skill
 
@@ -52,6 +60,12 @@
 - abort、排除、失败、安全事件和 protocol deviation 的完整记录。
 
 主要输出：`experiment-contract.json`、`trial-registry.csv`、`measurement-log.csv` 和 `result-bundle.json`。
+
+### `develop-robotics-engineering`
+
+以最小计划、最小正确改动和聚焦测试执行机器人代码开发，包括控制/优化、感知、学习、ROS、嵌入式、仿真、硬件接口、部署和工程调参。它优先执行既有 plan/handoff，不设计科学 condition、metric 或论文 claim；默认不强制 TDD、worktree、review swarm、commit 或 push。
+
+主要输出：代码改动，以及带统一 `task_id` 的紧凑 `agent/plan`、`agent/task`、`agent/report` 和 `agent/handoff`；完成前由单一 validator 交叉核对允许路径和冻结测试。
 
 ### `write-robotics-paper`
 
@@ -193,7 +207,7 @@ Do-Not-Repeat Registry，单 seed 结果不会自动成为 stable Best-Known Sta
 
 ## 安装模式与本地更新
 
-安装器位于 `scripts/`，面向五个并列 Skill：`develop-robotics-idea`、`design-robotics-experiment`、`write-robotics-paper`、`review-robotic-feedback`，以及可选的并列 `robotics-ar`。`robotics-ar` 只是在需要时启动自动研究循环，不是其他 Skill 的父 Skill 或依赖；当它加入仓库后，`--skills all` 会自动发现它。
+安装器位于 `scripts/`，面向六个并列 Skill：四个科研证据 Skill、独立的 `develop-robotics-engineering`，以及可选编排器 `robotics-ar`。Engineering 可单独安装；Robotics-AR 对它仅为可选依赖。`--skills all` 会自动发现当前仓库中的全部 Skill。
 
 安装目的会决定 `--mode auto` 的默认行为：
 
@@ -201,7 +215,7 @@ Do-Not-Repeat Registry，单 seed 结果不会自动成为 stable Best-Known Sta
 | --- | --- | --- |
 | `development` | `SYMLINK_TRACKED_CLONE` | 从本地 Git clone 将每个 Skill 建立到 `$CODEX_HOME/skills` 的符号链接；本地分支、工作区修改和提交立即可见，无需重新安装。 |
 | `use` + `--source-root` | `SAFE_STAGED_WORKTREE` | 从本地 clone 生成带 commit 标识的发布快照，并复制当前运行时依赖闭包，再原子切换 Skill 链接；更新前检查分支、干净工作区、快速校验和 fast-forward。 |
-| `use` + `--archive-url` | `DIRECT_DOWNLOAD` | 只复制选中的 Skill 目录并固定 SHA-256；它不携带完整仓库的 shared runtime。Idea/Experiment/Writing 的完整路由请使用 full clone 或 `SAFE_STAGED_WORKTREE`，Review 可使用其明确的 standalone fallback。 |
+| `use` + `--archive-url` | `DIRECT_DOWNLOAD` | 从轻量 `runtime.zip` 建立由归档 SHA-256 固定的不可变 staged release，保留 shared runtime，并将选中的 Skill 链接到该快照。 |
 
 参与开发时：
 
@@ -222,11 +236,17 @@ python3 scripts/install_local_skills.py \
   --mode SAFE_STAGED_WORKTREE
 ```
 
-也可以直接从远程公开归档安装固定版本：
+正式发行先从干净工作树构建轻量包；`runtime.zip` 必须小于 5 MiB，`developer.zip` 必须小于 20 MiB，且都排除 PDF、`.git`、`agent/` 和缓存：
+
+```bash
+python3 scripts/build_release_bundle.py
+```
+
+也可以从发布页的 `runtime.zip` 安装固定版本：
 
 ```bash
 python3 scripts/install_local_skills.py \
-  --archive-url https://github.com/YakarifromCN/Robotics-Research-Skill/archive/refs/heads/main.zip \
+  --archive-url https://github.com/YakarifromCN/Robotics-Research-Skill/releases/latest/download/runtime.zip \
   --purpose use \
   --mode DIRECT_DOWNLOAD
 ```
@@ -399,7 +419,7 @@ Trial Registry 每次尝试一行；Measurement Log 以长格式保存每个指�
 
 ```text
 Robotics-Research-Skill/
-├── skills/                  # 五个并列、可独立安装的 Skill（robotics-ar 可选）
+├── skills/                  # 六个并列、可独立安装的 Skill（robotics-ar 可选编排）
 ├── common/                  # 严格 JSON、ID、摘要、证据画像和判定规则
 ├── references/              # 三个共享运行说明与可审计来源 receipt
 ├── assets/                  # project manifest 与 target snapshot 模板
@@ -486,6 +506,7 @@ excluded. The receipt and audit records live under
 
 - `develop-robotics-idea` builds or audits a falsifiable Research Card, checks prior-work collisions, establishes claim boundaries, and preserves an immutable candidate–audit–patch chain.
 - `design-robotics-experiment` converts a locked claim into conditions, contrasts, metrics, unit hierarchies, negative controls, denominator policies, and mechanically executable decision rules.
+- `develop-robotics-engineering` executes scoped control, optimization, perception, learning, ROS, embedded, simulation, hardware-interface, deployment, and tuning changes with a minimal plan, frozen focused tests, and cross-validated plan/task/report/handoff artifacts.
 - `write-robotics-paper` builds a traceable Claim Ledger and LaTeX manuscript without upgrading evidence states or inventing experiments, numbers, or citations.
 - `review-robotic-feedback` runs seven fresh, scope-isolated robotics reviewer perspectives and a source-linked Meta Review with a revision roadmap. It requires an explicit output language and stores every run below an independent `reviews/review-<timestamp>/{jsons,markdowns}/` directory.
 
@@ -567,7 +588,7 @@ stable Best-Known State automatically.
 
 ## Installation modes and local updates
 
-The repository ships one installer for five sibling Skills: `develop-robotics-idea`, `design-robotics-experiment`, `write-robotics-paper`, `review-robotic-feedback`, and the optional sibling `robotics-ar`. `robotics-ar` can start an automated research loop when explicitly requested; it is not a parent Skill and the other four Skills do not depend on it. Once it is present in the repository, `--skills all` discovers it automatically.
+The repository ships one installer for six sibling Skills: four scientific evidence Skills, independently usable `develop-robotics-engineering`, and optional orchestrator `robotics-ar`. Robotics-AR may invoke Engineering when present but falls back to its Code/Test/Runner protocol when absent. `--skills all` discovers all available Skills automatically.
 
 The `--mode auto` choice follows the declared purpose:
 
@@ -575,7 +596,7 @@ The `--mode auto` choice follows the declared purpose:
 | --- | --- | --- |
 | `development` | `SYMLINK_TRACKED_CLONE` | Links each Skill from a local Git clone into `$CODEX_HOME/skills`; local branch changes, working-tree edits, and commits are immediately visible without reinstalling. |
 | `use` with `--source-root` | `SAFE_STAGED_WORKTREE` | Builds a commit-addressed release snapshot, copies the active runtime dependency closure, and switches Skill links atomically; updates check the branch, clean worktree, fast checks, and fast-forward relation. |
-| `use` with `--archive-url` | `DIRECT_DOWNLOAD` | Copies only the selected Skill directories and records their SHA-256; it does not include the complete shared runtime. Use a full clone or `SAFE_STAGED_WORKTREE` for complete Idea/Experiment/Writing routing. Review has an explicit standalone fallback. |
+| `use` with `--archive-url` | `DIRECT_DOWNLOAD` | Creates an immutable staged release from lightweight `runtime.zip`, pins it by archive SHA-256, preserves shared runtime, and links selected Skills to that snapshot. |
 
 For active development:
 
@@ -596,11 +617,17 @@ python3 scripts/install_local_skills.py \
   --mode SAFE_STAGED_WORKTREE
 ```
 
+Build formal release assets only from a clean worktree. The builder emits a sub-5 MiB `dist/runtime.zip` and sub-20 MiB `dist/developer.zip`, excluding PDFs, `.git`, `agent/`, extracted corpora, and bytecode:
+
+```bash
+python3 scripts/build_release_bundle.py
+```
+
 For a pinned remote archive:
 
 ```bash
 python3 scripts/install_local_skills.py \
-  --archive-url https://github.com/YakarifromCN/Robotics-Research-Skill/archive/refs/heads/main.zip \
+  --archive-url https://github.com/YakarifromCN/Robotics-Research-Skill/releases/latest/download/runtime.zip \
   --purpose use \
   --mode DIRECT_DOWNLOAD
 ```
