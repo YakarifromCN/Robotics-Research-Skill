@@ -1,6 +1,6 @@
 ---
 name: write-robotics-paper
-description: Evidence-constrained robotics paper writing, revision, rebuttal, and claim auditing.
+description: Evidence-constrained robotics paper writing, revision, rebuttal, claim auditing, and bidirectional contribution calibration. Use for drafting from locked research artifacts, revising overclaimed or underclaimed prose, reducing defensive academic writing without deleting necessary caution, and preserving claim/result/number/citation traceability.
 ---
 # Robotics Paper Writing
 
@@ -14,7 +14,7 @@ description: Evidence-constrained robotics paper writing, revision, rebuttal, an
 
 ## Progressive runtime preflight
 
-Read the Claim Ledger and supplied manuscript first, then at most two references: `references/core-contract.md`, `references/claim-evidence-writing.md`, or official venue policy only when formatting for a venue. Do not preload sibling Skills, the corpus, PDFs, venue catalogs, or reviewer prompts.
+Read the Claim Ledger and supplied manuscript first, then at most two references: `references/core-contract.md`, `references/claim-evidence-writing.md`, `references/evidence-bound-revision.md` for existing-prose revision, or official venue policy only when formatting for a venue. Do not preload sibling Skills, the corpus, PDFs, venue catalogs, or reviewer prompts.
 
 Run:
 
@@ -54,3 +54,16 @@ Select runtime questions only when supported by the active axes. Treat the
 runtime-active tactical cards as structural operators, not seed cards or claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.
+
+## Evidence-bound revision
+
+For revision, rebuttal, camera-ready compression, or defensive-writing audit,
+read `references/evidence-bound-revision.md`. Diagnose lexical cues only as
+candidates. Bind the revision artifact to the Claim Ledger digest and its
+change envelope before editing. If authority is absent, stop at diagnosis.
+
+Calibrate in both directions: strengthen underclaimed prose up to the frozen
+evidence ceiling, keep at-ceiling prose, narrow overclaim, and repair a
+misaligned claim type. Preserve evidence functions and stable IDs rather than
+duplicate sentences. Run `scripts/validate_revision_audit.py`, the Claim Ledger
+validator, and the LaTeX audit before declaring the revision ready.

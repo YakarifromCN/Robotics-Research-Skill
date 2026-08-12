@@ -34,6 +34,8 @@ MAX_ARCHIVE_BYTES = 200 * 1024 * 1024
 # needed by normal routing.
 STAGED_SHARED_FILES = (
     "VERSION",
+    "THIRD_PARTY_NOTICES.md",
+    "common/evidence-bound-revision.md",
     "corpus/robotics-research-runtime.v1.json",
     "corpus/robotics-submanifold.v1.json",
     "corpus/robotics-submanifold-calibration.v1.json",

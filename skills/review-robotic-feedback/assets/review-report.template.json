@@ -17,7 +17,33 @@
       "claim_ids": []
     }
   ],
-  "findings": [],
+  "findings": [
+    {
+      "finding_id": "F001",
+      "severity": "MAJOR",
+      "category": "claim_evidence_mismatch",
+      "location": {"file": "main.tex", "anchor": "Section 1"},
+      "evidence_anchor": {"type": "quote", "value": "anchored manuscript text"},
+      "issue": "A scoped claim-evidence problem",
+      "impact": "Why the current claim is weakened",
+      "action": "The smallest required correction",
+      "state": "open",
+      "claim_ids": ["C001"],
+      "evidence_state": "PARTIALLY_SUPPORTED",
+      "evidence_claim_relation": "OVER_CEILING",
+      "objection_burden": {
+        "target_claim_id": "C001",
+        "claimed_scope": "the scope stated by the manuscript",
+        "specific_gap": "the exact missing support",
+        "why_this_gap_invalidates_or_weakens_the_claim": "the logical connection to C001",
+        "required_action": "narrow C001 or provide the already-required evidence"
+      },
+      "role": "primary",
+      "critical_basis": null,
+      "action_kind": "revise",
+      "resolution_note": null
+    }
+  ],
   "evidence_gaps": [],
   "not_assessable": [],
   "recommendation": "MAJOR_REVISION",

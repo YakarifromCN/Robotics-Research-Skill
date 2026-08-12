@@ -143,6 +143,8 @@ def collect_groups(reports: list[dict[str, Any]]) -> tuple[list[dict[str, Any]],
                     "sources": [],
                     "claim_ids": set(),
                     "evidence_states": set(),
+                    "evidence_claim_relations": set(),
+                    "objection_burdens": [],
                     "states": set(),
                     "location_files": set(),
                     "anchor_values": set(),
@@ -155,6 +157,9 @@ def collect_groups(reports: list[dict[str, Any]]) -> tuple[list[dict[str, Any]],
             group["actions"].append(finding.get("action"))
             group["claim_ids"].update(finding.get("claim_ids") or [])
             group["evidence_states"].add(finding.get("evidence_state"))
+            group["evidence_claim_relations"].add(finding.get("evidence_claim_relation"))
+            if finding.get("objection_burden"):
+                group["objection_burdens"].append(finding.get("objection_burden"))
             group["states"].add(finding.get("state"))
             group["location_files"].add((finding.get("location") or {}).get("file"))
             group["anchor_values"].add(norm((finding.get("evidence_anchor") or {}).get("value")))
@@ -177,6 +182,9 @@ def json_safe_group(group: dict[str, Any]) -> dict[str, Any]:
         "sources": group["sources"],
         "claim_ids": sorted(item for item in group["claim_ids"] if item),
         "evidence_states": sorted(item for item in group["evidence_states"] if item),
+        "evidence_claim_relations": sorted(item for item in group["evidence_claim_relations"] if item),
+        "objection_burdens": group["objection_burdens"],
+        "evidence_anchor_values": sorted(item for item in group["anchor_values"] if item),
         "status": "open" if {"open", "uncertain"} & group["states"] else "resolved",
     }
 
@@ -259,6 +267,7 @@ def render_markdown(meta: dict[str, Any]) -> str:
             f"### {item['priority']}. [{item['severity']}] {item['category']} ({item['root_cause_id']})",
             f"- 问题 / Issue: {item['issue']}",
             f"- 影响 / Impact: {item['impact']}",
+            f"- Evidence–claim relation: {', '.join(item.get('evidence_claim_relations', []))}",
             f"- 行动 / Action: {item['recommended_action']}",
             f"- corroboration: {item['corroboration']}; sources: {sources}",
             "",
@@ -392,6 +401,14 @@ def synthesize(context_path: Path, report_paths: list[Path], json_arg: str | Non
         disagreements.append({"type": "score_spread", "detail": f"scores span {minimum}–{maximum}", "reviewers": [report.get("reviewer_id") for report in applicable]})
     if len(recommendations) > 1:
         disagreements.append({"type": "recommendation_split", "detail": ", ".join(f"{key}={value}" for key, value in sorted(recommendations.items())), "reviewers": [report.get("reviewer_id") for report in applicable]})
+    for item in roadmap:
+        relations = set(item.get("evidence_claim_relations", []))
+        if "OVER_CEILING" in relations and "BELOW_CEILING" in relations:
+            disagreements.append({"type": "calibration_conflict", "detail": f"{item['root_cause_id']} was classified as both over- and below-ceiling", "reviewers": [source.get("reviewer_id") for source in item["sources"]]})
+        for strength in protected_strengths:
+            strength_anchor = norm((strength.get("evidence_anchor") or {}).get("value"))
+            if strength_anchor and strength_anchor in set(item.get("evidence_anchor_values", [])):
+                disagreements.append({"type": "preserve_revise_conflict", "detail": f"{item['root_cause_id']} requests revision at an anchor protected by {strength['strength_id']}", "reviewers": [source.get("reviewer_id") for source in item["sources"] + strength["sources"]]})
 
     evidence_gaps = []
     for report in reports:

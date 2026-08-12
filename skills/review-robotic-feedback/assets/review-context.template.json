@@ -57,6 +57,7 @@
   "domain_packs": [],
   "reviewer_configuration": [
     "manuscript-proofreading",
+    "contribution-calibration-review",
     "robotics-contribution-review",
     "control-optimization-review",
     "robot-learning-review",

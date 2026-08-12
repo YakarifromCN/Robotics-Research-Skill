@@ -27,6 +27,7 @@ except ModuleNotFoundError:  # 独立安装兼容 / standalone installed Skill
 
 REVIEWERS = {
     "manuscript-proofreading",
+    "contribution-calibration-review",
     "robotics-contribution-review",
     "control-optimization-review",
     "robot-learning-review",
@@ -47,6 +48,7 @@ RECOMMENDATIONS = {
 }
 ROLES = {"primary", "corroborating"}
 ACTION_KINDS = {"revise", "preserve", "monitor", "none"}
+EVIDENCE_CLAIM_RELATIONS = {"OVER_CEILING", "AT_CEILING", "BELOW_CEILING", "MISALIGNED"}
 CRITICAL_BASES = {
     "DESIGN_LOCK_BREACH",
     "CHANGE_REQUEST_TO_IDEA",
@@ -157,9 +159,17 @@ def normalize_finding(value: Any, index: int, warnings: list[str]) -> dict[str, 
     result["critical_basis"] = result.get("critical_basis")
     result["action_kind"] = result.get("action_kind") or ("preserve" if result.get("state") == "resolved" else "revise")
     result["resolution_note"] = result.get("resolution_note")
+    if "evidence_claim_relation" not in result:
+        result["evidence_claim_relation"] = None
+    burden = result.get("objection_burden")
+    if burden is not None and isinstance(burden, dict):
+        burden_keys = {"target_claim_id", "claimed_scope", "specific_gap", "why_this_gap_invalidates_or_weakens_the_claim", "required_action"}
+        burden = {key: burden.get(key) for key in burden_keys}
+    result["objection_burden"] = burden
     required = {
         "finding_id", "severity", "category", "location", "evidence_anchor", "issue", "impact", "action",
         "state", "claim_ids", "evidence_state", "role", "critical_basis", "action_kind", "resolution_note",
+        "evidence_claim_relation", "objection_burden",
     }
     result = {key: result.get(key) for key in required}
     if isinstance(value, dict) and "role" not in value:
@@ -320,6 +330,7 @@ def validate(x: Any) -> dict[str, Any]:
     required = {
         "finding_id", "severity", "category", "location", "evidence_anchor", "issue", "impact", "action",
         "state", "claim_ids", "evidence_state", "role", "critical_basis", "action_kind", "resolution_note",
+        "evidence_claim_relation", "objection_burden",
     }
     for index, item in enumerate(normalized.get("findings", [])):
         path = f"findings[{index}]"
@@ -336,6 +347,8 @@ def validate(x: Any) -> dict[str, Any]:
             findings.fail("FINDING", f"{path}.role", "must be primary or corroborating")
         if item["action_kind"] not in ACTION_KINDS:
             findings.fail("FINDING", f"{path}.action_kind", "unsupported action kind")
+        if item["evidence_claim_relation"] not in EVIDENCE_CLAIM_RELATIONS:
+            findings.fail("CALIBRATION", f"{path}.evidence_claim_relation", "unsupported evidence–claim relation")
         if not nonempty(item["finding_id"]) or not nonempty(item["category"]) or not nonempty(item["issue"]) or not nonempty(item["impact"]) or not nonempty(item["action"]):
             findings.fail("FINDING", path, "IDs, category, issue, impact, and action must be non-empty")
         if not isinstance(item["claim_ids"], list) or any(not nonempty(value) for value in item["claim_ids"]):
@@ -348,6 +361,18 @@ def validate(x: Any) -> dict[str, Any]:
             findings.fail("ANCHOR", f"{path}.evidence_anchor", "typed non-empty anchor required")
         if item["severity"] == "CRITICAL" and (item["critical_basis"] not in CRITICAL_BASES or not nonempty(evidence.get("value"))):
             findings.fail("CRITICAL", path, "CRITICAL needs a documented basis and evidence anchor")
+        if item["severity"] in {"MAJOR", "CRITICAL"}:
+            burden = item.get("objection_burden")
+            burden_keys = {"target_claim_id", "claimed_scope", "specific_gap", "why_this_gap_invalidates_or_weakens_the_claim", "required_action"}
+            if not isinstance(burden, dict) or set(burden) != burden_keys or not all(nonempty(burden.get(key)) for key in burden_keys):
+                findings.fail("OBJECTION_BURDEN", f"{path}.objection_burden", "MAJOR/CRITICAL must identify the threatened claim, scope, gap, logical impact, and required action")
+            elif burden["target_claim_id"] not in item["claim_ids"]:
+                findings.fail("OBJECTION_BURDEN", f"{path}.objection_burden.target_claim_id", "target claim must occur in finding claim_ids")
+        if item["category"] == "OPTIONAL_EXTENSION" and not (
+            item["severity"] == "MINOR" and item["state"] == "resolved" and item["action_kind"] == "monitor"
+            and item["evidence_claim_relation"] == "AT_CEILING" and nonempty(item.get("resolution_note"))
+        ):
+            findings.fail("OPTIONAL_EXTENSION", path, "unrelated desirable work must be resolved MINOR/monitor at the current ceiling")
         if item["state"] == "resolved" and item["action_kind"] == "revise":
             findings.fail("STATE_ACTION", path, "resolved finding cannot still require revision")
         if item["state"] == "resolved" and not nonempty(item["resolution_note"]):
@@ -376,6 +401,9 @@ def validate(x: Any) -> dict[str, Any]:
         findings.fail("RECOMMENDATION", "recommendation", "unsupported recommendation")
     if recommendation in {"READY_TO_SUBMIT", "READY_WITH_MINOR_REVISIONS"} and any(item.get("severity") == "CRITICAL" and item.get("state") in {"open", "uncertain"} for item in normalized.get("findings", [])):
         findings.fail("CRITICAL_GATE", "recommendation", "READY recommendation is invalid with unresolved CRITICAL finding")
+    report_findings = normalized.get("findings", [])
+    if report_findings and all(item.get("category") == "OPTIONAL_EXTENSION" for item in report_findings) and recommendation in {"MAJOR_REVISION", "REBUILD_OR_REFRAME", "EVIDENCE_GAPS"}:
+        findings.fail("OPTIONAL_EXTENSION", "recommendation", "optional extensions cannot force a major, rebuild, or evidence-gap recommendation")
     report = findings.report("robotics-review-report.v1", recommendation, recommendation in RECOMMENDATIONS)
     report["normalization_warnings"] = warnings
     return report

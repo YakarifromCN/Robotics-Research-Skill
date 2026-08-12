@@ -1,6 +1,6 @@
 ---
 name: review-robotic-feedback
-description: Multi-perspective robotics peer review and academic revision routing grounded in active research axes and official venue scope. Use for review findings and scientific revision decisions; route requested code fixes or implementation work arising from reviews to develop-robotics-engineering.
+description: Multi-perspective robotics peer review, bidirectional evidence–claim calibration, and academic revision routing grounded in active research axes and official venue scope. Use for review findings, detecting overclaim or defensive underclaim, protecting necessary caution, and scientific revision decisions; route requested code fixes or implementation work arising from reviews to develop-robotics-engineering.
 ---
 # Robotics Paper Feedback
 
@@ -52,3 +52,14 @@ Select runtime questions only when supported by the active axes. Treat the
 runtime-active tactical cards as structural operators, not seed cards or claims
 to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.
+
+## Contribution calibration specialist
+
+Include one independent `contribution-calibration-review` specialist in the
+bounded panel. It compares prose with the frozen Claim Ledger ceiling in both
+directions, protects necessary caution, and detects defensive underclaim. Every
+MAJOR/CRITICAL must satisfy objection burden by naming the threatened claim,
+scope, specific gap, logical impact, and minimum required action. A desirable
+experiment unrelated to the current scoped claim is an optional extension, not
+a mandatory revision. This specialist reports findings only and never edits the
+manuscript or expands the research objective.

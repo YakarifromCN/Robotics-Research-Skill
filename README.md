@@ -78,15 +78,17 @@ python3 -B scripts/run_stable_checks.py
 - LaTeX 数字自动渲染；
 - BibTeX 生成；
 - 中英文夸大、泛化、因果和 demo-speak 审计；
+- 双向 evidence–claim calibration：既阻止 overclaim，也纠正低于冻结证据上限的 defensive underclaim；
 - 证据状态单调性与 claim boundary 检查。
 
-主要输出：`claim-ledger.json` 和经过审计的 LaTeX 稿件。
+主要输出：`claim-ledger.json`、按需生成的 `evidence-bound-revision.json` 和经过审计的 LaTeX 稿件。
 
 ### `review-robotic-feedback`
 
-对机器人论文执行只读、多视角同行评审，包含七个独立专门代理：
+对机器人论文执行只读、多视角同行评审，包含八个独立专门代理：
 
 - `manuscript-proofreading`：文字、术语、LaTeX 和交叉引用；
+- `contribution-calibration-review`：识别 overclaim、defensive underclaim、phantom objection，并保护必要限定；
 - `robotics-contribution-review`：任务、机制、贡献差异、先例碰撞和主张边界；
 - `control-optimization-review`：控制、优化、动力学假设、稳定性、实时性和基线公平；
 - `robot-learning-review`：数据、训练/测试隔离、seed、oracle、泛化和 sim-to-real；
@@ -507,8 +509,8 @@ excluded. The receipt and audit records live under
 - `develop-robotics-idea` builds or audits a falsifiable Research Card, checks prior-work collisions, establishes claim boundaries, and preserves an immutable candidate–audit–patch chain.
 - `design-robotics-experiment` converts a locked claim into conditions, contrasts, metrics, unit hierarchies, negative controls, denominator policies, and mechanically executable decision rules.
 - `develop-robotics-engineering` executes scoped control, optimization, perception, learning, ROS, embedded, simulation, hardware-interface, deployment, and tuning changes with a minimal plan, frozen focused tests, and cross-validated plan/task/report/handoff artifacts.
-- `write-robotics-paper` builds a traceable Claim Ledger and LaTeX manuscript without upgrading evidence states or inventing experiments, numbers, or citations.
-- `review-robotic-feedback` runs seven fresh, scope-isolated robotics reviewer perspectives and a source-linked Meta Review with a revision roadmap. It requires an explicit output language and stores every run below an independent `reviews/review-<timestamp>/{jsons,markdowns}/` directory.
+- `write-robotics-paper` builds a traceable Claim Ledger and LaTeX manuscript, calibrates overclaim and defensive underclaim against the frozen evidence ceiling, and never invents experiments, numbers, or citations.
+- `review-robotic-feedback` runs eight fresh, scope-isolated robotics reviewer perspectives, including one contribution-calibration specialist, and a source-linked Meta Review with a revision roadmap. It requires an explicit output language and stores every run below an independent `reviews/review-<timestamp>/{jsons,markdowns}/` directory.
 
 ## Key guarantees
 

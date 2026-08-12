@@ -1,4 +1,4 @@
 interface:
   display_name: "机器人学论文写作 / Robotics Writing"
-  short_description: "依据锁定主张与证据撰写机器人学论文 / Write robotics papers from locked claims and evidence"
-  default_prompt: "使用 $write-robotics-paper，从冻结主张和结果构建可追溯的 LaTeX 论文，且不提升证据状态。 / Use $write-robotics-paper to build a traceable LaTeX paper from frozen claims and results without upgrading evidence state."
+  short_description: "双向校准机器人论文的主张、证据与防御性表达 / Evidence calibration"
+  default_prompt: "使用 $write-robotics-paper 按冻结证据上限双向校准这篇机器人论文，纠正 overclaim 与 defensive underclaim，并保留必要限定。"

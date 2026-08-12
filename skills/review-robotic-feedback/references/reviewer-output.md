@@ -17,6 +17,14 @@ finding 的最小结构：
   "state": "open",
   "claim_ids": ["C001"],
   "evidence_state": "INCONCLUSIVE",
+  "evidence_claim_relation": "OVER_CEILING",
+  "objection_burden": {
+    "target_claim_id": "C001",
+    "claimed_scope": "the manuscript's stated scope",
+    "specific_gap": "the exact unsupported step",
+    "why_this_gap_invalidates_or_weakens_the_claim": "the logical impact on C001",
+    "required_action": "the smallest required correction"
+  },
   "role": "primary",
   "critical_basis": null,
   "action_kind": "revise",
@@ -25,6 +33,8 @@ finding 的最小结构：
 ```
 
 `CRITICAL` 必须提供 `critical_basis`；`state=resolved` 必须使用 `action_kind=preserve|monitor|none` 并写 `resolution_note`。`report_id` 必须非空，推荐 `<review_id>::<reviewer_id>`。不得把已解决强项放入普通 `findings`。
+
+每个 finding 写 `evidence_claim_relation`。每个 MAJOR/CRITICAL 必须提供 `objection_burden`：`target_claim_id`、`claimed_scope`、`specific_gap`、`why_this_gap_invalidates_or_weakens_the_claim`、`required_action`，且 target 必须出现在 `claim_ids`。不威胁当前 claim 的建议只能使用 resolved MINOR `OPTIONAL_EXTENSION`。
 
 编排器每次启动、校验、重试或完成一个独立 reviewer 时，必须通过
 `scripts/update_review_run.py <run-state.json> <reviewer> <status>` 更新同一时间戳目录中的
@@ -36,6 +46,12 @@ report hash 和错误，不参与科学判断。
 # English
 
 Each fresh reviewer emits the JSON defined by `assets/review-report.template.json` in the requested output language. Read only `allowed_files`; do not use project memory, prior reviews, or other agents' reports. Summaries describe the assigned dimension; strengths use `review-strength.v1`; findings require typed anchors; `evidence_gaps` and `not_assessable` are object arrays; recommendations remain dimension-local. `CRITICAL` needs a documented basis, and resolved strengths must not remain ordinary findings. Meta Review may cite only report and finding IDs.
+
+Every finding declares `evidence_claim_relation`. Every MAJOR/CRITICAL supplies
+an `objection_burden` tied to a claim in `claim_ids`, including stated scope,
+specific gap, logical claim impact, and the smallest required action. Desirable
+work unrelated to the current scoped claim is a resolved MINOR
+`OPTIONAL_EXTENSION`, never a mandatory experiment.
 
 Whenever an independent reviewer starts, validates, retries, or completes, the
 orchestrator must call `scripts/update_review_run.py <run-state.json>

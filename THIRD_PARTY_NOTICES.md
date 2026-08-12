@@ -125,3 +125,38 @@ SOFTWARE.
 ## Review orchestration references
 
 The review subskill adapts orchestration ideas from [AI-research-feedback review-paper](https://github.com/claesbackman/AI-research-feedback/blob/main/Skills/review-paper/SKILL.md) and protocol ideas from [academic-research-skills academic-paper-reviewer](https://github.com/Imbad0202/academic-research-skills/blob/main/academic-paper-reviewer/SKILL.md). It does not copy their economics or general-science reviewer personas. The robotics implementation adds claim-lock checks, nonordinal evidence profiles, robotics-specific specialist prompts, stable evidence anchors, and explicit artifact/revision gates.
+
+## Evidence-Bound Press-Conference Revision Skill
+
+The bidirectional contribution-calibration protocol distills behavioral ideas
+from [Evidence-Bound-Press-Conference-Revision-Skill](https://github.com/lensback940701/Evidence-Bound-Press-Conference-Revision-Skill),
+inspected at commit `5c67ea9`. The robotics implementation rewrites the method
+around Claim Ledger ceilings, stable result/number/citation IDs, objection
+burden, robotics evidence states, and fail-closed validators; no upstream
+checkout is a runtime dependency.
+
+The upstream project is distributed under the MIT License:
+
+```text
+MIT License
+
+Copyright (c) 2026 lensback940701
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

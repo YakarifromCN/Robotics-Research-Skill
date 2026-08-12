@@ -1,6 +1,6 @@
 {
   "schema_version": "robotics-stable-use.v1",
-  "release_version": "2.0.0",
+  "release_version": "2.1.0",
   "release_states": ["STABLE", "RELEASE_CANDIDATE", "DEVELOPMENT"],
   "hard_gates": ["scientific_correctness", "engineering_correctness", "recoverability_traceability", "release_reproducibility"],
   "dimensions": [

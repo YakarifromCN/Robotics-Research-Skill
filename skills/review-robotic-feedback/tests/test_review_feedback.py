@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "skills" / "review-robotic-feedback"
 REVIEWERS = (
     "manuscript-proofreading",
+    "contribution-calibration-review",
     "robotics-contribution-review",
     "control-optimization-review",
     "robot-learning-review",
@@ -35,6 +36,14 @@ def report(reviewer, report_id=None, score=4, applicable=True, issue="主张范�
         "state": state,
         "claim_ids": ["C001"],
         "evidence_state": "SUPPORTED" if critical else "INCONCLUSIVE",
+        "evidence_claim_relation": "OVER_CEILING",
+        "objection_burden": {
+            "target_claim_id": "C001",
+            "claimed_scope": "the evaluated robot tasks",
+            "specific_gap": "the sentence exceeds the recorded result scope",
+            "why_this_gap_invalidates_or_weakens_the_claim": "the prose asserts evidence outside C001",
+            "required_action": "restore the frozen claim boundary",
+        },
         "role": "primary",
         "critical_basis": "CLAIM_EVIDENCE_MISMATCH" if critical else None,
         "action_kind": "preserve" if resolved else "revise",
@@ -199,6 +208,40 @@ class ReviewFeedbackV2(unittest.TestCase):
         item["recommendation"] = "READY_TO_SUBMIT"
         self.assertFalse(module.validate(item)["contract_consistent"])
 
+    def test_objection_burden_blocks_phantom_major_and_allows_optional_extension(self):
+        from importlib.util import module_from_spec, spec_from_file_location
+        spec = spec_from_file_location("review_validator_objection", SKILL / "scripts" / "validate_review_report.py")
+        module = module_from_spec(spec); spec.loader.exec_module(module)
+        item = report("contribution-calibration-review", report_id="RPT-OBJECTION")
+        item["findings"][0]["issue"] = "A second embodiment would be interesting"
+        item["findings"][0]["claim_ids"] = []
+        item["findings"][0]["objection_burden"] = None
+        self.assertFalse(module.validate(item)["contract_consistent"])
+        finding = item["findings"][0]
+        finding.update(severity="MINOR", category="OPTIONAL_EXTENSION", state="resolved", action_kind="monitor", evidence_claim_relation="AT_CEILING", resolution_note="C001 is explicitly limited to the evaluated Franka tasks")
+        self.assertFalse(module.validate(item)["contract_consistent"])
+        item["recommendation"] = "READY_WITH_MINOR_REVISIONS"
+        self.assertTrue(module.validate(item)["contract_consistent"])
+
+    def test_below_ceiling_finding_is_valid_bidirectional_calibration(self):
+        from importlib.util import module_from_spec, spec_from_file_location
+        spec = spec_from_file_location("review_validator_underclaim", SKILL / "scripts" / "validate_review_report.py")
+        module = module_from_spec(spec); spec.loader.exec_module(module)
+        item = report("contribution-calibration-review", report_id="RPT-UNDERCLAIM")
+        item["findings"][0]["evidence_claim_relation"] = "BELOW_CEILING"
+        item["findings"][0]["issue"] = "The manuscript calls 15/15 real-robot executions preliminary feasibility"
+        item["findings"][0]["objection_burden"]["specific_gap"] = "the prose does not state the delivered scoped result"
+        item["findings"][0]["objection_burden"]["why_this_gap_invalidates_or_weakens_the_claim"] = "the supported C001 contribution is hidden below its evidence ceiling"
+        self.assertTrue(module.validate(item)["contract_consistent"])
+
+    def test_missing_evidence_claim_relation_fails_closed(self):
+        from importlib.util import module_from_spec, spec_from_file_location
+        spec = spec_from_file_location("review_validator_relation", SKILL / "scripts" / "validate_review_report.py")
+        module = module_from_spec(spec); spec.loader.exec_module(module)
+        item = report("contribution-calibration-review", report_id="RPT-NO-RELATION")
+        del item["findings"][0]["evidence_claim_relation"]
+        self.assertFalse(module.validate(item)["contract_consistent"])
+
     def test_duplicate_critical_is_one_root_cause_and_strength_is_protected(self):
         synth = SKILL / "scripts" / "synthesize_reviews.py"
         with tempfile.TemporaryDirectory() as raw:
@@ -272,6 +315,10 @@ class ReviewFeedbackV2(unittest.TestCase):
             self.assertEqual(prompts["review_language"], "en+zh")
             self.assertIn("fresh reviewer", prompts["reviewers"][0]["prompt"])
             self.assertIn("project memory", prompts["reviewers"][0]["prompt"])
+            self.assertEqual(len(prompts["reviewers"]), 8)
+            calibration = next(item for item in prompts["reviewers"] if item["reviewer_id"] == "contribution-calibration-review")
+            self.assertIn("objection burden", calibration["prompt"])
+            self.assertIn("BELOW_CEILING", calibration["prompt"])
             self.assertEqual(prompts["execution_mode"], "FRESH_SUBAGENT_PANEL")
             state = json.loads((json_dir / "run-state.json").read_text(encoding="utf-8"))
             self.assertEqual(set(state["agents"]), set(REVIEWERS))

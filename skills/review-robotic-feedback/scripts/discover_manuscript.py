@@ -47,6 +47,7 @@ EXCLUDED_NAMES = re.compile(r"^(response|letter|review|old|draft|slides|presenta
 FIG_EXT = {".pdf", ".png", ".eps", ".jpg", ".jpeg", ".svg", ".webp"}
 REVIEWERS = (
     "manuscript-proofreading",
+    "contribution-calibration-review",
     "robotics-contribution-review",
     "control-optimization-review",
     "robot-learning-review",

@@ -24,6 +24,16 @@ RESULT_REF = re.compile(r"\\resultref\{([^}]+)\}")
 NUMBER_REF = re.compile(r"\\numref\{([^}]+)\}")
 CITATION_REF = re.compile(r"\\cite(?:[a-zA-Z]*)?\{([^}]+)\}")
 SUPPORT_LANGUAGE = re.compile(r"\b(supports?|supported|demonstrates?|effective|improves?|outperforms?|proves?)\b|支持|证明|有效|提升|优于", re.I)
+UNDERCLAIM_CUE = re.compile(
+    r"\b(?:preliminary|promising|tentatively|may\s+(?:tentatively\s+)?suggest|might\s+suggest|could\s+possibly|appears?\s+to)\b|"
+    r"初步(?:结果|证据)?|可能(?:初步)?表明|有望",
+    re.I,
+)
+WORK_LOG_CUE = re.compile(
+    r"\b(?:we\s+(?:first|initially)|then\s+tried|after\s+several\s+attempts|eventually\s+(?:found|discovered))\b|"
+    r"我们先|经过多次尝试|后来尝试|最终发现",
+    re.I,
+)
 
 
 def _canonical_number(value) -> str | None:
@@ -67,6 +77,10 @@ def audit(text, ledger):
             if citation_id not in citation_ids: findings.append({"level": "fail", "code": "UNKNOWN_CITATION_REF", "citation_id": citation_id})
     sentence_refs = []
     for sentence in re.split(r"(?<=[.!?])\s+|\n+", stripped):
+        if UNDERCLAIM_CUE.search(sentence):
+            findings.append({"level": "warn", "code": "UNDERCLAIM_CANDIDATE", "sentence": sentence.strip(), "rule": "contextual review required; strengthening is allowed only up to the frozen ledger ceiling"})
+        if WORK_LOG_CUE.search(sentence):
+            findings.append({"level": "warn", "code": "WORK_LOG_CANDIDATE", "sentence": sentence.strip(), "rule": "retain only when the sequence is evidence or mechanism"})
         refs = CLAIM_REF.findall(sentence)
         for cid in refs:
             if cid not in claims: findings.append({"level": "fail", "code": "UNKNOWN_CLAIM_REF", "claim_id": cid})

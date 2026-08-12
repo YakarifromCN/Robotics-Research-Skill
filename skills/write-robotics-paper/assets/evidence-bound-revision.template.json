@@ -1,0 +1,24 @@
+{
+  "schema_version": "robotics-evidence-bound-revision.v1",
+  "audit_id": "REVISION-001",
+  "mode": "DIAGNOSTIC",
+  "status": "DIAGNOSED",
+  "manuscript_before_sha256": null,
+  "manuscript_after_sha256": null,
+  "claim_ledger_id": "LEDGER-001",
+  "claim_digest": null,
+  "contribution_contract": {
+    "core_claim_ids": [],
+    "contribution_first": true,
+    "qualification_in_place": true
+  },
+  "authority": {
+    "authorized": false,
+    "allowed": [],
+    "forbidden": [],
+    "reason": ""
+  },
+  "decisions": [],
+  "open_queries": [],
+  "regression": null
+}
