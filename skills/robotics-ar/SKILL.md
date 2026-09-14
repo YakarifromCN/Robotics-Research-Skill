@@ -106,6 +106,7 @@ python3 skills/robotics-ar/scripts/robotics_ar.py batch-start --project-root <pr
 - sibling 调用：阅读 `references/sibling-skill-adapter.md`。
 - 环境与真实设备：阅读 `references/environment-contract.md`、`real-robot-gate.md`。
 - Agent 隔离和 receipts：阅读 `references/execution-agents.md`。
+- 执行预留、外部运行登记或未知运行恢复：按需阅读 `references/execution-receipts.md`。审计上限与 reconciliation 见 `references/project-audit.md`。
 
 细节由 `scripts/robotics_ar_core/` 和 `schemas/` 的确定性实现承担；不要把本文件扩展
 成第二套 Research Card、Experiment Contract、Claim Ledger 或 Meta Review。

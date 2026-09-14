@@ -19,7 +19,7 @@ Read the Research Card first, then at most two references: `references/core-cont
 Run:
 
 ~~~text
-python scripts/route_robotics_research.py <profile.json> --stage experiment
+python3 <installed-skill-dir>/scripts/route_robotics_research.py <profile.json> --stage experiment
 ~~~
 
 The normal route reads only the tracked compact artifact

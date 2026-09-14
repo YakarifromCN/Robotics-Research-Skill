@@ -19,7 +19,7 @@ Read the user artifact first, then at most two references: `references/core-cont
 Run:
 
 ~~~text
-python scripts/route_robotics_research.py <profile.json> --stage idea
+python3 <installed-skill-dir>/scripts/route_robotics_research.py <profile.json> --stage idea
 ~~~
 
 The normal route reads only the tracked compact artifact

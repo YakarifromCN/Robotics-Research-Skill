@@ -24,6 +24,7 @@ from .reporting import write_handoff, write_report
 from .schema_validation import SchemaValidationError, validate_artifact
 from .state_machine import ACTIVE_STATES, TransitionError, validate_transition
 from .structured import read_mapping, write_structured
+from .transaction import serialized
 
 
 class SessionError(RuntimeError):
@@ -303,6 +304,19 @@ class SessionManager:
             return dict(self._state)
         if self.paths.state.exists():
             self._state = read_json(self.paths.state)
+            # 已提交事件可恢复中断的状态投影。 / Committed events recover interrupted projections.
+            from .transaction import writer_lock
+
+            with writer_lock(self.paths.root):
+                self._state = read_json(self.paths.state)
+                events = EventLog(self.paths.events, self._state["session_id"]).read_events()
+                for event in events:
+                    projection = event["payload"].get("state_projection")
+                    if projection and event["event_id"] > self._state.get("last_event_id", ""):
+                        if event["previous_state"] != self._state["state"]:
+                            raise SessionError("state projection conflict; run doctor")
+                        self._state = {**projection, "last_event_id": event["event_id"]}
+                        atomic_write_json(self.paths.state, self._state)
             self._state.setdefault("entry_mode", "NEW_RESEARCH")
             try:
                 validate_artifact("robotics-ar-session-state.v1", self._state)
@@ -341,6 +355,7 @@ class SessionManager:
     def _write_lock(self, session_id: str) -> None:
         atomic_write_json(self.paths.lock, {"schema_version": "robotics-ar-session-lock.v1", "session_id": session_id, "pid": os.getpid(), "created_at": utc_now()})
 
+    @serialized
     def initialize(
         self,
         *,
@@ -382,20 +397,41 @@ class SessionManager:
         atomic_write_json(self.paths.state, self._state)
         log = EventLog(self.paths.events, identifier)
         self._transition("BOOTSTRAP_VALIDATING", "SESSION_CREATED", {"mode": mode})
+        try:
+            validate_artifact("robotics-ar-session-state.v1", self.state)
+            if read_mapping(self.paths.config)["session_id"] != identifier:
+                raise SessionError("config session mismatch")
+            if read_json(self.paths.pointers)["session_id"] != identifier:
+                raise SessionError("pointer session mismatch")
+            if not read_mapping(self.paths.permissions).get("supervisor_owned"):
+                raise SessionError("supervisor permissions missing")
+            actual_budget = read_mapping(self.paths.budget)
+            if actual_budget != limits or any(isinstance(v, (int, float)) and v < 0 for v in actual_budget.values()):
+                raise SessionError("invalid bootstrap budget")
+        except (ValueError, KeyError, OSError, RuntimeError) as exc:
+            atomic_write_json(self.paths.root / "bootstrap-receipt.json", {"status": "BLOCKED_BOOTSTRAP", "error": str(exc)})
+            self._transition("FAILED_RECOVERABLE", "BOOTSTRAP_FAILED", {"error": str(exc)})
+            raise SessionError(f"bootstrap failed: {exc}") from exc
+        atomic_write_json(self.paths.root / "bootstrap-receipt.json", {"status": "PASS", "session_id": identifier})
         self._transition("PLANNING_READY", "BOOTSTRAP_PASSED", {"mode": mode})
         return self.state
 
+    @serialized
     def _transition(self, new_state: str, event_type: str, payload: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
+        if self.paths.state.exists() and self._state is not None:
+            disk = read_json(self.paths.state)
+            if disk != self._state:
+                raise SessionError("concurrent state change; reload before retry")
         current = self.state["state"]
         try:
             validate_transition(current, new_state)
         except TransitionError as exc:
             raise SessionError(str(exc)) from exc
-        event = EventLog(self.paths.events, self.session_id).append(event_type, "supervisor", current, new_state, payload or {})
         updated = dict(self.state)
         updated["state"] = new_state
-        updated["last_event_id"] = event["event_id"]
         updated["updated_at"] = utc_now()
+        event = EventLog(self.paths.events, self.session_id).append(event_type, "supervisor", current, new_state, {**dict(payload or {}), "state_projection": updated})
+        updated["last_event_id"] = event["event_id"]
         atomic_write_json(self.paths.state, updated)
         self._state = updated
         return updated
@@ -405,11 +441,12 @@ class SessionManager:
 
         return self._transition(new_state, event_type, payload)
 
+    @serialized
     def record_event(self, event_type: str, payload: Optional[Mapping[str, Any]] = None, *, actor: str = "supervisor", artifact_refs: Optional[Iterable[str]] = None) -> Dict[str, Any]:
         """Append an observational event without changing the state."""
 
         current = self.state["state"]
-        event = EventLog(self.paths.events, self.session_id).append(event_type, actor, current, current, payload or {}, artifact_refs=artifact_refs)
+        event = EventLog(self.paths.events, self.session_id).append(event_type, actor, current, current, {**dict(payload or {}), "state_projection": self.state}, artifact_refs=artifact_refs)
         updated = dict(self.state)
         updated["last_event_id"] = event["event_id"]
         updated["updated_at"] = utc_now()
@@ -417,6 +454,7 @@ class SessionManager:
         self._state = updated
         return updated
 
+    @serialized
     def reconstruct_state(self, *, persist: bool = False) -> Dict[str, Any]:
         """从 events.jsonl 重建 state cache。 / Reconstruct the state cache from events.jsonl."""
 
@@ -441,6 +479,9 @@ class SessionManager:
                 "exploration_budget": Budget.from_mapping({}).to_dict(),
                 "validation_policy": {"required_gates": [], "independent_review_required": False, "deterministic_validation_required": True},
             }
+        projections = [event["payload"]["state_projection"] for event in log.read_events() if "state_projection" in event["payload"]]
+        if projections:
+            current = dict(projections[-1])
         current.update({"state": reconstructed["state"], "last_event_id": f"EVT-{reconstructed['event_count']:06d}", "updated_at": utc_now()})
         current.setdefault("entry_mode", "NEW_RESEARCH")
         if persist:
@@ -460,6 +501,7 @@ class SessionManager:
             raise SessionError("event log is empty")
         return str(json.loads(lines[0])["session_id"])
 
+    @serialized
     def save_user_instruction(self, text: str) -> Path:
         """原样保存用户纠正。 / Preserve a user instruction verbatim."""
 
@@ -472,6 +514,7 @@ class SessionManager:
         atomic_write_bytes(path, text.encode("utf-8"))
         return path
 
+    @serialized
     def compile_task(self, instruction: str, *, allowed_paths: Iterable[str], forbidden_paths: Iterable[str], commands: Iterable[Iterable[str]] = (), stop_conditions: Iterable[str] = (), domain_payload: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
         """把自然语言保存后编译为 hash-bound task。 / Preserve text then compile a hash-bound task."""
 
@@ -491,16 +534,19 @@ class SessionManager:
         self._transition("AWAITING_TASK_APPROVAL", "TASK_COMPILED", {"task_sha256": task["task_sha256"]})
         return task
 
+    @serialized
     def approve_subject(self, gate: str, subject_path: Path | str, *, scope: str = "single-use") -> Dict[str, Any]:
         """创建 gate approval。 / Create a gate approval."""
 
         return ApprovalManager(self.paths.approvals).create(gate, subject_path, scope=scope)
 
+    @serialized
     def consume_approval(self, approval_path: Path | str, *, expected_gate: Optional[str | tuple[str, ...] | list[str]] = None, expected_subject_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """消费 gate approval。 / Consume a gate approval."""
 
         return ApprovalManager(self.paths.approvals).consume(approval_path, expected_gate=expected_gate, expected_subject_path=expected_subject_path)
 
+    @serialized
     def enable_execution(self, environment_receipt: Mapping[str, Any], *, receipt_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """绑定 ONLINE_VERIFIED environment fingerprint 并进入执行就绪。
 
@@ -529,6 +575,7 @@ class SessionManager:
         self._state = updated
         return dict(updated)
 
+    @serialized
     def bind_environment_receipt(self, environment_receipt: Mapping[str, Any], *, receipt_path: Optional[Path | str] = None) -> Dict[str, Any]:
         """Bind a verified environment without changing the current v3 takeover state."""
 
@@ -578,6 +625,7 @@ class SessionManager:
         self._state = updated
         return dict(updated)
 
+    @serialized
     def pause(self, reason: str) -> Dict[str, Any]:
         """暂停任意 active state，并写 report/handoff。 / Pause any active state and write report/handoff."""
 
@@ -602,9 +650,12 @@ class SessionManager:
             write_checkpoint_artifacts(self, context={"pause_reason": reason}, reason=reason)
         return self._transition("PAUSED", "PAUSE_COMMITTED", {"reason": reason, "safe_state": current})
 
+    @serialized
     def resume(self) -> Dict[str, Any]:
         """从磁盘恢复到 pause 前 safe state。 / Resume to the pre-pause safe state from disk."""
 
+        if self.state["state"] in {"COMPLETE", "TAKEOVER_COMPLETE", "ABORTED"}:
+            return self.state
         if self.state["state"] != "PAUSED":
             raise SessionError("session is not paused")
         events = EventLog(self.paths.events, self.session_id).read_events()
@@ -621,7 +672,12 @@ class SessionManager:
         """
 
         state = self.state
-        if self.dirty_git():
+        repository_receipt = self.paths.root / "repository-ledger.json"
+        if repository_receipt.exists():
+            from .repository_ledger import validate_snapshot
+
+            validate_snapshot(read_json(repository_receipt))
+        elif self.dirty_git():
             raise SessionError("resume blocked: project Git worktree is dirty")
         budget = Budget.from_mapping(state.get("exploration_budget", {}))
         for used, maximum in (
@@ -629,6 +685,11 @@ class SessionManager:
             (budget.expert_rounds_used, budget.max_expert_rounds),
             (budget.debug_rounds_used, budget.max_debug_rounds),
             (budget.batches_used, budget.max_batches),
+            (budget.trials_used, budget.max_trials),
+            (budget.gpu_hours_used, budget.max_gpu_hours),
+            (budget.disk_gb_used, budget.max_disk_gb),
+            (budget.wall_time_used_minutes, budget.max_wall_time_minutes),
+            (budget.parallel_jobs_used, budget.max_parallel_jobs),
         ):
             if used > maximum:
                 raise SessionError("resume blocked: exploration budget exceeded")

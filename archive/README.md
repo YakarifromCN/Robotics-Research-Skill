@@ -1,47 +1,19 @@
 # 历史归档
 
-`archive/legacy-v1/` 保存已经被当前运行链替代、但对迁移或来源追溯仍有价值的 v1 文件。
-其中包括旧 venue catalog、旧子流形分析入口、旧 ResearchStudio signature/cluster/axis
-流水线、一次性 catalog 迁移器，以及已由当前 Skill 本地 packs/运行说明覆盖的早期参考文档。
+## 中文
 
-归档契约：
+`legacy-v1/` 保存已被当前实现替代、仍有迁移或来源追溯价值的文件，包括旧载体目录、早期分析流水线和参考文档。归档按历史状态保留，不承诺兼容当前 API。
 
-- 正常路由、Skill 文档、安装器和默认测试不得导入 `archive/`；
-- staged 安装永远不复制 `archive/`；
-- 归档代码按历史状态保存，不承诺能在当前 API 上直接执行；
-- 当前代码若需要归档文件，说明依赖闭包发生回退，发布检查应失败；
-- 没有追溯或迁移价值的重复 wrapper、动态 `.source` 快照和孤立生成物直接删除，由 Git 历史保留。
+普通 Skill、安装器和默认测试不依赖归档；发布运行包不复制它。需要追溯旧行为时显式查阅，不把归档加入运行搜索路径。没有追溯价值的重复文件可由 Git 历史保留。
 
-当前 schema 使用 `v1` 后缀不等于归档。例如
-`robotics-research-runtime.v1.json`、`robotics-submanifold.v1.json` 和
-`researchstudio-pattern-cards.v1.json` 仍是当前运行工件，因为没有替代 schema。
-
----
+当前文件带 `v1` 后缀不代表过时。例如 runtime、子流形模型和模式卡仍使用有效的 v1 schema；当前依赖见 [corpus/README.md](../corpus/README.md)。
 
 # English
 
 ## Historical archive
 
-`archive/legacy-v1/` retains v1 files that have been superseded by the current
-runtime but still have migration or provenance value. It includes the old
-venue catalog, old submanifold analysis entry point, the old ResearchStudio
-signature/cluster/axis pipeline, the one-time catalog migrator, and early
-reference documents superseded by current Skill-local packs and runtime docs.
+`legacy-v1/` retains superseded files with migration or provenance value, including old venue catalogs, analysis pipelines and reference documents. They remain in historical form and may not work with current APIs.
 
-Archive contract:
+Normal Skills, installers and default tests do not depend on this archive; runtime releases omit it. Consult it explicitly when tracing old behavior, without adding it to runtime search paths. Git history can retain duplicates that no longer have an active archival purpose.
 
-- normal routing, Skill documentation, installers, and default tests must not
-  import `archive/`;
-- staged installations never copy `archive/`;
-- archived code is preserved in historical form and is not guaranteed to run
-  against current APIs;
-- any current-code dependency on an archived file is a runtime-closure
-  regression and must fail release validation;
-- duplicate wrappers, dynamic `.source` snapshots, and orphaned generated
-  files without provenance value are deleted and remain recoverable through
-  Git history.
-
-A current schema with a `v1` suffix is not automatically archived. For
-example, `robotics-research-runtime.v1.json`,
-`robotics-submanifold.v1.json`, and `researchstudio-pattern-cards.v1.json` are
-still active runtime artifacts because no replacement schema exists.
+A `v1` suffix does not imply obsolescence. The runtime, manifold model and pattern cards still use active v1 schemas. See [current dependencies](../corpus/README.md).

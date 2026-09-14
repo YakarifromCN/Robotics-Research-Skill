@@ -12,6 +12,7 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional
 from .atomic_io import atomic_write_bytes
 from .canonical import canonical_bytes, ensure_finite, sha256_obj
 from .models import utc_now
+from .transaction import serialized
 
 
 class EventLogError(ValueError):
@@ -75,6 +76,7 @@ class EventLog:
                 raise EventLogError("event session mismatch")
         return events
 
+    @serialized
     def append(
         self,
         event_type: str,

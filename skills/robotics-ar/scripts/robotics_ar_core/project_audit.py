@@ -41,11 +41,46 @@ NUMERIC_METRIC_KEYS = frozenset(
 
 
 def _git(root: Path, args: list[str]) -> tuple[int, str, str]:
+    return _capture(["git", *args], cwd=root)
+
+
+def _capture(argv, cwd=None, limit=65536, timeout=5.0):
+    """对子进程输出和等待设置上限。 / Bound subprocess output and waiting."""
+    import selectors
+    import signal
+    import time
+
     try:
-        result = subprocess.run(["git", *args], cwd=root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=15, check=False)
+        process = subprocess.Popen(argv, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, start_new_session=True)
     except (OSError, subprocess.SubprocessError) as exc:
         return 127, "", str(exc)
-    return result.returncode, result.stdout.strip(), result.stderr.strip()
+    selector = selectors.DefaultSelector()
+    selector.register(process.stdout, selectors.EVENT_READ)
+    output = bytearray()
+    deadline = time.monotonic() + timeout
+    complete = False
+    try:
+        while time.monotonic() < deadline and len(output) <= limit:
+            if selector.select(0.05):
+                chunk = os.read(process.stdout.fileno(), 8192)
+                if not chunk:
+                    complete = True
+                    break
+                output.extend(chunk)
+        if not complete:
+            return 124, "", "metadata command exceeded output/time budget"
+        try:
+            code = process.wait(timeout=max(0.001, deadline - time.monotonic()))
+        except subprocess.TimeoutExpired:
+            return 124, "", "metadata command exceeded time budget"
+        text = output.decode("utf-8", errors="replace").strip()
+        return (code, text, "") if code == 0 else (code, "", text)
+    finally:
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGKILL)
+            process.wait()
+        selector.close()
+        process.stdout.close()
 
 
 def _git_root(root: Path) -> Optional[Path]:
@@ -63,22 +98,12 @@ def _git_root(root: Path) -> Optional[Path]:
 def _process_snapshot(root: Path) -> dict[str, Any]:
     """Record matching live processes without executing project commands."""
 
-    try:
-        result = subprocess.run(
-            ["ps", "-eo", "pid=,ppid=,stat=,args="],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            timeout=5,
-            check=False,
-        )
-    except (OSError, subprocess.SubprocessError) as exc:
-        return {"schema_version": "robotics-ar-process-snapshot.v1", "status": "UNKNOWN", "processes": [], "error": str(exc)}
-    if result.returncode != 0:
-        return {"schema_version": "robotics-ar-process-snapshot.v1", "status": "UNKNOWN", "processes": [], "error": result.stderr.strip()}
+    code, output, error = _capture(["ps", "-eo", "pid=,ppid=,stat=,args="])
+    if code != 0:
+        return {"schema_version": "robotics-ar-process-snapshot.v1", "status": "UNKNOWN", "processes": [], "error": error}
     processes: list[dict[str, Any]] = []
     marker = root.as_posix()
-    for line in result.stdout.splitlines():
+    for line in output.splitlines():
         parts = line.strip().split(None, 3)
         if len(parts) < 4 or marker not in parts[3]:
             continue
@@ -86,35 +111,53 @@ def _process_snapshot(root: Path) -> dict[str, Any]:
     return {"schema_version": "robotics-ar-process-snapshot.v1", "status": "PASS", "processes": processes, "created_at": utc_now()}
 
 
-def _walk_read_only(root: Path) -> list[dict[str, Any]]:
-    """Walk without following symlinks and record symlinks as discrepancies."""
+def _walk_read_only(root: Path, *, max_files=1000, max_bytes=8_000_000, max_seconds=5.0,
+                    include=(), exclude=(), hash_files=False, coverage=None) -> list[dict[str, Any]]:
+    """流式有界扫描，不展开目录列表。 / Stream a bounded scan without materializing directory listings."""
+    import fnmatch
+    import time
 
-    entries: list[dict[str, Any]] = []
-    for current, dirs, files in os.walk(root, topdown=True, followlinks=False):
-        current_path = Path(current)
-        retained_dirs = []
-        for name in sorted(dirs):
-            path = current_path / name
-            if name in SKIP_DIRS:
+    if max_files < 1 or max_bytes < 0 or max_seconds <= 0:
+        raise ProjectAuditError("invalid audit limits")
+    coverage = coverage if coverage is not None else {}
+    coverage.update(complete=True, visited=0, content_bytes=0, mode="hash" if hash_files else "metadata")
+    entries = []
+    started = time.monotonic()
+    stack = [os.scandir(root)]
+    try:
+        while stack:
+            if coverage["visited"] >= max_files or time.monotonic() - started >= max_seconds:
+                coverage["complete"] = False
+                break
+            item = next(stack[-1], None)
+            if item is None:
+                stack.pop().close()
                 continue
-            if path.is_symlink():
-                entries.append({"path": path.relative_to(root).as_posix(), "kind": "symlink", "status": "UNKNOWN", "target": os.readlink(path)})
-                continue
-            retained_dirs.append(name)
-            entries.append({"path": path.relative_to(root).as_posix(), "kind": "directory", "status": "DETECTED"})
-        dirs[:] = retained_dirs
-        for name in sorted(files):
-            path = current_path / name
+            coverage["visited"] += 1
+            path = Path(item.path)
             relative = path.relative_to(root).as_posix()
-            if path.is_symlink():
-                entries.append({"path": relative, "kind": "symlink", "status": "UNKNOWN", "target": os.readlink(path)})
+            if item.name in SKIP_DIRS or item.name == ".robotics-ar" or any(fnmatch.fnmatch(relative, p) for p in exclude):
                 continue
-            try:
-                stat = path.stat()
-                entries.append({"path": relative, "kind": "file", "status": "DETECTED", "bytes": stat.st_size, "sha256": file_sha256(path), "suffix": path.suffix.lower()})
-            except OSError as exc:
-                entries.append({"path": relative, "kind": "file", "status": "UNKNOWN", "error": str(exc)})
-    return entries
+            if item.is_symlink():
+                entries.append({"path": relative, "kind": "symlink", "status": "UNKNOWN", "target": os.readlink(path)})
+            elif item.is_dir(follow_symlinks=False):
+                stack.append(os.scandir(path))
+            elif item.is_file(follow_symlinks=False):
+                if include and not any(fnmatch.fnmatch(relative, p) for p in include):
+                    continue
+                size = item.stat(follow_symlinks=False).st_size
+                content = size <= 1_000_000 and coverage["content_bytes"] + size <= max_bytes
+                if content:
+                    coverage["content_bytes"] += size
+                else:
+                    coverage["complete"] = False
+                entries.append({"path": relative, "kind": "file", "status": "DETECTED", "bytes": size,
+                                "sha256": file_sha256(path) if hash_files and content else None,
+                                "suffix": path.suffix.lower() if content else "", "content_checked": content})
+    finally:
+        for iterator in stack:
+            iterator.close()
+    return sorted(entries, key=lambda item: item["path"])
 
 
 def _fact(status: str, value: Any, source: str) -> dict[str, Any]:
@@ -125,7 +168,8 @@ def _read_small_text(path: Path, *, limit: int = 2_000_000) -> str:
     """Read bounded text during the audit without executing project code."""
 
     try:
-        return path.read_text(encoding="utf-8", errors="replace")[:limit]
+        with path.open("r", encoding="utf-8", errors="replace") as handle:
+            return handle.read(limit)
     except OSError:
         return ""
 
@@ -266,7 +310,7 @@ def _find_discrepancies(entries: list[dict[str, Any]], root: Path, candidates: l
     return findings
 
 
-def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] = None) -> dict[str, Any]:
+def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] = None, **scan_options) -> dict[str, Any]:
     """Scan repository facts and artifacts without executing project commands."""
 
     root = Path(project_root).resolve()
@@ -278,7 +322,8 @@ def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] 
     except ValueError as exc:
         raise ProjectAuditError("audit output must be inside project root") from exc
     target.mkdir(parents=True, exist_ok=True)
-    entries = _walk_read_only(root)
+    coverage = {}
+    entries = _walk_read_only(root, coverage=coverage, **scan_options)
     git_root = _git_root(root)
     code, branch, branch_err = _git(root, ["branch", "--show-current"])
     head_code, head, head_err = _git(root, ["rev-parse", "HEAD"])
@@ -343,6 +388,10 @@ def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] 
     write_structured(target / "discrepancies.json", {"schema_version": "robotics-ar-discrepancies.v1", "status": snapshot["facts"]["discrepancies"]["status"], "requires_reconciliation": any(item.get("requires_reconciliation") for item in discrepancies), "items": discrepancies, "snapshot_sha256": snapshot["snapshot_sha256"]})
     atomic_write_bytes(target / "discrepancies.md", ("# Discrepancies\n\n" + ("\n".join(f"- **{item.get('kind', 'UNKNOWN')}** `{item.get('status', 'UNKNOWN')}`: `{item}`" for item in discrepancies) or "- None detected by explicit checks.") + "\n").encode("utf-8"))
     receipt = {"schema_version": "robotics-ar-project-audit-receipt.v1", "status": "PASS", "project_snapshot_sha256": snapshot["snapshot_sha256"], "read_only": True, "commands_executed": [], "discrepancies": discrepancies, "requires_reconciliation": any(item.get("requires_reconciliation") for item in discrepancies), "created_at": utc_now()}
+    receipt["coverage"] = coverage
+    if not coverage["complete"]:
+        receipt["status"] = "PARTIAL"
+        receipt["requires_reconciliation"] = True
     receipt["receipt_sha256"] = sha256_obj(receipt)
     atomic_write_json(target / "audit-receipt.json", receipt)
     # The concise artifacts requested by the product contract are aliases with
@@ -350,4 +399,4 @@ def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] 
     atomic_write_bytes(target / "current-state.md", ("# Current State\n\n" + f"Snapshot: `{snapshot['snapshot_sha256']}`\n\n" + f"Git dirty: `{snapshot['repository']['dirty']}`\n").encode("utf-8"))
     atomic_write_bytes(target / "known-failures.md", b"# Known failures\n\nNo failure was upgraded from an unverified scan.\n")
     atomic_write_bytes(target / "unresolved-questions.md", ("# Unresolved questions\n\n" + "\n".join(f"- {item}" for item in snapshot["facts"]["environment_candidates"]["value"]) + "\n").encode("utf-8"))
-    return {"status": "PASS", "snapshot": snapshot, "receipt": receipt, "output_dir": target.as_posix()}
+    return {"status": receipt["status"], "snapshot": snapshot, "receipt": receipt, "output_dir": target.as_posix()}

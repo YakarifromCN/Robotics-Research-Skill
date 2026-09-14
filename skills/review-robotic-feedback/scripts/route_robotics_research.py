@@ -84,7 +84,7 @@ def main() -> int:
         parser.error("profile must be a JSON object")
     repo = find_full_repo()
     if repo is not None and (repo / "scripts" / "route_robotics_research.py").resolve() != Path(__file__).resolve():
-        command = [sys.executable, str(repo / "scripts" / "route_robotics_research.py"), args.profile, "--stage", args.stage, "--per-axis", str(args.per_axis)]
+        command = [sys.executable, "-B", str(repo / "scripts" / "route_robotics_research.py"), args.profile, "--stage", args.stage, "--per-axis", str(args.per_axis)]
         if args.venue:
             command.extend(["--venue", args.venue])
         if args.output:

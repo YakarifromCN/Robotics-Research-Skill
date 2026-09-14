@@ -1,5 +1,17 @@
 # Third-party notices
 
+## Humanizer
+
+Writing 的离线语言适配基于 Humanizer 3.0.0，作者 Siqi Chen，MIT 许可。
+来源、文件校验值与适配类型记录在 `skills/write-robotics-paper/assets/dependencies.json`；
+完整许可证位于 `skills/write-robotics-paper/references/humanizer-LICENSE.txt`。
+这是保留学术证据边界的精简适配，不代表上游完整 Skill。
+
+The offline Writing language adaptation derives from Humanizer 3.0.0 by Siqi Chen,
+under the MIT license. Source and digests are recorded in the dependency manifest
+above; the adjacent license file preserves the full notice. This compact academic
+adaptation is not the complete upstream Skill.
+
 This project is inspired by and adapts ideas from Microsoft ResearchStudio and the paper *ResearchStudio-Idea: An Evidence-Grounded Research-Ideation Skill Suite from ML Conference Outcomes*.
 
 ResearchStudio repository: https://github.com/microsoft/ResearchStudio

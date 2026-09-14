@@ -89,6 +89,7 @@ def _base_commands(python: str) -> list[list[str]]:
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/review-robotic-feedback/tests"), "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "skills/robotics-ar/tests"), "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "tests"), "-p", "test_local_skill_install.py", "-v"],
+        [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "tests"), "-p", "test_monthly_installation.py", "-v"],
         [python, "-B", "-m", "unittest", "discover", "-s", str(ROOT / "tests"), "-p", "test_release_bundle.py", "-v"],
         [python, "-B", str(ROOT / "tests/check_contract_alignment.py")],
         [python, "-B", str(ROOT / "scripts/check_bilingual_layout.py"), str(ROOT)],

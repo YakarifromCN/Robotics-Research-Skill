@@ -222,9 +222,17 @@ def command_validate_environment(args: argparse.Namespace) -> Dict[str, Any]:
         takeover_mode = manager.state.get("entry_mode") == "MIDSTREAM_TAKEOVER"
     except SessionError:
         takeover_mode = False
-    receipt = adapter.verify_takeover() if takeover_mode else adapter.verify_online()
+    path = Path(args.project_root).resolve() / ".robotics-ar" / "environment" / "validation-receipt.json"
+    try:
+        receipt = adapter.verify_takeover() if takeover_mode else adapter.verify_online()
+    except Exception as exc:
+        write_structured(path, {"status": "FAILED", "error_type": type(exc).__name__, "verification_completed": False})
+        raise CLIError(f"environment verification failed; receipt: {path}") from exc
+    write_structured(path, receipt)
     if receipt.get("status") != "ONLINE_VERIFIED":
-        raise CLIError("environment is not ONLINE_VERIFIED")
+        if manager is not None and manager.state.get("state") == "TAKEOVER_ENVIRONMENT_VALIDATION":
+            TakeoverManager(manager).mark_environment(receipt)
+        raise CLIError(f"environment is not ONLINE_VERIFIED; receipt: {path}")
     if manager is not None and takeover_mode and manager.state.get("state") == "TAKEOVER_ENVIRONMENT_VALIDATION":
         state = TakeoverManager(manager).mark_environment(receipt)
         path = manager.paths.takeover / "environment-receipt.yaml"
@@ -253,7 +261,15 @@ def command_run_batch(args: argparse.Namespace) -> Dict[str, Any]:
     request = _load_json(args.request) if args.request else {"batch_id": args.batch_id}
     if args.dry_run:
         return _dry(args, "run-batch", batch_id=args.batch_id)
-    result = adapter.run_batch(manager.state["mode"], receipt, request=request)
+    if adapter.manifest.get("kind") == "real_robot":
+        raise CLIError("use the established one-shot real-robot trial path; this batch entry supports nonphysical environments only")
+    registry, execution = _start_bound_execution(args, manager, "run-batch", request)
+    try:
+        result = adapter.run_batch(manager.state["mode"], receipt, request=request)
+    except Exception as exc:
+        registry.finish(args.execution_id, args.lease_token, {"execution_id": args.execution_id, "status": "FAIL", "error_type": type(exc).__name__})
+        raise
+    registry.finish(args.execution_id, args.lease_token, {"execution_id": args.execution_id, "status": "PASS", "result": result})
     return {"status": "PASS", "batch_id": args.batch_id, "result": result}
 
 
@@ -333,10 +349,13 @@ def command_takeover_audit(args: argparse.Namespace) -> Dict[str, Any]:
     manager = _manager(args)
     if args.dry_run:
         return _dry(args, "takeover-audit", project_root=str(Path(args.project_root).resolve()))
-    result = audit_project(args.project_root, output_dir=args.output)
+    result = audit_project(args.project_root, output_dir=args.output, max_files=args.audit_max_files,
+                           max_bytes=args.audit_max_bytes, max_seconds=args.audit_max_seconds,
+                           include=_split(args.audit_include), exclude=_split(args.audit_exclude))
     if manager.state.get("state") == "TAKEOVER_AUDITING":
         TakeoverManager(manager).record_audit(result["receipt"])
-    return result
+    return {"status": result["status"], "output_dir": result["output_dir"],
+            "receipt_sha256": result["receipt"]["receipt_sha256"], "coverage": result["receipt"]["coverage"]}
 
 
 def command_takeover_import_history(args: argparse.Namespace) -> Dict[str, Any]:
@@ -407,13 +426,46 @@ def command_baseline_compile(args: argparse.Namespace) -> Dict[str, Any]:
     return {"status": "PASS", "baseline_path": path.as_posix(), "baseline": spec}
 
 
+def command_baseline_select(args: argparse.Namespace) -> Dict[str, Any]:
+    manager = _manager(args)
+    path = Path(args.baseline or manager.paths.takeover_baseline / "baseline-spec.yaml")
+    if args.dry_run:
+        return _dry(args, "baseline-select", baseline_path=str(path))
+    spec = _load_structured(path)
+    if not args.reason:
+        raise CLIError("baseline-select requires --reason")
+    from robotics_ar_core.canonical import sha256_obj
+
+    selection = {"baseline_id": spec["baseline_id"], "config_sha256": sha256_obj(spec), "reason": args.reason}
+    if args.approval:
+        return {"status": "PASS", "state": TakeoverManager(manager).amend_baseline_selection(selection, path, args.approval)}
+    return {"status": "PASS", "state": TakeoverManager(manager).begin_baseline(selection)}
+
+
 def command_baseline_run(args: argparse.Namespace) -> Dict[str, Any]:
     manager = _manager(args)
     spec_path = Path(args.baseline or manager.paths.takeover_baseline / "baseline-spec.yaml")
     if args.dry_run:
         return _dry(args, "baseline-run", baseline_path=spec_path.as_posix())
+    if manager.state.get("entry_mode") != "NEW_RESEARCH" and manager.state.get("state") not in {"TAKEOVER_BASELINE_REPRODUCTION", "TAKEOVER_BASELINE_RECOVERY"}:
+        raise CLIError("baseline-run requires baseline-select first")
+    selection_path = manager.paths.takeover_baseline / "baseline-selection.json"
+    if not selection_path.exists():
+        raise CLIError("baseline selection binding missing")
+    from robotics_ar_core.canonical import sha256_obj
+
+    if _load_structured(selection_path)["config_sha256"] != sha256_obj(_load_structured(spec_path)):
+        raise CLIError("selected baseline configuration changed")
     adapter = EnvironmentAdapter.from_file(args.environment_manifest)
-    receipt = reproduce_baseline(_load_structured(spec_path), adapter, output_dir=manager.paths.takeover_baseline, user_approved_variance=args.allow_variance)
+    if adapter.manifest.get("kind") == "real_robot":
+        raise CLIError("baseline-run cannot bypass the one-shot real-robot trial gate")
+    registry, execution = _start_bound_execution(args, manager, "baseline-run", _load_structured(spec_path))
+    try:
+        receipt = reproduce_baseline(_load_structured(spec_path), adapter, output_dir=manager.paths.takeover_baseline, user_approved_variance=args.allow_variance)
+    except Exception as exc:
+        registry.finish(args.execution_id, args.lease_token, {"execution_id": args.execution_id, "status": "FAIL", "error_type": type(exc).__name__})
+        raise
+    registry.finish(args.execution_id, args.lease_token, {"execution_id": args.execution_id, "status": "PASS" if receipt.get("reproduction_status", receipt.get("status")) in {"REPRODUCED", "REPRODUCED_WITH_VARIANCE", "PARTIALLY_REPRODUCED"} else "FAIL", "result": receipt})
     if manager.state.get("state") in {"TAKEOVER_BASELINE_REPRODUCTION", "TAKEOVER_BASELINE_RECOVERY"}:
         TakeoverManager(manager).baseline_result(receipt)
     return receipt
@@ -870,7 +922,85 @@ def command_migrate_v2(args: argparse.Namespace) -> Dict[str, Any]:
     return migrate_project(args.project_root)
 
 
+def command_doctor(args):
+    from robotics_ar_core.migration import doctor_project
+    return doctor_project(args.project_root)
+
+
+def command_snapshot_repositories(args):
+    from robotics_ar_core.repository_ledger import snapshot
+    manager = _manager(args)
+    if args.dry_run:
+        return _dry(args, "snapshot-repositories")
+    receipt = snapshot(_load_structured(args.input))
+    path = manager.paths.root / "repository-ledger.json"
+    write_structured(path, receipt)
+    return {"status": "PASS", "receipt_path": str(path), "sha256": receipt["sha256"]}
+
+
+def command_reconcile(args):
+    if args.dry_run:
+        return _dry(args, "takeover-reconcile")
+    return {"status": "PASS", "state": TakeoverManager(_manager(args)).complete_idea_reconciliation(_load_structured(args.input))}
+
+
+def command_external_execution(args):
+    from robotics_ar_core.execution_registry import ExecutionRegistry
+    if args.dry_run:
+        return _dry(args, args.command)
+    registry = ExecutionRegistry(_manager(args))
+    if args.command == "reserve-execution":
+        row = registry.reserve(args.input, args.approval)
+    elif args.command == "reconcile-execution":
+        row = registry.reconcile(args.input, args.approval)
+    elif args.command == "start-execution":
+        row = registry.start(args.execution_id, args.lease_token)
+    elif args.command == "import-execution":
+        row = registry.import_history(args.execution_id, _load_structured(args.input))
+    else:
+        row = registry.finish(args.execution_id, args.lease_token, _load_structured(args.input))
+    return {"status": "PASS", "execution": row}
+
+
+def _start_bound_execution(args, manager, operation, value):
+    from robotics_ar_core.execution_registry import ExecutionRegistry
+    from robotics_ar_core.canonical import sha256_obj
+    if not args.execution_id or not args.lease_token:
+        raise CLIError("reserve-execution and a lease token are required before launch")
+    registry = ExecutionRegistry(manager)
+    row = registry.read()["executions"].get(args.execution_id, {})
+    spec = row.get("spec", {})
+    if spec.get("operation") != operation or spec.get("input_sha256") != sha256_obj(value):
+        raise CLIError("execution operation/input differs from approved specification")
+    if spec.get("environment_fingerprint") != manager.state.get("environment_fingerprint"):
+        raise CLIError("execution environment binding changed")
+    return registry, registry.start(args.execution_id, args.lease_token)
+
+
+def command_baseline_bootstrap_new(args):
+    manager = _manager(args)
+    if manager.state.get("entry_mode") != "NEW_RESEARCH":
+        raise CLIError("baseline-bootstrap-new requires NEW_RESEARCH")
+    result = command_baseline_compile(args)
+    if not args.dry_run:
+        from robotics_ar_core.canonical import sha256_obj
+        if not args.reason:
+            raise CLIError("baseline-bootstrap-new requires --reason")
+        write_structured(manager.paths.takeover_baseline / "baseline-selection.json",
+                         {"baseline_id": result["baseline"]["baseline_id"], "config_sha256": sha256_obj(result["baseline"]), "reason": args.reason})
+    return result
+
+
 COMMANDS = {
+    "reserve-execution": command_external_execution,
+    "reconcile-execution": command_external_execution,
+    "baseline-bootstrap-new": command_baseline_bootstrap_new,
+    "start-execution": command_external_execution,
+    "register-external-execution": command_external_execution,
+    "import-execution": command_external_execution,
+    "doctor": command_doctor,
+    "snapshot-repositories": command_snapshot_repositories,
+    "takeover-reconcile": command_reconcile,
     "discover": command_discover,
     "init": command_init,
     "status": command_status,
@@ -897,6 +1027,7 @@ COMMANDS = {
     "takeover-approve-core": command_takeover_approve_core,
     "baseline-list-candidates": command_baseline_list_candidates,
     "baseline-compile": command_baseline_compile,
+    "baseline-select": command_baseline_select,
     "baseline-run": command_baseline_run,
     "baseline-recover": command_baseline_recover,
     "baseline-approve": command_baseline_approve,
@@ -1021,20 +1152,52 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--allowed-changes", default="")
     parser.add_argument("--metrics", default="")
     parser.add_argument("--diagnostics", default="")
+    parser.add_argument("--audit-max-files", type=int, default=1000)
+    parser.add_argument("--audit-max-bytes", type=int, default=8_000_000)
+    parser.add_argument("--audit-max-seconds", type=float, default=5.0)
+    parser.add_argument("--audit-include", default="")
+    parser.add_argument("--audit-exclude", default="")
+    parser.add_argument("--invocation-receipt", help="optional local receipt path; no prompts or command arguments recorded")
+    parser.add_argument("--execution-id")
+    parser.add_argument("--lease-token")
     return parser
 
 
 def main(argv: Optional[List[str]] = None) -> int:
     """运行 CLI，只输出一个 JSON 对象。 / Run the CLI and emit one JSON object."""
-
     args = build_parser().parse_args(argv)
     try:
-        result = COMMANDS[args.command](args)
-        print(json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
-        return 0
-    except (CLIError, SessionError, SiblingAdapterError, EnvironmentError, OSError, ValueError, RuntimeError) as exc:
-        print(json.dumps({"status": "BLOCKED", "error": str(exc)}, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
-        return 2
+        from contextlib import nullcontext
+        from robotics_ar_core.transaction import writer_lock
+
+        # 长运行不持有会话锁，暂停必须仍可进入；起止登记各自加锁。
+        # Long execution releases the session lock so pause can enter; launch/completion lock separately.
+        unlocked = args.dry_run or args.command in {"status", "discover", "takeover-status", "validate-siblings", "doctor",
+                                                   "run-batch", "baseline-run", "trial-run", "validate-environment"}
+        with nullcontext() if unlocked else writer_lock(Path(args.project_root) / ".robotics-ar"):
+            result = COMMANDS[args.command](args)
+    except (CLIError, SessionError, SiblingAdapterError, EnvironmentError, OSError, ValueError, RuntimeError, KeyError, TypeError) as exc:
+        result = {"status": "BLOCKED", "error": str(exc)[:4096]}
+    if args.invocation_receipt:
+        import uuid
+        import hashlib
+        from robotics_ar_core.models import utc_now
+        version_path = Path(__file__).resolve().parents[3] / "VERSION"
+        receipt = {"schema_version": "robotics-skill-invocation.v1",
+            "invocation_id": str(uuid.uuid4()), "skill": "robotics-ar", "entrypoint": args.command,
+            "result_status": result.get("status", "UNKNOWN"), "coverage": "explicit-cli-only",
+            "suite_version": version_path.read_text().strip() if version_path.exists() else "UNKNOWN",
+            "entrypoint_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            "created_at": utc_now(), "network_telemetry": False}
+        try:
+            target = Path(args.invocation_receipt)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with target.open("x", encoding="utf-8") as handle:
+                json.dump(receipt, handle, ensure_ascii=False)
+        except OSError as exc:
+            result["invocation_receipt_error"] = type(exc).__name__
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+    return 2 if result.get("status") in {"BLOCKED", "FAIL", "PARTIAL", "BLOCKED_BOOTSTRAP"} else 0
 
 
 if __name__ == "__main__":

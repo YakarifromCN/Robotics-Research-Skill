@@ -42,7 +42,14 @@ MODE_RULES = (
 
 
 def _matches(text: str, tokens: tuple[str, ...]) -> bool:
-    return any(token in text for token in tokens)
+    # 否定只作用于所在子句，路由不授予权限。 / Clause-local negation grants no execution authority.
+    clauses = re.split(r"[,;.!?，；。！？]|\bbut\b|但是|但|而是", text)
+    for clause in clauses:
+        for token in tokens:
+            for match in re.finditer(re.escape(token), clause):
+                if not re.search(r"\b(?:no|not|never|without|avoid|don't)\b|不要|不修改|不涉及|不运行|无需|禁止|不使用", clause[:match.start()]):
+                    return True
+    return False
 
 
 def route(request: str) -> dict[str, Any]:

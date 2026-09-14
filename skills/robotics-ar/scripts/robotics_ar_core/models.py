@@ -161,14 +161,17 @@ class Budget:
     def consume(self, name: str, amount: int = 1) -> None:
         """消费预算，超限时拒绝。 / Consume budget and reject exhaustion."""
 
+        if type(amount) not in (int, float):
+            raise ValueError("amount must be numeric")
+        ensure_finite(amount)
         if amount < 0:
             raise ValueError("amount must be non-negative")
         used_name = f"{name}_used"
         max_name = f"max_{name}"
         if not hasattr(self, used_name) or not hasattr(self, max_name):
             raise ValueError(f"unknown budget: {name}")
-        used = int(getattr(self, used_name))
-        maximum = int(getattr(self, max_name))
+        used = getattr(self, used_name)
+        maximum = getattr(self, max_name)
         if used + amount > maximum:
             raise RuntimeError(f"budget exhausted: {name}")
         setattr(self, used_name, used + amount)
@@ -201,7 +204,17 @@ class Budget:
     def from_mapping(cls, value: Mapping[str, Any]) -> "Budget":
         """从映射重建预算。 / Reconstruct a budget from a mapping."""
 
-        allowed = {field: int(value.get(field, getattr(cls(), field))) for field in cls.__dataclass_fields__}
+        # 保留资源小数预算，拒绝非有限和隐式截断。 / Preserve fractional resources; reject nonfinite values and truncation.
+        fractional = {"max_gpu_hours", "max_disk_gb", "gpu_hours_used", "disk_gb_used", "wall_time_used_minutes"}
+        allowed = {}
+        for field in cls.__dataclass_fields__:
+            number = value.get(field, getattr(cls(), field))
+            if type(number) not in (int, float):
+                raise ValueError(f"budget {field} must be numeric")
+            ensure_finite(number)
+            if field not in fractional and number != int(number):
+                raise ValueError(f"budget {field} must be an integer")
+            allowed[field] = float(number) if field in fractional else int(number)
         if any(number < 0 for number in allowed.values()):
             raise ValueError("budget values must be non-negative")
         return cls(**allowed)

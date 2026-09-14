@@ -22,6 +22,11 @@ EXPERT_KEYS = {
 
 def load_frontmatter(path: Path) -> tuple[dict[str, Any], str]:
     text = path.read_text(encoding="utf-8")
+    if path.suffix == ".json":
+        data = json.loads(text, parse_constant=lambda value: (_ for _ in ()).throw(ValueError(f"non-finite: {value}")))
+        if not isinstance(data, dict):
+            raise ValueError("artifact must be an object")
+        return data, str(data.get("body", ""))
     lines = text.splitlines()
     if not lines or lines[0].strip() != "---":
         raise ValueError(f"missing YAML frontmatter: {path}")
@@ -29,6 +34,32 @@ def load_frontmatter(path: Path) -> tuple[dict[str, Any], str]:
         end = next(index for index, line in enumerate(lines[1:], 1) if line.strip() == "---")
     except StopIteration as exc:
         raise ValueError(f"unterminated YAML frontmatter: {path}") from exc
+    header = "\n".join(lines[1:end])
+    try:
+        import yaml
+    except ImportError:
+        if any(line[:1].isspace() or (line.strip() and not line.lstrip().startswith("#") and line.rstrip().endswith(":")) for line in lines[1:end]):
+            raise ValueError("multiline YAML requires PyYAML; install it or use a JSON artifact")
+    else:
+        class UniqueSafeLoader(yaml.SafeLoader):
+            pass
+        def unique_mapping(loader, node, deep=False):
+            result = {}
+            for key_node, value_node in node.value:
+                key = loader.construct_object(key_node, deep=deep)
+                if key in result:
+                    raise ValueError(f"duplicate frontmatter key: {key}")
+                result[key] = loader.construct_object(value_node, deep=deep)
+            return result
+        UniqueSafeLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, unique_mapping)
+        try:
+            data = yaml.load(header, Loader=UniqueSafeLoader)
+            json.dumps(data, allow_nan=False)
+        except (yaml.YAMLError, TypeError) as exc:
+            raise ValueError(f"invalid frontmatter: {exc}") from exc
+        if not isinstance(data, dict):
+            raise ValueError("frontmatter must be an object")
+        return data, "\n".join(lines[end + 1 :])
     data: dict[str, Any] = {}
     for line in lines[1:end]:
         if not line.strip() or line.lstrip().startswith("#"):
@@ -37,12 +68,15 @@ def load_frontmatter(path: Path) -> tuple[dict[str, Any], str]:
             raise ValueError(f"frontmatter must use top-level key: value entries: {path}")
         key, raw = line.split(":", 1)
         key = key.strip()
+        if key in data:
+            raise ValueError(f"duplicate frontmatter key: {key}")
         raw = raw.strip()
         try:
             value = json.loads(raw)
         except json.JSONDecodeError:
             value = raw
         data[key] = value
+    json.dumps(data, allow_nan=False)
     return data, "\n".join(lines[end + 1 :])
 
 
@@ -56,7 +90,7 @@ def _safe_relative(path: str) -> bool:
 
 
 def _inside_allowed(path: str, allowed: list[str]) -> bool:
-    return any(path == root.rstrip("/") or path.startswith(root.rstrip("/") + "/") for root in allowed)
+    return any(root == "." or path == root.rstrip("/") or path.startswith(root.rstrip("/") + "/") for root in allowed)
 
 
 def _test_commands(rows: Any, *, require_results: bool) -> tuple[list[str], list[str]]:
@@ -93,6 +127,8 @@ def task_contract_sha256(task: dict[str, Any]) -> str:
         "safeguards",
         "device_actions", "real_device_authorized", "expert_required", "expert_brief",
     )}
+    if "path_roots" in task:
+        payload["path_roots"] = task["path_roots"]
     return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
 
 
@@ -151,6 +187,24 @@ def validate(plan: dict[str, Any], task: dict[str, Any], report: dict[str, Any],
     if not _strings(steps, allow_empty=False) or not 3 <= len(steps) <= 7:
         errors.append("task.steps must contain 3-7 nonempty steps")
     allowed = task.get("allowed_paths")
+    if isinstance(allowed, list) and allowed and all(isinstance(item, dict) for item in allowed):
+        roots = task.get("path_roots", {})
+        normalized = []
+        for item in allowed:
+            root_id = item.get("root_id")
+            relative = item.get("path", "")
+            root = roots.get(root_id, {})
+            if not root.get("authorization") or root.get("access") not in {"workspace", "external-read", "external-write"} or not _safe_relative(relative):
+                errors.append("allowed path requires an authorized typed root and safe relative path")
+                continue
+            try:
+                base = Path(root["path"]).resolve(strict=True)
+                (base / relative).resolve().relative_to(base)
+            except (KeyError, OSError, ValueError):
+                errors.append("allowed path escapes or lacks its declared root")
+                continue
+            normalized.append(str(root_id) if relative == "." else f"{root_id}/{relative}")
+        allowed = normalized
     if not _strings(allowed, allow_empty=False) or any(not _safe_relative(item) for item in allowed):
         errors.append("task.allowed_paths must contain safe relative paths")
         allowed = []
@@ -181,6 +235,16 @@ def validate(plan: dict[str, Any], task: dict[str, Any], report: dict[str, Any],
         changed = []
     if any(not _safe_relative(item) or not _inside_allowed(item, allowed) for item in changed):
         errors.append("every changed file must be a safe path inside Task allowed_paths")
+    if task.get("path_roots"):
+        for item in changed:
+            root_id, _, relative = item.partition("/")
+            try:
+                if task["path_roots"][root_id]["access"] == "external-read":
+                    errors.append("changed file is inside an external-read root")
+                base = Path(task["path_roots"][root_id]["path"]).resolve(strict=True)
+                (base / relative).resolve().relative_to(base)
+            except (KeyError, OSError, ValueError):
+                errors.append("changed file escapes its typed root")
     if handoff.get("changed_files") != changed:
         errors.append("Handoff changed_files must equal Report changed_files")
     if status == "DONE" and changed and any(row.get("result") != "PASS" for row in report.get("tests", [])):

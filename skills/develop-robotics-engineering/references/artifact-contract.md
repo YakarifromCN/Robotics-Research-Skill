@@ -11,9 +11,23 @@ Task 冻结用户需求、3–7 步、0–3 条原样命令、allowed/forbidden 
 
 不要复制聊天、chain-of-thought、大段 diff 或日志。无代码改动时明确写 `NO_CODE_CHANGE`。简单任务仍保持文件短小；需要恢复信息时才扩展。
 
+JSON 工件可保存同样字段与 `body`，不需要 YAML 依赖；多行 frontmatter 使用可选 PyYAML。
+`engineering_artifacts.py` 提供 init、normalize、hash，输出新文件而不覆盖冻结输入。
+测试支持明确的 env、unset_env、inherit_env 和工作区内 cwd；argv 必须与冻结 command 一致。
+外部路径使用 path_roots（path/access/authorization）和 allowed_paths 中的 root_id/path；
+access 为 workspace、external-read 或 external-write。报告用 root_id/relative-path 标识改动，
+只读根不能出现在 changed_files。字段声明不授予系统或真实设备权限。
+
 # English
 
 Prefer the project's body style, but preserve the minimal YAML frontmatter in all four artifacts with one task ID, language, axes, and risk tier. Maintain one user-language file per task:
+
+JSON artifacts may carry the same fields plus body without a YAML dependency. Multiline frontmatter
+uses optional PyYAML. engineering_artifacts.py provides init, normalize and hash without overwriting
+frozen inputs. Tests accept explicit env/unset_env/inherit_env and a workspace-contained cwd;
+argv must match the frozen command. External paths use typed path_roots with path/access/authorization
+and root_id/path entries in allowed_paths. Reports identify changes by root_id/relative-path;
+external-read roots cannot contain changed_files. Declarations do not grant system or device authority.
 
 - `agent/plan/<slug>.md`: objective, current state, scope, and acceptance criteria.
 - `agent/task/<slug>.md`: allowed/forbidden changes, relevant paths, 3–7 steps, 0–3 tests, and stop conditions.

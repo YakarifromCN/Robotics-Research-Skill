@@ -1,0 +1,293 @@
+{
+  "schema_version": "robotics-writing-humanizer-fixtures.v1",
+  "cases": [
+    {
+      "id": "EDIT-1",
+      "action": "EDIT",
+      "zh": {
+        "before": "这一结果不仅重要，而且表明平均误差为 0.12 m。",
+        "after": "平均误差为 0.12 m。"
+      },
+      "en": {
+        "before": "This result is not just important; it shows a mean error of 0.12 m.",
+        "after": "The mean error was 0.12 m."
+      }
+    },
+    {
+      "id": "EDIT-2",
+      "action": "EDIT",
+      "zh": {
+        "before": "下面让我们深入探讨接触控制器。",
+        "after": "本节介绍接触控制器。"
+      },
+      "en": {
+        "before": "Let's dive into the contact controller.",
+        "after": "This section describes the contact controller."
+      }
+    },
+    {
+      "id": "EDIT-3",
+      "action": "EDIT",
+      "zh": {
+        "before": "从根本上说，核心问题是延迟。",
+        "after": "问题是延迟。"
+      },
+      "en": {
+        "before": "At its core, the real issue is latency.",
+        "after": "The issue is latency."
+      }
+    },
+    {
+      "id": "EDIT-4",
+      "action": "EDIT",
+      "zh": {
+        "before": "该方法可能或许在一定程度上减少误差。",
+        "after": "该方法可能减少误差。"
+      },
+      "en": {
+        "before": "The method could potentially possibly reduce error.",
+        "after": "The method may reduce error."
+      }
+    },
+    {
+      "id": "EDIT-5",
+      "action": "EDIT",
+      "zh": {
+        "before": "该算法充分展现了其在实验中取得的 91% 成功率。",
+        "after": "该算法在实验中的成功率为 91%。"
+      },
+      "en": {
+        "before": "The algorithm showcases its impressive 91% success rate in the experiment.",
+        "after": "The algorithm achieved a 91% success rate in the experiment."
+      }
+    },
+    {
+      "id": "EDIT-6",
+      "action": "EDIT",
+      "zh": {
+        "before": "该模块作为滤波器发挥作用。",
+        "after": "该模块是滤波器。"
+      },
+      "en": {
+        "before": "The module serves as a filter.",
+        "after": "The module is a filter."
+      }
+    },
+    {
+      "id": "EDIT-7",
+      "action": "EDIT",
+      "zh": {
+        "before": "结果如下。希望这有帮助！",
+        "after": "结果如下。"
+      },
+      "en": {
+        "before": "The results follow. I hope this helps!",
+        "after": "The results follow."
+      }
+    },
+    {
+      "id": "EDIT-8",
+      "action": "EDIT",
+      "zh": {
+        "before": "误差下降。这才是真正的收获。",
+        "after": "误差下降。"
+      },
+      "en": {
+        "before": "The error decreased. That is the real win.",
+        "after": "The error decreased."
+      }
+    },
+    {
+      "id": "EDIT-9",
+      "action": "EDIT",
+      "zh": {
+        "before": "我们记录了力。我们记录了位置。",
+        "after": "我们记录了力和位置。"
+      },
+      "en": {
+        "before": "We recorded force. We recorded position.",
+        "after": "We recorded force and position."
+      }
+    },
+    {
+      "id": "EDIT-10",
+      "action": "EDIT",
+      "zh": {
+        "before": "我们并不是说标定不重要。我们使用了标定后的传感器。",
+        "after": "我们使用了标定后的传感器。"
+      },
+      "en": {
+        "before": "We are not saying calibration is unimportant. We used calibrated sensors.",
+        "after": "We used calibrated sensors."
+      }
+    },
+    {
+      "id": "EDIT-11",
+      "action": "EDIT",
+      "zh": {
+        "before": "这个令人振奋的结果为未来开启了崭新的篇章。控制周期为 5 ms。",
+        "after": "控制周期为 5 ms。"
+      },
+      "en": {
+        "before": "This exciting result opens a new chapter. The control period was 5 ms.",
+        "after": "The control period was 5 ms."
+      }
+    },
+    {
+      "id": "EDIT-12",
+      "action": "EDIT",
+      "zh": {
+        "before": "感谢审稿人的问题！我们澄清了重置规则。",
+        "after": "我们澄清了重置规则。"
+      },
+      "en": {
+        "before": "Great question! We clarified the reset rule.",
+        "after": "We clarified the reset rule."
+      }
+    },
+    {
+      "id": "KEEP-1",
+      "action": "KEEP",
+      "zh": {
+        "before": "稳定性证明仅在有界扰动假设下成立。",
+        "after": "稳定性证明仅在有界扰动假设下成立。"
+      },
+      "en": {
+        "before": "The stability proof holds only under bounded disturbances.",
+        "after": "The stability proof holds only under bounded disturbances."
+      }
+    },
+    {
+      "id": "KEEP-2",
+      "action": "KEEP",
+      "zh": {
+        "before": "我们测试了 robust control 基线。",
+        "after": "我们测试了 robust control 基线。"
+      },
+      "en": {
+        "before": "We tested the robust control baseline.",
+        "after": "We tested the robust control baseline."
+      }
+    },
+    {
+      "id": "KEEP-3",
+      "action": "KEEP",
+      "zh": {
+        "before": "real-time controller 的时限尚未证明。",
+        "after": "real-time controller 的时限尚未证明。"
+      },
+      "en": {
+        "before": "The real-time controller's deadline guarantee remains unproved.",
+        "after": "The real-time controller's deadline guarantee remains unproved."
+      }
+    },
+    {
+      "id": "KEEP-4",
+      "action": "KEEP",
+      "zh": {
+        "before": "三名参与者分别提供多条示范。",
+        "after": "三名参与者分别提供多条示范。"
+      },
+      "en": {
+        "before": "Three participants each provided multiple demonstrations.",
+        "after": "Three participants each provided multiple demonstrations."
+      }
+    },
+    {
+      "id": "KEEP-5",
+      "action": "KEEP",
+      "zh": {
+        "before": "结果为 INCONCLUSIVE。",
+        "after": "结果为 INCONCLUSIVE。"
+      },
+      "en": {
+        "before": "The result is INCONCLUSIVE.",
+        "after": "The result is INCONCLUSIVE."
+      }
+    },
+    {
+      "id": "KEEP-6",
+      "action": "KEEP",
+      "zh": {
+        "before": "实机运行需要操作员和急停。",
+        "after": "实机运行需要操作员和急停。"
+      },
+      "en": {
+        "before": "Real-robot runs require an operator and an emergency stop.",
+        "after": "Real-robot runs require an operator and an emergency stop."
+      }
+    },
+    {
+      "id": "KEEP-7",
+      "action": "KEEP",
+      "zh": {
+        "before": "仿真成功不能证明实机成功。",
+        "after": "仿真成功不能证明实机成功。"
+      },
+      "en": {
+        "before": "Simulation success does not establish real-robot success.",
+        "after": "Simulation success does not establish real-robot success."
+      }
+    },
+    {
+      "id": "KEEP-8",
+      "action": "KEEP",
+      "zh": {
+        "before": "消融降低了峰值力，但未提高成功率。",
+        "after": "消融降低了峰值力，但未提高成功率。"
+      },
+      "en": {
+        "before": "The ablation reduced peak force but did not improve success rate.",
+        "after": "The ablation reduced peak force but did not improve success rate."
+      }
+    },
+    {
+      "id": "KEEP-9",
+      "action": "KEEP",
+      "zh": {
+        "before": "请见公式 $F=Kx$ 和 \\cite{source2025}。",
+        "after": "请见公式 $F=Kx$ 和 \\cite{source2025}。"
+      },
+      "en": {
+        "before": "See $F=Kx$ and \\cite{source2025}.",
+        "after": "See $F=Kx$ and \\cite{source2025}."
+      }
+    },
+    {
+      "id": "KEEP-10",
+      "action": "KEEP",
+      "zh": {
+        "before": "我们分别测量了力、能量和延迟。",
+        "after": "我们分别测量了力、能量和延迟。"
+      },
+      "en": {
+        "before": "We measured force, energy, and latency separately.",
+        "after": "We measured force, energy, and latency separately."
+      }
+    },
+    {
+      "id": "KEEP-11",
+      "action": "KEEP",
+      "zh": {
+        "before": "失败试验仍计入分母。",
+        "after": "失败试验仍计入分母。"
+      },
+      "en": {
+        "before": "Failed trials remain in the denominator.",
+        "after": "Failed trials remain in the denominator."
+      }
+    },
+    {
+      "id": "KEEP-12",
+      "action": "KEEP",
+      "zh": {
+        "before": "该结果只涵盖已评估的任务。",
+        "after": "该结果只涵盖已评估的任务。"
+      },
+      "en": {
+        "before": "The result covers only the evaluated tasks.",
+        "after": "The result covers only the evaluated tasks."
+      }
+    }
+  ]
+}

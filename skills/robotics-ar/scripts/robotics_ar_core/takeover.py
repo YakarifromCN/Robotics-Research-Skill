@@ -13,6 +13,7 @@ from .receipts import file_sha256
 from .schema_validation import SchemaValidationError, validate_artifact
 from .project_core import ProjectCoreError, compile_project_core, load_project_core, mark_project_core_approved, save_project_core, write_core_summary
 from .session import SessionError, SessionManager
+from .transaction import serialized
 from .environment import validate_environment_receipt
 from .structured import read_mapping, write_structured
 from .trial_contract import contract_hash
@@ -148,6 +149,7 @@ class TakeoverManager:
         self.manager.transition("TAKEOVER_AUDITING", "TAKEOVER_INTAKE_RECORDED", {"intake_sha256": intake["intake_sha256"]})
         return intake
 
+    @serialized
     def record_audit(self, audit_receipt: Mapping[str, Any]) -> dict[str, Any]:
         if self.manager.state["state"] != "TAKEOVER_AUDITING":
             raise TakeoverError("takeover audit state required")
@@ -158,11 +160,28 @@ class TakeoverManager:
         self.manager.transition("TAKEOVER_HISTORY_RECONSTRUCTION", "PROJECT_AUDIT_COMPLETED", {"receipt_sha256": sha256_obj(receipt)})
         return receipt
 
+    @serialized
     def mark_history_reconstructed(self, *, needs_reconciliation: bool = False, receipt: Optional[Mapping[str, Any]] = None) -> dict[str, Any]:
         if self.manager.state["state"] != "TAKEOVER_HISTORY_RECONSTRUCTION":
             raise TakeoverError("history reconstruction state required")
         if receipt is not None:
             atomic_write_json(self.paths.takeover_history / "history-reconstruction-receipt.json", dict(receipt))
+        # 审计要求只能加强。 / Audit requirements may only be strengthened.
+        audit_path = self.paths.takeover_audit / "audit-receipt.json"
+        bound_audits = [event for event in EventLog(self.manager.paths.events, self.manager.session_id).read_events() if event["event_type"] == "PROJECT_AUDIT_COMPLETED"]
+        if bound_audits and not audit_path.exists():
+            raise TakeoverError("bound audit receipt is missing")
+        if audit_path.exists():
+            from .structured import read_mapping
+
+            audit = read_mapping(audit_path)
+            digest = audit.get("receipt_sha256")
+            if digest and digest != sha256_obj({k: v for k, v in audit.items() if k != "receipt_sha256"}):
+                raise TakeoverError("audit receipt hash mismatch")
+            bindings = [e for e in EventLog(self.manager.paths.events, self.manager.session_id).read_events() if e["event_type"] == "PROJECT_AUDIT_COMPLETED"]
+            if bindings and bindings[-1]["payload"].get("receipt_sha256") != sha256_obj(audit):
+                raise TakeoverError("bound audit receipt changed")
+            needs_reconciliation = needs_reconciliation or bool(audit.get("requires_reconciliation"))
         target = "TAKEOVER_IDEA_RECONCILIATION" if needs_reconciliation else "TAKEOVER_ENVIRONMENT_VALIDATION"
         return self.manager.transition(target, "HISTORY_RECONSTRUCTED", {"needs_reconciliation": needs_reconciliation})
 
@@ -172,9 +191,11 @@ class TakeoverManager:
         write_structured(self.paths.takeover / "idea-reconciliation.yaml", dict(result))
         return self.manager.transition("TAKEOVER_ENVIRONMENT_VALIDATION", "TAKEOVER_IDEA_RECONCILIATION_COMPLETED", {"result_sha256": sha256_obj(dict(result))})
 
+    @serialized
     def mark_environment(self, receipt: Mapping[str, Any]) -> dict[str, Any]:
         if self.manager.state["state"] != "TAKEOVER_ENVIRONMENT_VALIDATION":
             raise TakeoverError("environment validation state required")
+        write_structured(self.paths.takeover / "environment-receipt.yaml", dict(receipt))
         if receipt.get("status") != "ONLINE_VERIFIED":
             self.manager.transition("BLOCKED_ENVIRONMENT", "ENVIRONMENT_VERIFICATION_FAILED", {"status": receipt.get("status")})
             raise TakeoverError("environment is not ONLINE_VERIFIED")
@@ -186,11 +207,24 @@ class TakeoverManager:
         self.manager.bind_environment_receipt(receipt, receipt_path=self.paths.takeover / "environment-receipt.yaml")
         return self.manager.transition("TAKEOVER_BASELINE_SELECTION", "ENVIRONMENT_VERIFIED", {"fingerprint": receipt.get("fingerprint")})
 
-    def begin_baseline(self) -> dict[str, Any]:
+    @serialized
+    def begin_baseline(self, selection: Optional[Mapping[str, Any]] = None) -> dict[str, Any]:
+        if selection is not None:
+            from .structured import read_mapping
+
+            path = self.paths.takeover_baseline / "baseline-selection.json"
+            if path.exists():
+                if read_mapping(path) != dict(selection):
+                    raise TakeoverError("baseline selection changed; explicit amendment required")
+                if self.manager.state["state"] == "TAKEOVER_BASELINE_REPRODUCTION":
+                    return self.manager.state
         if self.manager.state["state"] != "TAKEOVER_BASELINE_SELECTION":
             raise TakeoverError("baseline selection state required")
+        if selection is not None:
+            atomic_write_json(path, dict(selection))
         return self.manager.transition("TAKEOVER_BASELINE_REPRODUCTION", "BASELINE_SELECTED")
 
+    @serialized
     def baseline_result(self, result: Mapping[str, Any], *, recovery: bool = False) -> dict[str, Any]:
         current = self.manager.state["state"]
         if current not in {"TAKEOVER_BASELINE_REPRODUCTION", "TAKEOVER_BASELINE_RECOVERY"}:
@@ -202,6 +236,9 @@ class TakeoverManager:
         if result.get("receipt_sha256") != sha256_obj({key: value for key, value in result.items() if key != "receipt_sha256"}):
             raise TakeoverError("baseline receipt hash mismatch")
         self._invalidate_active_contract()
+        # 留存各次结果，不覆盖失败原因。 / Retain every result and failure cause.
+        import uuid
+        atomic_write_json(self.paths.takeover_baseline / "attempts" / f"{uuid.uuid4().hex}-{result['receipt_sha256']}.json", dict(result))
         write_structured(self.paths.takeover_baseline / "baseline-receipt.json", dict(result))
         updated = dict(self.manager.state)
         updated["baseline_receipt_sha256"] = result.get("receipt_sha256")
@@ -212,16 +249,43 @@ class TakeoverManager:
         updated["baseline_approved"] = False
         updated["contract_approved"] = False
         updated.pop("baseline_approval_id", None)
-        from .atomic_io import atomic_write_json
-
         atomic_write_json(self.manager.paths.state, updated)
         self.manager._state = updated
         status = str(result.get("reproduction_status", result.get("status", "")))
         if status in {"REPRODUCED", "REPRODUCED_WITH_VARIANCE", "PARTIALLY_REPRODUCED"}:
             return self.manager.transition("AWAITING_TAKEOVER_APPROVAL", "BASELINE_REPRODUCED", {"status": status})
         if status in {"NOT_REPRODUCED", "FAILED_REPRODUCTION", "BLOCKED", "UNTRUSTED", "UNKNOWN"}:
+            if current == "TAKEOVER_BASELINE_RECOVERY":
+                from .event_log import EventLog
+
+                EventLog(self.manager.paths.events, self.manager.session_id).append("BASELINE_RECOVERY_FAILED", "supervisor", current, current, {"status": status, "receipt_sha256": result["receipt_sha256"]})
+                return self.manager.state
             return self.manager.transition("TAKEOVER_BASELINE_RECOVERY", "BASELINE_RECOVERY_REQUIRED", {"status": status})
         raise TakeoverError("invalid baseline result")
+
+    @serialized
+    def amend_baseline_selection(self, selection, spec_path, approval_path):
+        """批准后修改未完成的基线选择，保留旧绑定。 / Amend an unfinished selection with approval and preserve its prior binding."""
+        if self.manager.state["state"] not in {"TAKEOVER_BASELINE_REPRODUCTION", "TAKEOVER_BASELINE_RECOVERY"}:
+            raise TakeoverError("selection amendment requires reproduction or recovery state")
+        from .execution_registry import ExecutionRegistry
+        if any(row["status"] in {"PREPARING", "RESERVED", "RUNNING"} for row in ExecutionRegistry(self.manager).read()["executions"].values()):
+            raise TakeoverError("close outstanding execution before amending baseline")
+        path = self.paths.takeover_baseline / "baseline-selection.json"
+        previous = read_mapping(path)
+        if previous == dict(selection):
+            return self.manager.state
+        approval = self.manager.consume_approval(approval_path, expected_gate="BASELINE", expected_subject_path=spec_path)
+        atomic_write_json(self.paths.takeover_baseline / "selections" / f"{sha256_obj(previous)}.json", previous)
+        atomic_write_json(path, dict(selection))
+        self._invalidate_active_contract()
+        state = self.manager.state
+        for field in ("baseline_receipt_path", "baseline_receipt_sha256", "baseline_approval_id"):
+            state.pop(field, None)
+        state.update(baseline_approved=False, contract_approved=False)
+        atomic_write_json(self.manager.paths.state, state)
+        self.manager._state = state
+        return self.manager.record_event("BASELINE_SELECTION_AMENDED", {"selection_sha256": sha256_obj(selection), "approval_id": approval["approval_id"]})
 
     def approve_baseline(self, approval_id: str) -> dict[str, Any]:
         """Record a user baseline approval and release the contract-compilation gate."""

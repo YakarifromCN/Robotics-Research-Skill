@@ -14,12 +14,12 @@ description: Evidence-constrained robotics paper writing, revision, rebuttal, cl
 
 ## Progressive runtime preflight
 
-Read the Claim Ledger and supplied manuscript first, then at most two references: `references/core-contract.md`, `references/claim-evidence-writing.md`, `references/evidence-bound-revision.md` for existing-prose revision, or official venue policy only when formatting for a venue. Do not preload sibling Skills, the corpus, PDFs, venue catalogs, or reviewer prompts.
+Read the Claim Ledger and supplied manuscript first, then at most two references: `references/core-contract.md`, `references/claim-evidence-writing.md`, `references/evidence-bound-revision.md` for existing-prose revision, or official venue policy only when formatting for a venue. Do not preload sibling Skills except the required Humanizer pass below, the corpus, PDFs, venue catalogs, or reviewer prompts.
 
 Run:
 
 ~~~text
-python scripts/route_robotics_research.py <profile.json> --stage writing --venue <venue>
+python3 <installed-skill-dir>/scripts/route_robotics_research.py <profile.json> --stage writing --venue <venue>
 ~~~
 
 The normal route reads only the tracked compact artifact
@@ -65,5 +65,33 @@ change envelope before editing. If authority is absent, stop at diagnosis.
 Calibrate in both directions: strengthen underclaimed prose up to the frozen
 evidence ceiling, keep at-ceiling prose, narrow overclaim, and repair a
 misaligned claim type. Preserve evidence functions and stable IDs rather than
-duplicate sentences. Run `scripts/validate_revision_audit.py`, the Claim Ledger
+duplicate sentences. Complete the mandatory Humanizer pass below, then run
+`scripts/validate_revision_audit.py`, the Claim Ledger
 validator, and the LaTeX audit before declaring the revision ready.
+
+## Mandatory Humanizer prose pass
+
+For every drafting or prose-revision task, run `scripts/resolve_humanizer.py`
+relative to this installed Skill and read the resolved file. It uses a compatible
+installed Humanizer or `references/humanizer-academic.md`, the bundled offline
+adaptation. Apply its mark, rewrite, and recheck process before delivery. Use embedded
+or file mode: write only the final prose, with a brief change summary.
+Read-only reviews identify wording issues without editing files.
+
+Keep the author's academic voice and the authorized edit scope. Remove empty
+emphasis, staged contrasts, repeated conclusions, and internal project jargon
+that obscures meaning. Humanizer is a required language pass, not permission
+to expand the revision or a test of text authorship.
+
+Preserve equations, symbols, numbers, citations, technical definitions,
+scientific scope, and necessary uncertainty or safety qualifications. Do not
+invent evidence, personal reactions, or claims to make prose sound natural.
+Explicit user instructions, scientific accuracy, venue formatting, and the
+Claim Ledger govern any conflict with generic style advice. Recheck these
+invariants and the requested page budget after the pass. If Humanizer is
+unavailable, disclose the missing dependency; do not claim the pass is complete.
+
+For explicitly requested repository documentation, use implementation and test
+evidence as the factual boundary. Do not invent a paper ledger, venue, or new
+experiment for a README edit. Preserve commands and API identifiers unless an
+authorized implementation change requires updating them.

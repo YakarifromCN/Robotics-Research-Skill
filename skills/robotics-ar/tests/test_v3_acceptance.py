@@ -243,6 +243,9 @@ class V3AcceptanceTests(unittest.TestCase):
             run_cli(project, "takeover-record-intake", "--input", str(intake_path))
             run_cli(project, "takeover-audit")
             run_cli(project, "takeover-import-history")
+            reconciliation = root / "reconciliation.json"
+            reconciliation.write_text(json.dumps({"resolution": "synthetic fixture explicitly reconciled"}), encoding="utf-8")
+            run_cli(project, "takeover-reconcile", "--input", str(reconciliation))
             validated = run_cli(project, "validate-environment", "--environment-manifest", str(manifest))
             self.assertEqual(validated["state"]["state"], "TAKEOVER_BASELINE_SELECTION")
             self.assertEqual(validated["receipt"]["status"], "ONLINE_VERIFIED")

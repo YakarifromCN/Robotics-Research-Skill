@@ -19,7 +19,7 @@ Read the frozen manuscript/evidence context first, then at most two references: 
 Run:
 
 ~~~text
-python scripts/route_robotics_research.py <profile.json> --stage review --venue <venue>
+python3 <installed-skill-dir>/scripts/route_robotics_research.py <profile.json> --stage review --venue <venue>
 ~~~
 
 The normal route reads only the tracked compact artifact

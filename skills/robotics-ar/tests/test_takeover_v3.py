@@ -72,6 +72,8 @@ class TakeoverV3Tests(unittest.TestCase):
         takeover.record_audit(audit["receipt"])
         history = reconstruct_history(project, sources=[])
         takeover.mark_history_reconstructed(receipt=history["receipt"])
+        if manager.state["state"] == "TAKEOVER_IDEA_RECONCILIATION":
+            takeover.complete_idea_reconciliation({"resolution": "synthetic fixture explicitly reconciled"})
         environment = EnvironmentAdapter.from_file(manifest_path)
         environment_receipt = environment.verify_online()
         takeover.mark_environment(environment_receipt)

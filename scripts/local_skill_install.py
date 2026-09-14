@@ -409,9 +409,15 @@ def install(args: argparse.Namespace) -> dict[str, Any]:
                 target.symlink_to(source, target_is_directory=True)
                 records[name] = source_record(name, source, target, "staged-symlink")
         elif mode == "COPY_PINNED":
+            release = make_release(source_root, dest, head, selected)
             for name in selected:
                 target = dest / name
-                copy_skill(found[name], target, runtime_only=True)
+                if target.exists() or target.is_symlink():
+                    raise InstallError(f"target already exists: {target}")
+                target.mkdir()
+                # 固定版本投影保留解析后的共享依赖根。 / Pinned projections preserve the shared dependency root.
+                for child in (release / "skills" / name).iterdir():
+                    (target / child.name).symlink_to(child, target_is_directory=child.is_dir())
                 records[name] = source_record(name, found[name], target, "copy")
         elif mode == "DIRECT_DOWNLOAD":
             if archive_sha256 is None:
