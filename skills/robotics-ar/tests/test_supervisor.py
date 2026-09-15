@@ -94,7 +94,7 @@ class SupervisorTests(unittest.TestCase):
             self.assertEqual(manager.state["state"], "PAUSED")
             manager.resume()
             self.assertEqual(manager.state["state"], "TASK_COMPILATION")
-            self.assertTrue((Path(directory) / ".robotics-ar" / "report.md").exists())
+            self.assertFalse((Path(directory) / "robotics-ar" / "report.md").exists())
 
     def test_active_lock_and_stale_lock(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

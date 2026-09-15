@@ -74,11 +74,8 @@ def compile_correction(manager: SessionManager, instruction: str, *, objective: 
         "## Stop / Escalation Conditions", "", *[f"- {item}" for item in task["stop_conditions"]], *[f"- ESCALATE: {item}" for item in task["escalation_conditions"]], "",
         f"Task hash: `{task['task_sha256']}`", "",
     ]
-    # Keep the supervisor-owned root task for backwards compatibility, while
-    # also materialising the v3 task artifact at the documented task root.
+    # 同一分类只维护一份任务，不再散写根目录副本。 / Keep one task per category, not root copies.
     atomic_write_bytes(manager.paths.tasks / "task.md", "\n".join(markdown).encode("utf-8"))
-    atomic_write_bytes(root / "task.md", "\n".join(markdown).encode("utf-8"))
-    atomic_write_bytes(manager.paths.root_task, "\n".join(markdown).encode("utf-8"))
     if contract_path:
         contracts = TrialContractManager(manager.paths.takeover_contracts, manager.paths.approvals)
         amendment = contracts.amend(contract_path, user_instruction=instruction, changes={"task_sha256": task["task_sha256"], "allowed_changes": task["allowed_changes"], "forbidden_changes": task["forbidden_changes"], "budget": task["budget"], "objective": objective})

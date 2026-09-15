@@ -87,6 +87,8 @@ class SiblingAdapterTests(unittest.TestCase):
         request = adapter.prepare_invocation(manifest, "idea", session_id="RAS-TEST", prompt="inspect", allowed_files=["README.md"])
         self.assertEqual(request["runtime_status"], "REQUEST_ONLY")
         self.assertTrue(request["prompt_sha256"])
+        self.assertIn("do not create dot-prefixed directories", request["prompt"])
+        self.assertIn("ask the user to confirm", request["prompt"])
         self.assertEqual(adapter.runtime_status("idea", fresh_runtime=False), "SINGLE_AGENT_MODE")
         self.assertEqual(adapter.runtime_status("review", fresh_runtime=False), "BLOCKED_DEPENDENCY")
         self.assertEqual(adapter.runtime_status("review", fresh_runtime=False, manual_review_import=True), "MANUAL_REVIEW_IMPORT")
@@ -128,7 +130,7 @@ class SiblingAdapterTests(unittest.TestCase):
             command = [sys.executable, str(ROOT / "skills/develop-robotics-idea/scripts/validate_research_card.py"), str(artifact), "--ready"]
             result = subprocess.run(command, cwd=project, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertFalse((project / ".robotics-ar").exists())
+            self.assertFalse((project / "robotics-ar").exists())
 
         with tempfile.TemporaryDirectory() as directory:
             staged = Path(directory)

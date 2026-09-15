@@ -9,7 +9,7 @@ import re
 import subprocess
 from typing import Any, Iterable, Mapping, Optional
 
-from .atomic_io import atomic_write_bytes, atomic_write_json
+from .atomic_io import optional_report_bytes, atomic_write_json, runtime_root, project_output_directory
 from .canonical import sha256_obj
 from .models import utc_now
 from .receipts import file_sha256, tree_fingerprint
@@ -136,7 +136,7 @@ def _walk_read_only(root: Path, *, max_files=1000, max_bytes=8_000_000, max_seco
             coverage["visited"] += 1
             path = Path(item.path)
             relative = path.relative_to(root).as_posix()
-            if item.name in SKIP_DIRS or item.name == ".robotics-ar" or any(fnmatch.fnmatch(relative, p) for p in exclude):
+            if item.name in SKIP_DIRS or item.name in {"robotics-ar", ".robotics-ar"} or any(fnmatch.fnmatch(relative, p) for p in exclude):
                 continue
             if item.is_symlink():
                 entries.append({"path": relative, "kind": "symlink", "status": "UNKNOWN", "target": os.readlink(path)})
@@ -316,7 +316,7 @@ def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] 
     root = Path(project_root).resolve()
     if not root.exists() or not root.is_dir():
         raise ProjectAuditError(f"project root does not exist: {root}")
-    target = Path(output_dir).resolve() if output_dir else root / ".robotics-ar" / "takeover" / "audit"
+    target = project_output_directory(root, output_dir or runtime_root(root) / "takeover" / "audit")
     try:
         target.relative_to(root)
     except ValueError as exc:
@@ -372,7 +372,7 @@ def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] 
     snapshot["snapshot_sha256"] = sha256_obj(snapshot)
     atomic_write_json(target / "project-snapshot.json", snapshot)
     repository_lines = ["# Repository map", "", f"Root: `{root}`", f"Git root: `{git_root or 'UNKNOWN'}`", f"Branch: `{branch or 'UNKNOWN'}`", f"HEAD: `{head or 'UNKNOWN'}`", f"Dirty: `{bool(dirty_output) if dirty_code == 0 else 'UNKNOWN'}`", "", "## Files", "", *[f"- `{item['path']}` ({item.get('bytes', 0)} bytes)" for item in entries if item.get("kind") == "file"], ""]
-    atomic_write_bytes(target / "repository-map.md", "\n".join(repository_lines).encode("utf-8"))
+    optional_report_bytes(target / "repository-map.md", "\n".join(repository_lines).encode("utf-8"))
     write_structured(target / "execution-map.yaml", {"schema_version": "robotics-ar-execution-map.v1", "candidates": candidates, "commands_executed": [], "status": "READ_ONLY_DISCOVERY", "requires_user_selection": len(candidates) != 1, "requires_reconciliation": requires_reconciliation})
     write_structured(target / "method-artifact-index.yaml", {"schema_version": "robotics-ar-method-artifact-index.v1", "files": [item for item in entries if item.get("kind") == "file" and any(token in item["path"].lower() for token in ("method", "model", "algorithm", "paper", "readme", "agent"))]})
     with (target / "result-artifact-index.jsonl").open("w", encoding="utf-8") as handle:
@@ -386,7 +386,7 @@ def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] 
     snapshot["snapshot_sha256"] = sha256_obj(snapshot)
     atomic_write_json(target / "project-snapshot.json", snapshot)
     write_structured(target / "discrepancies.json", {"schema_version": "robotics-ar-discrepancies.v1", "status": snapshot["facts"]["discrepancies"]["status"], "requires_reconciliation": any(item.get("requires_reconciliation") for item in discrepancies), "items": discrepancies, "snapshot_sha256": snapshot["snapshot_sha256"]})
-    atomic_write_bytes(target / "discrepancies.md", ("# Discrepancies\n\n" + ("\n".join(f"- **{item.get('kind', 'UNKNOWN')}** `{item.get('status', 'UNKNOWN')}`: `{item}`" for item in discrepancies) or "- None detected by explicit checks.") + "\n").encode("utf-8"))
+    optional_report_bytes(target / "discrepancies.md", ("# Discrepancies\n\n" + ("\n".join(f"- **{item.get('kind', 'UNKNOWN')}** `{item.get('status', 'UNKNOWN')}`: `{item}`" for item in discrepancies) or "- None detected by explicit checks.") + "\n").encode("utf-8"))
     receipt = {"schema_version": "robotics-ar-project-audit-receipt.v1", "status": "PASS", "project_snapshot_sha256": snapshot["snapshot_sha256"], "read_only": True, "commands_executed": [], "discrepancies": discrepancies, "requires_reconciliation": any(item.get("requires_reconciliation") for item in discrepancies), "created_at": utc_now()}
     receipt["coverage"] = coverage
     if not coverage["complete"]:
@@ -396,7 +396,7 @@ def audit_project(project_root: Path | str, *, output_dir: Optional[Path | str] 
     atomic_write_json(target / "audit-receipt.json", receipt)
     # The concise artifacts requested by the product contract are aliases with
     # explicit provenance, not replacements for the structured audit files.
-    atomic_write_bytes(target / "current-state.md", ("# Current State\n\n" + f"Snapshot: `{snapshot['snapshot_sha256']}`\n\n" + f"Git dirty: `{snapshot['repository']['dirty']}`\n").encode("utf-8"))
-    atomic_write_bytes(target / "known-failures.md", b"# Known failures\n\nNo failure was upgraded from an unverified scan.\n")
-    atomic_write_bytes(target / "unresolved-questions.md", ("# Unresolved questions\n\n" + "\n".join(f"- {item}" for item in snapshot["facts"]["environment_candidates"]["value"]) + "\n").encode("utf-8"))
+    optional_report_bytes(target / "current-state.md", ("# Current State\n\n" + f"Snapshot: `{snapshot['snapshot_sha256']}`\n\n" + f"Git dirty: `{snapshot['repository']['dirty']}`\n").encode("utf-8"))
+    optional_report_bytes(target / "known-failures.md", b"# Known failures\n\nNo failure was upgraded from an unverified scan.\n")
+    optional_report_bytes(target / "unresolved-questions.md", ("# Unresolved questions\n\n" + "\n".join(f"- {item}" for item in snapshot["facts"]["environment_candidates"]["value"]) + "\n").encode("utf-8"))
     return {"status": receipt["status"], "snapshot": snapshot, "receipt": receipt, "output_dir": target.as_posix()}

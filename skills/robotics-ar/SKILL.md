@@ -20,6 +20,29 @@ Engineering 不进入科研阶段审批状态机；只有合同越界、新设�
 
 ## 输入与模式
 
+### 项目命名与目录
+
+已有项目复用用户指定根目录，不改名、不另建同义项目。确需新建时，从上下文提炼
+最简、可辨识的默认名称，先问用户“项目名用 `<建议名>` 可以吗？也可以指定其他名字。”，
+确认前不创建目录；用户已明确给出的项目名或路径视为已选择，不重复询问。
+新项目名不得以 `.` 开头或包含路径分隔符、`..`。
+
+新会话使用 `<项目根>/robotics-ar/`；临时产物仅在需要时放入该项目的
+`robotics-ar/tmp/<任务标识>/`，优先复用，否则不创建。所有执行 Agent 继承此约束：
+未经用户明确授权，不得新建点号开头的目录（如 `.tmp`、`.worktrees`、`.robotics-ar`）
+或项目外临时工作区。任务执行授权不等于隐藏目录授权；若工具需要，先说明并询问，
+不得自行加授权参数。已有工具目录不搬迁、不删除。
+旧 `.robotics-ar/` 会话原位兼容，不自动复制；新旧目录并存时阻断并要求核对。
+本规则针对目录，不禁用已有 `.git` 或原子写入的短暂隐藏文件。
+
+新文件先按当前项目已有功能分类归档，优先更新或合并同类文档，不按每次任务另建
+目录或同义副本；不可合并覆盖原始证据、追加日志或冻结合同。
+执行一次任务默认只在对话中说明结果，不生成报告、总结、交接、复盘等报告性质文件，
+无论 Markdown、JSON 还是其他格式；只有用户明确要求才创建，并优先维护现有分类中的
+单份文件。此约束也传给 sibling/执行 Agent，不因其模板要求自行生成一套报告。
+必要的状态、合同、原始证据、测试回执仍保留，但不得把叙述报告改名为 receipt 绕过约束。
+`--write-reports` 和 `--allow-hidden-directories` 只表达本次用户明确授权，不默认开启。
+
 必须显式提供：项目根目录、交互语言、研究目标、所需 stage、`PLANNING_ONLY` 或
 `EXECUTION_ENABLED`、约束/允许路径，以及 sibling Skill 根目录或已确认 manifest。
 
@@ -40,9 +63,9 @@ Engineering 不进入科研阶段审批状态机；只有合同越界、新设�
 第五个领域科研阶段；Idea 只在需要时以 `IDEA_RECONCILIATION` 调用，Writing 必须
 等待 evidence freeze，Review 只生成 route proposal。
 
-每次 checkpoint、暂停、阻断和用户纠正都会更新 `.robotics-ar/report.md`、
-`.robotics-ar/handoff.md` 和任务工件；用户纠正额外写入
-`.robotics-ar/tasks/task.md`，并保留根目录兼容副本。baseline 失败时只能使用
+每次 checkpoint、暂停、阻断和用户纠正都会保存必要状态与证据；仅在用户要求报告时
+更新 `robotics-ar/report.md`、`robotics-ar/handoff.md`，不按任务追加报告副本。
+用户纠正只维护 `robotics-ar/tasks/task.md`，不再生成根目录副本。baseline 失败时只能使用
 `baseline-recover --diagnostics` 记录恢复诊断，不能升级为可用 baseline；
 `batch-resume` 会重验 contract、environment receipt/fingerprint、累计 wall-time
 和 terminal stop reason。`trial-analyze` 要求 raw evidence 与 versioned metrics；
@@ -53,7 +76,7 @@ contract、code/configuration、environment receipt/fingerprint 与 metric versi
 
 ## 不可静默违反的规则
 
-1. 只在显式 `$robotics-ar` 或等价明确请求后初始化 `.robotics-ar/`。
+1. 只在显式 `$robotics-ar` 或等价明确请求后初始化 `robotics-ar/`。
 2. 其他四个 Skill 可独立发现、安装、调用和测试；它们不得导入、hook 或依赖本 Skill。
 3. Core schema 只使用通用研究对象；领域内容放在 `domain_payload`。
 4. `events.jsonl` 是 append-only source of record；`state.json` 只是可重建缓存。
@@ -114,8 +137,8 @@ python3 skills/robotics-ar/scripts/robotics_ar.py batch-start --project-root <pr
 ## 阻断与停止
 
 缺失 sibling 入口/validator、schema drift、dirty Git、环境未验证、越权写入、raw
-篡改、预算耗尽、两次 debug 失败、Critical Block 或用户要求暂停，都必须生成 report
-和 handoff 并停止在可恢复状态。失败、负结果、abort、inconclusive 和
+篡改、预算耗尽、两次 debug 失败、Critical Block 或用户要求暂停，都必须保留机器恢复状态，
+在对话中说明并停止；只有用户要求才生成 report/handoff。失败、负结果、abort、inconclusive 和
 `NOT_APPLICABLE` 是一等结果，不能升级成成功。
 
 v3 参考协议：`midstream-takeover.md`、`project-audit.md`、
@@ -144,6 +167,28 @@ an explicit Robotics-AR/automatic/autonomous/cross-stage/pause-resume/online-
 execution request.
 
 ## Modes and hard boundaries
+
+Reuse the user's existing project root without renaming or creating a parallel project.
+For a new project, propose the shortest descriptive name derived from context and ask
+the user to confirm or replace it before creating directories. An explicit name or path
+already counts as a choice. New names must not start with a dot or contain separators or `..`.
+
+New sessions use `<project-root>/robotics-ar/`. Put temporary artifacts only when needed
+under `robotics-ar/tmp/<task-id>/` in that project; otherwise create nothing. Every execution
+agent must not create dot-prefixed directories or external scratch workspaces without
+explicit user authorization. Task authorization does not imply hidden-directory permission;
+ask before using an exception flag. Preserve existing tool directories. Existing `.robotics-ar/` sessions remain in place; dual
+old/new roots block for reconciliation. This is a directory rule, not a ban on existing
+`.git` or transient atomic-write files.
+
+Classify new files by the existing project structure; prefer updating or consolidating
+same-purpose documents over per-task folders and duplicates. Never merge away raw evidence,
+append-only logs, or frozen contracts. A normal task ends with a conversational result, not
+report, summary, handoff, or retrospective files in any format. Create those only on explicit
+user request, preferably updating one categorized file. Sibling templates do not override
+this rule. Keep necessary state, contracts, raw evidence, and test receipts; do not relabel
+narrative reports as receipts. `--write-reports` and `--allow-hidden-directories` express
+explicit authorization for the current invocation only; neither is enabled by default.
 
 `PLANNING_ONLY` permits planning, evidence import, sibling calls, and gap reports
 but no rollout or fabricated evidence. `EXECUTION_ENABLED` requires a frozen

@@ -42,8 +42,8 @@ def snapshot(spec):
         dirty = []
         if head.returncode == 0:
             from .project_audit import _git
-            for command in (["diff", "--name-only", "--relative", "-z", "HEAD", "--", ".", ":(exclude).robotics-ar"],
-                            ["ls-files", "--others", "--exclude-standard", "-z", "--", ".", ":(exclude).robotics-ar"]):
+            for command in (["diff", "--name-only", "--relative", "-z", "HEAD", "--", ".", ":(exclude)robotics-ar", ":(exclude).robotics-ar"],
+                            ["ls-files", "--others", "--exclude-standard", "-z", "--", ".", ":(exclude)robotics-ar", ":(exclude).robotics-ar"]):
                 code, output, _ = _git(root, command)
                 if code:
                     raise ValueError("cannot bound repository dirty-file inventory")

@@ -8,7 +8,7 @@ import csv
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Optional
 
-from .atomic_io import atomic_write_bytes, atomic_write_json
+from .atomic_io import optional_report_bytes, atomic_write_json, runtime_root, project_output_directory
 from .canonical import sha256_obj
 from .models import utc_now
 from .structured import read_structured, write_structured
@@ -309,7 +309,7 @@ class ExperimentLedger:
 
 def reconstruct_history(project_root: Path | str, *, sources: Optional[Iterable[Path | str]] = None, output_dir: Optional[Path | str] = None) -> dict[str, Any]:
     root = Path(project_root).resolve()
-    target = Path(output_dir).resolve() if output_dir else root / ".robotics-ar" / "takeover" / "history"
+    target = project_output_directory(root, output_dir or runtime_root(root) / "takeover" / "history")
     target.mkdir(parents=True, exist_ok=True)
     selected = list(sources or [])
     if not selected:
@@ -327,7 +327,7 @@ def reconstruct_history(project_root: Path | str, *, sources: Optional[Iterable[
     records = ledger.import_sources(selected)
     known_failures = [record for record in records if record.get("status") in {"FAILED", "INVALID"}]
     best = [record for record in records if record.get("status") == "VERIFIED" and record.get("user_decision") != "REJECT"]
-    atomic_write_bytes(target / "known-failures.md", ("# Known failures\n\n" + "\n".join(f"- `{item['trial_id']}`: {item.get('failure_class') or item.get('interpretation', '')}" for item in known_failures) + "\n").encode("utf-8"))
+    optional_report_bytes(target / "known-failures.md", ("# Known failures\n\n" + "\n".join(f"- `{item['trial_id']}`: {item.get('failure_class') or item.get('interpretation', '')}" for item in known_failures) + "\n").encode("utf-8"))
     write_structured(target / "best-known-candidates.yaml", {"schema_version": "robotics-ar-best-known-candidates.v1", "candidates": best})
     unknown_ids = [item["trial_id"] for item in records if item.get("status") in {"UNKNOWN", "UNREPRODUCIBLE"}]
     metric_versions: dict[str, dict[str, list[str]]] = {}
@@ -343,7 +343,7 @@ def reconstruct_history(project_root: Path | str, *, sources: Optional[Iterable[
     unresolved_ids = list(unknown_ids)
     if metric_conflicts:
         unresolved_ids.extend(f"metric-version:{item['metric']}" for item in metric_conflicts)
-    atomic_write_bytes(target / "unresolved-history.md", ("# Unresolved history\n\n" + "\n".join(f"- `{item}`" for item in unresolved_ids) + "\n").encode("utf-8"))
+    optional_report_bytes(target / "unresolved-history.md", ("# Unresolved history\n\n" + "\n".join(f"- `{item}`" for item in unresolved_ids) + "\n").encode("utf-8"))
     receipt = {"schema_version": "robotics-ar-history-reconstruction-receipt.v1", "status": "PASS", "records_imported": len(records), "verified_count": sum(item.get("status") == "VERIFIED" for item in records), "unknown_count": sum(item.get("status") in {"UNKNOWN", "UNREPRODUCIBLE"} for item in records), "invalid_count": sum(item.get("status") == "INVALID" for item in records), "metric_version_conflicts": metric_conflicts, "unresolved_count": len(unresolved_ids), "requires_reconciliation": bool(metric_conflicts), "created_at": utc_now()}
     receipt["receipt_sha256"] = sha256_obj(receipt)
     atomic_write_json(target / "history-reconstruction-receipt.json", receipt)

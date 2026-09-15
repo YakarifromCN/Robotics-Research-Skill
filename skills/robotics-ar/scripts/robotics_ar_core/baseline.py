@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 from typing import Any, Iterable, Mapping, Optional
 
-from .atomic_io import atomic_write_json
+from .atomic_io import atomic_write_json, runtime_root, visible_directory
 from .canonical import sha256_obj
 from .environment import EnvironmentAdapter, EnvironmentError, validate_environment_receipt
 from .models import utc_now
@@ -155,7 +155,7 @@ def reproduce_baseline(spec: Mapping[str, Any], environment: EnvironmentAdapter,
     validate_baseline_spec(spec)
     if environment.fingerprint() != str(spec.get("environment", {}).get("fingerprint", "")):
         return build_baseline_receipt(spec, "BLOCKED", error="environment fingerprint drift")
-    target = Path(output_dir).resolve() if output_dir else Path(environment.root) / ".robotics-ar-baseline"
+    target = visible_directory(Path(output_dir) if output_dir else runtime_root(environment.root) / "takeover" / "baseline")
     target.mkdir(parents=True, exist_ok=True)
     runs: list[dict[str, Any]] = []
     errors: list[str] = []

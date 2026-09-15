@@ -16,7 +16,7 @@ import sys
 import time
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
-from .atomic_io import atomic_write_json, contained_path, read_json
+from .atomic_io import atomic_write_json, contained_path, read_json, project_output_directory
 from .canonical import ensure_finite, sha256_obj
 from .models import utc_now
 from .process_registry import ProcessRegistry
@@ -143,8 +143,13 @@ class EnvironmentAdapter:
                     raise EnvironmentError(f"command must be argv array: {optional_name}")
                 self._validate_argv(argv, name=optional_name)
         io = self.manifest["io"]
-        for name in ("request_dir", "result_dir", "artifact_dir"):
-            _resolve_under(self.root, str(io[name])).mkdir(parents=True, exist_ok=True)
+        try:
+            output_dirs = [project_output_directory(self.root, str(io[name]))
+                           for name in ("request_dir", "result_dir", "artifact_dir")]
+        except ValueError as exc:
+            raise EnvironmentError(str(exc)) from exc
+        for directory in output_dirs:
+            directory.mkdir(parents=True, exist_ok=True)
         limits = self.manifest["limits"]
         if int(limits.get("timeout_s", 0)) <= 0 or int(limits.get("max_parallel_runs", 0)) <= 0:
             raise EnvironmentError("limits must be positive")

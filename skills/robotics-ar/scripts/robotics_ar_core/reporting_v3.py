@@ -183,8 +183,6 @@ def write_current_report(manager: Any, *, context: Optional[Mapping[str, Any]] =
     path = manager.paths.root_report
     text = "\n".join(lines)
     atomic_write_bytes(path, text.encode("utf-8"))
-    archive = manager.paths.reports / f"report-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')}.md"
-    atomic_write_bytes(archive, text.encode("utf-8"))
     return path
 
 
@@ -224,10 +222,11 @@ def write_current_handoff(manager: Any, *, context: Optional[Mapping[str, Any]] 
     path = manager.paths.root_handoff
     text = "\n".join(lines)
     atomic_write_bytes(path, text.encode("utf-8"))
-    archive = manager.paths.reports / f"handoff-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')}.md"
-    atomic_write_bytes(archive, text.encode("utf-8"))
     return path
 
 
-def write_checkpoint_artifacts(manager: Any, *, context: Optional[Mapping[str, Any]] = None, reason: str = "checkpoint") -> tuple[Path, Path]:
+def write_checkpoint_artifacts(manager: Any, *, context: Optional[Mapping[str, Any]] = None, reason: str = "checkpoint") -> tuple[Optional[Path], Optional[Path]]:
+    from .atomic_io import report_files_requested
+    if not report_files_requested():
+        return None, None
     return write_current_report(manager, context=context, reason=reason), write_current_handoff(manager, context=context, reason=reason)

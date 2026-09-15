@@ -107,6 +107,14 @@ class PathPolicy:
             raise AgentProtocolError(f"forbidden path: {relative}")
         if not any(_matches(relative, rule) for rule in self.allowed_paths):
             raise AgentProtocolError(f"path is not allowed: {relative}")
+        if write:
+            from .atomic_io import visible_directory
+            try:
+                raw = Path(candidate)
+                visible_directory((raw if raw.is_absolute() else self.root / raw).parent)
+                visible_directory((self.root / relative).parent)
+            except ValueError as exc:
+                raise AgentProtocolError(str(exc)) from exc
         return self.root / relative
 
     def assert_write(self, candidate: Path | str) -> Path:

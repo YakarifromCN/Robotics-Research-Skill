@@ -464,9 +464,10 @@ def load_receipt(path: Path) -> tuple[dict[str, Any], Path]:
 
 def active_session(receipt: dict[str, Any]) -> str | None:
     for root in receipt.get("active_session_roots") or []:
-        lock = Path(root).expanduser() / ".robotics-ar" / "session.lock"
-        if lock.exists():
-            return str(lock)
+        for name in ("robotics-ar", ".robotics-ar"):
+            lock = Path(root).expanduser() / name / "session.lock"
+            if lock.exists():
+                return str(lock)
     return None
 
 

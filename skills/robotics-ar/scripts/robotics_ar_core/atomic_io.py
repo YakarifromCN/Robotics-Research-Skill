@@ -9,13 +9,68 @@ import json
 import os
 from pathlib import Path
 import tempfile
+from contextlib import contextmanager
+from contextvars import ContextVar
 from typing import Any
 
 from .canonical import canonical_bytes, ensure_finite
 
+_hidden_authorized = ContextVar("hidden_directories_authorized", default=False)
+_reports_requested = ContextVar("report_files_requested", default=False)
+
+
+@contextmanager
+def output_policy(*, allow_hidden_directories=False, reports_requested=False):
+    """仅当前调用的显式用户授权。 / Explicit user authorization scoped to this invocation only."""
+    hidden = _hidden_authorized.set(allow_hidden_directories is True)
+    reports = _reports_requested.set(reports_requested is True)
+    try:
+        yield
+    finally:
+        _reports_requested.reset(reports)
+        _hidden_authorized.reset(hidden)
+
+
+def report_files_requested():
+    """报告必须由用户请求。 / Report files require a user request."""
+    return _reports_requested.get()
+
+
+def optional_report_bytes(path, data):
+    """不以格式变化绕过报告禁令。 / Report opt-in applies regardless of file format."""
+    if report_files_requested():
+        atomic_write_bytes(path, data)
+
 
 class AtomicIOError(ValueError):
     """原子 I/O 失败。 / Raised for atomic I/O failures."""
+
+
+def visible_directory(path: Path | str) -> Path:
+    """禁止新建隐藏目录，保留既有目录。 / Reject new hidden directories; preserve existing ones."""
+    target = Path(path).absolute()
+    for directory in (target, *target.parents):
+        if directory.name.startswith('.') and not directory.is_dir() and not _hidden_authorized.get():
+            raise AtomicIOError(f"new hidden directory forbidden: {directory}")
+    return target
+
+
+def runtime_root(project_root: Path | str) -> Path:
+    """新会话可见，旧会话原位兼容。 / Visible new sessions, in-place legacy compatibility."""
+    project = Path(project_root).resolve()
+    current, legacy = project / "robotics-ar", project / ".robotics-ar"
+    if current.exists() and legacy.exists():
+        raise AtomicIOError("both robotics-ar and .robotics-ar exist; reconcile explicitly before writing")
+    selected = legacy if legacy.is_dir() else current
+    return contained_path(project, selected)
+
+
+def project_output_directory(root: Path | str, candidate: Path | str) -> Path:
+    """输出留在项目内且不创建隐藏目录。 / Keep outputs in-project without new hidden directories."""
+    base = Path(root).resolve()
+    raw = Path(candidate)
+    visible_directory(raw if raw.is_absolute() else base / raw)
+    return visible_directory(contained_path(base, candidate))
 
 
 def contained_path(root: Path, candidate: Path | str, *, allow_missing: bool = True) -> Path:
@@ -43,7 +98,7 @@ def atomic_write_bytes(path: Path | str, data: bytes) -> None:
     """
 
     target = Path(path)
-    target.parent.mkdir(parents=True, exist_ok=True)
+    visible_directory(target.parent).mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix=f".{target.name}.", dir=str(target.parent))
     try:
         with os.fdopen(fd, "wb") as handle:

@@ -159,6 +159,20 @@ class SiblingSkillInvocationAdapter:
             except ValueError as exc:
                 raise SiblingAdapterError(f"allowed file escapes root: {relative}") from exc
             allowed.append(Path(relative).as_posix())
+        # 约束随调用传递并计入摘要。 / Carry directory constraints inside the hashed prompt.
+        prompt += ("\n\n项目目录约束 / Project directory constraints:\n"
+                   f"Project root: {self.root}\n"
+                   "复用该项目；不得新建隐藏目录或项目外临时工作区。"
+                   "新项目须先向用户确认上下文推导的最简名称。\n"
+                   "Reuse this project; do not create dot-prefixed directories or external scratch projects. "
+                   "Keep necessary temporary artifacts under robotics-ar/tmp/<task-id>/; otherwise create nothing. "
+                   "Before creating a new project, ask the user to confirm a minimal context-derived name. "
+                   "Only explicit user authorization permits a hidden-directory exception; never assume it. "
+                   "按项目已有分类优先更新或合并文件；用户未要求时，不生成报告、总结或交接文件。 "
+                   "Prefer updating/consolidating files in existing project categories. Unless the user requests them, "
+                   "do not generate report, summary, retrospective, or handoff files in any format, even if a sibling "
+                   "template normally requests them. Preserve necessary state and genuine evidence receipts; "
+                   "never relabel narrative reports as receipts.")
         request = {"schema_version": "robotics-ar-invocation-request.v1", "session_id": session_id, "stage": stage, "prompt": prompt, "prompt_sha256": sha256_obj({"prompt": prompt}), "allowed_files": sorted(set(allowed)), "input_sha256": input_sha256, "manifest_sha256": manifest["manifest_sha256"], "runtime_status": "REQUEST_ONLY"}
         if stage == "engineering":
             request.update({"execution_mode": "AUTONOMOUS_WITHIN_APPROVED_TASK", "approval_mode": "INHERIT_ROBOTICS_AR_TASK_CONTRACT", "requires_additional_user_approval": False, "requires_stage_approval": False})

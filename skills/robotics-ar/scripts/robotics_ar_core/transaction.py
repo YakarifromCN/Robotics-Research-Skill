@@ -4,6 +4,7 @@ from contextlib import contextmanager
 import os
 from pathlib import Path
 import threading
+from .atomic_io import visible_directory
 
 _guard = threading.RLock()
 _held = {}
@@ -20,7 +21,7 @@ def writer_lock(root):
         if key in _held:
             yield
             return
-        path.parent.mkdir(parents=True, exist_ok=True)
+        visible_directory(path.parent).mkdir(parents=True, exist_ok=True)
         with path.open("a+b") as handle:
             fcntl.flock(handle, fcntl.LOCK_EX)
             _held[key] = handle

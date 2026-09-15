@@ -10,7 +10,7 @@ request（allowed files、prompt hash、stage、session），由当前 Agent run
 原生工件由 owner validator 校验，Adapter 只保存通用 `StagePackage` 和 `StageReceipt`。
 缺少任一科研入口/validator 时只有 Robotics-AR 进入 `BLOCKED_DEPENDENCY`；缺少 Engineering
 只写入 `optional_missing`，Robotics-AR 继续使用既有 Code/Test/Runner 路径。直接调用 sibling
-不会创建 `.robotics-ar/`。Review 缺 fresh runtime 时只能显式手工导入或阻断。
+不会创建 `robotics-ar/`。Review 缺 fresh runtime 时只能显式手工导入或阻断。
 
 Engineering invocation 继承已经批准的 Robotics-AR Task/Trial Contract、允许路径、预算和
 安全限制，标记为 `AUTONOMOUS_WITHIN_APPROVED_TASK`。它不新增 plan 审批、人工代码审计或
@@ -26,7 +26,7 @@ actual runtime invokes the Skill. Python never fabricates an Agent. Owner valida
 validate native artifacts, while the adapter stores only generic packages and receipts.
 Missing scientific sibling files block Robotics-AR only. Missing Engineering is recorded as
 `optional_missing` and falls back to Code/Test/Runner. Direct sibling use never initializes
-`.robotics-ar/`. Review without a fresh runtime is manual-import or blocked.
+`robotics-ar/`. Review without a fresh runtime is manual-import or blocked.
 
 Engineering invocations inherit the approved Robotics-AR Task/Trial Contract, paths, budget,
 and safety limits. They run as `AUTONOMOUS_WITHIN_APPROVED_TASK` without another plan, code-audit,

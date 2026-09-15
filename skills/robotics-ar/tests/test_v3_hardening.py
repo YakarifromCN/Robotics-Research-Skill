@@ -199,7 +199,9 @@ class HistoryQueueAndBestKnownTests(unittest.TestCase):
                 {"trial_id": "t2", "status": "VERIFIED", "code": {"commit": "c1"}, "configuration": {"sha256": HASH}, "environment": {"fingerprint": HASH}, "metrics": {"score": 1}, "metric_versions": {"score": "v2"}},
             ]
             source.write_text("\n".join([json.dumps(records[0]), "{malformed", json.dumps(records[1])]) + "\n", encoding="utf-8")
-            result = reconstruct_history(root, sources=[source], output_dir=root / "out")
+            from robotics_ar_core.atomic_io import output_policy
+            with output_policy(reports_requested=True):
+                result = reconstruct_history(root, sources=[source], output_dir=root / "out")
             self.assertEqual(result["receipt"]["invalid_count"], 1)
             self.assertTrue(result["receipt"]["requires_reconciliation"])
             self.assertEqual(len(result["receipt"]["metric_version_conflicts"]), 1)

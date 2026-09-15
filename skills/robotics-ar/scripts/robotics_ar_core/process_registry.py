@@ -27,7 +27,6 @@ class ProcessRegistry:
         return json.loads(self.path.read_text(encoding="utf-8"))
 
     def _write(self, entries: List[Dict[str, Any]]) -> None:
-        self.path.parent.mkdir(parents=True, exist_ok=True)
         atomic_write_json(self.path, entries)
 
     def register(self, pid: int, command: List[str], cwd: Path | str, stdout: str = "", stderr: str = "") -> Dict[str, Any]:

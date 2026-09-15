@@ -14,7 +14,7 @@ import re
 import subprocess
 from typing import Any, Dict, Iterable, Mapping, Optional
 
-from .atomic_io import atomic_write_bytes, atomic_write_json, read_json
+from .atomic_io import atomic_write_bytes, atomic_write_json, read_json, runtime_root
 from .canonical import canonical_bytes, sha256_obj
 from .event_log import EventLog
 from .gates import ApprovalManager, GateError
@@ -33,7 +33,7 @@ class SessionError(RuntimeError):
 
 @dataclass(frozen=True)
 class SessionPaths:
-    """项目级 `.robotics-ar` 路径集合。 / Project-level `.robotics-ar` paths."""
+    """项目级 `robotics-ar` 路径集合。 / Project-level `robotics-ar` paths."""
 
     project_root: Path
     root: Path
@@ -76,7 +76,7 @@ class SessionPaths:
         """从项目根构造路径。 / Build paths from a project root."""
 
         project = Path(project_root).resolve()
-        root = project / ".robotics-ar"
+        root = runtime_root(project)
         return cls(
             project,
             root,
@@ -642,8 +642,10 @@ class SessionManager:
                 registry.stop(pid)
             else:
                 registry.mark_stopped(pid, "STALE_PID")
-        write_report(self.paths.root / "report.md", title="Robotics-AR report", state="PAUSING", summary=reason, actions=["resume after validating task and environment hashes"])
-        write_handoff(self.paths.root / "handoff.md", state="PAUSING", session_id=self.session_id, reason=reason)
+        from .atomic_io import report_files_requested
+        if report_files_requested():
+            write_report(self.paths.root / "report.md", title="Robotics-AR report", state="PAUSING", summary=reason, actions=["resume after validating task and environment hashes"])
+            write_handoff(self.paths.root / "handoff.md", state="PAUSING", session_id=self.session_id, reason=reason)
         if self.state.get("entry_mode", "NEW_RESEARCH") == "MIDSTREAM_TAKEOVER":
             from .reporting_v3 import write_checkpoint_artifacts
 
@@ -858,11 +860,11 @@ class SessionManager:
         """检查项目 Git 是否有未提交变更。 / Check whether the project Git is dirty."""
 
         try:
-            # Runtime receipts live under .robotics-ar and are expected to
+            # Runtime receipts live under robotics-ar and are expected to
             # change during pause/approval/resume.  Git cleanliness here is a
             # guard on the user's project source, so exclude that supervisor
             # ledger while still reporting every source/untracked file.
-            result = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all", "--", ":(exclude).robotics-ar"], cwd=self.paths.project_root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=10, check=False)
+            result = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all", "--", ":(exclude)robotics-ar", ":(exclude).robotics-ar"], cwd=self.paths.project_root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=10, check=False)
         except (OSError, subprocess.SubprocessError):
             return True
         # A missing repository, a timeout, or any non-zero Git result is not

@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Mapping
 
-from .atomic_io import atomic_write_json
+from .atomic_io import atomic_write_json, runtime_root
 from .models import utc_now
 from .structured import read_mapping
 from .canonical import sha256_obj
@@ -27,7 +27,7 @@ def migrate_session_state(state: Mapping[str, Any]) -> dict[str, Any]:
 
 def migrate_project(project_root: Path | str) -> dict[str, Any]:
     root = Path(project_root).resolve()
-    state_path = root / ".robotics-ar" / "state.json"
+    state_path = runtime_root(root) / "state.json"
     if not state_path.exists():
         return {"status": "NOT_INITIALIZED", "project_root": root.as_posix()}
     with writer_lock(state_path.parent):
@@ -43,7 +43,7 @@ def migrate_project(project_root: Path | str) -> dict[str, Any]:
 
 def doctor_project(project_root):
     """只诊断，不修补事件历史或补造批准。 / Diagnose without rewriting events or inventing approvals."""
-    root = Path(project_root) / ".robotics-ar"
+    root = runtime_root(project_root)
     errors = []
     state = {}
     try:

@@ -2,7 +2,7 @@
 
 ## 中文
 
-暂停通过 `PAUSING` 停止已登记进程，写 report/handoff，再进入 `PAUSED`。恢复前检查冻结任务、批准、环境、预算和设备 token。终态 `COMPLETE`、`TAKEOVER_COMPLETE`、`ABORTED` 的 resume 不创建新工作。
+暂停通过 `PAUSING` 停止已登记进程，保存机器状态，再进入 `PAUSED`；仅用户要求时写 report/handoff。恢复前检查冻结任务、批准、环境、预算和设备 token。终态 `COMPLETE`、`TAKEOVER_COMPLETE`、`ABORTED` 的 resume 不创建新工作。
 
 事件追加和 CLI 写操作使用同机协作锁。状态转移先提交包含投影的事件，再写缓存；中断的投影可以在重新加载时恢复。旧写者遇到状态变化必须重新加载，不能覆盖新状态。共享盘的跨主机锁语义未由单机测试证明。
 
@@ -14,7 +14,7 @@
 
 ## Pause and resume
 
-Pause enters `PAUSING`, stops registered processes, writes report/handoff and reaches `PAUSED`. Resume validates frozen tasks, approvals, environment, budgets and device tokens. Resume in `COMPLETE`, `TAKEOVER_COMPLETE` or `ABORTED` creates no new work.
+Pause enters `PAUSING`, stops registered processes, saves machine state and reaches `PAUSED`; report/handoff files are written only on user request. Resume validates frozen tasks, approvals, environment, budgets and device tokens. Resume in `COMPLETE`, `TAKEOVER_COMPLETE` or `ABORTED` creates no new work.
 
 Event append and CLI mutations use a local cooperative lock. Transitions commit a projection-bearing event before updating the state cache, allowing interrupted projections to recover on reload. Stale writers must reload rather than overwrite newer state. Single-host tests do not establish cross-host shared-filesystem semantics.
 

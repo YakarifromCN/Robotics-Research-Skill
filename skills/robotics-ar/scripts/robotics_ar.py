@@ -38,6 +38,7 @@ from robotics_ar_core.agent_protocol import validate_agent_receipt  # noqa: E402
 from robotics_ar_core.migration import migrate_project  # noqa: E402
 from robotics_ar_core.canonical import sha256_obj  # noqa: E402
 from robotics_ar_core.models import utc_now  # noqa: E402
+from robotics_ar_core.atomic_io import runtime_root, output_policy, optional_report_bytes  # noqa: E402
 
 
 class CLIError(RuntimeError):
@@ -125,7 +126,7 @@ def _trial_usage(manager: SessionManager, *, current_trial_id: str) -> tuple[int
 def command_discover(args: argparse.Namespace) -> Dict[str, Any]:
     adapter = SiblingSkillInvocationAdapter(args.robotics_research_root)
     manifest = adapter.discover()
-    path = Path(args.project_root).resolve() / ".robotics-ar" / "sibling-skills" / "manifest.json"
+    path = runtime_root(args.project_root) / "sibling-skills" / "manifest.json"
     if args.dry_run:
         return _dry(args, "discover", manifest=manifest, path=path.as_posix())
     adapter.write_manifest(path, manifest)
@@ -143,7 +144,7 @@ def command_status(args: argparse.Namespace) -> Dict[str, Any]:
 
 
 def _manifest_path(args: argparse.Namespace) -> Path:
-    return Path(args.manifest or (Path(args.project_root).resolve() / ".robotics-ar" / "sibling-skills" / "manifest.json"))
+    return Path(args.manifest or (runtime_root(args.project_root) / "sibling-skills" / "manifest.json"))
 
 
 def command_validate_siblings(args: argparse.Namespace) -> Dict[str, Any]:
@@ -158,7 +159,7 @@ def command_prepare_stage(args: argparse.Namespace) -> Dict[str, Any]:
     adapter = SiblingSkillInvocationAdapter(args.robotics_research_root)
     manifest = _load_json(_manifest_path(args))
     request = adapter.prepare_invocation(manifest, args.stage, session_id=_manager(args).session_id, prompt=args.prompt, allowed_files=_split(args.allowed_files), input_sha256=args.input_sha256)
-    path = Path(args.project_root).resolve() / ".robotics-ar" / "sibling-skills" / args.stage / "invocation-request.json"
+    path = runtime_root(args.project_root) / "sibling-skills" / args.stage / "invocation-request.json"
     if args.dry_run:
         return _dry(args, "prepare-stage", request=request, path=path.as_posix())
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -173,7 +174,7 @@ def command_register_stage_result(args: argparse.Namespace) -> Dict[str, Any]:
     if result["status"] != "PASS":
         raise CLIError("native artifact failed owner validator")
     receipt = adapter.register_stage_result(args.stage, args.artifact, session_id=_manager(args).session_id, manifest=manifest, validation=result, handoff_status=args.handoff_status)
-    path = Path(args.project_root).resolve() / ".robotics-ar" / "sibling-skills" / args.stage / "stage-receipt.json"
+    path = runtime_root(args.project_root) / "sibling-skills" / args.stage / "stage-receipt.json"
     if args.dry_run:
         return _dry(args, "register-stage-result", receipt=receipt, path=path.as_posix())
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -222,7 +223,7 @@ def command_validate_environment(args: argparse.Namespace) -> Dict[str, Any]:
         takeover_mode = manager.state.get("entry_mode") == "MIDSTREAM_TAKEOVER"
     except SessionError:
         takeover_mode = False
-    path = Path(args.project_root).resolve() / ".robotics-ar" / "environment" / "validation-receipt.json"
+    path = runtime_root(args.project_root) / "environment" / "validation-receipt.json"
     try:
         receipt = adapter.verify_takeover() if takeover_mode else adapter.verify_online()
     except Exception as exc:
@@ -237,7 +238,7 @@ def command_validate_environment(args: argparse.Namespace) -> Dict[str, Any]:
         state = TakeoverManager(manager).mark_environment(receipt)
         path = manager.paths.takeover / "environment-receipt.yaml"
         return {"status": "PASS", "receipt_path": path.as_posix(), "receipt": receipt, "state": state}
-    path = Path(args.project_root).resolve() / ".robotics-ar" / "environment" / "validation-receipt.json"
+    path = runtime_root(args.project_root) / "environment" / "validation-receipt.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     write_structured(path, receipt)
     return {"status": "PASS", "receipt_path": path.as_posix(), "receipt": receipt}
@@ -400,14 +401,13 @@ def command_takeover_approve_core(args: argparse.Namespace) -> Dict[str, Any]:
 def command_baseline_list_candidates(args: argparse.Namespace) -> Dict[str, Any]:
     root = Path(args.project_root).resolve()
     candidates = []
-    for path in (root / ".robotics-ar", root / "agent", root).glob("**/*"):
+    for path in (runtime_root(root), root / "agent", root).glob("**/*"):
         if path.is_file() and any(token in path.name.lower() for token in ("baseline", "config", "handoff", "report")):
             candidates.append(path.as_posix())
     candidates = sorted(set(candidates))
     if len(candidates) > 1:
-        target = root / ".robotics-ar" / "takeover" / "baseline" / "baseline-candidates.md"
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text("# Baseline candidates\n\n" + "\n".join(f"- `{item}`" for item in candidates) + "\n\nUser selection is required before reproduction.\n", encoding="utf-8")
+        target = runtime_root(root) / "takeover" / "baseline" / "baseline-candidates.md"
+        optional_report_bytes(target, ("# Baseline candidates\n\n" + "\n".join(f"- `{item}`" for item in candidates) + "\n\nUser selection is required before reproduction.\n").encode("utf-8"))
     return {"status": "PASS", "candidates": candidates, "requires_user_selection": len(candidates) > 1}
 
 
@@ -625,7 +625,7 @@ def command_trial_register_agent_receipt(args: argparse.Namespace) -> Dict[str, 
     if args.dry_run:
         return _dry(args, "trial-register-agent-receipt", role=receipt.get("role"))
     validate_agent_receipt(receipt, expected_task_id=args.trial_id if args.trial_id else None)
-    target = Path(args.output or Path(args.project_root).resolve() / ".robotics-ar" / "experiments" / trial_id / f"{str(receipt.get('role', 'agent')).lower().replace(' ', '-')}-receipt.json")
+    target = Path(args.output or runtime_root(args.project_root) / "experiments" / trial_id / f"{str(receipt.get('role', 'agent')).lower().replace(' ', '-')}-receipt.json")
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(receipt, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
     return {"status": "PASS", "receipt_path": target.as_posix()}
@@ -1158,6 +1158,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--audit-include", default="")
     parser.add_argument("--audit-exclude", default="")
     parser.add_argument("--invocation-receipt", help="optional local receipt path; no prompts or command arguments recorded")
+    parser.add_argument("--allow-hidden-directories", action="store_true", help="only with explicit user authorization for this invocation")
+    parser.add_argument("--write-reports", action="store_true", help="only when the user requests report files for this invocation")
     parser.add_argument("--execution-id")
     parser.add_argument("--lease-token")
     return parser
@@ -1174,8 +1176,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         # Long execution releases the session lock so pause can enter; launch/completion lock separately.
         unlocked = args.dry_run or args.command in {"status", "discover", "takeover-status", "validate-siblings", "doctor",
                                                    "run-batch", "baseline-run", "trial-run", "validate-environment"}
-        with nullcontext() if unlocked else writer_lock(Path(args.project_root) / ".robotics-ar"):
-            result = COMMANDS[args.command](args)
+        with output_policy(allow_hidden_directories=args.allow_hidden_directories, reports_requested=args.write_reports):
+            with nullcontext() if unlocked else writer_lock(runtime_root(args.project_root)):
+                result = COMMANDS[args.command](args)
     except (CLIError, SessionError, SiblingAdapterError, EnvironmentError, OSError, ValueError, RuntimeError, KeyError, TypeError) as exc:
         result = {"status": "BLOCKED", "error": str(exc)[:4096]}
     if args.invocation_receipt:

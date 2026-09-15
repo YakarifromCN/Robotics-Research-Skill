@@ -372,7 +372,9 @@ class TakeoverManager:
             snapshot_hash = str(read_mapping(snapshot_path).get("snapshot_sha256", ""))
         core = compile_project_core(values, user_statement_sha256=user_statement_hash, repository_snapshot_sha256=snapshot_hash)
         save_project_core(self.paths.takeover / "project-core.yaml", core)
-        write_core_summary(self.paths.takeover / "project-core.md", core)
+        from .atomic_io import report_files_requested
+        if report_files_requested():
+            write_core_summary(self.paths.takeover / "project-core.md", core)
         updated = dict(self.manager.state)
         updated["project_core_sha256"] = core["project_core_sha256"]
         updated["project_core_path"] = (self.paths.takeover / "project-core.yaml").as_posix()
