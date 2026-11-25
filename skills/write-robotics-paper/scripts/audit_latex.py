@@ -35,6 +35,14 @@ WORK_LOG_CUE = re.compile(
     re.I,
 )
 
+# 只定位姿态性候选，不禁止负面事实。 / Locate rhetorical candidates, never ban adverse facts.
+DEFENSIVE_CUE = re.compile(
+    r"\b(?:unfortunately|regrettably|merely\s+a|only\s+a\s+preliminary|"
+    r"one\s+might\s+(?:argue|object)|not\s+claiming\s+to)\b|"
+    r"遗憾的是|令人遗憾|只是(?:一个)?初步尝试|可能有人(?:质疑|认为)|我们并不声称",
+    re.I,
+)
+
 
 def _canonical_number(value) -> str | None:
     try:
@@ -77,6 +85,8 @@ def audit(text, ledger):
             if citation_id not in citation_ids: findings.append({"level": "fail", "code": "UNKNOWN_CITATION_REF", "citation_id": citation_id})
     sentence_refs = []
     for sentence in re.split(r"(?<=[.!?])\s+|\n+", stripped):
+        if DEFENSIVE_CUE.search(sentence):
+            findings.append({"level": "warn", "code": "DEFENSIVE_FRAMING_CANDIDATE", "sentence": sentence.strip(), "rule": "review context; retain adverse facts, scope and safety; never change frozen comparisons for rhetorical advantage"})
         if UNDERCLAIM_CUE.search(sentence):
             findings.append({"level": "warn", "code": "UNDERCLAIM_CANDIDATE", "sentence": sentence.strip(), "rule": "contextual review required; strengthening is allowed only up to the frozen ledger ceiling"})
         if WORK_LOG_CUE.search(sentence):

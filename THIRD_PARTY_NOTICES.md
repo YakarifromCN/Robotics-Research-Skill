@@ -138,6 +138,37 @@ SOFTWARE.
 
 The review subskill adapts orchestration ideas from [AI-research-feedback review-paper](https://github.com/claesbackman/AI-research-feedback/blob/main/Skills/review-paper/SKILL.md) and protocol ideas from [academic-research-skills academic-paper-reviewer](https://github.com/Imbad0202/academic-research-skills/blob/main/academic-paper-reviewer/SKILL.md). It does not copy their economics or general-science reviewer personas. The robotics implementation adds claim-lock checks, nonordinal evidence profiles, robotics-specific specialist prompts, stable evidence anchors, and explicit artifact/revision gates.
 
+## Anti-defensive-writing Skill
+
+中文：写作修订协议蒸馏自 [Adkid-Zephyr/anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill)，版本 `e65bd9d8bf8ed8b9af809e5aff8237d76370876d`。保留贡献优先和反自我弱化方法，但不采纳隐去不利证据、事后更换指标或绝对不报告失败的规则。无上游运行依赖。
+
+English: This pinned MIT source informs the contribution-first adaptation in the existing writing reference. Preserve adverse evidence, frozen comparisons and safety boundaries; reject selective suppression or post-hoc metric switching. No upstream runtime dependency is added.
+
+```text
+MIT License
+
+Copyright (c) 2026 Adkid-Zephyr
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+
 ## Evidence-Bound Press-Conference Revision Skill
 
 The bidirectional contribution-calibration protocol distills behavioral ideas

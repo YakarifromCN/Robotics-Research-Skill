@@ -93,5 +93,23 @@ class EvidenceBoundRevision(unittest.TestCase):
         self.assertIn("UNDERCLAIM_CANDIDATE", codes)
         self.assertFalse(any(row["level"] == "fail" for row in findings))
 
+    def test_anti_defensive_cues_in_both_languages_are_not_failures(self):
+        for text in ("Unfortunately, this is merely a prototype.", "遗憾的是，这只是一个初步尝试。"):
+            findings, _ = A.audit(text, ledger())
+            self.assertIn("DEFENSIVE_FRAMING_CANDIDATE", {r["code"] for r in findings})
+            self.assertFalse(any(r["level"] == "fail" for r in findings))
+
+    def test_adverse_facts_and_safety_boundaries_are_not_defensive_cues(self):
+        for text in ("Energy consumption increased. Cross-platform transfer was not evaluated.",
+                     "任务成功率下降。急停机制不是安全保证。"):
+            findings, _ = A.audit(text, ledger())
+            self.assertNotIn("DEFENSIVE_FRAMING_CANDIDATE", {r["code"] for r in findings})
+
+    def test_anti_defensive_rewrite_cannot_drop_negative_evidence_function(self):
+        row = decision(classification="K3", disposition="CUT", replacement_anchor=None,
+                       preserved_in_anchor=None, preserved_by_decision_id=None)
+        checked = V.validate(artifact(self.before, self.after, row), ledger(), self.before, self.after)
+        self.assertFalse(checked["contract_consistent"])
+
 
 if __name__ == "__main__": unittest.main()

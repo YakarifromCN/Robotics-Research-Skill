@@ -1,5 +1,16 @@
 {
   "schema_version": "robotics-writing-dependencies.v1",
+  "anti_defensive_writing": {
+    "upstream": "https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill",
+    "commit": "e65bd9d8bf8ed8b9af809e5aff8237d76370876d",
+    "upstream_path": "skills/anti-defensive-writing/SKILL.md",
+    "upstream_file_sha256": "6f072e66f6adf813bc1b4291754f2bc07ed4e65a398359844e97bfa215a1c28e",
+    "bundled_path": "references/evidence-bound-revision.md",
+    "license": "MIT",
+    "license_path": "THIRD_PARTY_NOTICES.md",
+    "kind": "evidence_bound_distillation",
+    "network_required": false
+  },
   "humanizer": {
     "upstream": "https://github.com/blader/humanizer",
     "version": "3.0.0",

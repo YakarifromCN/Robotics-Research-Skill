@@ -78,6 +78,8 @@ Engineering 同时支持 JSON 工件和 YAML frontmatter。工具不会在运行
 
 Writing 每次起草或修改正文都执行 Humanizer 的标记、改写和复查。它优先使用兼容的本地 Humanizer，否则读取随包发布的轻量学术适配；适配有版本、摘要和许可证，不需要额外下载。该步骤清理冗余和模板化表达，保留公式、数字、引用、技术定义、必要限定和作者风格。依赖解析成功不等于已经完成语言审阅。
 
+Writing 内置了 [anti-defensive-writing](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) 的证据约束型蒸馏：突出成立的贡献，减少空洞致歉与实验流水账，同时保留负结果、冻结指标和安全边界。无需另行安装即可离线使用；词法提示只是待审阅候选，不是自动删除规则。
+
 普通调用不读取原始论文、PDF、embedding 缓存或历史会话。论文相关信息来自紧凑的 `corpus/robotics-research-runtime.v1.json`，配合当前路由模型、模式卡和载体目录。离线构建工具与历史归档不进入普通安装。资源边界见 [corpus/README.md](corpus/README.md) 和 [scripts/README.md](scripts/README.md)。
 
 在其他项目目录调用脚本时，使用已安装 Skill 的绝对路径；文档中的 `<installed-skill-dir>` 指包含该 Skill 的 `SKILL.md` 的目录，不是稿件目录。
@@ -255,6 +257,8 @@ python3 -m pip install PyYAML
 Engineering also accepts JSON artifacts. Runtime never installs dependencies from the network.
 
 Writing performs Humanizer's mark, rewrite and recheck pass for drafting and prose revision. It resolves a compatible installed version or the bundled, versioned academic adaptation. Preserve equations, numbers, citations, definitions, necessary qualifications and author voice. Resolving the dependency does not complete the language pass.
+
+Writing bundles an evidence-bound distillation of [anti-defensive-writing](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill): foreground supported contributions and remove empty apologies or work-log narration while retaining adverse results, frozen metrics and safety boundaries. It works offline without a separate installation; lexical findings are review candidates, not automatic deletion rules.
 
 Normal invocation does not load raw papers, PDFs, embeddings or session history. Paper-derived context comes from the compact `corpus/robotics-research-runtime.v1.json`, together with the current routing model, pattern cards and venue catalog. Offline tooling and historical archives are excluded from normal installs. See [corpus/README.md](corpus/README.md) and [scripts/README.md](scripts/README.md).
 

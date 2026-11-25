@@ -10,6 +10,10 @@ description: Evidence-constrained robotics paper writing, revision, rebuttal, cl
 
 通过活动轴和 Claim Ledger 组织 claim、result、boundary 与 task meaning。
 
+起草与修订均应用 anti 防御性写作：先呈现证据支持的贡献，删去无信息的自我贬低、
+假想反驳与实验流水账；真实负结果、适用边界和安全限定必须保留。
+具体规则已蒸馏进 `references/evidence-bound-revision.md`，不依赖上游安装或联网。
+
 # English
 
 ## Progressive runtime preflight
@@ -56,6 +60,12 @@ to copy. Official venue scope must be refreshed from current authoritative
 sources before submission.
 
 ## Evidence-bound revision
+
+For drafting as well as revision, apply the anti-defensive-writing distillation in
+`references/evidence-bound-revision.md` as one of the selected references. Lead with
+the supported contribution, not apologies or a work log. Never hide adverse evidence,
+change frozen metrics after seeing results, or turn failures into claimed trade-offs
+without evidence. The bundled rules work offline; do not load the upstream Skill at runtime.
 
 For revision, rebuttal, camera-ready compression, or defensive-writing audit,
 read `references/evidence-bound-revision.md`. Diagnose lexical cues only as
